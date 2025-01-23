@@ -6,18 +6,15 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 
+// Import components
+import Nav from "./components/Nav"
+
 const App = () => {
   return (
     <Router>
       <>
         {/* Add a navigation bar */}
-        <nav>
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-          </ul>
-        </nav>
+        <Nav />
 
         {/* Define routes */}
         <Routes>
