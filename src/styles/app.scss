@@ -1,0 +1,13 @@
+// app.scss
+@use './settings/variables' as vars;
+@use './layouts/typography';
+@use './layouts/grid';
+// @use './components/navbar';
+// @use './components/button';
+
+// Optional: Global styles
+body {
+  margin: 0;
+  font-family: vars.$font-family;
+  background-color: vars.$primary-color;
+}
