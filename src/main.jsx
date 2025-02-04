@@ -1,10 +1,18 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import "./styles/app.scss";
-import App from './App.jsx'
+// Wraps the entire app in PreloaderProvider, making isLoading available everywhere.
+// Ensures Preloader runs before rendering the main app content.
 
-createRoot(document.getElementById('root')).render(
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { PreloaderProvider } from "./context/PreloaderContext";
+import App from "./App";
+import Preloader from "./components/Preloader";
+import "./styles/app.scss";
+
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <App />
-  </StrictMode>,
-)
+    <PreloaderProvider>
+      <Preloader />
+      <App />
+    </PreloaderProvider>
+  </StrictMode>
+);
