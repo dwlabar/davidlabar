@@ -9,4 +9,11 @@
   align-items: center;
   background: black;
   z-index: 100;
+  opacity: 1; // Start fully visible
+  pointer-events: all; // Prevent interaction with the app below
+}
+
+#davidlabar-logo {
+  opacity: 1; // Fully visible initially
+  // transform-origin: center; // Center scaling for smooth animation
 }

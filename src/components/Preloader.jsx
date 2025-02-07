@@ -1,7 +1,3 @@
-// Fades in the core logo (davidlabar-logo_core) with GSAP.
-// Animates the loading bar (davidlabar-logo_bar) in a looping effect.
-// Only runs when isLoading is true.
-
 import React, { useContext, useEffect } from "react";
 import { PreloaderContext } from "../context/PreloaderContext";
 import gsap from "gsap";
@@ -11,8 +7,8 @@ const Preloader = () => {
   const { isLoading, setIsPreloaderVisible } = useContext(PreloaderContext);
 
   useEffect(() => {
-    // Intro animation
     if (isLoading) {
+      // Intro animation
       gsap.fromTo(
         "#davidlabar-logo_core",
         { opacity: 0, scale: 0.8 },
@@ -25,22 +21,38 @@ const Preloader = () => {
         ease: "power2.out",
         repeat: -1,
         yoyo: true,
-        transformOrigin: "left center",
+        transformOrigin: "center center",
       });
-    }
+    } else {
+      // Exit animation
+      const outro = gsap.timeline({
+        onComplete: () => {
+          console.log("Preloader fully hidden"); // Debugging
+          setIsPreloaderVisible(false); // Remove component from DOM
+        },
+      });
 
-    // Exit animation
-    if (!isLoading) {
-      gsap.to("#davidlabar-logo", {
+      outro.to("#davidlabar-logo", {
         opacity: 0,
         scale: 0.8,
         duration: 1,
         ease: "power2.out",
-        onComplete: () => {
-          console.log("Preloader animation complete"); // Debug
-          setIsPreloaderVisible(false); // Hide preloader
-        },
       });
+
+      // Fade out the background and set display to none
+      outro.to(
+        ".preloader",
+        {
+          opacity: 0,
+          duration: 0.5,
+          ease: "power2.out",
+          onComplete: () => {
+            const preloader = document.querySelector(".preloader");
+            if (preloader) preloader.style.display = "none"; // Hide completely
+          },
+        },
+        "-=0.5" // Overlap the animations
+      );
     }
   }, [isLoading, setIsPreloaderVisible]);
 
