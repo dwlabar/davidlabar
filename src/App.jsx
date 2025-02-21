@@ -6,16 +6,17 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import SVGExamples from "./pages/SVG-Examples";
+import PreloaderTest from "./pages/Preloader-Test";
 
 // Import components
-import Nav from "./components/Nav"
+import NavBar from "./components/NavBar"
 
 const App = () => {
   return (
     <Router>
       <>
         {/* Add a navigation bar */}
-        <Nav />
+        <NavBar />
 
         {/* Define routes */}
         <Routes>
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/SVG-Examples" element={<SVGExamples />} />
+          <Route path="/Preloader-Test" element={<PreloaderTest />} />
         </Routes>
       </>
     </Router>

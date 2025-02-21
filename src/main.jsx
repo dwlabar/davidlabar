@@ -11,7 +11,7 @@ import "./styles/app.scss";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <PreloaderProvider>
-      <Preloader />
+      {/* <Preloader /> */}
       <App />
     </PreloaderProvider>
   </StrictMode>

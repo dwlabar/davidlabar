@@ -1,60 +1,7 @@
-import React, { useContext, useEffect } from "react";
-import { PreloaderContext } from "../context/PreloaderContext";
-import gsap from "gsap";
+import React from "react";
 import "../styles/components/_preloader.scss";
 
-const Preloader = () => {
-  const { isLoading, setIsPreloaderVisible } = useContext(PreloaderContext);
-
-  useEffect(() => {
-    if (isLoading) {
-      const tl = gsap.timeline();
-
-      // Ensure elements start visible
-      gsap.set("#logo_group", { opacity: 1 });
-
-      // Initial delay so we can see the logo
-      tl.to({}, { duration: 3 });
-
-      // Animate the top highlight (skylight effect)
-      tl.fromTo("#logo_highlight",
-        { opacity: 0 },
-        { opacity: 1, duration: 1.5, ease: "power2.inOut" }
-      );
-
-      // Animate the bottom highlight
-      tl.fromTo("#logo_bottomHighlight",
-        { opacity: 0 },
-        { opacity: 1, duration: 1.5, ease: "power2.inOut" }, "-=1"
-      );
-
-      // Animate the core logo fade-in
-      tl.fromTo("#logo_core",
-        { opacity: 0 },
-        { opacity: 1, duration: 1, ease: "power1.out" }, "-=0.5"
-      );
-
-      // Border lines fade-in
-      tl.fromTo("#logo_border, #logo_border02",
-        { opacity: 0 },
-        { opacity: 1, duration: 1, ease: "power1.out" }, "-=0.5"
-      );
-
-      // Hold the logo in place for 2s before animating out
-      tl.to({}, { duration: 2 });
-
-      // Animate out the logo group (disappears before the full preloader fades out)
-      tl.to("#logo_group", { opacity: 0, duration: 1.5, ease: "power2.inOut" });
-
-      // Fade out the preloader after logo animation completes
-      tl.to(".preloader", { opacity: 0, duration: 1, onComplete: () => setIsPreloaderVisible(false) });
-
-    } else {
-      // If loading is done instantly, just fade out the preloader
-      gsap.to(".preloader", { opacity: 0, duration: 1, onComplete: () => setIsPreloaderVisible(false) });
-    }
-  }, [isLoading, setIsPreloaderVisible]);
-
+const PreloaderAnimationTest = () => {
   return (
     <div className="preloader">
       <div className="logo">
@@ -93,4 +40,4 @@ const Preloader = () => {
   );
 };
 
-export default Preloader;
+export default PreloaderAnimationTest;
