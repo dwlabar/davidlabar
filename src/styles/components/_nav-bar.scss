@@ -1,4 +1,13 @@
-@use '../settings/settings';
+// src/styles/components/_nav-bar.scss
+
+// =============================================================================
+//
+//  NAV BAR
+//
+// =============================================================================
+
+@use "sass:map";
+@use '../settings/variables';
 
 .nav-bar {
   position: fixed;
@@ -6,7 +15,7 @@
   right: 0px;
   padding: 10px;
   background-color: #1e1e1e;
-  z-index: settings.get(settings.$z-index, "nav-bar");
+  z-index: map.get(variables.$z-index, "nav-bar");
   ul {
     margin: 0;
     padding: 0;
@@ -19,7 +28,7 @@
     }
   }
   a {
-    color:#0477cf;
+    color: variables.$color-primary;
     text-decoration: none;
     &:hover {
       text-decoration: underline;

@@ -1,12 +1,45 @@
+// src/styles/app.scss
 
-@use './settings/settings';
+// =============================================================================
+//
+//  GLOBAL
+//
+// =============================================================================
 
+// -----------------------------------------------------------------------------
+// IMPORTS
+// -----------------------------------------------------------------------------
+
+@use './settings/variables';
+
+// -----------------------------------------------------------------------------
+// RESETS
+// -----------------------------------------------------------------------------
+
+// padding and margins does not affect the width and height of elements
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+// -----------------------------------------------------------------------------
+// HTML / BODY
+// -----------------------------------------------------------------------------
+
+html {
+  // This stops the annoying font-bold effect in dropdowns
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  font-size: variables.$font-size;
+}
 
 body {
-  font-family: settings.$font-family;
+  font-family: variables.$font-family;
   margin: 40px;
   margin-top: 100px;
   padding: 0;
-  background-color: #151515;
-  color: #8b8b8b;
+  background-color: variables.$color-megatron;
+  color: variables.$color-starscream;
 }
