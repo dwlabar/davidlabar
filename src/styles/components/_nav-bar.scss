@@ -1,5 +1,3 @@
-// src/styles/components/_nav-bar.scss
-
 // =============================================================================
 //
 //  NAV BAR
@@ -21,19 +19,25 @@
   position: fixed;
   top: 0px;
   right: 0px;
-  padding: 10px;
+  width: 100%;
+  height: variables.$nav-bar-height;
   background-color: #1e1e1e;
+  border-bottom: solid 1px variables.$color-devastator;
   z-index: map.get(variables.$z-index, "nav-bar");
   ul {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    height: inherit;
     margin: 0;
     padding: 0;
   }
   li {
     display: inline-block;
-    margin-right: 20px;
-    &:last-child {
-      margin-right: 0;
-    }
+    margin-right: 40px;
+    font-size: 16px;
+    font-weight: bold;
   }
   a {
     color: variables.$color-soundwave;

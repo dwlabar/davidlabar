@@ -124,7 +124,7 @@ const SvgAnimationExamples = () => {
   }, []);
 
   return (
-    <div style={{ padding: '20px' }}>
+    <>
       <h1>SVG Animation Examples with GSAP</h1>
 
       {/* Fill Animation Example */}
@@ -290,7 +290,7 @@ const SvgAnimationExamples = () => {
           />
         </svg>
       </section>
-    </div>
+    </>
   );
 };
 
