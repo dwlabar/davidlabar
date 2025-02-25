@@ -40,6 +40,10 @@
     margin-right: functions.px2rem(40);
     font-size: variables.$font-size;
     font-weight: bold;
+    &.active a {
+      text-decoration: underline;
+      color: variables.$color-soundwave;
+    }
   }
   a {
     color: variables.$color-starscream;
