@@ -42,10 +42,11 @@
     font-weight: bold;
   }
   a {
-    color: variables.$color-soundwave;
+    color: variables.$color-starscream;
     text-decoration: none;
     &:hover {
       text-decoration: underline;
+      color: variables.$color-soundwave;
     }
   }
 }
