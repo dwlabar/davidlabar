@@ -8,7 +8,8 @@
 // IMPORTS
 // -----------------------------------------------------------------------------
 
-@use '../settings/variables';
+@use "../tools/functions";
+@use "../settings/variables";
 
 // -----------------------------------------------------------------------------
 // BASE
@@ -27,7 +28,7 @@
 .logo {
   width: 50%;
   height: auto;
-  max-width: 180px;
+  max-width: functions.px2rem(180);
   margin: auto;
 }
 
@@ -38,7 +39,7 @@
 }
 
 .logo path {
-  stroke-width: 1.00012;
+  stroke-width: functions.px2rem(1.00012);
   stroke-dasharray: none;
   paint-order: markers stroke fill;
 }
@@ -46,17 +47,17 @@
 /* SVG Styles */
 #logo_group {
   display: inline;
-  transform: translate(-82.55px, -1.588px);
-}
-
-#logo_core {
-  fill: url(#logo_core);
-  opacity: 0;
-  animation: pulseFade 3s infinite ease-in-out 2.5s;
+  transform: translate(functions.px2rem(-82.55), functions.px2rem(-1.588));
 }
 
 #logo_bottomHighlight {
   fill: url(#logo_bottomHighlight);
+  opacity: 0;
+  animation: pulseFade 3s infinite ease-in-out 2.5s;
+}
+
+#logo_core {
+  fill: url(#logo_core);
   opacity: 0;
   animation: pulseFade 3s infinite ease-in-out 2s;
 }

@@ -1,8 +1,6 @@
-// src/styles/app.scss
-
 // =============================================================================
 //
-//  GLOBAL
+//  FUNCTIONS
 //
 // =============================================================================
 
@@ -10,37 +8,32 @@
 // IMPORTS
 // -----------------------------------------------------------------------------
 
-@use "./tools/functions";
-@use "./settings/variables";
+@use "sass:math";
 
 // -----------------------------------------------------------------------------
-// RESETS
+// STRIP UNITS
 // -----------------------------------------------------------------------------
 
-// padding and margins does not affect the width and height of elements
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
+@function strip-units($val) {
+  @if type-of($val)=="number" and not math.is-unitless($val) {
+    @return math.div($val, ($val * 0 + 1));
+  }
+
+  @return $val;
 }
 
 // -----------------------------------------------------------------------------
-// HTML / BODY
+// PX TO REM
 // -----------------------------------------------------------------------------
 
-html {
-  // This stops the annoying font-bold effect in dropdowns
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@function px2rem($pxval, $base: 16px) {
+  @if not math.is-unitless($pxval) {
+    $pxval: strip-units($pxval);
+  }
 
-  font-size: functions.px2rem(variables.$font-size);
-}
+  @if not math.is-unitless($base) {
+    $base: strip-units($base);
+  }
 
-body {
-  font-family: variables.$font-family;
-  margin: 0;
-  padding: 0;
-  padding-top: variables.$nav-bar-height;
-  background-color: variables.$color-megatron;
-  color: variables.$color-starscream;
+  @return math.div($pxval, $base) * 1rem;
 }

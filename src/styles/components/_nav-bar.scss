@@ -9,7 +9,9 @@
 // -----------------------------------------------------------------------------
 
 @use "sass:map";
-@use '../settings/variables';
+@use "sass:math";
+@use "../tools/functions";
+@use "../settings/variables";
 
 // -----------------------------------------------------------------------------
 // BASE
@@ -20,7 +22,7 @@
   top: 0px;
   right: 0px;
   width: 100%;
-  height: variables.$nav-bar-height;
+  height: functions.px2rem(variables.$nav-bar-height);
   background-color: #1e1e1e;
   border-bottom: solid 1px variables.$color-devastator;
   z-index: map.get(variables.$z-index, "nav-bar");
@@ -35,8 +37,8 @@
   }
   li {
     display: inline-block;
-    margin-right: 40px;
-    font-size: 16px;
+    margin-right: functions.px2rem(40);
+    font-size: variables.$font-size;
     font-weight: bold;
   }
   a {
