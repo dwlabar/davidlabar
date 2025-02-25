@@ -38,18 +38,19 @@
   li {
     display: inline-block;
     margin-right: functions.px2rem(40);
-    font-size: variables.$font-size;
+    // font-size: variables.$font-size;
+    font-size: functions.px2rem(14);
     font-weight: bold;
+    text-transform: uppercase;
     &.active a {
-      text-decoration: underline;
       color: variables.$color-soundwave;
     }
   }
   a {
     color: variables.$color-starscream;
     text-decoration: none;
+    transition: color 0.4s ease-in-out;
     &:hover {
-      text-decoration: underline;
       color: variables.$color-soundwave;
     }
   }
