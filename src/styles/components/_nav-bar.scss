@@ -9,7 +9,6 @@
 // -----------------------------------------------------------------------------
 
 @use "sass:map";
-@use "sass:math";
 @use "../tools/functions";
 @use "../settings/variables";
 
@@ -23,8 +22,8 @@
   right: 0px;
   width: 100%;
   height: functions.px2rem(variables.$nav-bar-height);
-  background-color: #1e1e1e;
-  border-bottom: solid 1px variables.$color-devastator;
+  background-color: variables.$color-megatron;
+  border-bottom: solid 1px variables.$color-trypticon;
   z-index: map.get(variables.$z-index, "nav-bar");
   ul {
     display: flex;
@@ -47,9 +46,9 @@
     }
   }
   a {
-    color: variables.$color-starscream;
+    color: variables.$color-devastator;
     text-decoration: none;
-    transition: color 0.4s ease-in-out;
+    transition: color variables.$global-timing variables.$global-easing;
     &:hover {
       color: variables.$color-soundwave;
     }
