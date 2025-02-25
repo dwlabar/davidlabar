@@ -51,17 +51,44 @@
 
 #logo_core {
   fill: url(#logo_core);
+  opacity: 0;
+  animation: pulseFade 3s infinite ease-in-out 2.5s;
 }
 
 #logo_bottomHighlight {
   fill: url(#logo_bottomHighlight);
+  opacity: 0;
+  animation: pulseFade 3s infinite ease-in-out 2s;
 }
 
 #logo_highlight {
   fill: url(#logo_highlight);
+  opacity: 0;
+  animation: pulseFade 3s infinite ease-in-out 1.5s;
 }
 
-#logo_border,
+#logo_border {
+  fill: variables.$color-trypticon;
+  opacity: 0;
+  animation: pulseFade 3s infinite ease-in-out 1s;
+}
+
 #logo_border02 {
   fill: variables.$color-trypticon;
+  opacity: 0;
+  animation: pulseFade 3s infinite ease-in-out;
+}
+
+@keyframes pulseFade {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
