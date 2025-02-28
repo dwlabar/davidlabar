@@ -7,6 +7,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import SVGExamples from "./pages/SVG-Examples";
 import PreloaderTest from "./pages/Preloader-Test";
+import DevPanel from "./components/DevPanel";
 
 // Import components
 import NavBar from "./components/NavBar"
@@ -26,6 +27,9 @@ const App = () => {
           <Route path="/SVG-Examples" element={<SVGExamples />} />
           <Route path="/Preloader-Test" element={<PreloaderTest />} />
         </Routes>
+
+        {/* Developer Panel */}
+        <DevPanel />
       </>
     </Router>
   );

@@ -1,0 +1,51 @@
+.dev-panel {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 1000;
+  font-family: sans-serif;
+
+  .dev-panel-toggle {
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+
+  .dev-panel-content {
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 5px;
+    min-width: 150px;
+
+    h4 {
+      margin: 0 0 8px;
+      font-size: 14px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: 4px;
+
+        a {
+          color: #00c3ff;
+          text-decoration: none;
+          font-size: 13px;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
