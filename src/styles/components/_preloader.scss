@@ -1,95 +1,98 @@
-// =============================================================================
-//
-//  PRELOADER
-//
-// =============================================================================
+// // =============================================================================
+// //
+// //  PRELOADER
+// //
+// // =============================================================================
 
-// -----------------------------------------------------------------------------
-// IMPORTS
-// -----------------------------------------------------------------------------
+// // -----------------------------------------------------------------------------
+// // IMPORTS
+// // -----------------------------------------------------------------------------
 
-@use "../tools/functions";
-@use "../settings/variables";
+// @use "sass:map";
+// @use "../tools/functions";
+// @use "../settings/variables";
 
-// -----------------------------------------------------------------------------
-// BASE
-// -----------------------------------------------------------------------------
+// // -----------------------------------------------------------------------------
+// // BASE
+// // -----------------------------------------------------------------------------
 
-.preloader {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-  background-color: variables.$color-megatron;
-}
+// .preloader {
+//   position: absolute;
+//   top: 0px;
+//   left: 0px;
+//   display: flex;
+//   height: 100vh;
+//   width: 100vw;
+//   background-color: variables.$color-megatron;
+//   z-index: map.get(variables.$z-index, "preloader");
+//   opacity: 1;
+// }
 
-.logo {
-  width: 50%;
-  height: auto;
-  max-width: functions.px2rem(180);
-  margin: auto;
-}
+// .logo {
+//   width: 50%;
+//   height: auto;
+//   max-width: functions.px2rem(180);
+//   margin: auto;
+// }
 
-.logo svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
+// .logo svg {
+//   display: block;
+//   width: 100%;
+//   height: 100%;
+// }
 
-.logo path {
-  stroke-width: functions.px2rem(1.00012);
-  stroke-dasharray: none;
-  paint-order: markers stroke fill;
-}
+// .logo path {
+//   stroke-width: functions.px2rem(1.00012);
+//   stroke-dasharray: none;
+//   paint-order: markers stroke fill;
+// }
 
-/* SVG Styles */
-#logo_group {
-  display: inline;
-  transform: translate(functions.px2rem(-82.55), functions.px2rem(-1.588));
-}
+// /* SVG Styles */
+// #logo_group {
+//   display: inline;
+//   transform: translate(functions.px2rem(-82.55), functions.px2rem(-1.588));
+// }
 
-#logo_bottomHighlight {
-  fill: url(#logo_bottomHighlight);
-  opacity: 0;
-  animation: pulseFade 3s infinite ease-in-out 2.5s;
-}
+// #logo_bottomHighlight {
+//   fill: url(#logo_bottomHighlight);
+//   opacity: 0;
+//   animation: pulseFade 3s infinite ease-in-out 2.5s;
+// }
 
-#logo_core {
-  fill: url(#logo_core);
-  opacity: 0;
-  animation: pulseFade 3s infinite ease-in-out 2s;
-}
+// #logo_core {
+//   fill: url(#logo_core);
+//   opacity: 0;
+//   animation: pulseFade 3s infinite ease-in-out 2s;
+// }
 
-#logo_highlight {
-  fill: url(#logo_highlight);
-  opacity: 0;
-  animation: pulseFade 3s infinite ease-in-out 1.5s;
-}
+// #logo_highlight {
+//   fill: url(#logo_highlight);
+//   opacity: 0;
+//   animation: pulseFade 3s infinite ease-in-out 1.5s;
+// }
 
-#logo_border {
-  fill: variables.$color-trypticon;
-  opacity: 0;
-  animation: pulseFade 3s infinite ease-in-out 1s;
-}
+// #logo_border {
+//   fill: variables.$color-trypticon;
+//   opacity: 0;
+//   animation: pulseFade 3s infinite ease-in-out 1s;
+// }
 
-#logo_border02 {
-  fill: variables.$color-trypticon;
-  opacity: 0;
-  animation: pulseFade 3s infinite ease-in-out;
-}
+// #logo_border02 {
+//   fill: variables.$color-trypticon;
+//   opacity: 0;
+//   animation: pulseFade 3s infinite ease-in-out;
+// }
 
-@keyframes pulseFade {
-  0% {
-    opacity: 0;
-  }
+// @keyframes pulseFade {
+//   0% {
+//     opacity: 0;
+//   }
 
-  50% {
-    opacity: 1;
-  }
+//   50% {
+//     opacity: 1;
+//   }
 
-  100% {
-    opacity: 0;
-  }
-}
+//   100% {
+//     opacity: 0;
+//   }
+// }
