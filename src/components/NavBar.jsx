@@ -2,18 +2,20 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../styles/components/_nav-bar.scss";
 
-const Nav = () => {
+const NavBar = ({ links }) => {
   const location = useLocation();
 
   return (
     <nav className="nav-bar">
-      <ul>
-        <li className={location.pathname === "/" ? "active" : ""}><Link to="/">Home</Link></li>
-        <li className={location.pathname === "/about" ? "active" : ""}><Link to="/about">About</Link></li>
-        <li className={location.pathname === "/contact" ? "active" : ""}><Link to="/contact">Contact</Link></li>
+      <ul className="nav-bar__ul">
+        {links.map(({ name, path }) => (
+          <li key={path} className={`${location.pathname === path ? "active" : ""} nav-bar__li`}>
+            <Link to={path}>{name}</Link>
+          </li>
+        ))}
       </ul>
     </nav>
   );
 };
 
-export default Nav;
+export default NavBar;

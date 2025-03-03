@@ -7,17 +7,23 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import SVGExamples from "./pages/SVG-Examples";
 import PreloaderTest from "./pages/Preloader-Test";
-import DevPanel from "./components/DevPanel";
 
 // Import components
+import DevPanel from "./components/DevPanel";
 import NavBar from "./components/NavBar"
+
+const NavLinks = [
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Contact", path: "/contact" }
+];
 
 const App = () => {
   return (
     <Router>
       <>
         {/* Add a navigation bar */}
-        <NavBar />
+        <NavBar links={NavLinks} />
 
         {/* Define routes */}
         <Routes>
