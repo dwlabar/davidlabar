@@ -16,7 +16,7 @@
 // -----------------------------------------------------------------------------
 
 @mixin breakpoint($size) {
-  @if map-has-key(variables.$breakpoints, $size) {
+  @if map.has-key(variables.$breakpoints, $size) {
     @media (min-width: map.get(variables.$breakpoints, $size)) {
       @content;
     }
