@@ -1,0 +1,45 @@
+// =============================================================================
+//
+//  CONTAINER
+//
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// IMPORTS
+// -----------------------------------------------------------------------------
+
+@use "sass:map";
+@use "../tools/functions";
+@use "../tools/mixins";
+@use "../settings/variables";
+
+// -----------------------------------------------------------------------------
+// BASE
+// -----------------------------------------------------------------------------
+
+.container {
+  width: 100%;
+  height: inherit;
+  margin: 0 auto;
+  padding: 0 functions.px2rem(20);
+
+  @include mixins.breakpoint(xs) {
+    max-width: map.get(variables.$breakpoints, xs);
+  }
+  @include mixins.breakpoint(sm) {
+    max-width: map.get(variables.$breakpoints, sm);
+  }
+  @include mixins.breakpoint(md) {
+    max-width: map.get(variables.$breakpoints, md);
+    padding: 0 functions.px2rem(40);
+  }
+  @include mixins.breakpoint(lg) {
+    max-width: map.get(variables.$breakpoints, lg);
+  }
+  @include mixins.breakpoint(xl) {
+    max-width: map.get(variables.$breakpoints, xl);
+  }
+  @include mixins.breakpoint(xxl) {
+    max-width: map.get(variables.$breakpoints, xxl);
+  }
+}

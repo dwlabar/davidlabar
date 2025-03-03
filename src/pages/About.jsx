@@ -1,10 +1,13 @@
 import React from "react";
+import Container from "../components/Container";
 
 const About = () => {
   return (
     <>
-      <h1>About Me</h1>
-      <p>Here is some information about me and my experience.</p>
+      <Container>
+        <h1>About Me</h1>
+        <p>Here is some information about me and my experience.</p>
+      </Container>
     </>
   );
 };
