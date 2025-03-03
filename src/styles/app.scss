@@ -44,3 +44,8 @@ body {
   background-color: variables.$color-megatron;
   color: variables.$color-starscream;
 }
+
+h1 {
+  font-size: functions.px2rem(90);
+  font-weight: normal;
+}
