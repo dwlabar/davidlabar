@@ -1,0 +1,44 @@
+// =============================================================================
+//
+//  GLOBAL
+//
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// IMPORTS
+// -----------------------------------------------------------------------------
+
+@use "../tools/functions";
+@use "../settings/variables";
+
+// -----------------------------------------------------------------------------
+// RESETS
+// -----------------------------------------------------------------------------
+
+// padding and margins does not affect the width and height of elements
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+// -----------------------------------------------------------------------------
+// HTML / BODY
+// -----------------------------------------------------------------------------
+
+html {
+  // This stops the annoying font-bold effect in dropdowns
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  font-size: functions.px2rem(variables.$font-size);
+}
+
+body {
+  font-family: variables.$font-family;
+  margin: 0;
+  padding: 0;
+  padding-top: variables.$nav-bar-height;
+  background-color: variables.$color-megatron;
+  color: variables.$color-starscream;
+}
