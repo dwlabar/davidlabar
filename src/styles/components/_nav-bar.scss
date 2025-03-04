@@ -26,32 +26,87 @@
   background-color: variables.$color-megatron;
   border-bottom: solid 1px variables.$color-trypticon;
   z-index: map.get(variables.$z-index, "nav-bar");
-  .nav-bar__ul {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: flex-end;
-    height: inherit;
-    margin: 0;
-    padding: 0;
+}
+
+.nav-bar__ul {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  height: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-bar__li {
+  display: inline-block;
+  margin-right: functions.px2rem(variables.$nav-bar-height / 2);
+  font-size: functions.px2rem(14);
+  font-weight: bold;
+  text-transform: uppercase;
+
+  &.active a {
+    background: linear-gradient(180deg,
+        lighten(variables.$color-soundwave, 40%) 0%, 
+        variables.$color-soundwave 25%,
+        darken(variables.$color-soundwave, 20%) 50%,
+        variables.$color-soundwave 75%,
+        lighten(variables.$color-soundwave, 40%) 100%);
+    background-size: 100% 500%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: gradientFlow 16s infinite linear;
   }
-  .nav-bar__li {
-    display: inline-block;
-    margin-right: functions.px2rem(40);
-    // font-size: variables.$font-size;
-    font-size: functions.px2rem(14);
-    font-weight: bold;
-    text-transform: uppercase;
-    &.active a {
-      color: variables.$color-soundwave;
-    }
-  }
+
   a {
     color: variables.$color-devastator;
     text-decoration: none;
     transition: color variables.$global-timing variables.$global-easing;
+
     &:hover {
       color: variables.$color-soundwave;
     }
   }
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 50% 0%;
+  }
+
+  50% {
+    background-position: 50% 100%
+  }
+
+  100% {
+    background-position: 50% 0%;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// NAV LOGO
+// -----------------------------------------------------------------------------
+
+.nav-bar__logo {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: functions.px2rem(variables.$nav-bar-height / 2);
+  margin-right: auto;
+
+  svg {
+    // display: none;
+  }
+
+  path {
+    fill: variables.$color-devastator;
+  }
+}
+
+.nav-bar__logo-text {
+  margin-left: functions.px2rem(20);
+  color: variables.$color-devastator;
+  display: none;
 }
