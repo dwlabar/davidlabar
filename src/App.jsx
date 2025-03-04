@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Services from "./pages/Services";
 import SVGExamples from "./pages/SVG-Examples";
 import PreloaderTest from "./pages/Preloader-Test";
 
@@ -15,7 +16,8 @@ import NavBar from "./components/NavBar"
 const NavLinks = [
   { name: "Home", path: "/" },
   { name: "About", path: "/about" },
-  { name: "Contact", path: "/contact" }
+  { name: "Contact", path: "/contact" },
+  { name: "Services", path: "/services"}
 ];
 
 const App = () => {
@@ -30,6 +32,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/services" element={<Services />} />
           <Route path="/SVG-Examples" element={<SVGExamples />} />
           <Route path="/Preloader-Test" element={<PreloaderTest />} />
         </Routes>
