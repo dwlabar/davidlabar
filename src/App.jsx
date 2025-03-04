@@ -21,11 +21,11 @@ const NavLinks = [
 const App = () => {
   return (
     <Router>
-      <>
-        {/* Add a navigation bar */}
-        <NavBar links={NavLinks} />
+      {/* Add a navigation bar */}
+      <NavBar links={NavLinks} />
 
-        {/* Define routes */}
+      {/* Main content */}
+      <main>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -33,12 +33,13 @@ const App = () => {
           <Route path="/SVG-Examples" element={<SVGExamples />} />
           <Route path="/Preloader-Test" element={<PreloaderTest />} />
         </Routes>
+      </main>
 
-        {/* Developer Panel */}
-        <DevPanel />
-      </>
+      {/* Developer Panel (should be outside <main>) */}
+      <DevPanel />
     </Router>
   );
 };
+
 
 export default App;
