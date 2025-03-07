@@ -15,9 +15,9 @@ import NavBar from "./components/NavBar"
 
 const NavLinks = [
   { name: "Home", path: "/" },
+  { name: "Services", path: "/services" },
   { name: "About", path: "/about" },
-  { name: "Contact", path: "/contact" },
-  { name: "Services", path: "/services"}
+  { name: "Hire Me", path: "/contact" }
 ];
 
 const App = () => {
