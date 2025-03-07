@@ -5,8 +5,9 @@ const Contact = () => {
   return (
     <>
       <Container>
-        <h1>Contact</h1>
-        <p>Feel free to reach out to me via email or phone!</p>
+        <h1>Hire Me / Contact</h1>
+        <p>Tell me about your project or just stop in to say hey!</p>
+        <p><a href="mailto:dwlabar@gmail.com">Message David</a></p>
       </Container>
     </>
   );
