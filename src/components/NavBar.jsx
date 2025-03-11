@@ -25,6 +25,20 @@ const NavBar = ({ links }) => {
             <Link to={path}>{name}</Link>
           </li>
         ))}
+        <div className="nav-bar__burger">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="48"
+            height="48"
+            viewBox="0 0 12.7 12.7"
+            aria-label="Nav Bar Icon"
+          >
+            <path d="M0 0v12.7h12.7V0Zm.53.53h11.64v11.64H.53Z" fill="#151515" fillOpacity="1" />
+            <path d="M3.175 3.969v1.058h6.35V3.97z" fill="#151515" fillOpacity="1" />
+            <path d="M3.175 5.82v1.06h6.35V5.82z" fill="#151515" fillOpacity="1" />
+            <path d="M3.175 7.673V8.73h6.35V7.673z" fill="#151515" fillOpacity="1" />
+          </svg>
+        </div>
       </ul>
     </nav>
   );

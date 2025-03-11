@@ -40,7 +40,7 @@
 }
 
 .nav-bar__li {
-  display: inline-block;
+  display: none;
   margin-right: functions.px2rem(calc(variables.$nav-bar-height / 2));
   font-size: functions.px2rem(14);
   font-weight: bold;
@@ -67,6 +67,10 @@
       color: variables.$color-soundwave;
     }
   }
+
+  @include mixins.breakpoint(md) {
+    display: inline-block;
+  }
 }
 
 @keyframes gradientFlow {
@@ -88,7 +92,7 @@
   flex-flow: row nowrap;
   align-items: center;
   justify-content: flex-start;
-  margin-left: functions.px2rem(calc(variables.$nav-bar-height / 2));
+  margin-left: functions.px2rem(20);
   margin-right: auto;
 
   svg {
@@ -98,10 +102,29 @@
   path {
     fill: variables.$color-devastator;
   }
+
+  @include mixins.breakpoint(md) {
+    margin-left: functions.px2rem(calc(variables.$nav-bar-height / 2));
+  }
 }
 
 .nav-bar__logo-text {
   margin-left: functions.px2rem(20);
   color: variables.$color-devastator;
   display: none;
+}
+
+// -----------------------------------------------------------------------------
+// BURGER
+// -----------------------------------------------------------------------------
+
+.nav-bar__burger {
+  margin-right: functions.px2rem(20);
+  path {
+    fill: variables.$color-devastator;
+  }
+
+  @include mixins.breakpoint(md) {
+    display: none;
+  }
 }

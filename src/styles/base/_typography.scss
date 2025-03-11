@@ -17,10 +17,14 @@
 // -----------------------------------------------------------------------------
 
 h1 {
-  font-size: functions.px2rem(90);
+  font-size: functions.px2rem(60);
   font-weight: 200;
   margin-top: 1em;
   margin-bottom: 1em;
+
+  @include mixins.breakpoint(md) {
+    font-size: functions.px2rem(90);
+  }
 
   @include mixins.breakpoint(xxl) {
     font-size: functions.px2rem(120);
