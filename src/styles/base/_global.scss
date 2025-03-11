@@ -9,6 +9,7 @@
 // -----------------------------------------------------------------------------
 
 @use "../tools/functions";
+@use "../tools/mixins";
 @use "../settings/variables";
 
 // -----------------------------------------------------------------------------
@@ -41,4 +42,15 @@ body {
   padding-top: variables.$nav-bar-height;
   background-color: variables.$color-megatron;
   color: variables.$color-starscream;
+}
+
+.panel {
+  margin-bottom: functions.px2rem(30);
+  padding: functions.px2rem(30);
+  border: solid 1px variables.$color-trypticon;
+
+  @include mixins.breakpoint(md) {
+    margin-bottom: functions.px2rem(60);
+    padding: functions.px2rem(60);
+  }
 }
