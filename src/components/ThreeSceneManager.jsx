@@ -53,8 +53,8 @@ const ThreeSceneManager = () => {
     const totalDepth = (cubeScaleRef.current.z + cubeSpacing) * gridSize;
     const resetZ = -totalDepth / 2;
     const startZ = totalDepth / 2;
-    const fadeInRadius = 220;
-    const falloffDistance = 40;
+    const fadeInRadius = 128;
+    const falloffDistance = 32;
 
     const centerMaterial = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
     const cubes = [];
@@ -101,7 +101,7 @@ const ThreeSceneManager = () => {
           cube.material.opacity = calculateOpacity(cube.position);
         }
         if (cube.position.z > startZ) {
-          cube.position.z = resetZ;
+          cube.position.z -= totalDepth;
           if (cube.material.transparent) cube.material.opacity = 0;
         }
       });
