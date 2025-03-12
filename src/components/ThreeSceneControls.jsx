@@ -1,5 +1,5 @@
 import { useSceneContext } from '../context/ThreeSceneContext';
-import '../styles/components/_three-scene-controls.scss';
+import '../styles/components/_three-scene.scss';
 
 const ThreeSceneControls = () => {
   const { settings, updateSetting } = useSceneContext();

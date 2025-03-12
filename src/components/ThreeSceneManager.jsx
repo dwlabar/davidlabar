@@ -7,15 +7,26 @@ const ThreeSceneManager = () => {
   const { settings } = useSceneContext();
 
   const speedRef = useRef(settings.speed);
-  const cubeSizeRef = useRef({ x: settings.cubeSizeX, y: settings.cubeSizeY, z: settings.cubeSizeZ });
+  const cubeScaleRef = useRef({ x: settings.cubeSizeX, y: settings.cubeSizeY, z: settings.cubeSizeZ });
+  const cubesRef = useRef([]);
 
-  useEffect(() => { speedRef.current = settings.speed; }, [settings.speed]);
   useEffect(() => {
-    cubeSizeRef.current = {
+    speedRef.current = settings.speed;
+  }, [settings.speed]);
+
+  useEffect(() => {
+    cubeScaleRef.current = {
       x: settings.cubeSizeX,
       y: settings.cubeSizeY,
       z: settings.cubeSizeZ,
     };
+    cubesRef.current.forEach(cube => {
+      cube.scale.set(
+        cubeScaleRef.current.x,
+        cubeScaleRef.current.y,
+        cubeScaleRef.current.z
+      );
+    });
   }, [settings.cubeSizeX, settings.cubeSizeY, settings.cubeSizeZ]);
 
   useEffect(() => {
@@ -24,6 +35,7 @@ const ThreeSceneManager = () => {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.set(0, 40, 40);
+    camera.lookAt(0, 0, -((settings.gridSize / 2 - 1) * (cubeScaleRef.current.z + settings.cubeSpacing)));
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -38,7 +50,7 @@ const ThreeSceneManager = () => {
 
     const gridSize = settings.gridSize;
     const cubeSpacing = settings.cubeSpacing;
-    const totalDepth = (cubeSizeRef.current.z + cubeSpacing) * gridSize;
+    const totalDepth = (cubeScaleRef.current.z + cubeSpacing) * gridSize;
     const resetZ = -totalDepth / 2;
     const startZ = totalDepth / 2;
     const fadeInRadius = 220;
@@ -49,25 +61,31 @@ const ThreeSceneManager = () => {
 
     for (let x = -Math.floor(gridSize / 2); x <= Math.floor(gridSize / 2); x++) {
       for (let z = -Math.floor(gridSize / 2); z <= Math.floor(gridSize / 2); z++) {
-        const geometry = new THREE.BoxGeometry(
-          cubeSizeRef.current.x,
-          cubeSizeRef.current.y,
-          cubeSizeRef.current.z
-        );
+        const geometry = new THREE.BoxGeometry(1, 1, 1);
         const material =
           x === 0 && z === 0
             ? centerMaterial
             : new THREE.MeshPhongMaterial({ color: 0xffffff, transparent: true, opacity: 0 });
         const cube = new THREE.Mesh(geometry, material);
-        cube.position.set(
-          x * (cubeSizeRef.current.x + cubeSpacing),
-          0,
-          z * (cubeSizeRef.current.z + cubeSpacing)
+
+        cube.scale.set(
+          cubeScaleRef.current.x,
+          cubeScaleRef.current.y,
+          cubeScaleRef.current.z
         );
+
+        cube.position.set(
+          x * (cubeScaleRef.current.x + cubeSpacing),
+          0,
+          z * (cubeScaleRef.current.z + cubeSpacing)
+        );
+
         scene.add(cube);
         cubes.push(cube);
       }
     }
+
+    cubesRef.current = cubes;
 
     const calculateOpacity = (cubePosition) => {
       const distanceToCamera = camera.position.distanceTo(cubePosition);
@@ -89,6 +107,7 @@ const ThreeSceneManager = () => {
       });
       renderer.render(scene, camera);
     };
+
     animate();
 
     const handleResize = () => {
@@ -107,7 +126,7 @@ const ThreeSceneManager = () => {
     };
   }, []);
 
-  return <div ref={mountRef} style={{ width: '100vw', height: '100vh', position: 'absolute', top: 0, left: 0, zIndex: -1 }} />;
+  return <div ref={mountRef} className="three-scene" />;
 };
 
 export default ThreeSceneManager;
