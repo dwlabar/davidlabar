@@ -50,11 +50,15 @@ const ThreeSceneManager = () => {
 
     const gridSize = settings.gridSize;
     const cubeSpacing = settings.cubeSpacing;
-    const totalDepth = (cubeScaleRef.current.z + cubeSpacing) * gridSize;
-    const resetZ = -totalDepth / 2;
-    const startZ = totalDepth / 2;
+    const stepZ = cubeScaleRef.current.z + cubeSpacing;
+    const gridSpan = (gridSize + 1) * stepZ; // ✅ Corrected span to prevent duplicated row
+    const startZ = gridSpan / 2;
     const fadeInRadius = 128;
     const falloffDistance = 32;
+
+    const getResetZPosition = (currentZ, stepZ, gridSpan) => {
+      return currentZ - gridSpan;
+    };
 
     const centerMaterial = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
     const cubes = [];
@@ -66,6 +70,7 @@ const ThreeSceneManager = () => {
           x === 0 && z === 0
             ? centerMaterial
             : new THREE.MeshPhongMaterial({ color: 0xffffff, transparent: true, opacity: 0 });
+
         const cube = new THREE.Mesh(geometry, material);
 
         cube.scale.set(
@@ -77,7 +82,7 @@ const ThreeSceneManager = () => {
         cube.position.set(
           x * (cubeScaleRef.current.x + cubeSpacing),
           0,
-          z * (cubeScaleRef.current.z + cubeSpacing)
+          z * stepZ
         );
 
         scene.add(cube);
@@ -101,7 +106,7 @@ const ThreeSceneManager = () => {
           cube.material.opacity = calculateOpacity(cube.position);
         }
         if (cube.position.z > startZ) {
-          cube.position.z -= totalDepth;
+          cube.position.z = getResetZPosition(cube.position.z, stepZ, gridSpan);
           if (cube.material.transparent) cube.material.opacity = 0;
         }
       });
