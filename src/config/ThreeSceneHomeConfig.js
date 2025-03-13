@@ -4,7 +4,7 @@ const ThreeSceneHomeConfig = {
   cubeSizeY: 1,
   cubeSizeZ: 8,
   cubeSpacing: 1,
-  speed: 0.3,
+  speed: 0.15,
 };
 
 export default ThreeSceneHomeConfig;

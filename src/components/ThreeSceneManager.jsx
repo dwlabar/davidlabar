@@ -51,7 +51,7 @@ const ThreeSceneManager = () => {
     const gridSize = settings.gridSize;
     const cubeSpacing = settings.cubeSpacing;
     const stepZ = cubeScaleRef.current.z + cubeSpacing;
-    const gridSpan = (gridSize + 1) * stepZ; // ✅ Corrected span to prevent duplicated row
+    const gridSpan = (gridSize + 1) * stepZ;
     const startZ = gridSpan / 2;
     const fadeInRadius = 128;
     const falloffDistance = 32;
