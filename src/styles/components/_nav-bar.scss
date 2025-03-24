@@ -47,15 +47,8 @@
   text-transform: uppercase;
 
   &.active a {
-    background: linear-gradient(90deg,
-        color.adjust(variables.$color-soundwave, $lightness: 0%) 0%,
-        color.adjust(variables.$color-soundwave, $lightness: 25%) 50%,
-        color.adjust(variables.$color-soundwave, $lightness: 0%) 100%);
-    background-size: 200% 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    animation: gradientFlow 30s linear infinite;
+    color: variables.$color-soundwave;
+    animation: navTextPulse 10s ease-in-out infinite;
   }
 
   a {
@@ -73,13 +66,17 @@
   }
 }
 
-@keyframes gradientFlow {
+@keyframes navTextPulse {
   0% {
-    background-position: 100% 0;
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.8);
   }
 
   100% {
-    background-position: -100% 0;
+    filter: brightness(1);
   }
 }
 
@@ -94,10 +91,6 @@
   justify-content: flex-start;
   margin-left: functions.px2rem(20);
   margin-right: auto;
-
-  svg {
-    // display: none;
-  }
 
   path {
     fill: variables.$color-devastator;
