@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 
 const defaultSettings = {
-  gridSize: 41,
+  gridSize: 40,
   cubeSizeX: 8,
   cubeSizeY: 1,
   cubeSizeZ: 8,
@@ -9,9 +9,9 @@ const defaultSettings = {
   speed: 0.3,
 };
 
-const SceneContext = createContext();
+const ThreeSceneContext = createContext();
 
-export const SceneProvider = ({ children, config = {} }) => {
+export const ThreeSceneProvider = ({ children, config = {} }) => {
   const [settings, setSettings] = useState({ ...defaultSettings, ...config });
 
   const updateSetting = (key, value) => {
@@ -19,10 +19,10 @@ export const SceneProvider = ({ children, config = {} }) => {
   };
 
   return (
-    <SceneContext.Provider value={{ settings, updateSetting }}>
+    <ThreeSceneContext.Provider value={{ settings, updateSetting }}>
       {children}
-    </SceneContext.Provider>
+    </ThreeSceneContext.Provider>
   );
 };
 
-export const useSceneContext = () => useContext(SceneContext);
+export const useThreeSceneContext = () => useContext(ThreeSceneContext);

@@ -10,9 +10,9 @@
 
 // @use "sass:color";
 // @use "sass:map";
-// @use "../tools/functions";
+@use "../tools/functions";
 // @use "../tools/mixins";
-// @use "../settings/variables";
+@use "../settings/variables";
 
 // -----------------------------------------------------------------------------
 // BASE
@@ -28,8 +28,80 @@
 }
 
 .three-scene canvas {
-  // display: block;
   max-width: 100%;
-  // width: 100%;
-  // height: auto;
+}
+
+// -----------------------------------------------------------------------------
+// CONTROLS
+// -----------------------------------------------------------------------------
+
+.scene-controls {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.slider-group {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem 2rem;
+  background: rgba(variables.$color-skywarp, 0.6);
+  backdrop-filter: blur(6px);
+  width: 100%;
+  border-top: solid 1px variables.$color-trypticon;
+}
+
+.slider-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.75rem;
+  color: variables.$color-ramjet;
+}
+
+.slider-control label {
+  margin-bottom: functions.px2rem(7);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.slider-control input[type="range"] {
+  appearance: none;
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(to right, variables.$color-soundwave 0%, variables.$color-soundwave var(--progress), variables.$color-devastator var(--progress), variables.$color-starscream 100%);
+  border-radius: 2px;
+  outline: none;
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+
+.slider-control input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  background: variables.$color-ramjet;
+  box-shadow: 0 0 4px variables.$color-soundwave;
+  transition: transform 0.2s ease;
+}
+
+.slider-control input[type="range"]:hover::-webkit-slider-thumb {
+  transform: scale(1.2);
+}
+
+.slider-control input[type="range"]::-moz-range-thumb {
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  background: variables.$color-ramjet;
+  border: none;
+  box-shadow: 0 0 4px variables.$color-soundwave;
+}
+
+.slider-control input[type="range"]:hover::-moz-range-thumb {
+  transform: scale(1.2);
 }

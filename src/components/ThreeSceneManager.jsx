@@ -1,10 +1,10 @@
 import { useRef, useEffect } from 'react';
 import * as THREE from 'three';
-import { useSceneContext } from '../context/ThreeSceneContext';
+import { useThreeSceneContext } from '../context/ThreeSceneContext';
 
 const ThreeSceneManager = () => {
   const mountRef = useRef(null);
-  const { settings } = useSceneContext();
+  const { settings } = useThreeSceneContext();
 
   const speedRef = useRef(settings.speed);
   const cubeScaleRef = useRef({
