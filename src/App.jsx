@@ -23,10 +23,7 @@ const NavLinks = [
 const App = () => {
   return (
     <Router>
-      {/* Add a navigation bar */}
       <NavBar links={NavLinks} />
-
-      {/* Main content */}
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -37,8 +34,6 @@ const App = () => {
           <Route path="/Preloader-Test" element={<PreloaderTest />} />
         </Routes>
       </main>
-
-      {/* Developer Panel (should be outside <main>) */}
       <DevPanel />
     </Router>
   );
