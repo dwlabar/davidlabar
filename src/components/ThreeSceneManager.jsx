@@ -59,6 +59,63 @@ const ThreeSceneManager = () => {
     directionalLight.position.set(50, 100, 75);
     scene.add(directionalLight);
 
+    // Shader-based particle system
+    const particleCount = 500;
+    const particlePositions = new Float32Array(particleCount * 3);
+    const startTimes = new Float32Array(particleCount);
+    const lifetimes = new Float32Array(particleCount);
+
+    for (let i = 0; i < particleCount; i++) {
+      particlePositions[i * 3 + 0] = (Math.random() - 0.5) * 80;
+      particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 60 + 20;
+      particlePositions[i * 3 + 2] = -Math.random() * 200;
+      startTimes[i] = Math.random() * 10;
+      lifetimes[i] = 8 + Math.random() * 4;
+    }
+
+    const particleGeometry = new THREE.BufferGeometry();
+    particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+    particleGeometry.setAttribute('startTime', new THREE.BufferAttribute(startTimes, 1));
+    particleGeometry.setAttribute('lifetime', new THREE.BufferAttribute(lifetimes, 1));
+
+    const particleMaterial = new THREE.ShaderMaterial({
+      transparent: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      uniforms: {
+        uTime: { value: 0 }
+      },
+      vertexShader: `
+        precision mediump float;
+        attribute float startTime;
+        attribute float lifetime;
+        uniform float uTime;
+        varying float vLifetime;
+        void main() {
+          float age = mod(uTime - startTime, lifetime);
+          vLifetime = age / lifetime;
+          vec3 pos = position;
+          pos.x += sin(age * 1.5) * 2.0;
+          pos.y += cos(age * 1.0) * 1.5;
+          pos.z += age * 4.0;
+          gl_PointSize = 3.0 + 3.0 * (1.0 - vLifetime);
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+        }
+      `,
+      fragmentShader: `
+        precision mediump float;
+        varying float vLifetime;
+        void main() {
+          float fade = smoothstep(0.0, 0.1, vLifetime) * (1.0 - vLifetime);
+          gl_FragColor = vec4(1.0, 1.0, 1.0, fade);
+        }
+      `
+    });
+
+    const particlePoints = new THREE.Points(particleGeometry, particleMaterial);
+    scene.add(particlePoints);
+
+    // Cube grid setup
     const gridSize = settings.gridSize;
     const fadeStart = settings.fadeStart || 60;
     const fadeEnd = settings.fadeEnd || 10;
@@ -88,7 +145,6 @@ const ThreeSceneManager = () => {
         const posZ = z * stepZ;
 
         cube.position.set(posX, 0, posZ);
-
         scene.add(cube);
         cubes.push(cube);
       }
@@ -104,8 +160,14 @@ const ThreeSceneManager = () => {
       return Math.pow(t, fadeCurve);
     };
 
+    const clock = new THREE.Clock();
+
     const animate = () => {
       requestAnimationFrame(animate);
+
+      const elapsed = clock.getElapsedTime();
+      particleMaterial.uniforms.uTime.value = elapsed;
+
       cubes.forEach((cube) => {
         cube.position.z += speedRef.current;
 
