@@ -40,3 +40,35 @@ p {
   line-height: 1.5em;
   font-weight: 200;
 }
+
+.subheading {
+  display: block;
+  font-size: functions.px2rem(36);
+  font-weight: 200;
+  margin-top: 0.2em;
+
+  @include mixins.breakpoint(md) {
+    font-size: functions.px2rem(48);
+  }
+
+  @include mixins.breakpoint(xxl) {
+    font-size: functions.px2rem(60);
+  }
+}
+
+.tagline {
+  font-size: functions.px2rem(28);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.4;
+  margin-bottom: 1em; // Tightened spacing for better flow
+  color: rgba(variables.$color-ramjet, 0.9); // Optional: lift brightness slightly
+
+  @include mixins.breakpoint(sm) {
+    font-size: functions.px2rem(32);
+  }
+
+  @include mixins.breakpoint(md) {
+    font-size: functions.px2rem(36);
+  }
+}
