@@ -1,5 +1,6 @@
 import React from "react";
 import Container from "../components/Container";
+import Panel from "../components/Panel";
 
 const Services = () => {
   return (
@@ -7,7 +8,7 @@ const Services = () => {
       <Container>
         <h1>Services and Specialties</h1>
         
-        <div className="panel">
+        <Panel>
           <p>I design, develop, and bring ideas to life through clean code and thoughtful design. Here’s what I offer:</p>
 
           <h2>Design & UX</h2>
@@ -33,7 +34,7 @@ const Services = () => {
           </ul>
 
           <p>Have a project in mind? Let's make it happen.</p>
-        </div>
+        </Panel>
       </Container>
     </>
   );
