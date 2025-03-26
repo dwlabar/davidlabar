@@ -65,12 +65,19 @@ const ThreeSceneManager = () => {
     directionalLight.position.set(50, 100, 75);
     scene.add(directionalLight);
 
+    // Particle system setup
     const particleCount = 100;
     const particlePositions = new Float32Array(particleCount * 3);
+    // Array to store random offsets for y position
+    const particleYOffset = new Float32Array(particleCount);
+    const baseMargin = 1; // margin above the cube top
+    const variation = 5; // range for random y variation above the cube
     for (let i = 0; i < particleCount; i++) {
       particlePositions[i * 3 + 0] = (Math.random() - 0.5) * (gridSpanZ / 2);
-      particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 10 + 5;
+      // Set a placeholder for y; it will be updated dynamically in the animate loop
+      particlePositions[i * 3 + 1] = 0;
       particlePositions[i * 3 + 2] = (Math.random() - 0.5) * gridSpanZ;
+      particleYOffset[i] = Math.random() * variation;
     }
 
     const particleGeometry = new THREE.BufferGeometry();
@@ -184,6 +191,13 @@ const ThreeSceneManager = () => {
       distanceTraveledRef.current += speedRef.current;
       particleMaterial.uniforms.uDistanceTraveled.value = distanceTraveledRef.current;
 
+      // Update particle y positions so they always stay above the cubes
+      const baseY = cubeScaleRef.current.y / 2 + baseMargin;
+      for (let i = 0; i < particleCount; i++) {
+        particlePositions[i * 3 + 1] = baseY + particleYOffset[i];
+      }
+      particleGeometry.attributes.position.needsUpdate = true;
+
       cubes.forEach((cube) => {
         cube.position.z += speedRef.current;
         if (cube.material.transparent) {
@@ -207,7 +221,6 @@ const ThreeSceneManager = () => {
       renderer.setSize(window.innerWidth, window.innerHeight);
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
-      // If the camera can move, update the uniform:
       particleMaterial.uniforms.uCameraPos.value.copy(camera.position);
     };
 
