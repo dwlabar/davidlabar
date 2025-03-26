@@ -43,9 +43,9 @@ p {
 
 .subheading {
   display: block;
+  margin-top: 0.2em;
   font-size: functions.px2rem(36);
   font-weight: 200;
-  margin-top: 0.2em;
 
   @include mixins.breakpoint(md) {
     font-size: functions.px2rem(48);
@@ -57,12 +57,13 @@ p {
 }
 
 .tagline {
+  width: 80%;
+  margin-bottom: 1em;
   font-size: functions.px2rem(28);
   font-weight: 300;
   font-style: italic;
   line-height: 1.4;
-  margin-bottom: 1em; // Tightened spacing for better flow
-  color: rgba(variables.$color-ramjet, 0.9); // Optional: lift brightness slightly
+  color: rgba(variables.$color-ramjet, 0.9);
 
   @include mixins.breakpoint(sm) {
     font-size: functions.px2rem(32);

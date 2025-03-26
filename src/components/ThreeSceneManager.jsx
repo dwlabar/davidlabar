@@ -13,7 +13,7 @@ const ThreeSceneManager = () => {
     z: settings.cubeSizeZ,
   });
   const cubesRef = useRef([]);
-  const distanceTraveledRef = useRef(0); // Tracks particle movement like cubes
+  const distanceTraveledRef = useRef(0);
 
   useEffect(() => {
     speedRef.current = settings.speed;
@@ -51,11 +51,7 @@ const ThreeSceneManager = () => {
     const startZ = gridSpanZ / 2;
 
     camera.position.set(0, 40, 40);
-    camera.lookAt(
-      0,
-      0,
-      -((settings.gridSize / 2 - 1) * stepZ)
-    );
+    camera.lookAt(0, 0, -((settings.gridSize / 2 - 1) * stepZ));
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -69,11 +65,9 @@ const ThreeSceneManager = () => {
     directionalLight.position.set(50, 100, 75);
     scene.add(directionalLight);
 
-    // Particle system with distance-based movement/wrap
-    const particleCount = 500;
+    const particleCount = 100;
     const particlePositions = new Float32Array(particleCount * 3);
     for (let i = 0; i < particleCount; i++) {
-      // Keep X/Z near the grid and Y somewhat around the cubes
       particlePositions[i * 3 + 0] = (Math.random() - 0.5) * (gridSpanZ / 2);
       particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 10 + 5;
       particlePositions[i * 3 + 2] = (Math.random() - 0.5) * gridSpanZ;
@@ -85,50 +79,63 @@ const ThreeSceneManager = () => {
       new THREE.BufferAttribute(particlePositions, 3)
     );
 
+    const fadeStart = settings.fadeStart || 60;
+    const fadeEnd = settings.fadeEnd || 10;
+    const fadeCurve = settings.fadeCurve || 2;
+
     const particleMaterial = new THREE.ShaderMaterial({
       transparent: true,
       depthWrite: false,
       blending: THREE.AdditiveBlending,
       uniforms: {
         uDistanceTraveled: { value: 0 },
-        uGridSpanZ: { value: gridSpanZ }
+        uGridSpanZ: { value: gridSpanZ },
+        uCameraPos: { value: camera.position.clone() },
+        uFadeStart: { value: fadeStart },
+        uFadeEnd: { value: fadeEnd },
+        uFadeCurve: { value: fadeCurve }
       },
       vertexShader: `
         precision mediump float;
         uniform float uDistanceTraveled;
         uniform float uGridSpanZ;
+        uniform vec3 uCameraPos;
+        uniform float uFadeStart;
+        uniform float uFadeEnd;
+        uniform float uFadeCurve;
+        varying float vOpacity;
         void main() {
           vec3 pos = position;
-          // Match the cube movement along Z
           pos.z += uDistanceTraveled;
-          // Wrap around the same way as cubes
           pos.z = mod(pos.z + uGridSpanZ / 2.0, uGridSpanZ) - uGridSpanZ / 2.0;
+
+          float dist = distance(pos, uCameraPos);
+          float opacity = 0.0;
+          if (dist < uFadeEnd) {
+            opacity = 1.0;
+          } else if (dist < uFadeStart) {
+            float t = (uFadeStart - dist) / (uFadeStart - uFadeEnd);
+            opacity = pow(t, uFadeCurve);
+          }
+          vOpacity = opacity;
+
           gl_PointSize = 4.0;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
         }
       `,
       fragmentShader: `
         precision mediump float;
+        varying float vOpacity;
         void main() {
-          gl_FragColor = vec4(1.0);
+          gl_FragColor = vec4(1.0, 1.0, 1.0, vOpacity);
         }
       `
     });
 
-    const particlePoints = new THREE.Points(
-      particleGeometry,
-      particleMaterial
-    );
+    const particlePoints = new THREE.Points(particleGeometry, particleMaterial);
     scene.add(particlePoints);
 
-    // Cube grid setup
     const gridSize = settings.gridSize;
-    const fadeStart = settings.fadeStart || 60;
-    const fadeEnd = settings.fadeEnd || 10;
-    const fadeCurve = settings.fadeCurve || 2;
-
-    const getResetZPosition = (currentZ) => currentZ - gridSpanZ;
-
     const centerMaterial = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
     const cubes = [];
 
@@ -138,7 +145,11 @@ const ThreeSceneManager = () => {
         const material =
           x === 0 && z === 0
             ? centerMaterial
-            : new THREE.MeshPhongMaterial({ color: 0xffffff, transparent: true, opacity: 0 });
+            : new THREE.MeshPhongMaterial({
+              color: 0xffffff,
+              transparent: true,
+              opacity: 0
+            });
 
         const cube = new THREE.Mesh(geometry, material);
         cube.scale.set(
@@ -165,10 +176,11 @@ const ThreeSceneManager = () => {
       return Math.pow(t, fadeCurve);
     };
 
+    const getResetZPosition = (currentZ) => currentZ - gridSpanZ;
+
     const animate = () => {
       requestAnimationFrame(animate);
 
-      // Match how cubes move: increment distanceTraveledRef by speed each frame
       distanceTraveledRef.current += speedRef.current;
       particleMaterial.uniforms.uDistanceTraveled.value = distanceTraveledRef.current;
 
@@ -195,6 +207,8 @@ const ThreeSceneManager = () => {
       renderer.setSize(window.innerWidth, window.innerHeight);
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
+      // If the camera can move, update the uniform:
+      particleMaterial.uniforms.uCameraPos.value.copy(camera.position);
     };
 
     window.addEventListener('resize', handleResize);
