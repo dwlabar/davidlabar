@@ -8,8 +8,50 @@
 // IMPORTS
 // -----------------------------------------------------------------------------
 
-@use "../settings/variables";
+@use "../tools/mixins";
 
 // -----------------------------------------------------------------------------
 // BASE
 // -----------------------------------------------------------------------------
+
+$layout-cell-gap: 2em;
+
+.layout-row {
+  display: flex;
+  flex-flow: column nowrap; // Stack grids on mobile
+  align-items: stretch;
+  justify-content: flex-start;
+  width: 100%;
+  gap: $layout-cell-gap;
+  
+  @include mixins.breakpoint(lg) {
+    flex-direction: row; // side by side grids
+    flex-wrap: wrap;
+    
+  }
+}
+
+.layout-cell {
+  width: 100%;
+  min-width: 0;
+  flex: 0 1 auto;
+  // background-color: rgba(128, 128, 128, 0.397);
+}
+
+.layout-row--2 .layout-cell {
+  @include mixins.breakpoint(lg) {
+    width: calc(50% - $layout-cell-gap);
+  }
+}
+
+.layout-row--3 .layout-cell {
+  @include mixins.breakpoint(lg) {
+    width: calc(33.333% - $layout-cell-gap);
+  }
+}
+
+.layout-row--4 .layout-cell {
+  @include mixins.breakpoint(lg) {
+    width: calc(25% - $layout-cell-gap);
+  }
+}
