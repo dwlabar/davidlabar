@@ -38,12 +38,7 @@ const ThreeSceneManager = () => {
     if (!mountRef.current) return;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000
-    );
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const cubeSpacing = settings.cubeSpacing;
     const stepZ = cubeScaleRef.current.z + cubeSpacing;
     const stepX = cubeScaleRef.current.x + cubeSpacing;
@@ -68,13 +63,11 @@ const ThreeSceneManager = () => {
     // Particle system setup
     const particleCount = 100;
     const particlePositions = new Float32Array(particleCount * 3);
-    // Array to store random offsets for y position
     const particleYOffset = new Float32Array(particleCount);
-    const baseMargin = 1; // margin above the cube top
-    const variation = 5; // range for random y variation above the cube
+    const baseMargin = 1;
+    const variation = 5;
     for (let i = 0; i < particleCount; i++) {
       particlePositions[i * 3 + 0] = (Math.random() - 0.5) * (gridSpanZ / 2);
-      // Set a placeholder for y; it will be updated dynamically in the animate loop
       particlePositions[i * 3 + 1] = 0;
       particlePositions[i * 3 + 2] = (Math.random() - 0.5) * gridSpanZ;
       particleYOffset[i] = Math.random() * variation;
@@ -191,7 +184,6 @@ const ThreeSceneManager = () => {
       distanceTraveledRef.current += speedRef.current;
       particleMaterial.uniforms.uDistanceTraveled.value = distanceTraveledRef.current;
 
-      // Update particle y positions so they always stay above the cubes
       const baseY = cubeScaleRef.current.y / 2 + baseMargin;
       for (let i = 0; i < particleCount; i++) {
         particlePositions[i * 3 + 1] = baseY + particleYOffset[i];
@@ -208,6 +200,9 @@ const ThreeSceneManager = () => {
           }
         }
         if (cube.position.z > startZ) {
+          // ADDED: Make cubes invisible upon reset
+          cube.material.opacity = 0;
+          cube.material.needsUpdate = true;
           cube.position.z = getResetZPosition(cube.position.z);
         }
       });
