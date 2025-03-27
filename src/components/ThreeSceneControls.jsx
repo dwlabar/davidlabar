@@ -38,9 +38,9 @@ const ThreeSceneControls = () => {
           <input
             type="range"
             id="width"
-            min="1"
+            min="0.5"
             max="20"
-            step="1"
+            step="0.5"
             value={settings.cubeSizeX}
             onChange={(e) => updateSetting('cubeSizeX', parseInt(e.target.value, 10))}
           />
@@ -64,9 +64,9 @@ const ThreeSceneControls = () => {
           <input
             type="range"
             id="depth"
-            min="1"
+            min="0.5"
             max="20"
-            step="1"
+            step="0.5"
             value={settings.cubeSizeZ}
             onChange={(e) => updateSetting('cubeSizeZ', parseInt(e.target.value, 10))}
           />
