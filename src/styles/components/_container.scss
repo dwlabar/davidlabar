@@ -31,7 +31,7 @@
   }
   @include mixins.breakpoint(md) {
     max-width: map.get(variables.$breakpoints, md);
-    padding: 0 functions.px2rem(40);
+    // padding: 0 functions.px2rem(40);
   }
   @include mixins.breakpoint(lg) {
     max-width: map.get(variables.$breakpoints, lg);
