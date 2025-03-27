@@ -10,9 +10,9 @@ const ThreeSceneHomeConfig = {
   speed: 0.2,
 
   // NEW: fade settings
-  fadeStart: 140,
-  fadeEnd: 100,
-  fadeCurve: 2, // Exponent for easing fade-in curve
+  fadeStart: 240, // 140
+  fadeEnd: 120, // 100
+  fadeCurve: 8, // 2 - Exponent for easing fade-in curve
 };
 
 export default ThreeSceneHomeConfig;
