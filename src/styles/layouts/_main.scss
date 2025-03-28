@@ -15,9 +15,7 @@
 // -----------------------------------------------------------------------------
 
 main {
-  // height: calc(100vh - (variables.$nav-bar-height));
-  // padding-top: variables.$nav-bar-height;
-  // background-image: url('/src/assets/David-LaBar_Head-Extruder.png');
-  // background-size: cover;
-  // overflow: hidden;
+  // background-color: gray;
+  min-height: calc(100vh - variables.$nav-bar-height);
+  overflow: hidden;
 }
