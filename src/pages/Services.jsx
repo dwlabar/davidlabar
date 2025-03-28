@@ -32,7 +32,6 @@ const Services = () => {
               </ul>
             </div>
 
-
             <div className="layout-cell">
               <h2>Custom Solutions</h2>
               <ul className="ul">
