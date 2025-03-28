@@ -17,9 +17,10 @@
 // -----------------------------------------------------------------------------
 
 .panel {
-  margin-bottom: functions.px2rem(30);
+  // margin-bottom: functions.px2rem(30);
   padding: functions.px2rem(30);
   border: solid 1px variables.$color-trypticon;
+  background-color: variables.$color-megatron;
 
   @include mixins.breakpoint(md) {
     margin-bottom: functions.px2rem(60);
