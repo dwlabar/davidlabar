@@ -37,10 +37,11 @@ html {
 }
 
 body {
-  font-family: variables.$font-family;
+  width: 100%;
   margin: 0;
   padding: 0;
   padding-top: variables.$nav-bar-height;
   background-color: variables.$color-megatron;
+  font-family: variables.$font-family;
   color: variables.$color-starscream;
 }
