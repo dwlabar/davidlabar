@@ -11,7 +11,8 @@ import PreloaderTest from "./pages/Preloader-Test";
 
 // Import components
 import DevPanel from "./components/DevPanel";
-import NavBar from "./components/NavBar"
+import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
 
 const NavLinks = [
   { name: "Home", path: "/" },
@@ -34,6 +35,7 @@ const App = () => {
           <Route path="/Preloader-Test" element={<PreloaderTest />} />
         </Routes>
       </main>
+      <Footer></Footer>
       <DevPanel />
     </Router>
   );
