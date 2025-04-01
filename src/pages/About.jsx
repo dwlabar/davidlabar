@@ -7,7 +7,7 @@ const About = () => {
     <>
       <Container>
         <section className="content-block">
-          <h1>Hi I'm David LaBar<span className="subheading">UX Engineer</span></h1>
+          <h1>Hi I'm David LaBar<span className="subheading">UX Engineer / Designer</span></h1>
           <Panel>
             <p className="tagline">Designer turned developer with a deep toolkit and a passion for polish</p>
             <p>
