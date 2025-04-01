@@ -36,7 +36,6 @@ const App = () => {
         </Routes>
       </main>
       <Footer></Footer>
-      <DevPanel />
     </Router>
   );
 };
