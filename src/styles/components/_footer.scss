@@ -10,7 +10,7 @@
 
 // @use "sass:color";
 // @use "sass:map";
-// @use "../tools/functions";
+@use "../tools/functions";
 // @use "../tools/mixins";
 @use "../settings/variables";
 
@@ -19,12 +19,11 @@
 // -----------------------------------------------------------------------------
 
 footer {
-  // height: 200px;
-  margin-top: variables.$nav-bar-height;
-  // background-color: rgba(variables.$color-skywarp, 0.5);
   border-top: solid 1px variables.$color-trypticon;
 
   p {
-    padding: 20px 0;
+    padding: functions.px2rem(20) 0;
+    font-size: functions.px2rem(14);
+    text-transform: uppercase;
   }
 }
