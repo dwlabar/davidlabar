@@ -49,12 +49,15 @@
   &.active a {
     color: variables.$color-soundwave;
     animation: navTextPulse 10s ease-in-out infinite;
+    border-bottom: solid 1px variables.$color-soundwave;
+    padding-bottom: functions.px2rem(5);
   }
 
   a {
     color: variables.$color-devastator;
     text-decoration: none;
-    transition: color variables.$global-timing variables.$global-easing;
+    border-bottom-color: transparent;
+    transition: color variables.$global-timing variables.$global-easing, border-color variables.$global-timing variables.$global-easing;
 
     &:hover {
       color: variables.$color-soundwave;
