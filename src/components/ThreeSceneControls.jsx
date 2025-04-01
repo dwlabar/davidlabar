@@ -38,11 +38,24 @@ const ThreeSceneControls = () => {
           <input
             type="range"
             id="width"
-            min="0.5"
-            max="20"
+            min="1"
+            max="9"
             step="0.5"
             value={settings.cubeSizeX}
-            onChange={(e) => updateSetting('cubeSizeX', parseInt(e.target.value, 10))}
+            onChange={(e) => updateSetting('cubeSizeX', parseInt(e.target.value))}
+          />
+        </div>
+
+        <div className="slider-control">
+          <label htmlFor="depth">Depth</label>
+          <input
+            type="range"
+            id="depth"
+            min="1"
+            max="9"
+            step="0.5"
+            value={settings.cubeSizeZ}
+            onChange={(e) => updateSetting('cubeSizeZ', parseInt(e.target.value))}
           />
         </div>
 
@@ -52,23 +65,10 @@ const ThreeSceneControls = () => {
             type="range"
             id="height"
             min="0.5"
-            max="10"
+            max="9"
             step="0.5"
             value={settings.cubeSizeY}
             onChange={(e) => updateSetting('cubeSizeY', parseFloat(e.target.value))}
-          />
-        </div>
-
-        <div className="slider-control">
-          <label htmlFor="depth">Depth</label>
-          <input
-            type="range"
-            id="depth"
-            min="0.5"
-            max="20"
-            step="0.5"
-            value={settings.cubeSizeZ}
-            onChange={(e) => updateSetting('cubeSizeZ', parseInt(e.target.value, 10))}
           />
         </div>
       </div>
