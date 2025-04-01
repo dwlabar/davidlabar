@@ -100,7 +100,7 @@
   }
 
   @include mixins.breakpoint(md) {
-    margin-left: functions.px2rem(calc(variables.$nav-bar-height / 2));
+    margin-left: functions.px2rem(40);
   }
 }
 
