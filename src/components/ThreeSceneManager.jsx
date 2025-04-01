@@ -38,7 +38,12 @@ const ThreeSceneManager = () => {
     if (!mountRef.current) return;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
     const cubeSpacing = settings.cubeSpacing;
     const stepZ = cubeScaleRef.current.z + cubeSpacing;
     const stepX = cubeScaleRef.current.x + cubeSpacing;
@@ -46,7 +51,11 @@ const ThreeSceneManager = () => {
     const startZ = gridSpanZ / 2;
 
     camera.position.set(0, 40, 40);
-    camera.lookAt(0, 0, -((settings.gridSize / 2 - 1) * stepZ));
+    camera.lookAt(
+      0,
+      0,
+      -((settings.gridSize / 2 - 1) * stepZ)
+    );
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -160,7 +169,12 @@ const ThreeSceneManager = () => {
 
         const posX = x * stepX;
         const posZ = z * stepZ;
-        cube.position.set(posX, 0, posZ);
+        let posY = 0;
+        if (settings.randomYEffectEnabled && !settings.waveEffectEnabled) {
+          const range = settings.randomYRange || 10;
+          posY = (Math.random() - 0.5) * range;
+        }
+        cube.position.set(posX, posY, posZ);
         scene.add(cube);
         cubes.push(cube);
       }
@@ -192,6 +206,15 @@ const ThreeSceneManager = () => {
 
       cubes.forEach((cube) => {
         cube.position.z += speedRef.current;
+
+        // Apply wave effect if enabled
+        if (settings.waveEffectEnabled) {
+          const amplitude = settings.waveAmplitude || 5;
+          const frequency = settings.waveFrequency || 0.2;
+          const waveSpeed = settings.waveSpeed || 0.1;
+          cube.position.y = amplitude * Math.sin(cube.position.x * frequency + distanceTraveledRef.current * waveSpeed);
+        }
+
         if (cube.material.transparent) {
           const opacity = calculateOpacity(cube);
           if (cube.material.opacity !== opacity) {
@@ -204,6 +227,10 @@ const ThreeSceneManager = () => {
           cube.material.opacity = 0;
           cube.material.needsUpdate = true;
           cube.position.z = getResetZPosition(cube.position.z);
+          if (settings.randomYEffectEnabled && !settings.waveEffectEnabled) {
+            const range = settings.randomYRange || 10;
+            cube.position.y = (Math.random() - 0.5) * range;
+          }
         }
       });
 

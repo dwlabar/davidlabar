@@ -9,10 +9,19 @@ const ThreeSceneHomeConfig = {
   cubeSizeMaxZ: 8,
   speed: 0.2,
 
-  // NEW: fade settings
-  fadeStart: 240, // 140
-  fadeEnd: 120, // 100
-  fadeCurve: 8, // 2 - Exponent for easing fade-in curve
+  // Fade settings
+  fadeStart: 240,
+  fadeEnd: 120,
+  fadeCurve: 8,
+
+  // New effect settings
+  waveEffectEnabled: false,  // set to true to enable the wave effect
+  waveAmplitude: 3,         // adjust amplitude as needed
+  waveFrequency: 0.2,       // adjust frequency as needed
+  waveSpeed: 0,           // adjust speed as needed
+
+  randomYEffectEnabled: false, // set to true to enable random Y effect (wave takes precedence)
+  randomYRange: 10           // range for random Y positions
 };
 
 export default ThreeSceneHomeConfig;
