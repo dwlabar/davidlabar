@@ -47,13 +47,13 @@
   flex-flow: row wrap;
   justify-content: center;
   gap: 2rem;
-  width: functions.px2rem(666);
+  max-width: functions.px2rem(666);
   margin: 0 auto;
   padding: 1rem 2rem;
   background: rgba(variables.$color-skywarp, 0.6);
   backdrop-filter: blur(6px);
   border-top: solid 1px variables.$color-trypticon;
-  border-radius: functions.px2rem(10);
+  border-radius: functions.px2rem(30);
 }
 
 .slider-control {
