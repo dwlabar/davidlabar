@@ -1,0 +1,64 @@
+// =============================================================================
+//
+//  LOGOMINI
+//
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// IMPORTS
+// -----------------------------------------------------------------------------
+
+// @use "sass:color";
+// @use "sass:map";
+// @use "../tools/functions";
+// @use "../tools/mixins";
+@use "../settings/variables";
+
+// -----------------------------------------------------------------------------
+// BASE
+// -----------------------------------------------------------------------------
+
+.logomini {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  #logomini_base {
+    fill: variables.$color-devastator;
+  }
+
+  #logomini_core {
+    fill: url(#logomini_core);
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+
+  #logomini_bottomHighlight {
+    fill: url(#logomini_bottomHighlight);
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+
+  #logomini_highlight {
+    fill: url(#logomini_highlight);
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+
+  &:hover {
+    #logomini_core {
+      opacity: 1;
+      // transition-delay: 1s;
+    }
+
+    #logomini_bottomHighlight {
+      opacity: 1;
+      // transition-delay: 1.5s;
+    }
+
+    #logomini_highlight {
+      opacity: 1;
+      // transition-delay: 0s;
+    }
+  }
+}

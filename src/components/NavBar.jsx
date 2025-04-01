@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../styles/components/_nav-bar.scss";
+import LogoMini from "./LogoMini";
 
 const NavBar = ({ links }) => {
   const location = useLocation();
@@ -9,15 +10,9 @@ const NavBar = ({ links }) => {
     <nav className="nav-bar">
       <ul className="nav-bar__ul">
         <div className="nav-bar__logo">
-          <svg 
-            xmlns="http://www.w3.org/2000/svg"
-            width="36"
-            height="42"
-            viewBox="0 0 9.525 11.113"
-            aria-label="Nav Bar Icon"
-          >
-            <path d="M0 10.319v.794h9.525v-.794zm3.704-6.615v2.117h2.117V3.704zm3.969-1.852H5.292V2.91h1.323v3.705H5.292v1.058h2.38zm-5.82 5.82h2.38V6.616H2.91V2.91h1.323V1.852h-2.38zm7.672 1.853V5.292H8.467v3.175H1.058V5.292H0v4.233ZM0 0v4.233h1.058V1.058h7.409v3.175h1.058V0Z" />
-          </svg>
+          <Link to="/">
+            <LogoMini></LogoMini>
+          </Link>
           <div className="nav-bar__logo-text">DAVIDLABAR.COM</div>
         </div>
         {links.map(({ name, path }) => (
@@ -33,10 +28,10 @@ const NavBar = ({ links }) => {
             viewBox="0 0 12.7 12.7"
             aria-label="Nav Bar Icon"
           >
-            <path d="M0 0v12.7h12.7V0Zm.53.53h11.64v11.64H.53Z" fill="#151515" fillOpacity="1" />
-            <path d="M3.175 3.969v1.058h6.35V3.97z" fill="#151515" fillOpacity="1" />
-            <path d="M3.175 5.82v1.06h6.35V5.82z" fill="#151515" fillOpacity="1" />
-            <path d="M3.175 7.673V8.73h6.35V7.673z" fill="#151515" fillOpacity="1" />
+            <path d="M0 0v12.7h12.7V0Zm.53.53h11.64v11.64H.53Z" fill="#373737" fillOpacity="1" />
+            <path d="M3.175 3.969v1.058h6.35V3.97z" fill="#373737" fillOpacity="1" />
+            <path d="M3.175 5.82v1.06h6.35V5.82z" fill="#373737" fillOpacity="1" />
+            <path d="M3.175 7.673V8.73h6.35V7.673z" fill="#373737" fillOpacity="1" />
           </svg>
         </div>
       </ul>
