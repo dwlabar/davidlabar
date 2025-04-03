@@ -19,6 +19,10 @@
 // -----------------------------------------------------------------------------
 
 .nav-bar {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-end;
   position: fixed;
   top: 0px;
   right: 0px;
@@ -29,19 +33,53 @@
   z-index: map.get(variables.$z-index, "nav-bar");
 }
 
+// -----------------------------------------------------------------------------
+// UL
+// -----------------------------------------------------------------------------
+
 .nav-bar__ul {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: flex-end;
-  height: inherit;
+  position: absolute;
+  top: calc(variables.$nav-bar-height + 20px);
+  right: 20px;
+  width: calc(100% - 40px);
   margin: 0;
-  padding: 0;
+  padding: 40px;
+  list-style: none;
+  background-color: variables.$color-skywarp;  
+  transition: opacity variables.$global-timing variables.$global-easing;
+  opacity: 0;
+
+  @include mixins.breakpoint(xs) {
+    width: 320px;
+  }
+
+  @include mixins.breakpoint(md) {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    height: inherit;
+    padding: 0;
+
+    top: auto;
+    right: auto;
+    width: auto;
+    background-color: transparent;
+    opacity: 1;
+  }
 }
 
+.nav-bar__ul.open {
+  opacity: 1;
+}
+
+// -----------------------------------------------------------------------------
+// LI
+// -----------------------------------------------------------------------------
+
 .nav-bar__li {
-  display: none;
   margin-right: functions.px2rem(calc(variables.$nav-bar-height / 2));
+  margin-bottom: functions.px2rem(20);
   font-size: functions.px2rem(14);
   font-weight: bold;
   text-transform: uppercase;
@@ -49,8 +87,10 @@
   &.active a {
     color: variables.$color-soundwave;
     animation: navTextPulse 10s ease-in-out infinite;
-    border-bottom: solid 1px variables.$color-soundwave;
-    padding-bottom: functions.px2rem(5);
+  }
+
+  &:last-child {
+    margin-bottom: 0;
   }
 
   a {
@@ -66,6 +106,11 @@
 
   @include mixins.breakpoint(md) {
     display: inline-block;
+    margin-bottom: 0;
+    &.active a {
+      border-bottom: solid 1px variables.$color-soundwave;
+      padding-bottom: functions.px2rem(5);
+    }
   }
 }
 
