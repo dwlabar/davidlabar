@@ -128,7 +128,7 @@ const ThreeSceneManager = () => {
           }
           vOpacity = opacity;
 
-          gl_PointSize = 4.0;
+          gl_PointSize = 1.5;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
         }
       `,
