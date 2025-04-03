@@ -11,7 +11,7 @@
 // @use "sass:color";
 // @use "sass:map";
 @use "../tools/functions";
-// @use "../tools/mixins";
+@use "../tools/mixins";
 @use "../settings/variables";
 
 // -----------------------------------------------------------------------------
@@ -47,21 +47,32 @@
   flex-flow: row wrap;
   justify-content: center;
   gap: 2rem;
+  width: calc(100% - functions.px2rem(40));
   max-width: functions.px2rem(666);
   margin: 0 auto;
   padding: 1rem 2rem;
   background: rgba(variables.$color-skywarp, 0.6);
   backdrop-filter: blur(6px);
   border-top: solid 1px variables.$color-trypticon;
-  border-radius: functions.px2rem(30);
+  border-radius: functions.px2rem(5);
+
+  @include mixins.breakpoint(md) {
+    width: 100%;
+    max-width: functions.px2rem(666);
+  }
 }
 
 .slider-control {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
   font-size: 0.75rem;
   color: variables.$color-ramjet;
+
+  @include mixins.breakpoint(xs) {
+    width: auto;
+  }
 }
 
 .slider-control label {
@@ -73,13 +84,17 @@
 
 .slider-control input[type="range"] {
   appearance: none;
-  width: 120px;
-  height: 4px;
+  width: 100%;
+  height: functions.px2rem(4);
   background: linear-gradient(to right, variables.$color-soundwave 0%, variables.$color-soundwave var(--progress), variables.$color-devastator var(--progress), variables.$color-starscream 100%);
-  border-radius: 2px;
+  border-radius: functions.px2rem(2);
   outline: none;
   transition: background 0.2s ease;
   cursor: pointer;
+
+  @include mixins.breakpoint(xs) {
+    width: functions.px2rem(120);
+  }
 }
 
 .slider-control input[type="range"]::-webkit-slider-thumb {
