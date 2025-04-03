@@ -1,0 +1,82 @@
+// =============================================================================
+//
+//  CARD
+//
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// IMPORTS
+// -----------------------------------------------------------------------------
+
+// @use "sass:map";
+@use "../tools/functions";
+@use "../tools/mixins";
+@use "../settings/variables";
+
+// -----------------------------------------------------------------------------
+// BASE
+// -----------------------------------------------------------------------------
+
+.card {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-top: 1em;
+  padding-bottom: 1em;
+  border-bottom: solid 1px variables.$color-devastator;
+
+  @include mixins.breakpoint(sm) {
+    flex-flow: row nowrap;
+  }
+
+  @include mixins.breakpoint(lg) {
+    flex-flow: column nowrap;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+.card__text {
+  padding-top: 1.5em;
+
+  @include mixins.breakpoint(sm) {
+    padding-top: 0;
+    padding-left: functions.px2rem(40);
+  }
+
+  @include mixins.breakpoint(lg) {
+    padding-top: 1.5em;
+    padding-left: 0;
+  }
+}
+
+.card__title {
+  margin-top: 0;
+}
+
+.card__hero-image {
+  width: 100%;
+
+  img {
+    display: block;
+    width: 100%;
+  }
+
+  @include mixins.breakpoint(sm) {
+    width: 40%;
+    flex: 1 0 auto;
+  }
+
+  @include mixins.breakpoint(lg) {
+    width: 100%;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// OVERRIDE: LAYOUT-CELL
+// -----------------------------------------------------------------------------
+
+.layout-row > :last-child .card {
+  border-bottom: none;
+}
