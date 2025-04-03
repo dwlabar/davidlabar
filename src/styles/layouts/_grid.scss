@@ -20,7 +20,7 @@ $layout-cell-gap: 2em;
   display: flex;
   flex-flow: column nowrap; // Stack grids on mobile
   align-items: stretch;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 100%;
   gap: $layout-cell-gap;
   
