@@ -1,32 +1,36 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link, useLocation } from "react-router-dom";
-import "../styles/components/_nav-bar.scss";
 import LogoMini from "./LogoMini";
+import "../styles/components/_nav-bar.scss";
 
 const NavBar = ({ links }) => {
   const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <nav className="nav-bar">
-      <ul className="nav-bar__ul">
-        <div className="nav-bar__logo">
-          <Link to="/">
-            <LogoMini></LogoMini>
-          </Link>
-          <div className="nav-bar__logo-text">DAVIDLABAR.COM</div>
-        </div>
+      <div className="nav-bar__logo">
+        <Link to="/">
+          <LogoMini></LogoMini>
+        </Link>
+        <div className="nav-bar__logo-text">DAVIDLABAR.COM</div>
+      </div>
+
+      <ul className={`nav-bar__ul ${menuOpen ? "open" : "closed"}`}>
         {links.map(({ name, path }) => (
           <li key={path} className={`${location.pathname === path ? "active" : ""} nav-bar__li`}>
             <Link to={path}>{name}</Link>
           </li>
         ))}
-        <div className="nav-bar__burger">
+      </ul>
+
+      <div className="nav-bar__burger" onClick={() => setMenuOpen(!menuOpen)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="48"
             height="48"
             viewBox="0 0 12.7 12.7"
-            aria-label="Nav Bar Icon"
+            aria-label="Nav Bar Mobile Icon"
           >
             <path d="M0 0v12.7h12.7V0Zm.53.53h11.64v11.64H.53Z" fill="#373737" fillOpacity="1" />
             <path d="M3.175 3.969v1.058h6.35V3.97z" fill="#373737" fillOpacity="1" />
@@ -34,7 +38,6 @@ const NavBar = ({ links }) => {
             <path d="M3.175 7.673V8.73h6.35V7.673z" fill="#373737" fillOpacity="1" />
           </svg>
         </div>
-      </ul>
     </nav>
   );
 };
