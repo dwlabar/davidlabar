@@ -26,6 +26,36 @@ const About = () => {
               If you're looking for a hybrid thinker who can move fluidly between design and code, let's connect.
             </p>
           </Panel>
+
+          <Panel>
+            <p className="tagline">Folks I have worked with:</p>
+            <div className="layout-row layout-row--3">
+              <div className="layout-cell">
+                <ul className="ul">
+                  <li className="li">Andreyev Engineering Inc</li>
+                  <li className="li">Nabavi Construction</li>
+                  <li className="li">Florida Hospital (Advent Health)</li>
+                  <li className="li">Full Sail University</li>
+                </ul>
+              </div>
+              <div className="layout-cell">
+                <ul className="ul">
+                  <li className="li">Doc Rivers</li>
+                  <li className="li">Jan Stephenson Golf</li>
+                  <li className="li">Audiovoid</li>
+                  <li className="li">Other Machines</li>
+                </ul>
+              </div>
+              <div className="layout-cell">
+                <ul className="ul">
+                  <li className="li">Beannik Coffee Company</li>
+                  <li className="li">Brainwave Entertainment</li>
+                  <li className="li">C&amp;B Properties</li>
+                  <li className="li">Dreame</li>
+                </ul>
+              </div>
+            </div>
+          </Panel>
         </section>
       </Container>
     </>
