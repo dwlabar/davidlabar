@@ -17,10 +17,12 @@
 // -----------------------------------------------------------------------------
 
 h1 {
-  font-size: functions.px2rem(48);
-  font-weight: 200;
   margin-top: 1em;
   margin-bottom: 1em;
+  // text-align: center;
+  font-size: functions.px2rem(48);
+  font-weight: 200;
+  color: variables.$color-ramjet;
 
   @include mixins.breakpoint(sm) {
     font-size: functions.px2rem(60);
@@ -36,7 +38,10 @@ h1 {
 }
 
 h2 {
+  margin: 1.2em 0;
   font-weight: 400;
+  color: variables.$color-prowl;
+
 }
 
 p {
@@ -54,6 +59,12 @@ p {
 .li {
   margin-bottom: 1.2em;
   margin-left: 1em;
+  &::marker {
+    color: variables.$color-soundwave;
+  }
+  strong {
+    color: variables.$color-prowl;
+  }
 }
 
 .subheading {

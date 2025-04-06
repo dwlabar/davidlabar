@@ -9,7 +9,7 @@ const Services = () => {
       <Container>
         <h1>Services and Specialties</h1>
         
-        <Panel>
+        {/* <Panel>
           <p>I design, develop, and bring ideas to life through clean code and thoughtful design. Here’s what I offer:</p>
 
           <div className="layout-row layout-row--3">
@@ -43,7 +43,7 @@ const Services = () => {
           </div>
 
           <p>Have a project in mind? Let's make it happen.</p>
-        </Panel>
+        </Panel> */}
 
         <Panel>
           <p>I design, develop, and bring ideas to life through clean code and thoughtful design. Here’s what I offer:</p>
