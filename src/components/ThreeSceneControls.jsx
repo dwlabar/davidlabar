@@ -42,7 +42,7 @@ const ThreeSceneControls = () => {
             max="9"
             step="0.5"
             value={settings.cubeSizeX}
-            onChange={(e) => updateSetting('cubeSizeX', parseInt(e.target.value))}
+            onChange={(e) => updateSetting('cubeSizeX', parseFloat(e.target.value))}
           />
         </div>
 
@@ -55,7 +55,7 @@ const ThreeSceneControls = () => {
             max="9"
             step="0.5"
             value={settings.cubeSizeZ}
-            onChange={(e) => updateSetting('cubeSizeZ', parseInt(e.target.value))}
+            onChange={(e) => updateSetting('cubeSizeZ', parseFloat(e.target.value))}
           />
         </div>
 
@@ -71,6 +71,7 @@ const ThreeSceneControls = () => {
             onChange={(e) => updateSetting('cubeSizeY', parseFloat(e.target.value))}
           />
         </div>
+        <button className="scene-controls-toggle">X</button>
       </div>
     </div>
   );
