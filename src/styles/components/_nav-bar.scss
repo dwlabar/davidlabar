@@ -43,11 +43,14 @@
   right: 20px;
   width: calc(100% - 40px);
   margin: 0;
-  padding: 40px;
+  padding: functions.px2rem(30);
   list-style: none;
-  background-color: variables.$color-skywarp;  
+  background-color: rgba(variables.$color-skywarp, 0.6);  
+  backdrop-filter: blur(6px);
   transition: opacity variables.$global-timing variables.$global-easing;
   opacity: 0;
+  // display: none;
+  border: solid 1px variables.$color-trypticon;
 
   @include mixins.breakpoint(xs) {
     width: 320px;
@@ -65,11 +68,14 @@
     right: auto;
     width: auto;
     background-color: transparent;
+    backdrop-filter: none;
     opacity: 1;
+    border: none;
   }
 }
 
 .nav-bar__ul.open {
+  // display: block;
   opacity: 1;
 }
 
