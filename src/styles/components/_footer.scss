@@ -20,6 +20,7 @@
 
 footer {
   border-top: solid 1px variables.$color-trypticon;
+  padding: 0 functions.px2rem(20);
 
   p {
     padding: functions.px2rem(20) 0;
@@ -28,6 +29,7 @@ footer {
   }
 
   @include mixins.breakpoint(md) {
+    padding: 0 functions.px2rem(40);
     p {
       font-size: functions.px2rem(14);
     }
