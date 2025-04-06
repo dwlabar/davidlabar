@@ -39,28 +39,31 @@
 .scene-controls {
   position: absolute;
   bottom: functions.px2rem(20);
-  width: 100%;
+  width: calc(100% - (20px * 2));
+  margin: 0 20px;
 }
+
+// -----------------------------------------------------------------------------
+// SLIDER GROUP
+// -----------------------------------------------------------------------------
 
 .slider-group {
   display: flex;
   flex-flow: row wrap;
-  justify-content: center;
+  justify-content: space-evenly;
   gap: 2rem;
-  width: calc(100% - functions.px2rem(40));
-  max-width: functions.px2rem(666);
+  width: fit-content;
   margin: 0 auto;
-  padding: 1rem 2rem;
+  padding: 1.5rem 2rem;
   background: rgba(variables.$color-skywarp, 0.6);
   backdrop-filter: blur(6px);
   border-top: solid 1px variables.$color-trypticon;
-  border-radius: functions.px2rem(5);
-
-  @include mixins.breakpoint(md) {
-    width: 100%;
-    max-width: functions.px2rem(666);
-  }
+  // border-radius: functions.px2rem(32);
 }
+
+// -----------------------------------------------------------------------------
+// CONTROL
+// -----------------------------------------------------------------------------
 
 .slider-control {
   display: flex;
@@ -71,9 +74,16 @@
   color: variables.$color-ramjet;
 
   @include mixins.breakpoint(xs) {
+    width: 40%;
+  }
+  @include mixins.breakpoint(md) {
     width: auto;
   }
 }
+
+// -----------------------------------------------------------------------------
+// LABEL
+// -----------------------------------------------------------------------------
 
 .slider-control label {
   margin-bottom: functions.px2rem(7);
@@ -82,28 +92,37 @@
   text-transform: uppercase;
 }
 
+// -----------------------------------------------------------------------------
+// TRACK
+// -----------------------------------------------------------------------------
+
 .slider-control input[type="range"] {
   appearance: none;
   width: 100%;
-  height: functions.px2rem(4);
+  height: functions.px2rem(2);
   background: linear-gradient(to right, variables.$color-soundwave 0%, variables.$color-soundwave var(--progress), variables.$color-devastator var(--progress), variables.$color-starscream 100%);
   border-radius: functions.px2rem(2);
   outline: none;
   transition: background 0.2s ease;
   cursor: pointer;
 
-  @include mixins.breakpoint(xs) {
+  @include mixins.breakpoint(md) {
     width: functions.px2rem(120);
   }
 }
+
+// -----------------------------------------------------------------------------
+// THUMB
+// -----------------------------------------------------------------------------
 
 .slider-control input[type="range"]::-webkit-slider-thumb {
   appearance: none;
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  background: variables.$color-ramjet;
-  box-shadow: 0 0 4px variables.$color-soundwave;
+  background: variables.$color-megatron;
+  // box-shadow: 0 0 4px variables.$color-soundwave;
+  border: solid 2px variables.$color-soundwave;
   transition: transform 0.2s ease;
 }
 
@@ -117,7 +136,8 @@
   border-radius: 50%;
   background: variables.$color-ramjet;
   border: none;
-  box-shadow: 0 0 4px variables.$color-soundwave;
+  // box-shadow: 0 0 4px variables.$color-soundwave;
+  border: solid 1px variables.$color-soundwave;
 }
 
 .slider-control input[type="range"]:hover::-moz-range-thumb {
