@@ -45,11 +45,15 @@ const ThreeSceneManager = () => {
   useEffect(() => {
     if (!mountRef.current) return;
 
+    const mount = mountRef.current;
+    const width = mount.clientWidth;
+    const height = mount.clientHeight;
+
     // === Create scene, camera, and renderer ===
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       75,
-      window.innerWidth / window.innerHeight,
+      width / height,
       0.1,
       1000
     );
@@ -63,9 +67,9 @@ const ThreeSceneManager = () => {
     camera.lookAt(0, 0, -((settings.gridSize / 2 - 1) * stepZ));
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight, false);
+    renderer.setSize(width, height, false);
     renderer.setClearColor(0x151515);
-    mountRef.current.appendChild(renderer.domElement);
+    mount.appendChild(renderer.domElement);
 
     // === Lighting ===
     const ambientLight = new THREE.AmbientLight(0x404040);
@@ -243,20 +247,9 @@ const ThreeSceneManager = () => {
     };
     animate();
 
-    // === Resize Handling ===
-    const handleResize = () => {
-      const canvas = renderer.domElement;
-      renderer.setSize(window.innerWidth, window.innerHeight, false);
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      particleMaterial.uniforms.uCameraPos.value.copy(camera.position);
-    };
-    window.addEventListener('resize', handleResize);
-
     // === Cleanup ===
     return () => {
       cancelAnimationFrame(animationId);
-      window.removeEventListener('resize', handleResize);
 
       scene.traverse((object) => {
         if (!object.isMesh) return;
