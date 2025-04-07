@@ -14,6 +14,7 @@ const Home = () => {
         <p>Learn More About Me</p>
       </Container>
       <ThreeSceneManager />
+      {/* <div className="three-scene"></div> */}
     </ThreeSceneProvider>
   );
 };

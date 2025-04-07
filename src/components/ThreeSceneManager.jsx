@@ -63,7 +63,7 @@ const ThreeSceneManager = () => {
     camera.lookAt(0, 0, -((settings.gridSize / 2 - 1) * stepZ));
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight, false);
     renderer.setClearColor(0x151515);
     mountRef.current.appendChild(renderer.domElement);
 
@@ -245,7 +245,8 @@ const ThreeSceneManager = () => {
 
     // === Resize Handling ===
     const handleResize = () => {
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      const canvas = renderer.domElement;
+      renderer.setSize(window.innerWidth, window.innerHeight, false);
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       particleMaterial.uniforms.uCameraPos.value.copy(camera.position);

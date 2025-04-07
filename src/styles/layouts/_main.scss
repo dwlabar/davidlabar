@@ -15,7 +15,8 @@
 // -----------------------------------------------------------------------------
 
 main {
-  // background-color: gray;
-  min-height: calc(100vh - variables.$nav-bar-height);
+  // max-width: 100%;
+  // width: 100%;
+  min-height: calc(100svh - variables.$nav-bar-height);
   overflow: hidden;
 }
