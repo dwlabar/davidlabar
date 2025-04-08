@@ -14,6 +14,7 @@ import DevPanel from "./components/DevPanel";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Overlay from "./components/Overlay";
+import RouteTransitionListener from "./components/RouteTransitionListener";
 
 const NavLinks = [
   { name: "Home", path: "/" },
@@ -26,7 +27,8 @@ const App = () => {
   return (
     <Router>
       <NavBar links={NavLinks} />
-      <Overlay></Overlay>
+      <Overlay />
+      <RouteTransitionListener />
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -37,7 +39,7 @@ const App = () => {
           <Route path="/Preloader-Test" element={<PreloaderTest />} />
         </Routes>
       </main>
-      <Footer></Footer>
+      <Footer />
     </Router>
   );
 };
