@@ -86,7 +86,7 @@
 .nav-bar__li {
   width: 100%;
   margin-right: functions.px2rem(calc(variables.$nav-bar-height / 2));
-  margin-bottom: 2.5em;
+  margin-bottom: functions.px2rem(15);
   font-size: functions.px2rem(14);
   font-weight: bold;
   text-transform: uppercase;
