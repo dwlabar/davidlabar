@@ -13,6 +13,7 @@ import PreloaderTest from "./pages/Preloader-Test";
 import DevPanel from "./components/DevPanel";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import Overlay from "./components/Overlay";
 
 const NavLinks = [
   { name: "Home", path: "/" },
@@ -25,6 +26,7 @@ const App = () => {
   return (
     <Router>
       <NavBar links={NavLinks} />
+      <Overlay></Overlay>
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
