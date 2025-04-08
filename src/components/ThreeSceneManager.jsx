@@ -247,16 +247,20 @@ const ThreeSceneManager = () => {
     };
     animate();
 
-    // === Resize Observer ===
-    const resizeObserver = new ResizeObserver(entries => {
-      for (let entry of entries) {
-        const newWidth = entry.contentRect.width;
-        const newHeight = entry.contentRect.height;
-        renderer.setSize(newWidth, newHeight, false);
-        camera.aspect = newWidth / newHeight;
-        camera.updateProjectionMatrix();
-        particleMaterial.uniforms.uCameraPos.value.copy(camera.position);
-      }
+    // === Debounced Resize Observer ===
+    let resizeTimeout;
+    const handleResize = () => {
+      const newWidth = mount.clientWidth;
+      const newHeight = mount.clientHeight;
+      renderer.setSize(newWidth, newHeight, false);
+      camera.aspect = newWidth / newHeight;
+      camera.updateProjectionMatrix();
+      particleMaterial.uniforms.uCameraPos.value.copy(camera.position);
+    };
+
+    const resizeObserver = new ResizeObserver(() => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(handleResize, 200);
     });
     resizeObserver.observe(mount);
 
@@ -264,6 +268,7 @@ const ThreeSceneManager = () => {
     return () => {
       cancelAnimationFrame(animationId);
       resizeObserver.disconnect();
+      clearTimeout(resizeTimeout);
 
       scene.traverse((object) => {
         if (!object.isMesh) return;
