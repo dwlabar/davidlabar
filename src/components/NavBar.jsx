@@ -7,19 +7,20 @@ import "../styles/components/_nav-bar.scss";
 const NavBar = ({ links }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { showOverlay, hideOverlay } = useOverlay();
+  const { showOverlay } = useOverlay();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleNavClick = (e, path) => {
     e.preventDefault(); // prevent default routing
+    setMenuOpen(false);
 
-    setMenuOpen(false); // close the mobile menu
-    showOverlay({ opacity: 1, reason: "nav" });
-
-    setTimeout(() => {
-      navigate(path);
-      hideOverlay();
-    }, 300); // match fade transition
+    showOverlay({
+      opacity: 1,
+      reason: "nav",
+      onVisible: () => {
+        navigate(path);
+      }
+    });
   };
 
   return (

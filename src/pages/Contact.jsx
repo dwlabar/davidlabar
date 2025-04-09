@@ -1,7 +1,20 @@
 import React from "react";
+import { useEffect } from "react";
+import { usePageReadyController } from "../context/PageReadyContext";
 import Container from "../components/Container";
 
 const Contact = () => {
+  const { notifyPageReady } = usePageReadyController();
+
+  useEffect(() => {
+    // Wait for Three.js or assets or animation to complete
+    const handle = requestAnimationFrame(() => {
+      notifyPageReady();
+    });
+
+    return () => cancelAnimationFrame(handle);
+  }, [notifyPageReady]);
+
   return (
     <>
       <Container>

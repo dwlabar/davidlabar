@@ -47,7 +47,7 @@
   list-style: none;
   background-color: rgba(variables.$color-skywarp, 1);  
   backdrop-filter: blur(3px);
-  transition: opacity variables.$global-timing variables.$global-easing;
+  // transition: opacity variables.$global-timing variables.$global-easing;
   opacity: 0;
   border: solid 1px variables.$color-trypticon;
   // display: none;

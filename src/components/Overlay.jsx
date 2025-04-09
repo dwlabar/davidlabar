@@ -1,13 +1,14 @@
-import React from 'react';
-import { useOverlay } from '../context/OverlayContext';
-import '../styles/components/_overlay.scss';
+import React from "react";
+import { useOverlay } from "../context/OverlayContext";
+import "../styles/components/_overlay.scss";
 
 const Overlay = () => {
-  const { visible, opacity } = useOverlay();
+  const { visible, opacity, overlayRef } = useOverlay();
 
   return (
     <div
-      className={`overlay ${visible ? 'visible' : ''}`}
+      ref={overlayRef}
+      className={`overlay ${visible ? "visible" : ""}`}
       style={{ opacity }}
     />
   );
