@@ -24,7 +24,7 @@
   justify-content: flex-start;
   margin-top: 1em;
   padding-bottom: 1em;
-  border-bottom: solid 1px variables.$color-devastator;
+  border-bottom: solid 1px variables.$color-megatron;
 
   @include mixins.breakpoint(sm) {
     flex-flow: row nowrap;
