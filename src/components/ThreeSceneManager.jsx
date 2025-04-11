@@ -75,9 +75,16 @@ const ThreeSceneManager = () => {
     const ambientLight = new THREE.AmbientLight(0x404040);
     scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
     directionalLight.position.set(50, 100, 75);
     scene.add(directionalLight);
+
+    // === Lighting - Backlight ===
+    const backLight = new THREE.DirectionalLight(0x3399ff, 2); // Cool blue backlight
+    backLight.position.set(0, 0, 100); // Behind and above the cubes
+    backLight.target.position.set(0, 0, 0);
+    scene.add(backLight);
+    scene.add(backLight.target);
 
     // === Particle System ===
     const particleCount = 100;
@@ -162,7 +169,7 @@ const ThreeSceneManager = () => {
     for (let x = -Math.floor(gridSize / 2); x <= Math.floor(gridSize / 2); x++) {
       for (let z = -Math.floor(gridSize / 2); z <= Math.floor(gridSize / 2); z++) {
         const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const material = x === 0 && z === 0 ? centerMaterial : new THREE.MeshPhongMaterial({ color: 0xffffff, transparent: true, opacity: 0 });
+        const material = x === 0 && z === 0 ? centerMaterial : new THREE.MeshPhongMaterial({ color: 0x373737, transparent: true, opacity: 0 });
 
         const cube = new THREE.Mesh(geometry, material);
         cube.scale.set(
