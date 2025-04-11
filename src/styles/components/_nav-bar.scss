@@ -29,7 +29,7 @@
   width: 100%;
   height: functions.px2rem(variables.$nav-bar-height);
   background-color: variables.$color-megatron;
-  border-bottom: solid 1px variables.$color-trypticon;
+  border-bottom: solid 1px variables.$color-devastator;
   z-index: map.get(variables.$z-index, "nav-bar");
 }
 
@@ -49,7 +49,7 @@
   backdrop-filter: blur(3px);
   // transition: opacity variables.$global-timing variables.$global-easing;
   opacity: 0;
-  border: solid 1px variables.$color-trypticon;
+  border: solid 1px variables.$color-devastator;
   // display: none;
 
   @include mixins.breakpoint(xs) {
@@ -107,7 +107,7 @@
     text-decoration: none;
     border-bottom-color: transparent;
     transition: color variables.$global-timing variables.$global-easing, border-color variables.$global-timing variables.$global-easing;
-    border: solid 1px variables.$color-megatron;
+    border: solid 1px variables.$color-devastator;
     padding: functions.px2rem(10);
 
     &:hover {
