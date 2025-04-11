@@ -45,3 +45,23 @@ body {
   font-family: variables.$font-family;
   color: variables.$color-starscream;
 }
+
+// -----------------------------------------------------------------------------
+// BFG BUTTON
+// -----------------------------------------------------------------------------
+
+.bfg-button {
+  background-color: variables.$color-megatron;
+  padding: functions.px2rem(10);
+  border: solid 1px variables.$color-soundwave;
+  color: variables.$color-soundwave;
+  text-decoration: none;
+  font-size: functions.px2rem(18);
+  font-weight: normal;
+  // text-transform: uppercase;
+
+  @include mixins.breakpoint(md) {
+    padding: functions.px2rem(20);
+    font-size: functions.px2rem(24);
+  }
+}
