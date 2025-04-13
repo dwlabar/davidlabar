@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { usePageReadyController } from "../context/PageReadyContext";
 import Container from "../components/Container";
 import ThreeSceneManager from "../components/ThreeSceneManager";
@@ -10,6 +9,9 @@ import ThreeSceneHomeConfig from "../config/ThreeSceneHomeConfig";
 const Home = () => {
   const { notifyPageReady } = usePageReadyController();
 
+  // === Lifted state for scene controls toggle ===
+  const [showControls, setShowControls] = useState(false);
+
   useEffect(() => {
     // Wait for Three.js or assets or animation to complete
     const handle = requestAnimationFrame(() => {
@@ -18,10 +20,13 @@ const Home = () => {
 
     return () => cancelAnimationFrame(handle);
   }, [notifyPageReady]);
-  
+
   return (
     <ThreeSceneProvider config={ThreeSceneHomeConfig}>
-      <ThreeSceneControls />
+      <ThreeSceneControls
+        showControls={showControls}
+        setShowControls={setShowControls}
+      />
       <Container>
         <h1>Crafting Web Solutions for over 20 years.</h1>
         <p><a href="/" className="bfg-button">Learn More About Me</a></p>

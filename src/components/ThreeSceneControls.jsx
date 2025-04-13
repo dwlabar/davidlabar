@@ -1,10 +1,9 @@
 import { useThreeSceneContext } from '../context/ThreeSceneContext';
 import '../styles/components/_three-scene.scss';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-const ThreeSceneControls = () => {
+const ThreeSceneControls = ({ showControls, setShowControls }) => {
   const { settings, updateSetting } = useThreeSceneContext();
-  const [showControls, setShowControls] = useState(false);
 
   useEffect(() => {
     const sliders = document.querySelectorAll('.slider-control input[type="range"]');
@@ -20,28 +19,6 @@ const ThreeSceneControls = () => {
 
   return (
     <>
-      <button
-        className="scene-controls-toggle"
-        onClick={() => setShowControls(!showControls)}
-        aria-label="Toggle Scene Controls"
-      >
-        <svg
-          width="50.763672"
-          height="50.863277"
-          viewBox="0 0 50.763672 50.86328"
-          version="1.1"
-          id="icon-cube"
-          className="icon-cube"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:svg="http://www.w3.org/2000/svg">
-          <defs id="cube-defs" />
-          <path d="m 25.382234,9.4227634 -16,3.9999986 16,6 16,-6 z" id="cube-top" />
-          <path d="m 9.382234,13.422762 v 22 l 16,6 v -22 z" id="cube-left" />
-          <path d="M 25.382812,0 0,6.3457031 v 0.78125 34.2187499 l 25.382812,9.517578 25.38086,-9.517578 V 6.3457031 Z m 0,2.0625 23.38086,5.84375 V 39.958984 L 25.382812,48.726562 2,39.958984 V 7.90625 Z" id="cube-border" />
-          <path d="m 41.382234,13.422762 v 22 l -16,6 v -22 z" id="cube-right" />
-        </svg>
-      </button>
-
       <div className={`scene-controls ${showControls ? 'visible' : ''}`}>
         <div className="slider-group">
           <div className="slider-control">
@@ -97,6 +74,33 @@ const ThreeSceneControls = () => {
           </div>
         </div>
       </div>
+      <button
+        type="button"
+        className="scene-controls-toggle"
+        onClick={() => {
+          console.log("toggling", !showControls);
+          setShowControls(!showControls);
+        }}
+        aria-label="Toggle Scene Controls"
+      >
+        <svg
+          width="50.763672"
+          height="50.863277"
+          viewBox="0 0 50.763672 50.86328"
+          version="1.1"
+          id="icon-cube"
+          className="icon-cube"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          style={{ pointerEvents: 'none' }}
+        >
+          <defs id="cube-defs" />
+          <path d="m 25.382234,9.4227634 -16,3.9999986 16,6 16,-6 z" id="cube-top" />
+          <path d="m 9.382234,13.422762 v 22 l 16,6 v -22 z" id="cube-left" />
+          <path d="M 25.382812,0 0,6.3457031 v 0.78125 34.2187499 l 25.382812,9.517578 25.38086,-9.517578 V 6.3457031 Z m 0,2.0625 23.38086,5.84375 V 39.958984 L 25.382812,48.726562 2,39.958984 V 7.90625 Z" id="cube-border" />
+          <path d="m 41.382234,13.422762 v 22 l -16,6 v -22 z" id="cube-right" />
+        </svg>
+      </button>
     </>
   );
 };
