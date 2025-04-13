@@ -7,12 +7,13 @@ import "../styles/components/_nav-bar.scss";
 const NavBar = ({ links }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { showOverlay } = useOverlay();
+  const { showOverlay, setNavOpen } = useOverlay();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleNavClick = (e, path) => {
-    e.preventDefault(); // prevent default routing
+    e.preventDefault();
     setMenuOpen(false);
+    setNavOpen(false);
 
     showOverlay({
       opacity: 1,
@@ -21,6 +22,12 @@ const NavBar = ({ links }) => {
         navigate(path);
       }
     });
+  };
+
+  const toggleMenu = () => {
+    const nextState = !menuOpen;
+    setMenuOpen(nextState);
+    setNavOpen(nextState);
   };
 
   return (
@@ -45,7 +52,7 @@ const NavBar = ({ links }) => {
         ))}
       </ul>
 
-      <div className="nav-bar__burger" onClick={() => setMenuOpen(!menuOpen)}>
+      <div className="nav-bar__burger" onClick={toggleMenu}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="48"

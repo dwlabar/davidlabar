@@ -13,6 +13,7 @@ export const OverlayProvider = ({ children }) => {
   const [visible, setVisible] = useState(false);
   const [opacity, setOpacity] = useState(0);
   const [reason, setReason] = useState(null);
+  const [navOpen, setNavOpen] = useState(false);
   const pendingCallbackRef = useRef(null);
   const overlayRef = useRef(null);
 
@@ -56,7 +57,7 @@ export const OverlayProvider = ({ children }) => {
   }, []);
 
   return (
-    <OverlayContext.Provider value={{ visible, opacity, reason, showOverlay, hideOverlay, overlayRef }}>
+    <OverlayContext.Provider value={{ visible, opacity, reason, showOverlay, hideOverlay, overlayRef, navOpen, setNavOpen }}>
       {children}
     </OverlayContext.Provider>
   );
