@@ -45,7 +45,7 @@
   margin: 0;
   padding: functions.px2rem(30);
   list-style: none;
-  background-color: rgba(variables.$color-skywarp, 1);  
+  background-color: rgba(variables.$color-skywarp, 1);
   backdrop-filter: blur(3px);
   // transition: opacity variables.$global-timing variables.$global-easing;
   opacity: 0;
@@ -74,9 +74,33 @@
   }
 }
 
-.nav-bar__ul.open {
+// -----------------------------------------------------------------------------
+// VISIBILITY TOGGLE (Mobile only)
+// -----------------------------------------------------------------------------
+
+.nav-bar__ul.hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+
+  @include mixins.breakpoint(md) {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+  }
+}
+
+.nav-bar__ul.visible {
   opacity: 1;
-  // display: block;
+  pointer-events: auto;
+  visibility: visible;
+
+  @include mixins.breakpoint(md) {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+  }
 }
 
 // -----------------------------------------------------------------------------
@@ -119,10 +143,12 @@
     display: inline-block;
     width: auto;
     margin-bottom: 0;
+
     a {
       padding: initial;
       border: none;
     }
+
     &.active a {
       border-bottom: solid 1px variables.$color-soundwave;
       padding-bottom: functions.px2rem(5);
@@ -177,6 +203,7 @@
 
 .nav-bar__burger {
   margin-right: functions.px2rem(20);
+
   path {
     fill: variables.$color-devastator;
   }

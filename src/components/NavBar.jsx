@@ -19,6 +19,7 @@ const NavBar = ({ links }) => {
       opacity: 1,
       reason: "nav",
       onVisible: () => {
+        window.scrollTo(0, 0); // Ensure next page starts at top
         navigate(path);
       }
     });
@@ -39,7 +40,7 @@ const NavBar = ({ links }) => {
         <div className="nav-bar__logo-text">DAVIDLABAR.COM</div>
       </div>
 
-      <ul className={`nav-bar__ul ${menuOpen ? "open" : "closed"}`}>
+      <ul className={`nav-bar__ul ${menuOpen ? "visible" : "hidden"}`}>
         {links.map(({ name, path }) => (
           <li
             key={path}
