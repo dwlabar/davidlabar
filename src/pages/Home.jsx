@@ -29,7 +29,7 @@ const Home = () => {
       />
       <Container>
         <h1>Crafting Web Solutions for over 20 years.</h1>
-        <p><a href="/" className="bfg-button">Learn More About Me</a></p>
+        {/* <p><a href="/" className="bfg-button">Learn More About Me</a></p> */}
       </Container>
       <ThreeSceneManager />
       {/* <div className="three-scene"></div> */}

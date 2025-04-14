@@ -22,6 +22,7 @@ h1 {
   font-size: functions.px2rem(48);
   font-weight: 200;
   color: variables.$color-ramjet;
+  text-align: center;
 
   @include mixins.breakpoint(sm) {
     font-size: functions.px2rem(60);
@@ -68,16 +69,18 @@ p {
 
 .subheading {
   display: block;
-  margin-top: 0.2em;
-  font-size: functions.px2rem(36);
+  margin: 1em 0;
+  padding: 0 10%;
+  font-size: functions.px2rem(32);
   font-weight: 200;
+  color: variables.$color-starscream;
 
   @include mixins.breakpoint(md) {
-    font-size: functions.px2rem(48);
+    // font-size: functions.px2rem(32);
   }
 
   @include mixins.breakpoint(xxl) {
-    font-size: functions.px2rem(60);
+    font-size: functions.px2rem(42);
   }
 }
 

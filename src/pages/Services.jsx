@@ -20,9 +20,51 @@ const Services = () => {
   return (
     <>
       <Container>
-        <h1>Services and Specialties</h1>
+        <h1>Services and Specialties
+          <span className="subheading">I design, develop, and bring ideas to life through clean code and thoughtful design. Here's what I offer:</span>
+        </h1>
+        
 
-        <Panel>
+        <div className="card-grid">
+          <Card>
+            <div className="card__hero-image"><img src="../src/assets/icon-design_isolated_01.webp"></img></div>
+            <div className="card__text">
+              <h2 className="card__title">Design & UX</h2>
+              <ul className="ul">
+                <li className="li"><strong>UI/UX Design & Development</strong> - Intuitive, user-centered experiences.</li>
+                <li className="li"><strong>Graphic Design</strong> - Custom branding, visuals, and digital assets.</li>
+                <li className="li"><strong>Motion Graphics</strong> - Animated elements that enhance engagement.</li>
+                <li className="li"><strong>Illustration</strong> - Unique, hand-crafted artwork for web and branding.</li>
+              </ul>
+            </div>
+          </Card>
+          <Card>
+            <div className="card__hero-image"><img src="../src/assets/icon-design_isolated_01.webp"></img></div>
+            <div className="card__text">
+              <h2 className="card__title">Design & UX</h2>
+              <ul className="ul">
+                <li className="li"><strong>UI/UX Design & Development</strong> - Intuitive, user-centered experiences.</li>
+                <li className="li"><strong>Graphic Design</strong> - Custom branding, visuals, and digital assets.</li>
+                <li className="li"><strong>Motion Graphics</strong> - Animated elements that enhance engagement.</li>
+                <li className="li"><strong>Illustration</strong> - Unique, hand-crafted artwork for web and branding.</li>
+              </ul>
+            </div>
+          </Card>
+          <Card>
+            <div className="card__hero-image"><img src="../src/assets/icon-design_isolated_01.webp"></img></div>
+            <div className="card__text">
+              <h2 className="card__title">Design & UX</h2>
+              <ul className="ul">
+                <li className="li"><strong>UI/UX Design & Development</strong> - Intuitive, user-centered experiences.</li>
+                <li className="li"><strong>Graphic Design</strong> - Custom branding, visuals, and digital assets.</li>
+                <li className="li"><strong>Motion Graphics</strong> - Animated elements that enhance engagement.</li>
+                <li className="li"><strong>Illustration</strong> - Unique, hand-crafted artwork for web and branding.</li>
+              </ul>
+            </div>
+          </Card>
+        </div>
+
+        {/* <Panel>
           <p>I design, develop, and bring ideas to life through clean code and thoughtful design. Here’s what I offer:</p>
           <div className="layout-row layout-row--3">
             <div className="layout-cell">
@@ -66,7 +108,7 @@ const Services = () => {
               </Card>
             </div>
           </div>
-        </Panel>
+        </Panel> */}
 
         {/* <Panel>
           <p>I design, develop, and bring ideas to life through clean code and thoughtful design. Here’s what I offer:</p>
