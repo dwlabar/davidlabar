@@ -163,7 +163,7 @@ const ThreeSceneManager = () => {
 
     // === Grid of Cubes ===
     const gridSize = settings.gridSize;
-    const centerMaterial = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
+    const centerMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
     const cubes = [];
 
     for (let x = -Math.floor(gridSize / 2); x <= Math.floor(gridSize / 2); x++) {
