@@ -21,7 +21,7 @@ const ThreeSceneHomeConfig = {
   waveSpeed: 0,                // adjust speed as needed
 
   randomYEffectEnabled: false, // set to true to enable random Y effect (wave takes precedence)
-  randomYRange: 4              // range for random Y positions
+  randomYRange: 8              // range for random Y positions
 };
 
 export default ThreeSceneHomeConfig;
