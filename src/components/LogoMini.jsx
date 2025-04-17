@@ -1,9 +1,37 @@
-import React from "react";
+// src/components/LogoMini.jsx
+import React, { useRef, useEffect } from "react";
+import { gsap } from "gsap";
 import "../styles/components/_logomini.scss";
 
 const LogoMini = () => {
+  const logoRef = useRef(null);
+  const tl = useRef(null);
+
+  useEffect(() => {
+    const svg = logoRef.current;
+    const core = svg.querySelector("path#logomini_core");
+    const bottom = svg.querySelector("path#logomini_bottomHighlight");
+    const highlight = svg.querySelector("path#logomini_highlight");
+    const targets = [core, bottom, highlight];
+
+    // ensure they start invisible
+    gsap.set(targets, { opacity: 0 });
+
+    // build timeline
+    tl.current = gsap.timeline({ paused: true })
+      .to(targets, {
+        duration: 0.6,
+        opacity: 1,
+        ease: "power2.out"
+      });
+  }, []);
+
+  const handleMouseEnter = () => tl.current.play();
+  const handleMouseLeave = () => tl.current.reverse();
+
   return (
     <svg
+      ref={logoRef}
       className="logomini"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -11,6 +39,8 @@ const LogoMini = () => {
       height="44"
       viewBox="0 0 9.525 11.642"
       preserveAspectRatio="xMinYMin meet"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <defs>
         <linearGradient id="logomini_bottomHighlightGradient">

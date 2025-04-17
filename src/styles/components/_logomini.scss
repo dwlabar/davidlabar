@@ -1,3 +1,4 @@
+// src/styles/components/_logomini.scss
 // =============================================================================
 //
 //  LOGOMINI
@@ -22,40 +23,25 @@
   display: block;
   width: 100%;
   height: auto;
+  cursor: pointer;
 
   #logomini_base {
     fill: variables.$color-devastator;
+    opacity: 1;
   }
 
   #logomini_core {
     fill: url(#logomini_core);
     opacity: 0;
-    transition: opacity 0.5s;
   }
 
   #logomini_bottomHighlight {
     fill: url(#logomini_bottomHighlight);
     opacity: 0;
-    transition: opacity 0.5s;
   }
 
   #logomini_highlight {
     fill: url(#logomini_highlight);
     opacity: 0;
-    transition: opacity 0.5s;
-  }
-
-  &:hover {
-    #logomini_core {
-      opacity: 1;
-    }
-
-    #logomini_bottomHighlight {
-      opacity: 1;
-    }
-
-    #logomini_highlight {
-      opacity: 1;
-    }
   }
 }
