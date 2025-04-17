@@ -39,11 +39,11 @@
 .scene-controls-toggle {
   display: block;
   appearance: none;
-  width: functions.px2rem(50);
-  height: functions.px2rem(50);
+  width: functions.px2rem(60);
+  height: functions.px2rem(60);
   position: absolute;
   bottom: functions.px2rem(20);
-  right: calc(50% - 25px);
+  right: calc(50% - 30px);
   background-color: transparent;
   border: none;
   color: variables.$color-ramjet;
