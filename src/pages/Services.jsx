@@ -39,26 +39,24 @@ const Services = () => {
             </div>
           </Card>
           <Card>
-            <div className="card__hero-image"><img src="../src/assets/icon-design_isolated_01.webp"></img></div>
+            <div className="card__hero-image"><img src="../src/assets/icon-development_isolated_01.webp"></img></div>
             <div className="card__text">
-              <h2 className="card__title">Design & UX</h2>
+              <h2 className="card__title">Development</h2>
               <ul className="ul">
-                <li className="li"><strong>UI/UX Design & Development</strong> - Intuitive, user-centered experiences.</li>
-                <li className="li"><strong>Graphic Design</strong> - Custom branding, visuals, and digital assets.</li>
-                <li className="li"><strong>Motion Graphics</strong> - Animated elements that enhance engagement.</li>
-                <li className="li"><strong>Illustration</strong> - Unique, hand-crafted artwork for web and branding.</li>
+                <li className="li"><strong>Frontend Development</strong> - High-performance, accessible interfaces.</li>
+                <li className="li"><strong>React & JavaScript</strong> - Interactive, dynamic web applications.</li>
+                <li className="li"><strong>Shopify, WordPress, Drupal, Craft CMS</strong> - Custom themes & functionality.</li>
+                <li className="li"><strong>ROBLOX (Lua)</strong> - Game scripting and interactive experiences.</li>
               </ul>
             </div>
           </Card>
           <Card>
             <div className="card__hero-image"><img src="../src/assets/icon-design_isolated_01.webp"></img></div>
             <div className="card__text">
-              <h2 className="card__title">Design & UX</h2>
+              <h2 className="card__title">Custom Solutions</h2>
               <ul className="ul">
-                <li className="li"><strong>UI/UX Design & Development</strong> - Intuitive, user-centered experiences.</li>
-                <li className="li"><strong>Graphic Design</strong> - Custom branding, visuals, and digital assets.</li>
-                <li className="li"><strong>Motion Graphics</strong> - Animated elements that enhance engagement.</li>
-                <li className="li"><strong>Illustration</strong> - Unique, hand-crafted artwork for web and branding.</li>
+                <li className="li"><strong>Design Systems</strong> - Scalable, consistent UI components.</li>
+                <li className="li"><strong>UI Customization</strong> - Tailored interfaces for any platform.</li>
               </ul>
             </div>
           </Card>
@@ -145,6 +143,11 @@ const Services = () => {
 
           <p>Have a project in mind? Let's make it happen.</p>
         </Panel> */}
+
+        <Panel>
+          <p>Have a project in mind? Let's make it happen.</p>
+          <a href="/" className="bfg-button">Let's Talk About It!</a>
+        </Panel>
       </Container>
     </>
   );

@@ -20,9 +20,9 @@ const About = () => {
     <>
       <Container>
         <section className="content-block">
-          <h1>Hi I'm David LaBar<span className="subheading">UX Engineer / Designer</span></h1>
+          <h1>David LaBar<span className="subheading">UX Engineer / Designer</span></h1>
           <Panel>
-            <p className="tagline">Designer turned developer with a deep toolkit and a passion for polish</p>
+            <p className="tagline">Designer &amp; developer with a deep toolkit and a passion for polish</p>
             <p>
               I've spent my career bridging the gap between design and development—starting with HTML and CSS in the early 2000s, evolving through Ruby and React, and now exploring real-time 3D with Three.js.
             </p>

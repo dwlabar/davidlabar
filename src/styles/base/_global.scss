@@ -51,8 +51,10 @@ body {
 // -----------------------------------------------------------------------------
 
 .bfg-button {
+  display: block;
+  width: fit-content;
   background-color: variables.$color-megatron;
-  padding: functions.px2rem(10);
+  padding: functions.px2rem(10) functions.px2rem(20);
   border: solid 1px variables.$color-soundwave;
   color: variables.$color-soundwave;
   text-decoration: none;
@@ -61,7 +63,7 @@ body {
   // text-transform: uppercase;
 
   @include mixins.breakpoint(md) {
-    padding: functions.px2rem(20);
+    padding: functions.px2rem(20) functions.px2rem(30);
     font-size: functions.px2rem(24);
   }
 }
