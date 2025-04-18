@@ -1,4 +1,5 @@
 const ThreeSceneHomeConfig = {
+  // Settings - Grid
   gridSize: 40,
   cubeSpacing: 8,
   cubeSizeX: 1,
@@ -9,19 +10,20 @@ const ThreeSceneHomeConfig = {
   cubeSizeMaxZ: 8,
   speed: 0.2,
 
-  // Fade settings
+  // Settings - Fade
   fadeStart: 240,
   fadeEnd: 120,
   fadeCurve: 8,
 
-  // New effect settings
-  waveEffectEnabled: false,    // set to true to enable the wave effect
-  waveAmplitude: 3,            // adjust amplitude as needed
-  waveFrequency: 0.2,          // adjust frequency as needed
-  waveSpeed: 0,                // adjust speed as needed
+  // Effect - Wave
+  waveEffectEnabled: false,    // toggle sine‑wave on Y
+  waveAmplitude: 3,            // height of the wave
+  waveFrequency: 0.5,          // spatial frequency along X and Z
+  waveSpeed: 0.01,             // how fast the wave propagates
 
-  randomYEffectEnabled: false, // set to true to enable random Y effect (wave takes precedence)
-  randomYRange: 8              // range for random Y positions
+  // Effect - Random Y (fallback)
+  randomYEffectEnabled: false,
+  randomYRange: 8              // range for random Y when wave disabled
 };
 
 export default ThreeSceneHomeConfig;
