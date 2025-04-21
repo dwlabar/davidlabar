@@ -13,6 +13,13 @@ const NavBar = ({ links }) => {
 
   const handleNavClick = (e, path) => {
     e.preventDefault();
+
+    if (location.pathname === path) {
+      setMenuOpen(false);
+      setNavOpen(false);
+      return; // do nothing if already on the same route
+    }
+
     setMenuOpen(false);
     setNavOpen(false);
 
@@ -20,7 +27,7 @@ const NavBar = ({ links }) => {
       opacity: 1,
       reason: "nav",
       onVisible: () => {
-        window.scrollTo(0, 0); // Ensure next page starts at top
+        window.scrollTo(0, 0);
         navigate(path);
       }
     });
@@ -35,9 +42,7 @@ const NavBar = ({ links }) => {
   return (
     <nav className="nav-bar">
       <div className="nav-bar__logo">
-        <Link to="/">
-          <LogoMini />
-        </Link>
+        <LogoMini />
         <div className="nav-bar__logo-text">DAVIDLABAR.COM</div>
       </div>
 

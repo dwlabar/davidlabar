@@ -1,11 +1,15 @@
-// src/components/LogoMini.jsx
 import React, { useRef, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useOverlay } from "../context/OverlayContext";
 import { gsap } from "gsap";
 import "../styles/components/_logomini.scss";
 
 const LogoMini = () => {
   const logoRef = useRef(null);
   const tl = useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { showOverlay, setNavOpen } = useOverlay();
 
   useEffect(() => {
     const svg = logoRef.current;
@@ -13,21 +17,38 @@ const LogoMini = () => {
     const bottom = svg.querySelector("path#logomini_bottomHighlight");
     const highlight = svg.querySelector("path#logomini_highlight");
     const targets = [core, bottom, highlight];
-
-    // ensure they start invisible
     gsap.set(targets, { opacity: 0 });
 
-    // build timeline
-    tl.current = gsap.timeline({ paused: true })
-      .to(targets, {
-        duration: 0.6,
-        opacity: 1,
-        ease: "power2.out"
-      });
+    tl.current = gsap.timeline({ paused: true }).to(targets, {
+      duration: 0.6,
+      opacity: 1,
+      ease: "power2.out",
+    });
   }, []);
 
   const handleMouseEnter = () => tl.current.play();
   const handleMouseLeave = () => tl.current.reverse();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+
+    // same path — don't do anything
+    if (location.pathname === "/") {
+      setNavOpen(false);
+      return;
+    }
+
+    setNavOpen(false);
+
+    showOverlay({
+      opacity: 1,
+      reason: "nav",
+      onVisible: () => {
+        window.scrollTo(0, 0);
+        navigate("/");
+      },
+    });
+  };
 
   return (
     <svg
@@ -41,6 +62,9 @@ const LogoMini = () => {
       preserveAspectRatio="xMinYMin meet"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
+      role="link"
+      style={{ cursor: "pointer" }}
     >
       <defs>
         <linearGradient id="logomini_bottomHighlightGradient">
