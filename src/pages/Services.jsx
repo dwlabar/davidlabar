@@ -51,7 +51,7 @@ const Services = () => {
             </div>
           </Card>
           <Card>
-            <div className="card__hero-image"><img src="../src/assets/icon-design_isolated_01.webp"></img></div>
+            <div className="card__hero-image"><img src="../src/assets/icon-custom_isolated_01.webp"></img></div>
             <div className="card__text">
               <h2 className="card__title">Custom Solutions</h2>
               <ul className="ul">
