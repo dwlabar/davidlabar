@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+// src/components/NavBar.jsx
+
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useOverlay } from "../context/OverlayContext";
 import LogoMini from "./LogoMini";
@@ -6,9 +8,10 @@ import BurgerIcon from "./BurgerIcon";
 import "../styles/components/_nav-bar.scss";
 
 const NavBar = ({ links }) => {
+  const navRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const { showOverlay, setNavOpen } = useOverlay();
+  const { showOverlay, hideOverlay, setNavOpen } = useOverlay();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleNavClick = (e, path) => {
@@ -17,7 +20,7 @@ const NavBar = ({ links }) => {
     if (location.pathname === path) {
       setMenuOpen(false);
       setNavOpen(false);
-      return; // do nothing if already on the same route
+      return;
     }
 
     setMenuOpen(false);
@@ -39,8 +42,27 @@ const NavBar = ({ links }) => {
     setNavOpen(nextState);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!menuOpen) return;
+      if (navRef.current && !navRef.current.contains(e.target)) {
+        setMenuOpen(false);
+        setNavOpen(false);
+        hideOverlay();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [menuOpen, hideOverlay]);
+
   return (
-    <nav className="nav-bar">
+    <nav className="nav-bar" ref={navRef}>
       <div className="nav-bar__logo">
         <LogoMini />
         <div className="nav-bar__logo-text">DAVIDLABAR.COM</div>
