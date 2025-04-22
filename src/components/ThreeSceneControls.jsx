@@ -41,7 +41,7 @@ const ThreeSceneControls = ({ showControls, setShowControls }) => {
               type="range"
               id="width"
               min="1"
-              max="9"
+              max={settings.cubeSizeMaxX}
               step="0.5"
               value={settings.cubeSizeX}
               onChange={(e) => updateSetting('cubeSizeX', parseFloat(e.target.value))}
@@ -54,7 +54,7 @@ const ThreeSceneControls = ({ showControls, setShowControls }) => {
               type="range"
               id="depth"
               min="1"
-              max="9"
+              max={settings.cubeSizeMaxZ}
               step="0.5"
               value={settings.cubeSizeZ}
               onChange={(e) => updateSetting('cubeSizeZ', parseFloat(e.target.value))}
@@ -67,7 +67,7 @@ const ThreeSceneControls = ({ showControls, setShowControls }) => {
               type="range"
               id="height"
               min="0.5"
-              max="9"
+              max={settings.cubeSizeMaxY}
               step="0.5"
               value={settings.cubeSizeY}
               onChange={(e) => updateSetting('cubeSizeY', parseFloat(e.target.value))}

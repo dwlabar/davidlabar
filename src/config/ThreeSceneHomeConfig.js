@@ -2,12 +2,12 @@ const ThreeSceneHomeConfig = {
   // Settings - Grid
   gridSize: 40,
   cubeSpacing: 8,
-  cubeSizeX: 1,
+  cubeSizeX: 2,
   cubeSizeY: 0.5,
-  cubeSizeZ: 1,
-  cubeSizeMaxX: 8,
-  cubeSizeMaxY: 8,
-  cubeSizeMaxZ: 8,
+  cubeSizeZ: 2,
+  cubeSizeMaxX: 10,
+  cubeSizeMaxY: 10,
+  cubeSizeMaxZ: 10,
   speed: 0.2,
 
   // Settings - Fade
