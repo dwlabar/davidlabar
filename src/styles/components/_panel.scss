@@ -8,6 +8,7 @@
 // IMPORTS
 // -----------------------------------------------------------------------------
 
+@use "sass:color";
 @use "../tools/functions";
 @use "../tools/mixins";
 @use "../settings/variables";
@@ -38,4 +39,32 @@
 
 .panel > :only-child {
   margin-bottom: 0;
+}
+
+// -----------------------------------------------------------------------------
+// UL OVERRIDE
+// -----------------------------------------------------------------------------
+
+.panel {
+  .ul {
+    display: flex;
+    flex-flow: row wrap;
+    list-style: none;
+    margin: 0;
+    gap: 1rem;
+    .li {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: flex-start;
+      justify-content: center;
+      // flex: 0 0 calc(25% - 1rem);
+      flex: 1 1 clamp(160px, 25%, 50%); // clamp(min, ideal, max)
+      margin: 0;
+      padding: 10px;
+      border-bottom: solid 1px variables.$color-trypticon;
+      font-size: functions.px2rem(12);
+      letter-spacing: 0.125em;
+      text-transform: uppercase;
+    }
+  }
 }

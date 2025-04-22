@@ -41,71 +41,52 @@ const About = () => {
           </Panel>
 
           <Panel>
-            <p className="tagline">Technologies I Work With:</p>
-            <div className="layout-row layout-row--3">
-              <div className="layout-cell">
-                <ul className="ul">
-                  <li className="li">HTML /SCSS</li>
-                  <li className="li">JavaScript (ES6+)</li>
-                  <li className="li">React / JSX</li>
-                  <li className="li">Three.js / WebGL</li>
-                </ul>
-              </div>
-              <div className="layout-cell">
-                <ul className="ul">
-                  <li className="li">GSAP / SVG</li>
-                  <li className="li">Node.js</li>
-                  <li className="li">Vite</li>
-                  <li className="li">Git</li>
-                </ul>
-              </div>
-              <div className="layout-cell">
-                <ul className="ul">
-                  <li className="li">Drupal / Wordpress / Craft / Shopify</li>
-                  <li className="li">Photoshop / GIMP</li>
-                  <li className="li">Illustrator / Inkscape</li>
-                  <li className="li">After Effects / Kdenlive</li>
-                </ul>
-              </div>
-              <div className="layout-cell">
-                <ul className="ul">
-                  <li className="li">Pulsar</li>
-                  <li className="li">Lua / Roblox</li>
-                  <li className="li">Godot</li>
-                  <li className="li">Python</li>
-                </ul>
-              </div>
-            </div>
-
-            <p className="tagline">The Vault:</p>
-            <div className="layout-row layout-row--3">
-              <div className="layout-cell">
-                <ul className="ul">
-                  <li className="li">Flash / ActionScript</li>
-                  <li className="li">jQuery</li>
-                  <li className="li">Bootstrap</li>
-                  <li className="li">Foundation</li>
-                  <li className="li">Subversion</li>
-                </ul>
-              </div>
-              <div className="layout-cell">
-                <ul className="ul">
-                  <li className="li">Fireworks</li>
-                  <li className="li">Dreamweaver</li>
-                  <li className="li">Director / Lingo / Shockwave 3D</li>
-                  <li className="li">IE6</li>
-                  <li className="li">Table Layouts</li>
-                </ul>
-              </div>
-              <div className="layout-cell">
-                <ul className="ul">
-                  <li className="li">Lightwave</li>
-                  <li className="li">Maya</li>
-                  <li className="li">Fruity Loops</li>
-                  <li className="li">Corel Draw</li>
-                </ul>
-              </div>
-            </div>
+            <p className="tagline">My Toolbox</p>
+            <p>Not a complete list by any means but here are my favorites.</p>
+            <ul className="ul">
+              <li className="li">HTML / SCSS</li>
+              <li className="li">JavaScript (ES6+)</li>
+              <li className="li">React / JSX</li>
+              <li className="li">Three.js / WebGL</li>
+              <li className="li">GSAP / SVG</li>
+              <li className="li">Node.js</li>
+              <li className="li">Git</li>
+              <li className="li">Drupal</li>
+              <li className="li">Wordpress</li>
+              <li className="li">Craft</li>
+              <li className="li">Shopify</li>
+              <li className="li">Photoshop / GIMP</li>
+              <li className="li">Illustrator / Inkscape</li>
+              <li className="li">After Effects / Kdenlive</li>
+              <li className="li">Pulsar</li>
+              <li className="li">Lua / Roblox</li>
+              <li className="li">Godot</li>
+              <li className="li">Python</li>
+            </ul>
+          </Panel>
+          <Panel>
+            <p className="tagline">The Vault</p>
+            <p>Let's take a trip down memory lane. Oldies but goodies!</p>
+            <ul className="ul">
+              <li className="li">Flash / ActionScript</li>
+              <li className="li">jQuery</li>
+              <li className="li">Bootstrap</li>
+              <li className="li">Foundation</li>
+              <li className="li">Subversion</li>
+              <li className="li">Fireworks</li>
+              <li className="li">Dreamweaver</li>
+              <li className="li">Director / Shockwave 3D</li>
+              <li className="li">IE6</li>
+              <li className="li">Table Layouts</li>
+              <li className="li">Lightwave</li>
+              <li className="li">Maya</li>
+              <li className="li">Fruity Loops</li>
+              <li className="li">Corel Draw</li>
+              <li className="li">Lightwave</li>
+              <li className="li">Maya</li>
+              <li className="li">Fruity Loops</li>
+              <li className="li">Corel Draw</li>
+            </ul>
           </Panel>
 
           {/* <Panel>
