@@ -2,9 +2,7 @@ import { useRef, useEffect } from 'react';
 import * as THREE from 'three';
 import { useThreeSceneContext } from '../context/ThreeSceneContext';
 
-// === Main Three.js Scene Manager Component ===
 const ThreeSceneManager = () => {
-  // === References & Config ===
   const mountRef = useRef(null);
   const { settings } = useThreeSceneContext();
 
@@ -15,17 +13,15 @@ const ThreeSceneManager = () => {
     z: settings.cubeSizeZ
   });
   const cubesRef = useRef([]);
-  const waveTimeRef = useRef(0);        // timer for wave propagation
+  const waveTimeRef = useRef(0);
   const particleDistanceRef = useRef(0);
-  const baseParticleSpeed = 0.45;       // Particles move faster than cubes by default
-  const defaultSpeed = 0.3;             // Reference speed for scaling particle movement
+  const baseParticleSpeed = 0.45;
+  const defaultSpeed = 0.3;
 
-  // === Update speed ref on slider changes ===
   useEffect(() => {
     speedRef.current = settings.speed;
   }, [settings.speed]);
 
-  // === Update cube scale when settings change ===
   useEffect(() => {
     cubeScaleRef.current = {
       x: settings.cubeSizeX,
@@ -41,7 +37,6 @@ const ThreeSceneManager = () => {
     });
   }, [settings.cubeSizeX, settings.cubeSizeY, settings.cubeSizeZ]);
 
-  // === Scene Setup ===
   useEffect(() => {
     if (!mountRef.current) return;
 
@@ -49,7 +44,6 @@ const ThreeSceneManager = () => {
     let newWidth = mount.clientWidth;
     let newHeight = mount.clientHeight;
 
-    // === Create scene, camera, and renderer ===
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       75,
@@ -57,6 +51,7 @@ const ThreeSceneManager = () => {
       0.1,
       1000
     );
+
     const cubeSpacing = settings.cubeSpacing;
     const stepZ = cubeScaleRef.current.z + cubeSpacing;
     const stepX = cubeScaleRef.current.x + cubeSpacing;
@@ -71,7 +66,6 @@ const ThreeSceneManager = () => {
     renderer.setClearColor(0x151515);
     mount.appendChild(renderer.domElement);
 
-    // === Lighting ===
     const ambientLight = new THREE.AmbientLight(0x404040);
     scene.add(ambientLight);
 
@@ -79,7 +73,6 @@ const ThreeSceneManager = () => {
     directionalLight.position.set(100, 250, 75);
     scene.add(directionalLight);
 
-    // === Lighting - Backlight ===
     const backLight = new THREE.DirectionalLight(0x3399ff, 8);
     backLight.position.set(0, 20, 180);
     backLight.target.position.set(0, 0, 0);
@@ -90,13 +83,16 @@ const ThreeSceneManager = () => {
     const particleCount = 100;
     const particlePositions = new Float32Array(particleCount * 3);
     const particleYOffset = new Float32Array(particleCount);
+    const particleHeightMultiplier = new Float32Array(particleCount);
     const baseMargin = 1;
     const variation = 5;
+
     for (let i = 0; i < particleCount; i++) {
       particlePositions[i * 3] = (Math.random() - 0.5) * (gridSpanZ / 2);
-      particlePositions[i * 3 + 1] = 0;
+      particlePositions[i * 3 + 1] = Math.random(); // 0–1 multiplier
       particlePositions[i * 3 + 2] = (Math.random() - 0.5) * gridSpanZ;
       particleYOffset[i] = Math.random() * variation;
+      particleHeightMultiplier[i] = particlePositions[i * 3 + 1];
     }
 
     const particleGeometry = new THREE.BufferGeometry();
@@ -145,7 +141,7 @@ const ThreeSceneManager = () => {
           }
           vOpacity = opacity;
 
-          gl_PointSize = 1.5;
+          gl_PointSize = 4.0;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(pos,1.0);
         }
       `,
@@ -153,7 +149,10 @@ const ThreeSceneManager = () => {
         precision mediump float;
         varying float vOpacity;
         void main() {
-          gl_FragColor = vec4(1.0,1.0,1.0,vOpacity);
+          float dist = distance(gl_PointCoord, vec2(0.5));
+          float alpha = vOpacity * smoothstep(0.5, 0.0, dist);
+          vec3 color = mix(vec3(1.0), vec3(0.4, 0.6, 1.0), dist);
+          gl_FragColor = vec4(color, alpha);
         }
       `
     });
@@ -161,7 +160,6 @@ const ThreeSceneManager = () => {
     const particlePoints = new THREE.Points(particleGeometry, particleMaterial);
     scene.add(particlePoints);
 
-    // === Grid of Cubes ===
     const gridSize = settings.gridSize;
     const centerMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
     const cubes = [];
@@ -185,14 +183,12 @@ const ThreeSceneManager = () => {
           cubeScaleRef.current.z
         );
 
-        // initial position & phase
         const posX = x * stepX;
         const posZ = z * stepZ;
         let posY = 0;
         if (settings.waveEffectEnabled) {
           posY = settings.waveAmplitude * Math.sin(
-            posX * settings.waveFrequency +
-            posZ * settings.waveFrequency
+            posX * settings.waveFrequency + posZ * settings.waveFrequency
           );
         } else if (settings.randomYEffectEnabled) {
           const range = settings.randomYRange || 10;
@@ -206,7 +202,6 @@ const ThreeSceneManager = () => {
     }
     cubesRef.current = cubes;
 
-    // === Utility Functions ===
     const calculateOpacity = (cube) => {
       const distance = camera.position.distanceTo(cube.position);
       if (distance > fadeStart) return 0;
@@ -214,28 +209,27 @@ const ThreeSceneManager = () => {
       const t = (fadeStart - distance) / (fadeStart - fadeEnd);
       return Math.pow(t, fadeCurve);
     };
+
     const getResetZPosition = (currentZ) => currentZ - gridSpanZ;
 
-    // === Animation Loop ===
     let animationId;
     const animate = () => {
       animationId = requestAnimationFrame(animate);
 
-      // update propagation timer
       if (settings.waveEffectEnabled) {
         waveTimeRef.current += settings.waveSpeed;
       }
 
-      // animate particles
       particleDistanceRef.current += baseParticleSpeed * (speedRef.current / defaultSpeed);
       particleMaterial.uniforms.uDistanceTraveled.value = particleDistanceRef.current;
+
       const baseY = cubeScaleRef.current.y / 2 + baseMargin;
       for (let i = 0; i < particleCount; i++) {
-        particlePositions[i * 3 + 1] = baseY + particleYOffset[i];
+        const heightScale = particleHeightMultiplier[i];
+        particlePositions[i * 3 + 1] = baseY + heightScale * 20 + particleYOffset[i];
       }
       particleGeometry.attributes.position.needsUpdate = true;
 
-      // move cubes and apply wave
       cubes.forEach(cube => {
         cube.position.z += speedRef.current;
 
@@ -270,7 +264,6 @@ const ThreeSceneManager = () => {
     };
     animate();
 
-    // === Debounced Resize Observer ===
     let resizeTimeout;
     const handleResize = () => {
       newWidth = mount.clientWidth;
@@ -286,7 +279,6 @@ const ThreeSceneManager = () => {
     });
     resizeObserver.observe(mount);
 
-    // === Cleanup ===
     return () => {
       cancelAnimationFrame(animationId);
       resizeObserver.disconnect();
