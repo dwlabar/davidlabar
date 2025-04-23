@@ -13,12 +13,41 @@
 @use "../settings/variables";
 
 // -----------------------------------------------------------------------------
+// HEADER
+// -----------------------------------------------------------------------------
+
+header {
+  margin-top: functions.px2rem(48);
+  margin-bottom: functions.px2rem(48);
+
+  @include mixins.breakpoint(sm) {
+    margin-top: functions.px2rem(60);
+    margin-bottom: functions.px2rem(60);
+  }
+
+  @include mixins.breakpoint(md) {
+    margin-top: functions.px2rem(80);
+    margin-bottom: functions.px2rem(80);
+  }
+
+  @include mixins.breakpoint(lg) {
+    margin-top: functions.px2rem(90);
+    margin-bottom: functions.px2rem(90);
+  }
+
+  @include mixins.breakpoint(xxl) {
+    margin-top: functions.px2rem(120);
+    margin-bottom: functions.px2rem(120);
+  }
+}
+
+// -----------------------------------------------------------------------------
 // HEADINGS
 // -----------------------------------------------------------------------------
 
 h1 {
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-top: 0;
+  margin-bottom: 0;
   font-size: functions.px2rem(48);
   font-weight: 200;
   color: variables.$color-ramjet;
@@ -45,14 +74,30 @@ h2 {
   margin: 1.2em 0;
   font-weight: 400;
   color: variables.$color-prowl;
-
 }
+
+h3 {
+  border: solid 1px variables.$color-devastator;
+  margin: 3em 0 2em 0;
+  padding: 1em;
+  font-size: functions.px2rem(16);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+// -----------------------------------------------------------------------------
+// PARAGRAPH
+// -----------------------------------------------------------------------------
 
 p {
   font-size: functions.px2rem(24);
   line-height: 1.5em;
   font-weight: 200;
 }
+
+// -----------------------------------------------------------------------------
+// LISTS
+// -----------------------------------------------------------------------------
 
 .ul {
   line-height: 1.5;
@@ -71,12 +116,17 @@ p {
   }
 }
 
+// -----------------------------------------------------------------------------
+// SUBHEADING
+// -----------------------------------------------------------------------------
+
 .subheading {
   display: block;
   margin: 1em 0;
   font-size: functions.px2rem(22);
   font-weight: 200;
   color: variables.$color-starscream;
+  text-align: center;
 
   @include mixins.breakpoint(sm) {
     padding: 0 8%;
@@ -91,6 +141,10 @@ p {
     font-size: functions.px2rem(42);
   }
 }
+
+// -----------------------------------------------------------------------------
+// TAGLINE
+// -----------------------------------------------------------------------------
 
 .tagline {
   margin-bottom: 1em;

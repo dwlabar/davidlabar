@@ -19,7 +19,9 @@ const Contact = () => {
   return (
     <>
       <Container>
-        <h1>Hire Me <span className="subheading">Always Looking For Work</span></h1>
+        <header>
+          <h1>Hire Me <span className="subheading">Always Looking For Work</span></h1>
+        </header>
         <Panel>
           <p>Tell me about your project or just stop in to say hey!</p>
           <p><a href="mailto:dwlabar@gmail.com">Message David</a></p>

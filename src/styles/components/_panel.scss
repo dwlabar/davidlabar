@@ -58,13 +58,25 @@
       align-items: flex-start;
       justify-content: center;
       // flex: 0 0 calc(25% - 1rem);
-      flex: 1 1 clamp(160px, 25%, 50%); // clamp(min, ideal, max)
+      flex: 0 1 100%;
       margin: 0;
       padding: 10px;
       border-bottom: solid 1px variables.$color-trypticon;
       font-size: functions.px2rem(12);
       letter-spacing: 0.125em;
       text-transform: uppercase;
+    }
+  }
+
+  @include mixins.breakpoint(sm) {
+    .ul .li {
+      flex: 0 1 calc(50% - 1rem);
+    }
+  }
+
+  @include mixins.breakpoint(md) {
+    .ul .li {
+      flex: 0 1 calc(33.33333% - 1rem);
     }
   }
 }

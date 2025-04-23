@@ -20,7 +20,11 @@ const About = () => {
     <>
       <Container>
         <section className="content-block">
-          <h1>David LaBar<span className="subheading">UX Engineer / Designer</span></h1>
+          <header>
+            <h1>David LaBar</h1>
+            <p className="subheading">UX Engineer / Designer</p>
+          </header>
+          
           <Panel>
             <p className="tagline">Designer &amp; developer with a deep toolkit and a passion for polish</p>
             <p>
@@ -41,30 +45,39 @@ const About = () => {
           </Panel>
 
           <Panel>
-            <p className="tagline">My Toolbox</p>
+            <h2 className="tagline">My Toolbox</h2>
             <p>Not a complete list by any means but here are my favorites.</p>
+            <h3>Frontend</h3>
             <ul className="ul">
               <li className="li">HTML / SCSS</li>
               <li className="li">JavaScript (ES6+)</li>
               <li className="li">React / JSX</li>
               <li className="li">Three.js / WebGL</li>
               <li className="li">GSAP / SVG</li>
+            </ul>
+            <h3>Backend &nbsp;/&nbsp; CMS</h3>
+            <ul className="ul">
               <li className="li">Node.js</li>
-              <li className="li">Git</li>
               <li className="li">Drupal</li>
               <li className="li">Wordpress</li>
               <li className="li">Craft</li>
               <li className="li">Shopify</li>
+            </ul>
+            <h3>Design</h3>
+            <ul className="ul">
               <li className="li">Photoshop / GIMP</li>
               <li className="li">Illustrator / Inkscape</li>
               <li className="li">After Effects / Kdenlive</li>
-              <li className="li">Pulsar</li>
+            </ul>
+            <h3>Game &nbsp;/&nbsp; Interactive</h3>
+            <ul className="ul">
+              <li className="li">Phaser</li>
               <li className="li">Lua / Roblox</li>
               <li className="li">Godot</li>
-              <li className="li">Python</li>
             </ul>
           </Panel>
-          <Panel>
+
+          {/* <Panel>
             <p className="tagline">The Vault</p>
             <p>Let's take a trip down memory lane. Oldies but goodies!</p>
             <ul className="ul">
@@ -87,7 +100,7 @@ const About = () => {
               <li className="li">Fruity Loops</li>
               <li className="li">Corel Draw</li>
             </ul>
-          </Panel>
+          </Panel> */}
 
           {/* <Panel>
             <p className="tagline">Folks I have worked with:</p>

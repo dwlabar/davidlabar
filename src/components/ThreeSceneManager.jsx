@@ -3,6 +3,9 @@ import * as THREE from 'three';
 import { useThreeSceneContext } from '../context/ThreeSceneContext';
 
 const ThreeSceneManager = () => {
+
+  // ======= REFS AND CONTEXT =======
+  
   const mountRef = useRef(null);
   const { settings } = useThreeSceneContext();
 
@@ -17,9 +20,13 @@ const ThreeSceneManager = () => {
   const baseParticleSpeed = 0.45;
   const defaultSpeed = 0.3;
 
+  // ======= EFFECT: SPEED REF UPDATE =======
+
   useEffect(() => {
     speedRef.current = settings.speed;
   }, [settings.speed]);
+
+  // ======= EFFECT: CUBE SCALE UPDATE =======
 
   useEffect(() => {
     cubeScaleRef.current = {
@@ -35,6 +42,8 @@ const ThreeSceneManager = () => {
       );
     });
   }, [settings.cubeSizeX, settings.cubeSizeY, settings.cubeSizeZ]);
+
+  // ======= MAIN THREE.JS SETUP =======
 
   useEffect(() => {
     if (!mountRef.current) return;
@@ -60,6 +69,8 @@ const ThreeSceneManager = () => {
     renderer.setClearColor(0x151515);
     mount.appendChild(renderer.domElement);
 
+    // ======= LIGHTING =======
+
     const ambientLight = new THREE.AmbientLight(0x404040);
     scene.add(ambientLight);
 
@@ -73,7 +84,8 @@ const ThreeSceneManager = () => {
     scene.add(backLight);
     scene.add(backLight.target);
 
-    // === Particle System ===
+    // ======= PARTICLE SYSTEM =======
+
     const trailCount = 100;
     const trails = [];
     const depth = gridSpanZ;
@@ -102,6 +114,8 @@ const ThreeSceneManager = () => {
       trail.position.z = init ? -Math.random() * depth : -depth;
     }
 
+    // ======= CUBE GRID GENERATION =======
+
     const fadeStart = settings.fadeStart || 60;
     const fadeEnd = settings.fadeEnd || 10;
     const fadeCurve = settings.fadeCurve || 2;
@@ -121,6 +135,7 @@ const ThreeSceneManager = () => {
             specular: 0x555555,
             shininess: 100
           });
+
         const cube = new THREE.Mesh(geometry, material);
         cube.scale.set(
           cubeScaleRef.current.x,
@@ -147,6 +162,8 @@ const ThreeSceneManager = () => {
     }
     cubesRef.current = cubes;
 
+    // ======= ANIMATION LOOP =======
+
     const calculateOpacity = (objPos) => {
       const distance = camera.position.distanceTo(objPos);
       if (distance > fadeStart) return 0;
@@ -168,7 +185,7 @@ const ThreeSceneManager = () => {
       trails.forEach(trail => {
         const speed = baseParticleSpeed * (speedRef.current / defaultSpeed);
         trail.position.z += speed;
-        trail.scale.y = 0.75 + speed * 5; // shorten scale range
+        trail.scale.y = 0.75 + speed * 5;
 
         const fade = calculateOpacity(trail.position);
         trail.material.opacity = fade * 0.8;
@@ -212,6 +229,8 @@ const ThreeSceneManager = () => {
     };
     animate();
 
+    // ======= HANDLE RESIZE =======
+
     let resizeTimeout;
     const handleResize = () => {
       newWidth = mount.clientWidth;
@@ -225,6 +244,8 @@ const ThreeSceneManager = () => {
       resizeTimeout = setTimeout(handleResize, 200);
     });
     resizeObserver.observe(mount);
+
+    // ======= CLEANUP =======
 
     return () => {
       cancelAnimationFrame(animationId);

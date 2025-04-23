@@ -28,8 +28,10 @@ const Home = () => {
         setShowControls={setShowControls}
       />
       <Container>
-        <h1>Crafting Web Solutions for over 20 years.</h1>
-        {/* <p><a href="/" className="bfg-button">Learn More About Me</a></p> */}
+        <header>
+          <h1>Crafting Web Solutions for over 20 years.</h1>
+          {/* <p><a href="/" className="bfg-button">Learn More About Me</a></p> */}
+        </header>
       </Container>
       <ThreeSceneManager />
       {/* <div className="three-scene"></div> */}
