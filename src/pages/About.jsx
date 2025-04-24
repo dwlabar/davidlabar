@@ -28,11 +28,11 @@ const About = () => {
           <Panel>
             <p className="tagline">Designer &amp; developer with a deep toolkit and a passion for polish</p>
             <p>
-              I've spent my career bridging the gap between design and development—starting with HTML and CSS in the early 2000s, evolving through Ruby and React, and now exploring real-time 3D with Three.js.
+              I've spent my career bridging the gap between design and development - starting with HTML and CSS in the early 2000s, evolving through Ruby and React, and now exploring real-time 3D with Three.js.
             </p>
 
             <p>
-              Along the way, I've built frontend systems for dev teams, launched client sites end-to-end, and worked in everything from Flash games to audio production. My background spans both the visual and technical—Photoshop to Maya, ActionScript to JavaScript.
+              Along the way, I've built frontend systems for dev teams, launched client sites end-to-end, and worked in everything from Flash games to audio production. My background spans both the visual and technical - Photoshop to 3D Studio Max, ActionScript to JavaScript.
             </p>
 
             <p>
@@ -50,18 +50,18 @@ const About = () => {
             <h3>Frontend</h3>
             <ul className="ul">
               <li className="li">HTML / SCSS</li>
+              <li className="li">GSAP / SVG</li>
               <li className="li">JavaScript (ES6+)</li>
               <li className="li">React / JSX</li>
               <li className="li">Three.js / WebGL</li>
-              <li className="li">GSAP / SVG</li>
             </ul>
             <h3>Backend &nbsp;/&nbsp; CMS</h3>
             <ul className="ul">
-              <li className="li">Node.js</li>
               <li className="li">Drupal</li>
               <li className="li">Wordpress</li>
-              <li className="li">Craft</li>
               <li className="li">Shopify</li>
+              <li className="li">Craft</li>
+              <li className="li">Node.js</li>
             </ul>
             <h3>Design</h3>
             <ul className="ul">
@@ -71,9 +71,9 @@ const About = () => {
             </ul>
             <h3>Game &nbsp;/&nbsp; Interactive</h3>
             <ul className="ul">
-              <li className="li">Phaser</li>
-              <li className="li">Lua / Roblox</li>
               <li className="li">Godot</li>
+              <li className="li">Lua / Roblox</li>
+              <li className="li">Phaser</li>              
             </ul>
           </Panel>
 
