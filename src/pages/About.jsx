@@ -19,7 +19,7 @@ const About = () => {
   return (
     <>
       <Container>
-        <section className="content-block">
+        <section>
           <header>
             <h1>David LaBar</h1>
             <p className="subheading">UX Engineer / Designer</p>
