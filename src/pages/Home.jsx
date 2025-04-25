@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { usePageReadyController } from "../context/PageReadyContext";
+import useNotifyWhenImagesLoaded from "../hooks/useNotifyWhenImagesLoaded";
 import Container from "../components/Container";
 import ThreeSceneManager from "../components/ThreeSceneManager";
 import ThreeSceneControls from "../components/ThreeSceneControls";
@@ -8,18 +9,14 @@ import ThreeSceneHomeConfig from "../config/ThreeSceneHomeConfig";
 
 const Home = () => {
   const { notifyPageReady } = usePageReadyController();
-
-  // === Lifted state for scene controls toggle ===
   const [showControls, setShowControls] = useState(false);
 
-  useEffect(() => {
-    // Wait for Three.js or assets or animation to complete
-    const handle = requestAnimationFrame(() => {
+  // Wait for images to load, THEN wait a tick before notifyPageReady
+  useNotifyWhenImagesLoaded(() => {
+    requestAnimationFrame(() => {
       notifyPageReady();
     });
-
-    return () => cancelAnimationFrame(handle);
-  }, [notifyPageReady]);
+  });
 
   return (
     <ThreeSceneProvider config={ThreeSceneHomeConfig}>

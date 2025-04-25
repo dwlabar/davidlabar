@@ -1,6 +1,6 @@
 import React from "react";
-import { useEffect } from "react";
 import { usePageReadyController } from "../context/PageReadyContext";
+import useNotifyWhenImagesLoaded from "../hooks/useNotifyWhenImagesLoaded";
 import Container from "../components/Container";
 import Panel from "../components/Panel";
 import Card from "../components/Card";
@@ -8,14 +8,8 @@ import Card from "../components/Card";
 const Services = () => {
   const { notifyPageReady } = usePageReadyController();
 
-  useEffect(() => {
-    // Wait for Three.js or assets or animation to complete
-    const handle = requestAnimationFrame(() => {
-      notifyPageReady();
-    });
-
-    return () => cancelAnimationFrame(handle);
-  }, [notifyPageReady]);
+  // Notify once all images on this page have finished loading
+  useNotifyWhenImagesLoaded(notifyPageReady);
 
   return (
     <>
