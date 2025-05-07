@@ -60,7 +60,13 @@ body {
   text-decoration: none;
   font-size: functions.px2rem(18);
   font-weight: normal;
-  // text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color variables.$global-timing variables.$global-easing, color variables.$global-timing variables.$global-easing;
+
+  &:hover {
+    background-color: variables.$color-soundwave;
+    color: variables.$color-megatron;
+  }
 
   @include mixins.breakpoint(md) {
     padding: functions.px2rem(20) functions.px2rem(30);
@@ -75,4 +81,12 @@ body {
 .hide {
   display: none !important;
   visibility: hidden !important;
+}
+
+// -----------------------------------------------------------------------------
+// MARGIN REMOVAL
+// -----------------------------------------------------------------------------
+
+.no-margin-top {
+  margin-top: 0 !important;
 }
