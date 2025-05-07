@@ -1,0 +1,70 @@
+// =============================================================================
+//
+//  FORM
+//
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// IMPORTS
+// -----------------------------------------------------------------------------
+
+// @use "sass:color";
+// @use "sass:map";
+// @use "../tools/functions";
+@use "../tools/mixins";
+@use "../settings/variables";
+
+// -----------------------------------------------------------------------------
+// BASE
+// -----------------------------------------------------------------------------
+
+.form {
+  padding: 1.5em;
+  background-color: rgba(variables.$color-skywarp, 0.5);
+  border: solid 1px variables.$color-devastator;
+
+  @include mixins.breakpoint(md) {
+    padding: 2.5em;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// LABEL
+// -----------------------------------------------------------------------------
+
+.label {
+  display: block;
+  margin-bottom: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: variables.$color-starscream;
+}
+
+// -----------------------------------------------------------------------------
+// INPUT: TEXT
+// -----------------------------------------------------------------------------
+
+.input-text {
+  width: 100%;
+  margin-bottom: 1.5em;
+  padding: 1em;
+  background-color: variables.$color-skywarp;
+  border: solid 2px variables.$color-devastator;
+  font-family: variables.$font-family;
+  font-size: 1em;
+  color: variables.$color-starscream;
+  &:focus {
+    border-color: variables.$color-soundwave;
+    border-width: 2px;
+  }
+  outline: none;
+}
+
+// -----------------------------------------------------------------------------
+// INPUT: TEXT AREA
+// -----------------------------------------------------------------------------
+
+.input-textarea {
+  @extend .input-text;
+  resize: vertical;
+}
