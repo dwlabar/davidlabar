@@ -90,9 +90,14 @@ h3 {
 // -----------------------------------------------------------------------------
 
 p {
-  font-size: functions.px2rem(24);
+  font-size: functions.px2rem(18);
   line-height: 1.5em;
-  font-weight: 200;
+  font-weight: 300;
+
+  @include mixins.breakpoint(md) {
+    font-size: functions.px2rem(24);
+    font-weight: 200;
+  }
 }
 
 // -----------------------------------------------------------------------------
@@ -106,7 +111,7 @@ p {
 }
 
 .li {
-  margin-bottom: 1.2em;
+  margin-bottom: 1.75em;
   margin-left: 1em;
   &::marker {
     color: variables.$color-soundwave;
@@ -140,6 +145,10 @@ p {
   @include mixins.breakpoint(xxl) {
     font-size: functions.px2rem(42);
   }
+}
+
+h1 + .subheading {
+  margin-top: 0.5em;
 }
 
 // -----------------------------------------------------------------------------

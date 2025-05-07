@@ -56,7 +56,10 @@
   padding: functions.px2rem(30);
   background-color: rgba(variables.$color-skywarp, 0.25);
   border: solid 1px rgba(variables.$color-devastator, 1);
-  // border-radius: functions.px2rem(10);
+
+  .li:last-child {
+    margin-bottom: 0;
+  }
 
   @include mixins.breakpoint(xxl) {
     padding: functions.px2rem(60);
@@ -71,6 +74,15 @@
   margin: 1em 0;
   text-align: center;
   font-size: 2em;
+
+  @include mixins.breakpoint(md) {
+    font-size: 1.75em;
+  }
+
+  @include mixins.breakpoint(xxl) {
+    margin: 1.5em 0;
+    font-size: 2em;
+  }
 }
 
 // -----------------------------------------------------------------------------
