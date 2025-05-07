@@ -88,8 +88,8 @@ const About = () => {
           </Panel> */}
 
           <Panel>
-            <h2 className="tagline">My Toolbox</h2>
-            <p>Not a complete list by any means but here are my favorites.</p>
+            <h2 className="tagline">Some Of My Tools</h2>
+            <p>I spin up, prototype, and learn whatever your team is rolling.</p>
             <h3>Frontend</h3>
             <ul className="ul">
               <li className="li">HTML / SCSS</li>
