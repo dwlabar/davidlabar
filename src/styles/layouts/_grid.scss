@@ -16,6 +16,10 @@
 
 $layout-cell-gap: 2em;
 
+// -----------------------------------------------------------------------------
+// ROW
+// -----------------------------------------------------------------------------
+
 .layout-row {
   display: flex;
   flex-flow: column nowrap; // Stack grids on mobile
@@ -25,18 +29,26 @@ $layout-cell-gap: 2em;
   gap: $layout-cell-gap;
   
   @include mixins.breakpoint(lg) {
-    flex-direction: row; // side by side grids
-    flex-wrap: wrap;
-    
+    flex-flow: row wrap;
   }
 }
+
+// -----------------------------------------------------------------------------
+// CELL
+// -----------------------------------------------------------------------------
 
 .layout-cell {
   width: 100%;
   min-width: 0;
   flex: 0 1 auto;
-  // background-color: rgba(128, 128, 128, 0.397);
+  & :last-child {
+    margin-bottom: 0;
+  }
 }
+
+// -----------------------------------------------------------------------------
+// 2 COLUMN
+// -----------------------------------------------------------------------------
 
 .layout-row--2 .layout-cell {
   @include mixins.breakpoint(lg) {
@@ -44,11 +56,19 @@ $layout-cell-gap: 2em;
   }
 }
 
+// -----------------------------------------------------------------------------
+// 3 COLUMN
+// -----------------------------------------------------------------------------
+
 .layout-row--3 .layout-cell {
   @include mixins.breakpoint(lg) {
     width: calc(33.333% - $layout-cell-gap);
   }
 }
+
+// -----------------------------------------------------------------------------
+// 4 COLUMN
+// -----------------------------------------------------------------------------
 
 .layout-row--4 .layout-cell {
   @include mixins.breakpoint(lg) {
