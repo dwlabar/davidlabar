@@ -127,11 +127,11 @@
 
   a {
     display: block;
-    color: variables.$color-devastator;
+    color: variables.$color-menasor;
     text-decoration: none;
     border-bottom-color: transparent;
     transition: color variables.$global-timing variables.$global-easing, border-color variables.$global-timing variables.$global-easing;
-    border: solid 1px variables.$color-devastator;
+    border: solid 1px variables.$color-menasor;
     padding: functions.px2rem(10);
 
     &:hover {
@@ -182,10 +182,6 @@
   margin-left: functions.px2rem(20);
   margin-right: auto;
 
-  path {
-    fill: variables.$color-devastator;
-  }
-
   @include mixins.breakpoint(md) {
     margin-left: functions.px2rem(40);
   }
@@ -203,12 +199,28 @@
 
 .nav-bar__burger {
   margin-right: functions.px2rem(20);
+  cursor: pointer;
 
   path {
-    fill: variables.$color-devastator;
+    fill: variables.$color-menasor;
+    transition: fill variables.$global-timing variables.$global-easing;
+  }
+
+  &:hover,
+  &:focus {
+    path {
+      fill: variables.$color-soundwave;
+    }
   }
 
   @include mixins.breakpoint(md) {
     display: none;
   }
+}
+
+// ACTIVE STATE
+// -----------------------------------------------------------------------------
+
+.nav-bar__ul.visible + .nav-bar__burger path {  
+  fill: variables.$color-soundwave;
 }
