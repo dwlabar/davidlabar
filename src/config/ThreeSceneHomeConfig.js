@@ -1,6 +1,6 @@
 const ThreeSceneHomeConfig = {
   // Settings - Grid
-  gridSize: 40,
+  gridSize: 20,
   cubeSpacing: 8,
   cubeSizeX: 2,
   cubeSizeY: 0.5,
@@ -11,8 +11,8 @@ const ThreeSceneHomeConfig = {
   speed: 0.2,
 
   // Settings - Fade
-  fadeStart: 240,
-  fadeEnd: 120,
+  fadeStart: 180,
+  fadeEnd: 100,
   fadeCurve: 8,
 
   // Effect - Wave

@@ -86,7 +86,7 @@ const ThreeSceneManager = () => {
 
     // ======= PARTICLE SYSTEM =======
 
-    const trailCount = 100;
+    const trailCount = 10;
     const trails = [];
     const depth = gridSpanZ;
     const baseMargin = 1;
