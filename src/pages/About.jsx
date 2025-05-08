@@ -110,7 +110,7 @@ const About = () => {
             <ul className="ul">
               <li className="li">Photoshop / GIMP</li>
               <li className="li">Illustrator / Inkscape</li>
-              <li className="li">After Effects / Kdenlive</li>
+              <li className="li">Figma</li>
             </ul>
             <h3>Game &nbsp;/&nbsp; Interactive</h3>
             <ul className="ul">
