@@ -71,11 +71,11 @@ const ThreeSceneManager = () => {
 
     // ======= LIGHTING =======
 
-    const ambientLight = new THREE.AmbientLight(0x404040);
-    scene.add(ambientLight);
+    // const ambientLight = new THREE.AmbientLight(0x404040);
+    // scene.add(ambientLight);
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-    directionalLight.position.set(100, 250, 75);
+    directionalLight.position.set(100, 200, 75);
     scene.add(directionalLight);
 
     const backLight = new THREE.DirectionalLight(0x3399ff, 8);
@@ -132,7 +132,7 @@ const ThreeSceneManager = () => {
             color: 0x373737,
             transparent: true,
             opacity: 0,
-            specular: 0x555555,
+            specular: 0xffffff,
             shininess: 100
           });
 
