@@ -64,7 +64,6 @@ const LogoMini = () => {
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
       role="link"
-      style={{ cursor: "pointer" }}
     >
       <defs>
         <linearGradient id="logomini_bottomHighlightGradient">
