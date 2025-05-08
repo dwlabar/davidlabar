@@ -5,7 +5,7 @@ import { useThreeSceneContext } from '../context/ThreeSceneContext';
 const ThreeSceneManager = () => {
 
   // ======= REFS AND CONTEXT =======
-  
+
   const mountRef = useRef(null);
   const { settings } = useThreeSceneContext();
 
@@ -121,20 +121,17 @@ const ThreeSceneManager = () => {
     const fadeCurve = settings.fadeCurve || 2;
 
     const gridSize = settings.gridSize;
-    const centerMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
     const cubes = [];
     for (let x = -Math.floor(gridSize / 2); x <= Math.floor(gridSize / 2); x++) {
       for (let z = -Math.floor(gridSize / 2); z <= Math.floor(gridSize / 2); z++) {
         const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const material = x === 0 && z === 0
-          ? centerMaterial
-          : new THREE.MeshPhongMaterial({
-            color: 0x373737,
-            transparent: true,
-            opacity: 0,
-            specular: 0xffffff,
-            shininess: 100
-          });
+        const material = new THREE.MeshPhongMaterial({
+          color: 0x373737,
+          transparent: true,
+          opacity: 0,
+          specular: 0xffffff,
+          shininess: 100
+        });
 
         const cube = new THREE.Mesh(geometry, material);
         cube.scale.set(
