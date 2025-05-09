@@ -63,11 +63,7 @@ const NavBar = ({ links }) => {
 
   return (
     <nav className="nav-bar" ref={navRef}>
-      <div className="nav-bar__logo">
-        <LogoMini />
-        <div className="nav-bar__logo-text">DAVIDLABAR.COM</div>
-      </div>
-
+      <LogoMini />
       <ul className={`nav-bar__ul ${menuOpen ? "visible" : "hidden"}`}>
         {links.map(({ name, path }) => (
           <li
