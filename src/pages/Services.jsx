@@ -15,9 +15,8 @@ const Services = () => {
     <>
       <Container>
         <header>
-          <h1>Services and Specialties
-            <span className="subheading">I design, develop, and bring ideas to life through clean code and thoughtful design. Here's what I offer:</span>
-          </h1>
+          <h1>Services and Specialties</h1>
+          <p className="subheading">I design, develop, and bring ideas to life through clean code and thoughtful design. Here's what I offer:</p>
         </header>        
 
         <div className="card-grid">
