@@ -71,15 +71,13 @@ const ThreeSceneManager = () => {
 
     // ======= LIGHTING =======
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-    directionalLight.position.set(100, 200, 75);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.25);
+    directionalLight.position.set(1, 1, 0);
     scene.add(directionalLight);
 
     const backLight = new THREE.DirectionalLight(0x3399ff, 8);
     backLight.position.set(0, 30, 180);
-    backLight.target.position.set(0, 0, 0);
     scene.add(backLight);
-    scene.add(backLight.target);
 
     // ======= PARTICLE SYSTEM =======
 
