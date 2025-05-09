@@ -77,12 +77,13 @@ h2 {
 }
 
 h3 {
-  border: solid 1px variables.$color-devastator;
+  border: solid 1px variables.$color-starscream;
   margin: 2em 0;
   padding: 1em;
   font-size: functions.px2rem(12);
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  color: variables.$color-starscream;
 }
 
 // -----------------------------------------------------------------------------
@@ -97,6 +98,10 @@ p {
   @include mixins.breakpoint(md) {
     font-size: functions.px2rem(24);
     font-weight: 200;
+  }
+
+  @include mixins.breakpoint(xl) {
+    font-size: functions.px2rem(28);
   }
 }
 

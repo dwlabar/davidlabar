@@ -46,10 +46,6 @@
 // -----------------------------------------------------------------------------
 
 .panel {
-  h3 {
-    // margin-bottom: 1rem;
-  }
-
   .ul {
     display: grid;
     grid-template-columns: 1fr;
@@ -73,10 +69,10 @@
   .li {
     margin: 0;
     padding: 10px;
-    border: solid 1px variables.$color-trypticon;
+    border: solid 1px rgba(variables.$color-starscream, 0.6);
     font-size: functions.px2rem(12);
     letter-spacing: 0.125em;
     text-transform: uppercase;
-    color: rgba(variables.$color-starscream, 0.8);
+    color: rgba(variables.$color-starscream, 0.6);
   }
 }
