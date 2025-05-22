@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import * as THREE from 'three';
+import gsap from 'gsap';
 import { useThreeSceneContext } from '../context/ThreeSceneContext';
 
 const ThreeSceneManager = () => {
@@ -15,32 +16,38 @@ const ThreeSceneManager = () => {
     y: settings.cubeSizeY,
     z: settings.cubeSizeZ
   });
+
+  // GSAP animation targets
+  const speedTarget = useRef({ value: settings.speed });
+  const scaleTarget = useRef({ ...cubeScaleRef.current });
+
   const cubesRef = useRef([]);
   const waveTimeRef = useRef(0);
   const baseParticleSpeed = 0.45;
   const defaultSpeed = 0.3;
 
-  // ======= EFFECT: SPEED REF UPDATE =======
+  // ======= EFFECT: SPEED UPDATE (with GSAP tween cleanup) =======
 
   useEffect(() => {
-    speedRef.current = settings.speed;
+    const tween = gsap.to(speedTarget.current, {
+      value: settings.speed,
+      duration: 0.6,
+      ease: 'power2.out'
+    });
+    return () => tween.kill();
   }, [settings.speed]);
 
-  // ======= EFFECT: CUBE SCALE UPDATE =======
+  // ======= EFFECT: CUBE SCALE UPDATE (with GSAP tween cleanup) =======
 
   useEffect(() => {
-    cubeScaleRef.current = {
+    const tween = gsap.to(scaleTarget.current, {
       x: settings.cubeSizeX,
       y: settings.cubeSizeY,
-      z: settings.cubeSizeZ
-    };
-    cubesRef.current.forEach(cube => {
-      cube.scale.set(
-        cubeScaleRef.current.x,
-        cubeScaleRef.current.y,
-        cubeScaleRef.current.z
-      );
+      z: settings.cubeSizeZ,
+      duration: 0.6,
+      ease: 'power2.out'
     });
+    return () => tween.kill();
   }, [settings.cubeSizeX, settings.cubeSizeY, settings.cubeSizeZ]);
 
   // ======= MAIN THREE.JS SETUP =======
@@ -105,7 +112,7 @@ const ThreeSceneManager = () => {
 
     function resetTrail(trail, init = false) {
       trail.position.x = (Math.random() - 0.5) * (gridSpanZ / 2);
-      trail.position.y = cubeScaleRef.current.y + baseMargin + 5 + Math.random() * 30; // increased Y spread
+      trail.position.y = cubeScaleRef.current.y + baseMargin + 5 + Math.random() * 30;
       trail.position.z = init ? -Math.random() * depth : -depth;
     }
 
@@ -170,6 +177,12 @@ const ThreeSceneManager = () => {
     const animate = () => {
       animationId = requestAnimationFrame(animate);
 
+      speedRef.current = speedTarget.current.value;
+
+      cubeScaleRef.current.x = scaleTarget.current.x;
+      cubeScaleRef.current.y = scaleTarget.current.y;
+      cubeScaleRef.current.z = scaleTarget.current.z;
+
       if (settings.waveEffectEnabled) {
         waveTimeRef.current += settings.waveSpeed;
       }
@@ -215,6 +228,12 @@ const ThreeSceneManager = () => {
               Math.sin(cube.userData.phase + waveTimeRef.current);
           }
         }
+
+        cube.scale.set(
+          cubeScaleRef.current.x,
+          cubeScaleRef.current.y,
+          cubeScaleRef.current.z
+        );
       });
 
       renderer.render(scene, camera);
