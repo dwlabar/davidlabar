@@ -26,12 +26,20 @@ const About = () => {
             </p>
 
             <p>
-              Along the way, I've built frontend systems for dev teams, launched client sites end-to-end, and worked in everything from Flash games to audio production. My background spans both the visual and technical - Photoshop to 3D Studio Max, ActionScript to JavaScript.
+              Along the way, I've built frontend systems for dev teams, launched client sites end-to-end, and worked in everything from Flash games to audio production. My background spans both the visual and technical - from concept sketch to production code.
             </p>
 
+            {/* <p>
+              Along the way, I've built frontend systems for dev teams, launched client sites end-to-end, and worked in everything from Flash games to audio production. My background spans both the visual and technical - Photoshop to 3D Studio Max, ActionScript to JavaScript.
+            </p> */}
+
             <p>
-              This portfolio is part playground, part proof-of-skill. It reflects the mindset I bring to every project: curious, detail-obsessed, and always evolving.
+              This portfolio is part playground, part proof-of-skill. It reflects the mindset I bring to every project: build, test, refine, repeat.
             </p>
+
+            {/* <p>
+              This portfolio is part playground, part proof-of-skill. It reflects the mindset I bring to every project: curious, detail-obsessed, and always evolving.
+            </p> */}
 
             <p>
               If you're looking for a hybrid thinker who can move fluidly between design and code, let's connect.
@@ -46,8 +54,8 @@ const About = () => {
               <li className="li">HTML / SCSS</li>
               <li className="li">GSAP / SVG</li>
               <li className="li">JavaScript (ES6+)</li>
-              <li className="li">React / JSX</li>
-              <li className="li">Three.js / WebGL</li>
+              <li className="li">React (JSX)</li>
+              <li className="li">Three.js (WebGL)</li>
             </ul>
             <h3>Backend &nbsp;/&nbsp; CMS</h3>
             <ul className="ul">
@@ -59,8 +67,10 @@ const About = () => {
             </ul>
             <h3>Design</h3>
             <ul className="ul">
-              <li className="li">Photoshop / GIMP</li>
-              <li className="li">Illustrator / Inkscape</li>
+              <li className="li">Photoshop</li>
+              <li className="li">GIMP</li>
+              <li className="li">Illustrator</li>
+              <li className="li">Inkscape</li>
               <li className="li">Figma</li>
             </ul>
             <h3>Game &nbsp;/&nbsp; Interactive</h3>
