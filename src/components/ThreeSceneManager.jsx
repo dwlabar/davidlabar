@@ -190,7 +190,7 @@ const ThreeSceneManager = () => {
       trails.forEach(trail => {
         const speed = baseParticleSpeed * (speedRef.current / defaultSpeed);
         trail.position.z += speed;
-        trail.scale.y = 0.75 + speed * 5;
+        trail.scale.y = 0.1 + speed * 5;
 
         const fade = calculateOpacity(trail.position);
         trail.material.opacity = fade * 0.8;
