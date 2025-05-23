@@ -1,15 +1,14 @@
 import React, { useRef, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useOverlay } from "../context/OverlayContext";
 import { gsap } from "gsap";
+import { useOverlay } from "../context/OverlayContext";
+import useOverlayNavigate from "../hooks/useOverlayNavigate";
 import "../styles/components/_logomini.scss";
 
 const LogoMini = () => {
   const logoRef = useRef(null);
   const tl = useRef(null);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { showOverlay, setNavOpen } = useOverlay();
+  const overlayNavigate = useOverlayNavigate();
+  const { setNavOpen } = useOverlay();
 
   useEffect(() => {
     const svg = logoRef.current;
@@ -29,29 +28,13 @@ const LogoMini = () => {
   const handleMouseEnter = () => tl.current.play();
   const handleMouseLeave = () => tl.current.reverse();
 
-  const handleClick = (e) => {
+  const handleClick = (e, path) => {
     e.preventDefault();
-
-    // same path — don't do anything
-    if (location.pathname === "/") {
-      setNavOpen(false);
-      return;
-    }
-
-    setNavOpen(false);
-
-    showOverlay({
-      opacity: 1,
-      reason: "nav",
-      onVisible: () => {
-        window.scrollTo(0, 0);
-        navigate("/");
-      },
-    });
+    overlayNavigate(path);
   };
 
   return (
-    <button className="nav-bar__logo" onClick={handleClick}>
+    <button className="nav-bar__logo" onClick={(e) => handleClick(e, "/")}>
       <svg
         ref={logoRef}
         className="logomini"

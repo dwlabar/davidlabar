@@ -1,6 +1,7 @@
 import React from "react";
 import { usePageReadyController } from "../context/PageReadyContext";
 import useNotifyWhenImagesLoaded from "../hooks/useNotifyWhenImagesLoaded";
+import useOverlayNavigate from "../hooks/useOverlayNavigate";
 import Container from "../components/Container";
 import Panel from "../components/Panel";
 import Card from "../components/Card";
@@ -11,13 +12,20 @@ const Services = () => {
   // Notify once all images on this page have finished loading
   useNotifyWhenImagesLoaded(notifyPageReady);
 
+  const overlayNavigate = useOverlayNavigate();
+
+  const handleClick = (e, path) => {
+    e.preventDefault();
+    overlayNavigate(path);
+  };
+
   return (
     <>
       <Container>
         <header>
           <h1>Services and Specialties</h1>
           <p className="subheading">I design, develop, and bring ideas to life through clean code and thoughtful design. Here's what I offer:</p>
-        </header>        
+        </header>
 
         <div className="card-grid">
           <Card>
@@ -66,7 +74,7 @@ const Services = () => {
 
         <Panel>
           <p>Have a project in mind? Let's make it happen.</p>
-          <a href="/" className="bfg-button">Let's Talk About It!</a>
+          <a href="/contact" className="bfg-button" onClick={(e) => handleClick(e, "/contact")}>Let's Talk About It!</a>
         </Panel>
       </Container>
     </>
