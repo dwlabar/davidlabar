@@ -4,11 +4,12 @@ import gsap from 'gsap';
 import { useThreeSceneContext } from '../context/ThreeSceneContext';
 
 const ThreeSceneManager = () => {
-
   // ======= REFS AND CONTEXT =======
 
   const mountRef = useRef(null);
   const { settings } = useThreeSceneContext();
+
+  const cellSize = 10; // Fixed size of each grid cell
 
   const speedRef = useRef(settings.speed);
   const cubeScaleRef = useRef({
@@ -27,7 +28,6 @@ const ThreeSceneManager = () => {
   const defaultSpeed = 0.3;
 
   // ======= EFFECT: SPEED UPDATE (with GSAP tween cleanup) =======
-
   useEffect(() => {
     const tween = gsap.to(speedTarget.current, {
       value: settings.speed,
@@ -38,7 +38,6 @@ const ThreeSceneManager = () => {
   }, [settings.speed]);
 
   // ======= EFFECT: CUBE SCALE UPDATE (with GSAP tween cleanup) =======
-
   useEffect(() => {
     const tween = gsap.to(scaleTarget.current, {
       x: settings.cubeSizeX,
@@ -51,20 +50,18 @@ const ThreeSceneManager = () => {
   }, [settings.cubeSizeX, settings.cubeSizeY, settings.cubeSizeZ]);
 
   // ======= MAIN THREE.JS SETUP =======
-
   useEffect(() => {
     if (!mountRef.current) return;
 
     const mount = mountRef.current;
-    let newWidth = mount.clientWidth;
-    let newHeight = mount.clientHeight;
+    const newWidth = mount.clientWidth;
+    const newHeight = mount.clientHeight;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, newWidth / newHeight, 0.1, 1000);
 
-    const cubeSpacing = settings.cubeSpacing;
-    const stepZ = cubeScaleRef.current.z + cubeSpacing;
-    const stepX = cubeScaleRef.current.x + cubeSpacing;
+    const stepX = cellSize;
+    const stepZ = cellSize;
     const gridSpanZ = (settings.gridSize + 1) * stepZ;
     const startZ = gridSpanZ / 2;
 
@@ -77,7 +74,6 @@ const ThreeSceneManager = () => {
     mount.appendChild(renderer.domElement);
 
     // ======= LIGHTING =======
-
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1.25);
     directionalLight.position.set(1, 1, 0);
     scene.add(directionalLight);
@@ -87,7 +83,6 @@ const ThreeSceneManager = () => {
     scene.add(backLight);
 
     // ======= PARTICLE SYSTEM =======
-
     const trailCount = 10;
     const trails = [];
     const depth = gridSpanZ;
@@ -117,7 +112,6 @@ const ThreeSceneManager = () => {
     }
 
     // ======= CUBE GRID GENERATION =======
-
     const fadeStart = settings.fadeStart || 60;
     const fadeEnd = settings.fadeEnd || 10;
     const fadeCurve = settings.fadeCurve || 2;
@@ -136,23 +130,19 @@ const ThreeSceneManager = () => {
         });
 
         const cube = new THREE.Mesh(geometry, material);
-        cube.scale.set(
-          cubeScaleRef.current.x,
-          cubeScaleRef.current.y,
-          cubeScaleRef.current.z
-        );
+        cube.scale.set(settings.cubeSizeX, settings.cubeSizeY, settings.cubeSizeZ);
 
         const posX = x * stepX;
         const posZ = z * stepZ;
         let posY = 0;
+
         if (settings.waveEffectEnabled) {
-          posY = settings.waveAmplitude * Math.sin(
-            posX * settings.waveFrequency + posZ * settings.waveFrequency
-          );
+          posY = settings.waveAmplitude * Math.sin(posX * settings.waveFrequency + posZ * settings.waveFrequency);
         } else if (settings.randomYEffectEnabled) {
           const range = settings.randomYRange || 10;
           posY = (Math.random() - 0.5) * range;
         }
+
         cube.position.set(posX, posY, posZ);
         cube.userData.phase = posX * settings.waveFrequency + posZ * settings.waveFrequency;
         scene.add(cube);
@@ -162,7 +152,6 @@ const ThreeSceneManager = () => {
     cubesRef.current = cubes;
 
     // ======= ANIMATION LOOP =======
-
     const calculateOpacity = (objPos) => {
       const distance = camera.position.distanceTo(objPos);
       if (distance > fadeStart) return 0;
@@ -200,12 +189,11 @@ const ThreeSceneManager = () => {
         }
       });
 
-      cubes.forEach(cube => {
+      cubesRef.current.forEach(cube => {
         cube.position.z += speedRef.current;
 
         if (settings.waveEffectEnabled) {
-          cube.position.y = settings.waveAmplitude *
-            Math.sin(cube.userData.phase + waveTimeRef.current);
+          cube.position.y = settings.waveAmplitude * Math.sin(cube.userData.phase + waveTimeRef.current);
         }
 
         if (cube.material.transparent) {
@@ -220,12 +208,12 @@ const ThreeSceneManager = () => {
           cube.material.opacity = 0;
           cube.material.needsUpdate = true;
           cube.position.z = getResetZPosition(cube.position.z);
+
           if (settings.randomYEffectEnabled && !settings.waveEffectEnabled) {
             const range = settings.randomYRange || 10;
             cube.position.y = (Math.random() - 0.5) * range;
           } else if (settings.waveEffectEnabled) {
-            cube.position.y = settings.waveAmplitude *
-              Math.sin(cube.userData.phase + waveTimeRef.current);
+            cube.position.y = settings.waveAmplitude * Math.sin(cube.userData.phase + waveTimeRef.current);
           }
         }
 
@@ -241,13 +229,12 @@ const ThreeSceneManager = () => {
     animate();
 
     // ======= HANDLE RESIZE =======
-
     let resizeTimeout;
     const handleResize = () => {
-      newWidth = mount.clientWidth;
-      newHeight = mount.clientHeight;
-      renderer.setSize(newWidth, newHeight, false);
-      camera.aspect = newWidth / newHeight;
+      const width = mount.clientWidth;
+      const height = mount.clientHeight;
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
       camera.updateProjectionMatrix();
     };
     const resizeObserver = new ResizeObserver(() => {
@@ -257,7 +244,6 @@ const ThreeSceneManager = () => {
     resizeObserver.observe(mount);
 
     // ======= CLEANUP =======
-
     return () => {
       cancelAnimationFrame(animationId);
       resizeObserver.disconnect();

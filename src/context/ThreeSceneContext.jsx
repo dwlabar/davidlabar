@@ -1,22 +1,46 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect, useRef } from 'react';
+import { SCENE_PRESETS } from '../config/ThreeScenePresets';
 
-const defaultSettings = {
-  gridSize: 40,
-  cubeSizeX: 8,
-  cubeSizeY: 1,
-  cubeSizeZ: 8,
-  cubeSpacing: 0.5,
-  speed: 0.3,
-};
+const LOCAL_STORAGE_KEY = 'threeSceneSettings';
 
 const ThreeSceneContext = createContext();
 
-export const ThreeSceneProvider = ({ children, config = {} }) => {
-  const [settings, setSettings] = useState({ ...defaultSettings, ...config });
+export const ThreeSceneProvider = ({ children, presetName = 'default' }) => {
+  const saveTimeout = useRef(null);
+
+  // Get initial settings from preset + saved localStorage values
+  const getInitialSettings = () => {
+    const preset = SCENE_PRESETS[presetName] || {};
+    try {
+      const saved = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+      return { ...preset, ...saved };
+    } catch {
+      return { ...preset };
+    }
+  };
+
+  const [settings, setSettings] = useState(getInitialSettings);
 
   const updateSetting = (key, value) => {
-    setSettings((prev) => ({ ...prev, [key]: value }));
+    setSettings((prev) => {
+      const updated = { ...prev, [key]: value };
+
+      // Throttle localStorage saving
+      clearTimeout(saveTimeout.current);
+      saveTimeout.current = setTimeout(() => {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
+      }, 500);
+
+      return updated;
+    });
   };
+
+  // Cleanup any pending localStorage write
+  useEffect(() => {
+    return () => {
+      clearTimeout(saveTimeout.current);
+    };
+  }, []);
 
   return (
     <ThreeSceneContext.Provider value={{ settings, updateSetting }}>
