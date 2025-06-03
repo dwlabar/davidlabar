@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vampire Survivor Clone</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #111;
+      font-family: sans-serif;
+      color: #fff;
+    }
+    canvas {
+      display: block;
+    }
+    #ui {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 1;
+    }
+    #score {
+      font-size: 16px;
+      margin-top: 6px;
+    }
+    #gameOverScreen {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.8);
+      padding: 40px;
+      text-align: center;
+      border: 2px solid #fff;
+      display: none;
+    }
+    #gameOverScreen button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="ui">
+    <div id="score">Score: 0</div>
+  </div>
+  <div id="gameOverScreen">
+    <h2>Game Over</h2>
+    <p id="finalScore"></p>
+    <button onclick="location.reload()">Restart</button>
+  </div>
+  <canvas id="gameCanvas"></canvas>
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const scoreDisplay = document.getElementById('score');
+    const gameOverScreen = document.getElementById('gameOverScreen');
+    const finalScore = document.getElementById('finalScore');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const keys = {};
+    window.addEventListener('keydown', e => keys[e.key] = true);
+    window.addEventListener('keyup', e => keys[e.key] = false);
+
+    class Entity {
+      constructor(x, y, size, color) {
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.color = color;
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    class Player extends Entity {
+      constructor(x, y) {
+        super(x, y, 15, 'lime');
+        this.speed = 3;
+        this.hp = 100;
+        this.pushBack = 20;
+        this.damageRadius = 100;
+      }
+
+      update() {
+        if (keys['ArrowUp'] || keys['w']) this.y -= this.speed;
+        if (keys['ArrowDown'] || keys['s']) this.y += this.speed;
+        if (keys['ArrowLeft'] || keys['a']) this.x -= this.speed;
+        if (keys['ArrowRight'] || keys['d']) this.x += this.speed;
+
+        this.x = Math.max(this.size, Math.min(canvas.width - this.size, this.x));
+        this.y = Math.max(this.size, Math.min(canvas.height - this.size, this.y));
+      }
+
+      drawAura() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.damageRadius, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(0,255,0,0.2)';
+        ctx.lineWidth = 4;
+        ctx.stroke();
+      }
+
+      drawHealthBar() {
+        ctx.fillStyle = 'red';
+        ctx.fillRect(20, 40, 200, 10);
+        ctx.fillStyle = 'lime';
+        ctx.fillRect(20, 40, 200 * (this.hp / 100), 10);
+        ctx.strokeStyle = '#fff';
+        ctx.strokeRect(20, 40, 200, 10);
+      }
+    }
+
+    class Enemy extends Entity {
+      constructor(x, y) {
+        super(x, y, 10, 'red');
+        this.speed = 1.2;
+        this.hp = 5;
+      }
+
+      update(target) {
+        const dx = target.x - this.x;
+        const dy = target.y - this.y;
+        const dist = Math.hypot(dx, dy);
+        this.x += (dx / dist) * this.speed;
+        this.y += (dy / dist) * this.speed;
+      }
+
+      drawHealthBar() {
+        const barWidth = 20;
+        const barHeight = 4;
+        const x = this.x - barWidth / 2;
+        const y = this.y - this.size - 10;
+        ctx.fillStyle = 'red';
+        ctx.fillRect(x, y, barWidth, barHeight);
+        ctx.fillStyle = 'lime';
+        ctx.fillRect(x, y, barWidth * (this.hp / 5), barHeight);
+        ctx.strokeStyle = '#000';
+        ctx.strokeRect(x, y, barWidth, barHeight);
+      }
+    }
+
+    const player = new Player(canvas.width / 2, canvas.height / 2);
+    const enemies = [];
+
+    let spawnTimer = 0;
+    let score = 0;
+    let gameRunning = true;
+
+    function update() {
+      if (!gameRunning) return;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      player.update();
+      player.drawAura();
+      player.draw();
+      player.drawHealthBar();
+
+      spawnTimer--;
+      if (spawnTimer <= 0) {
+        enemies.push(new Enemy(Math.random() * canvas.width, Math.random() * canvas.height));
+        spawnTimer = 60;
+      }
+
+      for (let i = enemies.length - 1; i >= 0; i--) {
+        const e = enemies[i];
+        e.update(player);
+        e.draw();
+        e.drawHealthBar();
+
+        const dx = e.x - player.x;
+        const dy = e.y - player.y;
+        const dist = Math.hypot(dx, dy);
+
+        if (dist < e.size + player.size) {
+          player.hp -= 10;
+          const angle = Math.atan2(dy, dx);
+          player.x -= Math.cos(angle) * player.pushBack;
+          player.y -= Math.sin(angle) * player.pushBack;
+
+          if (player.hp <= 0) {
+            gameRunning = false;
+            finalScore.textContent = `Final Score: ${score}`;
+            gameOverScreen.style.display = 'block';
+          }
+        }
+
+        if (dist < player.damageRadius) {
+          e.hp -= 0.1;
+          if (e.hp <= 0) {
+            enemies.splice(i, 1);
+            score++;
+            scoreDisplay.textContent = `Score: ${score}`;
+          }
+        }
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    update();
+  </script>
+</body>
+</html>
