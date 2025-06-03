@@ -5,6 +5,9 @@ import useOverlayNavigate from "../hooks/useOverlayNavigate";
 import Container from "../components/Container";
 import Panel from "../components/Panel";
 import Card from "../components/Card";
+import IconDesign from "../components/IconDesign";
+import IconDev from "../components/IconDev";
+import IconCustom from "../components/IconCustom";
 
 const Services = () => {
   const { notifyPageReady } = usePageReadyController();
@@ -30,7 +33,8 @@ const Services = () => {
         <div className="card-grid">
           <Card>
             <div className="card__hero-image">
-              <img src="../src/assets/icon-design_isolated_01.webp" />
+              {/* <img src="../src/assets/icon-design_isolated_01.webp" /> */}
+              <IconDesign />
             </div>
             <div className="card__text">
               <h2 className="card__title">Design & UX</h2>
@@ -45,7 +49,8 @@ const Services = () => {
 
           <Card>
             <div className="card__hero-image">
-              <img src="../src/assets/icon-development_isolated_01.webp" />
+              {/* <img src="../src/assets/icon-development_isolated_01.webp" /> */}
+              <IconDev />
             </div>
             <div className="card__text">
               <h2 className="card__title">Development</h2>
@@ -59,7 +64,8 @@ const Services = () => {
 
           <Card>
             <div className="card__hero-image">
-              <img src="../src/assets/icon-custom_isolated_01.webp" />
+              {/* <img src="../src/assets/icon-custom_isolated_01.webp" /> */}
+              <IconCustom />
             </div>
             <div className="card__text">
               <h2 className="card__title">Custom Solutions</h2>

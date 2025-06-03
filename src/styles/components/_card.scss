@@ -93,10 +93,11 @@
   width: 100%;
   margin: 0 auto;
   // padding: functions.px2rem(60);
-  padding: 20%;
+  padding: 10%;
   border: solid 1px variables.$color-trypticon;
 
-  img {
+  img,
+  svg {
     display: block;
     width: 100%;
   }
