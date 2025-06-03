@@ -68,3 +68,19 @@
   @extend .input-text;
   resize: vertical;
 }
+
+// -----------------------------------------------------------------------------
+// THANK YOU MESSAGE
+// -----------------------------------------------------------------------------
+
+.thankyou {
+  padding: 1.5em;
+  background-color: rgba(variables.$color-skywarp, 0.5);
+  border: solid 1px variables.$color-devastator;
+  color: variables.$color-ramjet;
+  text-align: center;
+
+  @include mixins.breakpoint(md) {
+    padding: 2.5em;
+  }
+}
