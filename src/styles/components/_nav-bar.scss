@@ -78,28 +78,22 @@
 // VISIBILITY TOGGLE (Mobile only)
 // -----------------------------------------------------------------------------
 
-.nav-bar__ul.hidden {
+.nav-bar__ul {
   opacity: 0;
-  pointer-events: none;
   visibility: hidden;
-  transition: opacity 0.3s ease;
+  pointer-events: none;
 
-  @include mixins.breakpoint(md) {
+  &.nav-bar__ul--mobile-on {
+    // Let GSAP override these, but this sets initial mobile state
     opacity: 1;
-    pointer-events: auto;
     visibility: visible;
+    pointer-events: auto;
   }
-}
-
-.nav-bar__ul.visible {
-  opacity: 1;
-  pointer-events: auto;
-  visibility: visible;
 
   @include mixins.breakpoint(md) {
     opacity: 1;
-    pointer-events: auto;
     visibility: visible;
+    pointer-events: auto;
   }
 }
 
@@ -204,6 +198,8 @@
 .nav-bar__burger {
   margin-right: functions.px2rem(20);
   cursor: pointer;
+  background: none;
+  border: none;
 
   path {
     fill: variables.$color-menasor;
@@ -225,6 +221,6 @@
 // ACTIVE STATE
 // -----------------------------------------------------------------------------
 
-.nav-bar__ul.visible + .nav-bar__burger path {  
+.nav-bar__ul--mobile-on + .nav-bar__burger path {  
   fill: variables.$color-soundwave;
 }
