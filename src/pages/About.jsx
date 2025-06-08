@@ -82,12 +82,11 @@ const About = () => {
           </Panel>
 
           <Panel>
-            <h2 className="tagline">Resume & Links</h2>
-            <p>If you'd like a deeper dive into my experience, here's a PDF of my resume and a link to my LinkedIn profile.</p>
-            <ul>
-              <li><a href="/downloads/David-LaBar_Resume-2025.pdf" target="_blank" rel="noopener noreferrer">Download Resume (PDF)</a></li>
-              <li><a href="https://www.linkedin.com/in/davidlabar/" target="_blank" rel="noopener noreferrer">View LinkedIn</a></li>
-            </ul>
+            <p>See more details of my experience.</p>
+            <div className="btn-group">
+              <a href="/downloads/David-LaBar_Resume-2025.pdf" className="bfg-button" target="_blank" rel="noopener noreferrer">View Resume</a>
+              <a href="https://www.linkedin.com/in/davidlabar/" className="bfg-button" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a>
+            </div>
           </Panel>
         </section>
       </Container>

@@ -75,6 +75,37 @@ body {
 }
 
 // -----------------------------------------------------------------------------
+// BUTTON GROUP
+// -----------------------------------------------------------------------------
+
+.btn-group {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  .bfg-button {
+    width: 100%;
+    display: inline-block;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  @include mixins.breakpoint(xs) {
+    flex-flow: row nowrap;
+    .bfg-button {
+      width: auto;
+      display: inline-block;
+      margin-bottom: 0;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
 // HIDE STUFF
 // -----------------------------------------------------------------------------
 
