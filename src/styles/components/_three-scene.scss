@@ -166,31 +166,40 @@
 // THUMB
 // -----------------------------------------------------------------------------
 
+.slider-control input[type="range"] {
+  &:focus {
+    outline: none; // prevent default glow
+  }
+}
+
 .slider-control input[type="range"]::-webkit-slider-thumb {
   appearance: none;
   height: 14px;
   width: 14px;
   border-radius: 50%;
   background: variables.$color-megatron;
-  // box-shadow: 0 0 4px variables.$color-soundwave;
   border: solid 2px variables.$color-soundwave;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.slider-control input[type="range"]:hover::-webkit-slider-thumb {
+.slider-control input[type="range"]:hover::-webkit-slider-thumb,
+.slider-control input[type="range"]:focus::-webkit-slider-thumb {
   transform: scale(1.2);
+  box-shadow: 0 0 0 4px rgba(0, 170, 255, 0.35); // subtle blue glow
 }
 
 .slider-control input[type="range"]::-moz-range-thumb {
+  appearance: none;
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  background: variables.$color-ramjet;
-  border: none;
-  // box-shadow: 0 0 4px variables.$color-soundwave;
-  border: solid 1px variables.$color-soundwave;
+  background: variables.$color-megatron;
+  border: solid 2px variables.$color-soundwave;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.slider-control input[type="range"]:hover::-moz-range-thumb {
+.slider-control input[type="range"]:hover::-moz-range-thumb,
+.slider-control input[type="range"]:focus::-moz-range-thumb {
   transform: scale(1.2);
+  box-shadow: 0 0 0 4px rgba(0, 170, 255, 0.35);
 }
