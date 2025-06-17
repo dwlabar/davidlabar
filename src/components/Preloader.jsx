@@ -13,11 +13,25 @@ const Preloader = () => {
         "#logo_bottomHighlight, #logo_core, #logo_highlight, #logo_border, #logo_border02"
       );
 
+      let hasTriggered = false;
+
+      // Fallback: force completion after 6s
+      const fallbackTimeout = setTimeout(() => {
+        if (!hasTriggered) {
+          setAnimationDone(true);
+          hasTriggered = true;
+        }
+      }, 6000); // adjust duration as needed
+
       elements.forEach((el) => {
         el.addEventListener(
           "animationiteration",
           () => {
-            setAnimationDone(true);
+            if (!hasTriggered) {
+              setAnimationDone(true);
+              hasTriggered = true;
+              clearTimeout(fallbackTimeout);
+            }
           },
           { once: true }
         );
