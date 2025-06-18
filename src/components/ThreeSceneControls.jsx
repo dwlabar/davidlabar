@@ -22,7 +22,7 @@ const ThreeSceneControls = ({ showControls, setShowControls }) => {
     <>
       <button
         type="button"
-        className="scene-controls-toggle"
+        className={`scene-controls-toggle${showControls ? ' active' : ''}`}
         onClick={() => {
           console.log("toggling", !showControls);
           setShowControls(!showControls);

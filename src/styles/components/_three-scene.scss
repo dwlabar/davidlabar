@@ -54,34 +54,21 @@
     outline-width: 2px;
     outline-color: variables.$color-soundwave;
   }
+  &:hover,
+  &.active {
+    .icon-cube__border {
+      fill: variables.$color-soundwave !important;
+    }
+  }
 }
 
 .icon-cube {
   width: 100%;
   height: 100%;
+}
 
-  #cube-top {
-    fill: #4e4e4e;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  #cube-left {
-    fill: #2d2d2d;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  #cube-border {
-    fill: #292929;
-    stroke-linecap: round;
-  }
-
-  #cube-right {
-    fill: #1c1c1c;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
+.icon-cube__border {
+  transition: fill variables.$global-timing variables.$global-easing;
 }
 
 // -----------------------------------------------------------------------------
@@ -115,7 +102,6 @@
   background: rgba(variables.$color-skywarp, 0.6);
   backdrop-filter: blur(4px);
   border: solid 1px variables.$color-devastator;
-  // border-radius: functions.px2rem(5);
 }
 
 // -----------------------------------------------------------------------------

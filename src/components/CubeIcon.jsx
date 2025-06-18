@@ -53,53 +53,45 @@ const CubeIcon = ({ isActive }) => {
       className="icon-cube"
       aria-hidden="true"
     >
-      <path
-        id="icon-cube__border"
+      <path        
         className="icon-cube__border"
         fill="#292929"
         d="M 16.000007,1.82678 3.7256274,8.9134 v 14.17323 l 12.2743796,7.08661 12.27438,-7.08661 V 8.9134 Z"
       />
-      <path
-        id="icon-cube__back"
+      <path        
         className="icon-cube__back"
         fill="#151515"
         d="M 16.000007,2.77166 4.5439274,9.38584 v 13.22835 l 11.4560796,6.61417 11.45609,-6.61417 V 9.38584 Z"
       />
-      <path
-        id="icon-cube__cube-top"
+      <path        
         className="icon-cube__cube-top"
         data-face="top"
         fill="#4e4e4e"
         d={paths.top.base}
       />
-      <path
-        id="icon-cube__cube-left"
+      <path        
         className="icon-cube__cube-left"
         data-face="left"
         fill="#2d2d2d"
         d={paths.left.base}
       />
-      <path
-        id="icon-cube__cube-right"
+      <path        
         className="icon-cube__cube-right"
         data-face="right"
         fill="#1c1c1c"
         d={paths.right.base}
       />
-      <path
-        id="icon-cube__border-inner-left"
+      <path        
         className="icon-cube__border-inner-left"
         fill="#1c1c1c"
         d="m 4.5439274,9.38583 v 13.22835 l 0.81829,-0.47244 V 9.85827 L 16.000007,3.71654 V 2.77166 Z"
       />
-      <path
-        id="icon-cube__border-inner-bottom"
+      <path        
         className="icon-cube__border-inner-bottom"
         fill="#1a1a1a"
         d="m 5.3622174,22.14174 -0.81829,0.47244 11.4560796,6.61418 11.45609,-6.61418 -0.8183,-0.47244 -10.63779,6.14174 z"
       />
-      <path
-        id="icon-cube__border-inner-right"
+      <path        
         className="icon-cube__border-inner-right"
         fill="#202020"
         d="m 16.000007,2.77166 v 0.94488 l 10.63779,6.14173 v 12.28347 l 0.8183,0.47244 c 0,0 0,-13.22835 0,-13.22835 z"
