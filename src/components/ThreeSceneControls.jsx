@@ -20,6 +20,17 @@ const ThreeSceneControls = ({ showControls, setShowControls }) => {
 
   return (
     <>
+      <button
+        type="button"
+        className="scene-controls-toggle"
+        onClick={() => {
+          console.log("toggling", !showControls);
+          setShowControls(!showControls);
+        }}
+        aria-label="Toggle Scene Controls"
+      >
+        <CubeIcon isActive={showControls} />
+      </button>
       <div className={`scene-controls ${showControls ? 'visible' : ''}`}>
         <div className="slider-group">
           <div className="slider-control">
@@ -75,17 +86,6 @@ const ThreeSceneControls = ({ showControls, setShowControls }) => {
           </div>
         </div>
       </div>
-      <button
-        type="button"
-        className="scene-controls-toggle"
-        onClick={() => {
-          console.log("toggling", !showControls);
-          setShowControls(!showControls);
-        }}
-        aria-label="Toggle Scene Controls"
-      >
-        <CubeIcon isActive={showControls} />
-      </button>
     </>
   );
 };
