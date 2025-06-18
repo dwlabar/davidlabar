@@ -21,7 +21,7 @@ const Contact = () => {
         <Panel>
           <div className="layout-row layout-row--2">
             <div className="layout-cell">
-              <p className="no-margin-top">I'm currently available for freelance or full-time opportunities. Whether you need a polished front-end, a custom design system, or just someone who can bring design and dev together-I'd love to hear what you're working on.</p>
+              <p className="no-margin-top">I'm currently available for freelance or full-time opportunities. Whether you need a polished front-end, a custom design system, or just someone who can bring design and dev together. I'd love to hear what you're working on.</p>
               <p>Let me know a bit about your project and how to reach you. I'll get back to you as soon as I can.</p>
             </div>
             <div className="layout-cell">
