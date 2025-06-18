@@ -127,9 +127,16 @@
     transition: color variables.$global-timing variables.$global-easing, border-color variables.$global-timing variables.$global-easing;
     border: solid 1px variables.$color-menasor;
     padding: functions.px2rem(10);
+    outline: none;
 
-    &:hover {
+    &:hover,
+    &:focus {
       color: variables.$color-soundwave;
+    }
+    &:focus-visible {
+      outline-style: outset;
+      outline-width: 2px;
+      outline-color: variables.$color-soundwave;
     }
   }
 
@@ -180,6 +187,12 @@
   border: none;
   background: none;
 
+  &:focus-visible {
+    outline-style: outset;
+    outline-width: 2px;
+    outline-color: variables.$color-soundwave;
+  }
+
   @include mixins.breakpoint(md) {
     margin-left: functions.px2rem(40);
   }
@@ -200,6 +213,7 @@
   cursor: pointer;
   background: none;
   border: none;
+  outline: none;
 
   path {
     fill: variables.$color-menasor;
@@ -207,7 +221,7 @@
   }
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     path {
       fill: variables.$color-soundwave;
     }

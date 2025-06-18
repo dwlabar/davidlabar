@@ -48,6 +48,12 @@
   border: none;
   color: variables.$color-ramjet;
   cursor: pointer;
+
+  &:focus-visible {
+    outline-style: outset;
+    outline-width: 2px;
+    outline-color: variables.$color-soundwave;
+  }
 }
 
 .icon-cube {
