@@ -18,8 +18,23 @@ const About = () => {
             <h1>David LaBar</h1>
             <p className="subheading">UX Engineer / Designer</p>
           </header>
-          
+
           <Panel>
+            <p className="tagline">About Me</p>
+            <p>
+              I've been building for the web since the early 2000s. I started with HTML, CSS, and Flash, then moved into SCSS, JS frameworks, and component systems as the landscape evolved.
+            </p>
+
+            <p>
+              Most of my work sits between design and front-end. I've launched client sites, built design systems, themed major CMS platforms, and picked up new tools when needed, without slowing down the project.
+            </p>
+
+            <p>
+              This site shows what I care about: structure, detail, and the way things feel when you use them.
+            </p>
+          </Panel>
+          
+          {/* <Panel>
             <p className="tagline">Designer &amp; developer with a deep toolkit and a passion for polish</p>
             <p>
               I've spent my career bridging design and development - starting with raw HTML and Flash in the early 2000s, growing through modular SCSS, JavaScript frameworks, and custom frontend systems.
@@ -29,22 +44,14 @@ const About = () => {
               Along the way, I've built frontend systems for dev teams, launched client sites end-to-end, and worked in everything from Flash games to audio production. My background spans both the visual and technical - from concept sketch to production code.
             </p>
 
-            {/* <p>
-              Along the way, I've built frontend systems for dev teams, launched client sites end-to-end, and worked in everything from Flash games to audio production. My background spans both the visual and technical - Photoshop to 3D Studio Max, ActionScript to JavaScript.
-            </p> */}
-
             <p>
               This portfolio is part playground, part proof-of-skill. It reflects the mindset I bring to every project: build, test, refine, repeat.
             </p>
 
-            {/* <p>
-              This portfolio is part playground, part proof-of-skill. It reflects the mindset I bring to every project: curious, detail-obsessed, and always evolving.
-            </p> */}
-
             <p>
               If you're looking for a hybrid thinker who can move fluidly between design and code, let's connect.
             </p>
-          </Panel>
+          </Panel> */}
 
           <Panel>
             <h2 className="tagline">Toolbox</h2>
