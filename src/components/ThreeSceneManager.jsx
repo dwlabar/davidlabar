@@ -28,7 +28,7 @@ const ThreeSceneManager = () => {
   const defaultSpeed = 0.3;
 
   // ======= OUTLINE: global on/off value (0-1) ===========================
-  const outlineToggleRef = useRef({ value: 0 });                         // NEW
+  const outlineToggleRef = useRef({ value: 0 });
 
   // ======= EFFECT: SPEED UPDATE (with GSAP tween cleanup) =======
   useEffect(() => {
@@ -53,15 +53,15 @@ const ThreeSceneManager = () => {
   }, [settings.cubeSizeX, settings.cubeSizeY, settings.cubeSizeZ]);
 
   // ======= OUTLINE EFFECT: sliders max => fade outlines on/off ==========
-  useEffect(() => {                                                      // NEW
-    const maxed =                                                         // NEW
-      settings.cubeSizeX >= cellSize && settings.cubeSizeZ >= cellSize;   // NEW
-    gsap.to(outlineToggleRef.current, {                                   // NEW
-      value: maxed ? 1 : 0,                                               // NEW
-      duration: 0.6,                                                      // NEW
-      ease: 'power2.out'                                                  // NEW
-    });                                                                   // NEW
-  }, [settings.cubeSizeX, settings.cubeSizeZ]);                           // NEW
+  useEffect(() => {
+    const maxed =
+      settings.cubeSizeX >= cellSize && settings.cubeSizeZ >= cellSize;
+    gsap.to(outlineToggleRef.current, {
+      value: maxed ? 1 : 0,
+      duration: 0.6,
+      ease: 'power2.out'
+    });
+  }, [settings.cubeSizeX, settings.cubeSizeZ]);
 
   // ======= MAIN THREE.JS SETUP =======
   useEffect(() => {
@@ -163,18 +163,20 @@ const ThreeSceneManager = () => {
         cubes.push(cube);
 
         // ======= OUTLINE: add per-cube line overlay ====================
-        const edgeMat = new THREE.LineBasicMaterial({                  // NEW
-          color: 0x0286eb,                                             // NEW
-          transparent: true,                                           // NEW
-          opacity: 0                                                   // NEW
-        });                                                            // NEW
-        const edgeLines = new THREE.LineSegments(                      // NEW
-          new THREE.EdgesGeometry(geometry),                           // NEW
-          edgeMat                                                     // NEW
-        );                                                             // NEW
-        cube.add(edgeLines);                                           // NEW
-        cube.userData.edge = edgeLines;                                // NEW
-        // ==============================================================
+        const edgeMat = new THREE.LineBasicMaterial({
+          color: 0x006dc1,
+          transparent: true,
+          opacity: 0
+        });
+        const edgeLines = new THREE.LineSegments(
+          new THREE.EdgesGeometry(geometry),
+          edgeMat 
+        );   
+        edgeLines.scale.setScalar(1.01);   // moves lines 1 % off the faces
+        edgeLines.renderOrder = 1;         // ensures they render after cubes
+        edgeMat.depthWrite = false;        // avoids z-buffer updates                                                          // NEW
+        cube.add(edgeLines);
+        cube.userData.edge = edgeLines;
       }
     }
     cubesRef.current = cubes;
@@ -233,19 +235,19 @@ const ThreeSceneManager = () => {
         }
 
         // ======= OUTLINE: keep opacity in sync ========================
-        if (cube.userData.edge) {                                      // NEW
-          cube.userData.edge.material.opacity =                        // NEW
-            cube.material.opacity * outlineToggleRef.current.value;    // NEW
-        }                                                              // NEW
-        // ==============================================================
+        if (cube.userData.edge) {
+          cube.userData.edge.material.opacity =
+            cube.material.opacity * outlineToggleRef.current.value;
+        }
+        
 
         if (cube.position.z > startZ) {
           cube.material.opacity = 0;
           cube.material.needsUpdate = true;
 
-          if (cube.userData.edge) {                                    // NEW
-            cube.userData.edge.material.opacity = 0;                   // NEW
-          }                                                            // NEW
+          if (cube.userData.edge) {
+            cube.userData.edge.material.opacity = 0;
+          }
 
           cube.position.z = getResetZPosition(cube.position.z);
 
