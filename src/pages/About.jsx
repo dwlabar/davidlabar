@@ -27,44 +27,9 @@ const About = () => {
             <p>If you need someone who can design it, build it, and obsess over the last 1%, I'm already thinking about edge cases.</p>
           </Panel>
 
-          {/* <Panel>
-            <p className="tagline">Pixel Perfect Reliable Front-End</p>
-            <p>
-              I have built for the web since the early 2000s. I started with HTML, CSS, and Flash, then moved into SCSS, JavaScript frameworks, and component systems as the landscape evolved.
-            </p>
-
-            <p>
-              Most of my work lives between design and front-end. I have launched client sites, built design systems, themed major CMS platforms, and learned new tools when projects required them without slowing the schedule.
-            </p>
-
-            <p>
-              This site shows what I care about: structure, detail, and the way things feel when you use them.
-            </p>
-          </Panel> */}
-          
-          {/* <Panel>
-            <p className="tagline">Designer &amp; developer with a deep toolkit and a passion for polish</p>
-            <p>
-              I've spent my career bridging design and development - starting with raw HTML and Flash in the early 2000s, growing through modular SCSS, JavaScript frameworks, and custom frontend systems.
-            </p>
-
-            <p>
-              Along the way, I've built frontend systems for dev teams, launched client sites end-to-end, and worked in everything from Flash games to audio production. My background spans both the visual and technical - from concept sketch to production code.
-            </p>
-
-            <p>
-              This portfolio is part playground, part proof-of-skill. It reflects the mindset I bring to every project: build, test, refine, repeat.
-            </p>
-
-            <p>
-              If you're looking for a hybrid thinker who can move fluidly between design and code, let's connect.
-            </p>
-          </Panel> */}
-
           <Panel>
             <h2 className="tagline">Toolbox</h2>
             <p>From first sketch to final commit, I refine each idea until the interface feels right. I prototype clean, effective solutions that fit your stack.</p>
-            {/* <p>I sketch, code, and tinker until it clicks. Whatever tools your team's into, I prototype clean, effective solutions that fit your stack.</p> */}
             <h3>Frontend</h3>
             <ul className="ul">
               <li className="li">HTML / SCSS</li>
