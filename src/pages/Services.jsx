@@ -27,7 +27,9 @@ const Services = () => {
       <Container>
         <header>
           <h1>Services and Specialties</h1>
-          <p className="subheading">I design, develop, and bring ideas to life through clean code and thoughtful design. Here's what I offer:</p>
+          <p className="subheading">
+            I design and develop scalable systems, from single-page sites to enterprise frontends. Here's what I offer:
+          </p>
         </header>
 
         <div className="card-grid">
@@ -39,10 +41,10 @@ const Services = () => {
             <div className="card__text">
               <h2 className="card__title">Design & UX</h2>
               <ul className="ul">
-                <li className="li"><strong>UI/UX Design: </strong>Clear, user-centered experiences that balance form and function.</li>
-                <li className="li"><strong>Visual Design: </strong>Clean layouts, custom branding, and scalable design assets.</li>
-                <li className="li"><strong>Motion & Interaction: </strong>Subtle animations and transitions that enhance flow.</li>
-                <li className="li"><strong>Illustration: </strong>Custom artwork and iconography tailored to your brand.</li>
+                <li className="li"><strong>UI/UX Design:</strong> Interfaces that balance clarity, intent, and flow.</li>
+                <li className="li"><strong>Visual Design:</strong> Clean layouts, branded assets, and icon sets.</li>
+                <li className="li"><strong>Motion & Interaction:</strong> Thoughtful transitions using GSAP and Three.js.</li>
+                <li className="li"><strong>Illustration:</strong> Custom SVG and vector work tailored to your product.</li>
               </ul>
             </div>
           </Card>
@@ -55,9 +57,10 @@ const Services = () => {
             <div className="card__text">
               <h2 className="card__title">Development</h2>
               <ul className="ul">
-                <li className="li"><strong>Frontend Engineering: </strong>Semantic, accessible UI with performance and polish in mind.</li>
-                <li className="li"><strong>React & JavaScript: </strong>Interactive components and dynamic interfaces built with modern frameworks.</li>
-                <li className="li"><strong>CMS Integration: </strong>Custom design systems and theming for Drupal, Craft, Shopify, and WordPress.</li>
+                <li className="li"><strong>Frontend Engineering:</strong> Semantic HTML, modular SCSS, and accessible.</li>
+                <li className="li"><strong>React & JavaScript:</strong> Fast, interactive UI with a focus on performance and clarity.</li>
+                <li className="li"><strong>CMS Integration:</strong> Custom themes for Drupal, Craft, WordPress, and Shopify.</li>
+                <li className="li"><strong>Design Implementation:</strong> Pixel-accurate builds from Figma, XD, or Sketch.</li>
               </ul>
             </div>
           </Card>
@@ -68,11 +71,12 @@ const Services = () => {
               <IconCustom />
             </div>
             <div className="card__text">
-              <h2 className="card__title">Custom Solutions</h2>
+              <h2 className="card__title">Custom Systems</h2>
               <ul className="ul">
-                <li className="li"><strong>Design Systems: </strong>Scalable UI libraries developed for real-world products and marketing teams.</li>
-                <li className="li"><strong>Platform Customization: </strong>Tailored modules, templates, and UI adjustments for unique workflows.</li>
-                <li className="li"><strong>Documentation: </strong>Clear handoffs and internal guides to support long-term use of custom systems.</li>
+                <li className="li"><strong>Design Systems:</strong> Built for dev and content teams—scalable and modular.</li>
+                <li className="li"><strong>Reusable Tools:</strong> Frameworks, templates, and live docs for long-term use.</li>
+                <li className="li"><strong>Platform Customization:</strong> Admin panels, UI kits, and tailored workflows.</li>
+                <li className="li"><strong>Campaign Systems:</strong> Email and landing page kits for non-dev teams.</li>
               </ul>
             </div>
           </Card>

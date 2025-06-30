@@ -16,7 +16,7 @@ const About = () => {
         <section>
           <header>
             <h1>David LaBar</h1>
-            <p className="subheading">Front-End Developer &nbsp;/&nbsp; Design Engineer</p>
+            <p className="subheading">Design Engineer / Front-End Developer</p>
           </header>
 
           <Panel>
