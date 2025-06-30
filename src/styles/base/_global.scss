@@ -79,6 +79,20 @@ body {
   }
 }
 
+// BFG BUTTON SECONDARY
+// -----------------------------------------------------------------------------
+
+.bfg-button--secondary {
+  padding: functions.px2rem(10) functions.px2rem(20);
+  border-color: variables.$color-starscream;
+  color: variables.$color-starscream;
+  font-size: functions.px2rem(16);
+
+  &:hover {
+    background-color: variables.$color-starscream;
+  }
+}
+
 // -----------------------------------------------------------------------------
 // BUTTON GROUP
 // -----------------------------------------------------------------------------

@@ -1,8 +1,8 @@
 import React from "react";
 import "../styles/components/_card.scss";
 
-const Card = ({ children }) => {
-  return <div className="card">{children}</div>;
+const Card = ({ children, className = "" }) => {
+  return <div className={`card ${className}`}>{children}</div>;
 };
 
 export default Card;

@@ -26,7 +26,7 @@ const Services = () => {
     <>
       <Container>
         <header>
-          <h1>Services and Specialties</h1>
+          <h1>What I Build</h1>
           <p className="subheading">
             I design and develop scalable systems, from single-page sites to enterprise frontends. Here's what I offer:
           </p>
@@ -79,6 +79,13 @@ const Services = () => {
                 <li className="li"><strong>Campaign Systems:</strong> Email and landing page kits for non-dev teams.</li>
               </ul>
             </div>
+          </Card>
+
+          <Card className="card--extra">
+            <div className="card__text">
+              <h2 className="card__title">See how I build systems</h2>
+            </div>
+            <a href="/case-study/lms" className="bfg-button bfg-button--secondary">View Case Study</a>
           </Card>
         </div>
 

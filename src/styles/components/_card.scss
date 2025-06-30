@@ -102,3 +102,44 @@
     width: 100%;
   }
 }
+
+// -----------------------------------------------------------------------------
+// CARD EXTRA
+// -----------------------------------------------------------------------------
+
+@keyframes scrollGridY {
+  0% {
+    background-position: 50% 0, 50% 0;
+  }
+
+  100% {
+    background-position: 50% -100px, 50% -100px;
+  }
+}
+
+.card--extra {
+  align-items: center;
+  justify-content: flex-end;
+
+  background: linear-gradient(0deg, rgba(variables.$color-devastator, 0.5) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(variables.$color-devastator, 0.5) 1px, transparent 1px);
+  background-size: 100px 100px;
+  background-position: 50% 50%;
+  background-repeat: repeat;
+  animation: scrollGridY 10s linear infinite;
+  transition: background-size 0.8s variables.$global-easing, background-position 0.8s variables.$global-easing;
+
+  .card__text {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  &:hover {
+    background-size: 120px 120px;
+    animation-play-state: paused;
+  }
+
+  @include mixins.breakpoint(lg) {
+    grid-column: 1 / -1;
+  }
+}
