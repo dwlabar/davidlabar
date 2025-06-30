@@ -16,17 +16,17 @@ const About = () => {
         <section>
           <header>
             <h1>David LaBar</h1>
-            <p className="subheading">UX Engineer / Designer</p>
+            <p className="subheading">UX Engineer / Front-End Developer</p>
           </header>
 
           <Panel>
-            <p className="tagline">About Me</p>
+            <p className="tagline">Pixel Perfect Reliable Front-End</p>
             <p>
-              I've been building for the web since the early 2000s. I started with HTML, CSS, and Flash, then moved into SCSS, JS frameworks, and component systems as the landscape evolved.
+              I have built for the web since the early 2000s. I started with HTML, CSS, and Flash, then moved into SCSS, JavaScript frameworks, and component systems as the landscape evolved.
             </p>
 
             <p>
-              Most of my work sits between design and front-end. I've launched client sites, built design systems, themed major CMS platforms, and picked up new tools when needed, without slowing down the project.
+              Most of my work lives between design and front-end. I have launched client sites, built design systems, themed major CMS platforms, and learned new tools when projects required them without slowing the schedule.
             </p>
 
             <p>
@@ -55,7 +55,8 @@ const About = () => {
 
           <Panel>
             <h2 className="tagline">Toolbox</h2>
-            <p>I sketch, code, and tinker until it clicks. Whatever tools your team's into, I prototype clean, effective solutions that fit your stack.</p>
+            <p>From first sketch to final commit, I refine each idea until the interface feels right. I work with whatever tools your team prefers, delivering clean, reliable components that plug neatly into your stack.</p>
+            {/* <p>I sketch, code, and tinker until it clicks. Whatever tools your team's into, I prototype clean, effective solutions that fit your stack.</p> */}
             <h3>Frontend</h3>
             <ul className="ul">
               <li className="li">HTML / SCSS</li>
