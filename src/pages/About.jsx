@@ -29,7 +29,8 @@ const About = () => {
 
           <Panel>
             <h2 className="tagline">Toolbox</h2>
-            <p>From first sketch to final commit, I refine each idea until the interface feels right. I prototype clean, effective solutions that fit your stack.</p>
+            <p>Tools change, stacks shift. What matters is how it holds up. The naming, the structure, the logic behind the layout. Stuff most people never see but feel when it's wrong. I build it so it still makes sense years from now. Long after I'm gone.</p>
+            {/* <p>From first sketch to final commit, I refine each idea until the interface feels right. I prototype clean, effective solutions that fit your stack.</p> */}
             <h3>Frontend</h3>
             <ul className="ul">
               <li className="li">HTML / SCSS</li>
