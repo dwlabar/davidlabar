@@ -73,9 +73,9 @@ const Services = () => {
             <div className="card__text">
               <h2 className="card__title">Custom Systems</h2>
               <ul className="ul">
-                <li className="li"><strong>Design Systems:</strong> Built for dev and content teams—scalable and modular.</li>
+                <li className="li"><strong>Design Systems:</strong> Built for dev and content teams to be scalable and modular.</li>
                 <li className="li"><strong>Reusable Tools:</strong> Frameworks, templates, and live docs for long-term use.</li>
-                <li className="li"><strong>Platform Customization:</strong> Admin panels, UI kits, and tailored workflows.</li>
+                <li className="li"><strong>Platform Customization:</strong> Admin panels, UI kits, and custom panels.</li>
                 <li className="li"><strong>Campaign Systems:</strong> Email and landing page kits for non-dev teams.</li>
               </ul>
             </div>
@@ -85,7 +85,7 @@ const Services = () => {
             <div className="card__text">
               <h2 className="card__title">See how I build systems</h2>
             </div>
-            <a href="/case-study/lms" className="bfg-button bfg-button--secondary">View Case Study</a>
+            <a href="/projects" className="bfg-button bfg-button--secondary" onClick={(e) => handleClick(e, "/projects")}>View Case Study</a>
           </Card>
         </div>
 
