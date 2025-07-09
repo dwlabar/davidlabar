@@ -8,6 +8,8 @@ import Contact from "./pages/Contact";
 import Services from "./pages/Services";
 import SVGExamples from "./pages/SVG-Examples";
 import PreloaderTest from "./pages/Preloader-Test";
+import Projects from "./pages/Projects";
+import Skeletor from "./pages/projects/Skeletor";
 
 // Import components
 import DevPanel from "./components/DevPanel";
@@ -16,11 +18,13 @@ import Footer from "./components/Footer";
 import Overlay from "./components/Overlay";
 import RouteTransitionListener from "./components/RouteTransitionListener";
 
+// Updated nav links
 const NavLinks = [
   { name: "Home", path: "/" },
   { name: "Services", path: "/services" },
+  { name: "Projects", path: "/projects" },
   { name: "About", path: "/about" },
-  { name: "Hire Me", path: "/contact" }
+  { name: "Contact", path: "/contact" }
 ];
 
 const App = () => {
@@ -35,6 +39,8 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/skeletor" element={<Skeletor />} />
           <Route path="/SVG-Examples" element={<SVGExamples />} />
           <Route path="/Preloader-Test" element={<PreloaderTest />} />
         </Routes>
