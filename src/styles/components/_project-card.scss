@@ -26,7 +26,7 @@
   @include mixins.breakpoint(md) {
     margin-bottom: functions.px2rem(60);
   }
-  
+
   @include mixins.breakpoint(xxl) {
     grid-template-columns: 1fr 1fr;
     gap: 3em;
@@ -49,21 +49,26 @@
   background-color: rgba(variables.$color-skywarp, 0.25);
   background-size: cover;
   border: solid 1px variables.$color-devastator;
+  overflow: hidden;
 
   &:hover {
     background-color: rgba(variables.$color-skywarp, 1);
     cursor: pointer;
+
     .project-card__bar {
-      background-color: rgba(variables.$color-skywarp, 1);
+      // background-color: rgba(variables.$color-skywarp, 1);
     }
+
     .project-card__title {
       color: variables.$color-ramjet;
     }
+
     .project-card__label {
       color: variables.$color-ramjet;
     }
+
     .project-card__logo {
-      scale: 1;
+      scale: 0.95;
     }
   }
 
@@ -73,37 +78,39 @@
 }
 
 .project-card__logo {
-  scale: 0.9;
-  transition: scale variables.$global-timing variables.$global-easing;
+  scale: 1;
+  transition: scale 2s variables.$global-easing;
+
   img {
     max-width: 100%;
   }
 }
 
 .project-card__bar {
-  $project-card-bar-margin: functions.px2rem(5);
+  $project-card-bar-margin: functions.px2rem(10);
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
   width: calc(100% - ($project-card-bar-margin * 2));
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   margin: $project-card-bar-margin;
   padding: functions.px2rem(10);
-  background-color: rgba(variables.$color-skywarp, 0);
-  transition: background-color variables.$global-timing variables.$global-easing;
+  background-color: rgba(variables.$color-skywarp, 0.1);
+  // transition: background-color variables.$global-timing variables.$global-easing;
 }
 
 .project-card__title {
   margin: 0;
-  font-size: functions.px2rem(20);
+  font-size: functions.px2rem(16);
   color: variables.$color-skywarp;
   transition: color variables.$global-timing variables.$global-easing;
 }
 
 .project-card__label {
+  font-size: functions.px2rem(12);
   color: variables.$color-skywarp;
 }
 
@@ -115,4 +122,26 @@
   position: absolute;
   right: functions.px2rem(5);
   bottom: functions.px2rem(5);
+}
+
+// -----------------------------------------------------------------------------
+// GRID OVERLAY EFFECT (Absolute Tiles)
+// -----------------------------------------------------------------------------
+
+.project-card__grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  // z-index: 2;
+}
+
+.project-card__tile {
+  position: absolute;
+  background-color: rgba(variables.$color-skywarp, 0.9);
+  opacity: 0;
+  will-change: opacity;
+  transition: opacity variables.$global-timing variables.$global-easing;
 }

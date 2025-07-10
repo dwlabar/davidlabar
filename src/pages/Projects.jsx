@@ -40,7 +40,7 @@ const Projects = () => {
             path="/projects/AEI"
             background={AEIBg}
             logo={AEILogo} 
-            label="DEVELOPMENT  &nbsp;/&nbsp;  DESIGN"
+            label="DEV  &nbsp;/&nbsp;  DESIGN"
           />
         </div>
       </section>

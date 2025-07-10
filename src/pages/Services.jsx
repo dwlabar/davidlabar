@@ -85,7 +85,7 @@ const Services = () => {
             <div className="card__text">
               <h2 className="card__title">See how I build systems</h2>
             </div>
-            <a href="/projects" className="bfg-button bfg-button--secondary" onClick={(e) => handleClick(e, "/projects")}>View Case Study</a>
+            <a href="/projects" className="bfg-button bfg-button--secondary" onClick={(e) => handleClick(e, "/projects")}>View Projects</a>
           </Card>
         </div>
 
