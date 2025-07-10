@@ -56,7 +56,9 @@
     cursor: pointer;
 
     .project-card__bar {
-      // background-color: rgba(variables.$color-skywarp, 1);
+      background-color: rgba(variables.$color-skywarp, 0.5);
+      border: solid 1px variables.$color-devastator;
+      padding: functions.px2rem(20);
     }
 
     .project-card__title {
@@ -99,7 +101,9 @@
   margin: $project-card-bar-margin;
   padding: functions.px2rem(10);
   background-color: rgba(variables.$color-skywarp, 0.1);
-  // transition: background-color variables.$global-timing variables.$global-easing;
+  transition: background-color variables.$global-timing variables.$global-easing,
+              border-color variables.$global-timing variables.$global-easing,
+              padding variables.$global-timing variables.$global-easing;
 }
 
 .project-card__title {
@@ -112,6 +116,7 @@
 .project-card__label {
   font-size: functions.px2rem(12);
   color: variables.$color-skywarp;
+  transition: color variables.$global-timing variables.$global-easing;
 }
 
 .project-card__desc {
@@ -135,7 +140,6 @@
   right: 0;
   bottom: 0;
   pointer-events: none;
-  // z-index: 2;
 }
 
 .project-card__tile {

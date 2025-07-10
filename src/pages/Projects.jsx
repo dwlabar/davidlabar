@@ -32,7 +32,7 @@ const Projects = () => {
             path="/projects/skeletor"
             background={skeletorBg}
             logo={skeletorLogo} 
-            label="DEVELOPMENT"
+            label="DEV"
           />
           <ProjectCard
             title="Custom Drupal CMS"

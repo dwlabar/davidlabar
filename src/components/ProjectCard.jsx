@@ -46,7 +46,7 @@ const ProjectCard = ({ title, description, path, logo, background, label }) => {
       opacity: 1,
       scale: 1,
       duration: 0.8,
-      ease: "power4.out",
+      ease: "power2.out",
       stagger: {
         each: 0.015,
         from: "center"
