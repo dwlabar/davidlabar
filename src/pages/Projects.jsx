@@ -28,7 +28,8 @@ const Projects = () => {
         <div className="project-cards">
           <ProjectCard
             title="Design System"
-            description="Modular system used to power fullsail.edu and Craft marketing tools."
+            description="Modular system used to power fullsail.edu and Full Sail Online."
+            subline="this is the subline"
             path="/projects/skeletor"
             background={skeletorBg}
             logo={skeletorLogo} 
@@ -37,6 +38,7 @@ const Projects = () => {
           <ProjectCard
             title="Custom Drupal CMS"
             description="Drupal CMS from scratch"
+            subline="this is the subline"
             path="/projects/AEI"
             background={AEIBg}
             logo={AEILogo} 

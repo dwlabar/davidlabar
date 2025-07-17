@@ -6,7 +6,7 @@ import useOverlayNavigate from "../hooks/useOverlayNavigate";
 
 const TILE_SIZE = 100; // tile width/height in pixels
 
-const ProjectCard = ({ title, description, path, logo, background, label }) => {
+const ProjectCard = ({ title, description, subline, path, logo, background, label }) => {
   const overlayNavigate = useOverlayNavigate();
   const cardRef = useRef(null);
   const gridRef = useRef(null);
@@ -48,8 +48,9 @@ const ProjectCard = ({ title, description, path, logo, background, label }) => {
       duration: 0.8,
       ease: "power2.out",
       stagger: {
-        each: 0.015,
-        from: "center"
+        // each: 0.015,
+        from: "end",
+        amount: .25
       }
     });
   };
@@ -111,9 +112,17 @@ const ProjectCard = ({ title, description, path, logo, background, label }) => {
 
       {/* Title and Label */}
       <div className="project-card__bar">
-        <h2 className="project-card__title">{title}</h2>
-        {label && <span className="project-card__label">{label}</span>}
+        <div className="project-card__row">
+          <h2 className="project-card__title">{title}</h2>
+          {label && <span className="project-card__label">{label}</span>}
+        </div>
+        <div className="project-card__row">
+          <div className="project-card__description">{description}</div>
+          {/* <div className="project-card__subline">{subline}</div> */}
+        </div>
       </div>
+
+      
     </a>
   );
 };

@@ -55,6 +55,11 @@
     background-color: rgba(variables.$color-skywarp, 1);
     cursor: pointer;
 
+    .project-card__logo {
+      scale: 0.95;
+      filter: blur(3px);
+    }
+
     .project-card__bar {
       background-color: rgba(variables.$color-skywarp, 0.5);
       border: solid 1px variables.$color-devastator;
@@ -68,10 +73,10 @@
     .project-card__label {
       color: variables.$color-ramjet;
     }
-
-    .project-card__logo {
-      scale: 0.95;
-    }
+    .project-card__description {
+      color: variables.$color-ramjet;
+      border-top-color: variables.$color-devastator;
+    }    
   }
 
   @include mixins.breakpoint(md) {
@@ -79,39 +84,69 @@
   }
 }
 
+// -----------------------------------------------------------------------------
+// LOGO
+// -----------------------------------------------------------------------------
+
 .project-card__logo {
   scale: 1;
-  transition: scale 2s variables.$global-easing;
+  transition: scale 2s variables.$global-easing,
+              filter 2s variables.$global-easing;
 
   img {
     max-width: 100%;
   }
 }
 
-.project-card__bar {
-  $project-card-bar-margin: functions.px2rem(10);
+$project-card-bar-margin: functions.px2rem(10);
+
+// -----------------------------------------------------------------------------
+// BAR
+// -----------------------------------------------------------------------------
+
+.project-card__bar {  
   display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: space-between;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
   width: calc(100% - ($project-card-bar-margin * 2));
   position: absolute;
   bottom: 0;
   left: 0;
   margin: $project-card-bar-margin;
-  padding: functions.px2rem(10);
+  padding: $project-card-bar-margin;
   background-color: rgba(variables.$color-skywarp, 0.1);
   transition: background-color variables.$global-timing variables.$global-easing,
               border-color variables.$global-timing variables.$global-easing,
               padding variables.$global-timing variables.$global-easing;
 }
 
+// -----------------------------------------------------------------------------
+// BAR ROW
+// -----------------------------------------------------------------------------
+
+.project-card__row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// -----------------------------------------------------------------------------
+// TITLE
+// -----------------------------------------------------------------------------
+
 .project-card__title {
   margin: 0;
+  margin-right: functions.px2rem(20);
   font-size: functions.px2rem(16);
   color: variables.$color-skywarp;
   transition: color variables.$global-timing variables.$global-easing;
 }
+
+// -----------------------------------------------------------------------------
+// LABEL
+// -----------------------------------------------------------------------------
 
 .project-card__label {
   font-size: functions.px2rem(12);
@@ -119,9 +154,33 @@
   transition: color variables.$global-timing variables.$global-easing;
 }
 
-.project-card__desc {
-  margin: 0;
+// -----------------------------------------------------------------------------
+// DESCRIPTION
+// -----------------------------------------------------------------------------
+
+.project-card__description {
+  display: none;
+  width: inherit;
+  padding-top: functions.px2rem(10);
+  margin-top: functions.px2rem(10);
+  border-top: solid 1px variables.$color-skywarp;
+  color: variables.$color-skywarp;
+  font-size: functions.px2rem(16);
+  transition: color variables.$global-timing variables.$global-easing,
+              border-color variables.$global-timing variables.$global-easing;
 }
+
+// -----------------------------------------------------------------------------
+// SUBLINE
+// -----------------------------------------------------------------------------
+
+.project-card__subline {
+  font-size: functions.px2rem(18);
+}
+
+// -----------------------------------------------------------------------------
+// BFG BUTTON
+// -----------------------------------------------------------------------------
 
 .project-card .bfg-button {
   position: absolute;
