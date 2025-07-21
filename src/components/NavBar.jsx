@@ -166,10 +166,14 @@ const NavBar = ({ links }) => {
         <BurgerIcon isOpen={menuOpen} />
       </button>
       <ul className="nav-bar__ul" ref={menuRef}>
+        {/* determine active state including sub‐routes */}
         {links.map(({ name, path }) => (
           <li
             key={path}
-            className={`${location.pathname === path ? "active" : ""} nav-bar__li`}
+            className={`${(location.pathname === path ||
+              location.pathname.startsWith(path + "/"))
+              ? "active"
+              : ""} nav-bar__li`}
           >
             <Link to={path} onClick={(e) => handleNavClick(e, path)}>
               {name}
