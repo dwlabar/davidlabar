@@ -27,7 +27,7 @@ const Projects = () => {
 
         <div className="project-cards">
           <ProjectCard
-            title="Design System"
+            title="Design System &nbsp;/&nbsp; UI Toolkit"
             description="Modular system used to power fullsail.edu and Full Sail Online."
             subline="this is the subline"
             path="/projects/skeletor"
