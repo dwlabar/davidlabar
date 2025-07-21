@@ -67,6 +67,10 @@
   }
 
   .li {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: flex-start;
     margin: 0;
     padding: 10px;
     border: solid 1px rgba(variables.$color-starscream, 0.6);
@@ -74,5 +78,9 @@
     letter-spacing: 0.125em;
     text-transform: uppercase;
     color: rgba(variables.$color-starscream, 0.6);
+  }
+
+  img {
+    width: 100%;
   }
 }
