@@ -7,21 +7,24 @@ const Preloader = () => {
   const [animationDone, setAnimationDone] = useState(false);
 
   useEffect(() => {
+    // Lock scroll while preloading
+    if (isLoading) {
+      document.body.style.overflow = "hidden";
+    }
+
     if (!isLoading) {
-      // Wait for the current animation loop to complete before stopping
       const elements = document.querySelectorAll(
         "#logo_bottomHighlight, #logo_core, #logo_highlight, #logo_border, #logo_border02"
       );
 
       let hasTriggered = false;
 
-      // Fallback: force completion after 6s
       const fallbackTimeout = setTimeout(() => {
         if (!hasTriggered) {
           setAnimationDone(true);
           hasTriggered = true;
         }
-      }, 6000); // adjust duration as needed
+      }, 6000);
 
       elements.forEach((el) => {
         el.addEventListener(
@@ -41,6 +44,9 @@ const Preloader = () => {
 
   useEffect(() => {
     if (animationDone) {
+      // Unlock scroll *before* fade-out to avoid layout shift
+      document.body.style.overflow = "auto";
+
       const logo = document.querySelector(".logo");
       const preloader = document.querySelector(".preloader");
 
@@ -65,7 +71,7 @@ const Preloader = () => {
     }
   }, [animationDone, setIsPreloaderVisible]);
 
-  return null; // No UI needed since preloader is in index.html
+  return null;
 };
 
 export default Preloader;
