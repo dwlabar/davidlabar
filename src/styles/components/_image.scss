@@ -1,0 +1,67 @@
+// =============================================================================
+//
+//  IMAGES
+//
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// IMPORTS
+// -----------------------------------------------------------------------------
+
+// @use "sass:color";
+// @use "sass:map";
+@use "../tools/functions";
+@use "../tools/mixins";
+@use "../settings/variables";
+
+// -----------------------------------------------------------------------------
+// BASE
+// -----------------------------------------------------------------------------
+
+.aspect-16-9 {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  margin-bottom: functions.px2rem(30);
+  border: solid 1px variables.$color-devastator;
+  cursor: pointer;
+  box-shadow: 0 0 0px 0px rgba(255, 255, 255, 0.8);
+  transition: border-color 2s variables.$global-easing,
+              box-shadow 2s variables.$global-easing;
+
+  &:hover {
+    border-color: variables.$color-ramjet;
+    animation: noisy-glow 3s infinite ease-in-out;
+    .aspect-16-9__image {
+      scale: 1.02;
+    }
+  }
+
+  @include mixins.breakpoint(md) {
+    margin-bottom: functions.px2rem(60);
+  }
+}
+
+.aspect-16-9__image {
+  display: block;
+  width: 100%;
+  transition: scale 2s variables.$global-easing;
+}
+
+// -----------------------------------------------------------------------------
+// ANIMATION: NOISY GLOW
+// -----------------------------------------------------------------------------
+
+@keyframes noisy-glow {
+  0% {
+    box-shadow: 0 0 12px 2px rgba(255, 255, 255, 0);
+  }
+
+  50% {
+    box-shadow: 0 0 12px 2px rgba(255, 255, 255, 1);
+  }
+
+  100% {
+    box-shadow: 0 0 12px 2px rgba(255, 255, 255, 0);
+  }
+}

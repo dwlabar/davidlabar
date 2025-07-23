@@ -2,7 +2,6 @@ import React from "react";
 import { usePageReadyController } from "../context/PageReadyContext";
 import useNotifyWhenImagesLoaded from "../hooks/useNotifyWhenImagesLoaded";
 import Container from "../components/Container";
-import Panel from "../components/Panel";
 import ProjectCard from "../components/ProjectCard";
 import "../styles/components/_project-card.scss";
 

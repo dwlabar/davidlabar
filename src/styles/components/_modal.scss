@@ -28,6 +28,10 @@
   pointer-events: none;
 }
 
+// -----------------------------------------------------------------------------
+// BACKDROP
+// -----------------------------------------------------------------------------
+
 .modal__backdrop {
   position: absolute;
   inset: 0;
@@ -35,28 +39,35 @@
   pointer-events: auto;
 }
 
+// -----------------------------------------------------------------------------
+// CONTENT
+// -----------------------------------------------------------------------------
+
 .modal__content {
   position: relative;
   background-color: variables.$color-megatron;
-  border-radius: functions.px2rem(8);
   box-shadow: 0 0 functions.px2rem(32) rgba(variables.$color-skywarp, 0.5);
   max-width: 90vw;
   max-height: 90vh;
-  overflow: auto;
   padding: functions.px2rem(16);
-  pointer-events: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
+// MODAL IMAGE
+// -----------------------------------------------------------------------------
+
 .modal__content img {
   max-width: 100%;
   height: auto;
-  border-radius: functions.px2rem(4);
   display: block;
 }
+
+// -----------------------------------------------------------------------------
+// CLOSE BUTTON
+// -----------------------------------------------------------------------------
 
 .modal__close {
   position: absolute;
@@ -68,6 +79,10 @@
   color: variables.$color-ramjet;
   cursor: pointer;
 }
+
+// -----------------------------------------------------------------------------
+// CAPTION
+// -----------------------------------------------------------------------------
 
 .modal__caption {
   margin-top: functions.px2rem(8);
