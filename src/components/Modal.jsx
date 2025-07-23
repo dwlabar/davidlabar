@@ -29,23 +29,23 @@ const Modal = ({ src, alt = "", caption = "", onClose }) => {
     return () => triggerRef.current?.focus();
   }, []);
 
-  const modalRoot = document.getElementById("modal");
+  const modalRoot = document.getElementById("modal_root");
   if (!modalRoot || !src) return null;
 
   return createPortal(
     <div className="modal" ref={modalRef}>
       <div className="modal__backdrop" onClick={onClose}></div>
       <div className="modal__content">
-        <button
+        <img src={src} alt={alt} />
+        {caption && <figcaption className="modal__caption">{caption}</figcaption>}
+      </div>
+      <button
           className="modal__close"
           onClick={onClose}
           aria-label="Close"
         >
           &#x2715;
         </button>
-        <img src={src} alt={alt} />
-        {caption && <figcaption className="modal__caption">{caption}</figcaption>}
-      </div>
     </div>,
     modalRoot
   );

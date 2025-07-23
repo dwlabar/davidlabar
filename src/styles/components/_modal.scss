@@ -25,7 +25,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: none;
 }
 
 // -----------------------------------------------------------------------------
@@ -35,8 +34,7 @@
 .modal__backdrop {
   position: absolute;
   inset: 0;
-  background-color: rgba(variables.$color-skywarp, 0.75);
-  pointer-events: auto;
+  background-color: rgba(variables.$color-skywarp, 0.80);
 }
 
 // -----------------------------------------------------------------------------
@@ -45,11 +43,10 @@
 
 .modal__content {
   position: relative;
-  background-color: variables.$color-megatron;
-  box-shadow: 0 0 functions.px2rem(32) rgba(variables.$color-skywarp, 0.5);
+  // box-shadow: 0 0 functions.px2rem(32) rgba(variables.$color-skywarp, 0.5);
   max-width: 90vw;
   max-height: 90vh;
-  padding: functions.px2rem(16);
+  padding: functions.px2rem(20);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -73,11 +70,20 @@
   position: absolute;
   top: functions.px2rem(8);
   right: functions.px2rem(8);
+  padding: functions.px2rem(5) functions.px2rem(10);
   background: none;
-  border: none;
+  border: solid 1px variables.$color-devastator;
+  background-color: variables.$color-megatron;
   font-size: functions.px2rem(24);
   color: variables.$color-ramjet;
   cursor: pointer;
+  transition: color variables.$global-timing variables.$global-easing,
+              border-color variables.$global-timing variables.$global-easing;
+
+  &:hover {
+    border-color: variables.$color-soundwave;
+    color: variables.$color-soundwave;
+  }
 }
 
 // -----------------------------------------------------------------------------
