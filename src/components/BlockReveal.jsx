@@ -41,7 +41,7 @@ export default function BlockReveal({
         ease: "power2.out",
         scrollTrigger: {
           trigger: el,
-          start: "top 80%",
+          start: "top 90%",
           toggleActions: "play none none none",
         },
       }
