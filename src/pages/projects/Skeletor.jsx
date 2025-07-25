@@ -15,6 +15,7 @@ import Modal from "../../components/Modal";
 import "../../styles/components/_image.scss";
 
 import skeletorWeAreDifferent from "../../assets/projects/skeletor/full-sail-we-are-different.jpg";
+import skeletorFabricator from "../../assets/projects/skeletor/full-sail-fabricator.jpg";
 
 // -----------------------------------------------------------------------------
 // Skeletor component
@@ -84,14 +85,28 @@ const Skeletor = () => {
 
         {/* Live Docs for Non Devs */}
         <BlockReveal panel title="Live Docs for Non Devs">
-          <svg width="100%" height="150">
-            <rect width="100%" height="150" fill="#ccc" />
-          </svg>
           <p>
             Fabricator stayed current with every component. Each entry showed the
             rendered view beside its markup. Producers pasted those snippets into
             Craft and shipped full pages in hours instead of waiting in the dev queue.
           </p>
+        </BlockReveal>
+
+        <BlockReveal>
+          <div className="aspect-16-9">
+            <img
+              src={skeletorFabricator}
+              alt="Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy."
+              onClick={() =>
+                setModalData({
+                  src: skeletorFabricator,
+                  alt:
+                    "Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy.",
+                })
+              }
+              className="aspect-16-9__image"
+            />
+          </div>
         </BlockReveal>
 
         {/* Universal Naming */}
