@@ -9,7 +9,7 @@
 // -----------------------------------------------------------------------------
 
 // @use "sass:color";
-// @use "sass:map";
+@use "sass:map";
 @use "../tools/functions";
 // @use "../tools/mixins";
 @use "../settings/variables";
@@ -21,7 +21,7 @@
 .modal {
   position: fixed;
   inset: 0;
-  z-index: map-get(variables.$z-index, "modal");
+  z-index: map.get(variables.$z-index, "modal");
   display: flex;
   align-items: center;
   justify-content: center;
@@ -77,10 +77,12 @@
   font-size: functions.px2rem(24);
   color: variables.$color-ramjet;
   cursor: pointer;
+  outline: none;
   transition: color variables.$global-timing variables.$global-easing,
               border-color variables.$global-timing variables.$global-easing;
 
-  &:hover {
+  &:hover,
+  &:focus {
     border-color: variables.$color-soundwave;
     color: variables.$color-soundwave;
   }
