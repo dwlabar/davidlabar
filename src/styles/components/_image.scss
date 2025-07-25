@@ -33,7 +33,8 @@
     border-color: variables.$color-ramjet;
     animation: noisy-glow 3s infinite ease-in-out;
     .aspect-16-9__image {
-      scale: 1.02;
+      // scale: 1.02;
+      transform: translateY(-120px);
     }
   }
 
@@ -45,7 +46,8 @@
 .aspect-16-9__image {
   display: block;
   width: 100%;
-  transition: scale 2s variables.$global-easing;
+  transition: scale 2s variables.$global-easing,
+              transform 5s variables.$global-easing;
 }
 
 // -----------------------------------------------------------------------------
