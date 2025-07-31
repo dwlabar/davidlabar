@@ -11,12 +11,14 @@ const ProjectCard = ({ title, description, subline, path, logo, background, labe
   const cardRef = useRef(null);
   const gridRef = useRef(null);
   const [tiles, setTiles] = useState([]);
+  const lastInputWasKeyboard = useRef(false); // Track last input type
 
   const handleClick = (e) => {
     e.preventDefault(); // prevent native navigation to avoid preloader
     overlayNavigate(path); // use JS navigation
   };
 
+  // Create tile layout based on card size
   const createTiles = () => {
     const card = cardRef.current;
     if (!card) return;
@@ -35,26 +37,29 @@ const ProjectCard = ({ title, description, subline, path, logo, background, labe
     setTiles(tempTiles);
   };
 
-  const handleMouseEnter = () => {
+  // Animate tiles in on hover/focus
+  const animateIn = () => {
     const tileDivs = gridRef.current?.querySelectorAll(".project-card__tile");
     if (!tileDivs) return;
     gsap.killTweensOf(tileDivs);
-    gsap.fromTo(tileDivs, {
-      opacity: 0,
-      scale: 0.95
-    }, {
-      opacity: 1,
-      scale: 1,
-      duration: 0.8,
-      ease: "power2.out",
-      stagger: {
-        from: "end",
-        amount: 0.25
+    gsap.fromTo(
+      tileDivs,
+      { opacity: 0, scale: 0.95 },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 0.8,
+        ease: "power2.out",
+        stagger: {
+          from: "end",
+          amount: 0.25
+        }
       }
-    });
+    );
   };
 
-  const handleMouseLeave = () => {
+  // Animate tiles out on leave/blur
+  const animateOut = () => {
     const tileDivs = gridRef.current?.querySelectorAll(".project-card__tile");
     if (!tileDivs) return;
     gsap.killTweensOf(tileDivs);
@@ -64,6 +69,31 @@ const ProjectCard = ({ title, description, subline, path, logo, background, labe
       ease: "power1.inOut"
     });
   };
+
+  // Only trigger animateIn on focus if last input was keyboard
+  const handleFocus = () => {
+    if (lastInputWasKeyboard.current) {
+      animateIn();
+    }
+  };
+
+  // Setup input method tracking once
+  useEffect(() => {
+    const handleKeyDown = () => {
+      lastInputWasKeyboard.current = true;
+    };
+    const handleMouseDown = () => {
+      lastInputWasKeyboard.current = false;
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("mousedown", handleMouseDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("mousedown", handleMouseDown);
+    };
+  }, []);
 
   useEffect(() => {
     createTiles();
@@ -82,10 +112,10 @@ const ProjectCard = ({ title, description, subline, path, logo, background, labe
       className="project-card"
       href={path}
       onClick={handleClick}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onFocus={handleMouseEnter}
-      onBlur={handleMouseLeave}
+      onMouseEnter={animateIn}
+      onMouseLeave={animateOut}
+      onFocus={handleFocus}
+      onBlur={animateOut}
       style={{ backgroundImage: `url(${background})` }}
     >
       {/* Logo */}
