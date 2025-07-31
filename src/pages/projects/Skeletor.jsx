@@ -47,7 +47,7 @@ const Skeletor = () => {
             (LMS). Over a decade it became the shared foundation powering
             multiple properties:
           </p>
-          <ul className="ul">
+          <ul className="ul ul--grid">
             <li className="li">fullsail.edu</li>
             <li className="li">Full Sail Armada</li>
             <li className="li">Full Sail Labs</li>
@@ -58,17 +58,19 @@ const Skeletor = () => {
         </BlockReveal>
 
         <BlockReveal>
-          <button className="aspect-16-9">
+          <button 
+            className="aspect-16-9" 
+            onClick={() =>
+              setModalData({
+                src: skeletorWeAreDifferent,
+                alt:
+                  "Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy.",
+              })
+            }
+            >
             <img
               src={skeletorWeAreDifferent}
               alt="Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy."
-              onClick={() =>
-                setModalData({
-                  src: skeletorWeAreDifferent,
-                  alt:
-                    "Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy.",
-                })
-              }
               className="aspect-16-9__image"
             />
           </button>
@@ -94,17 +96,19 @@ const Skeletor = () => {
         </BlockReveal>
 
         <BlockReveal>
-          <button className="aspect-16-9">
+          <button 
+            className="aspect-16-9" 
+            onClick={() =>
+              setModalData({
+                src: skeletorFabricator,
+                alt:
+                  "Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy.",
+              })
+            }
+            >
             <img
               src={skeletorFabricator}
               alt="Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy."
-              onClick={() =>
-                setModalData({
-                  src: skeletorFabricator,
-                  alt:
-                    "Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy.",
-                })
-              }
               className="aspect-16-9__image"
             />
           </button>
@@ -120,7 +124,7 @@ const Skeletor = () => {
 
         {/* Code Philosophy */}
         <BlockReveal panel title="Code Philosophy">
-          <ul className="ul">
+          <ul className="ul ul--grid">
             <li className="li">No use of !important</li>
             <li className="li">Accessible states by default</li>
             <li className="li">Responsive mixins and utilities</li>
@@ -137,17 +141,19 @@ const Skeletor = () => {
         </BlockReveal>
 
         <BlockReveal>
-          <button className="aspect-16-9">
+          <button 
+            className="aspect-16-9" 
+            onClick={() =>
+              setModalData({
+                src: skeletorMobileMenu,
+                alt:
+                  "Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy.",
+              })
+            }
+            >
             <img
               src={skeletorMobileMenu}
               alt="Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy."
-              onClick={() =>
-                setModalData({
-                  src: skeletorMobileMenu,
-                  alt:
-                    "Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy.",
-                })
-              }
               className="aspect-16-9__image"
             />
           </button>
@@ -155,7 +161,7 @@ const Skeletor = () => {
 
         {/* Tools Used */}
         <BlockReveal panel title="Tools Used">
-          <ul className="ul">
+          <ul className="ul ul--grid">
             <li className="li">SCSS</li>
             <li className="li">Node.js & npm</li>
             <li className="li">Vanilla JavaScript</li>
@@ -170,7 +176,7 @@ const Skeletor = () => {
 
         {/* Lasting Impact */}
         <BlockReveal panel title="Lasting Impact">
-          <ul className="ul">
+          <ul className="ul ul--grid">
             <li className="li">Used across more than 15 Full Sail properties</li>
             <li className="li">Survived multiple redesigns and staff changes</li>
             <li className="li">Cut page build time from two days to a few hours</li>

@@ -15,13 +15,12 @@ import Modal from "../../components/Modal";
 import "../../styles/components/_image.scss";
 
 import AEIHome from "../../assets/projects/AEI/AEI-home.jpg";
-import skeletorFabricator from "../../assets/projects/skeletor/full-sail-fabricator.jpg";
 
 // -----------------------------------------------------------------------------
-// Skeletor component
+// AEI component
 // -----------------------------------------------------------------------------
 
-const Skeletor = () => {
+const AEI = () => {
   const { notifyPageReady } = usePageReadyController();
   useNotifyWhenImagesLoaded(notifyPageReady);
   const [modalData, setModalData] = useState(null);
@@ -31,55 +30,82 @@ const Skeletor = () => {
       <section>
         {/* Page header */}
         <header>
-          <h1>Andreyev <br />Engineering Inc.</h1>
+          <h1>Andreyev Engineering</h1>
           <p className="subheading">
-            Custom Drupal Website Spaning a Decade
+            A Drupal site built from scratch for a geotechnical engineering firm. Responsive, secure, and still going after more than a decade.
           </p>
         </header>
 
+        {/* Hero Image */}
         <BlockReveal>
-          <div className="aspect-16-9">
+          <button
+            className="aspect-16-9"
+            onClick={() =>
+              setModalData({
+                src: AEIHome,
+                alt: "Hero image from the AEI site showing wetlands and water features, styled with overlay and type treatments to maximize visual impact from limited source photography.",
+              })
+            }
+          >
             <img
               src={AEIHome}
-              alt="Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy."
-              onClick={() =>
-                setModalData({
-                  src: AEIHome,
-                  alt:
-                    "Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy.",
-                })
-              }
+              alt="Hero image from the AEI site showing wetlands and water features, styled with overlay and type treatments to maximize visual impact from limited source photography."
               className="aspect-16-9__image"
             />
+          </button>
+        </BlockReveal>
+
+        {/* The Ask */}
+        <BlockReveal panel title="The Ask">
+          <p>
+            AEI handed me a printed brochure, a logo, and a handful of low-res photos.
+            They needed a professional web presence that clients could use to access
+            documents and stay informed about their projects.
+          </p>
+        </BlockReveal>
+
+        {/* What I Did */}
+        <BlockReveal panel title="What I Did">
+          <div className="layout-row layout-row--2">
+            <div className="layout-cell">
+              <ul className="ul">
+                <li className="li">
+                  Designed and built the entire site in Drupal 6 from scratch.
+                </li>
+                <li className="li">
+                  Set up secure client logins using Roles and Views to show uploads.
+                </li>
+                <li className="li">
+                  Configured spam-resistant contact forms using Webform and extras.
+                </li>
+              </ul>
+            </div>
+            <div className="layout-cell">
+              <ul className="ul">
+                <li className="li">
+                  Upgraded and maintained the site across versions - now on Drupal 10.
+                </li>
+                <li className="li">
+                  Made the site fully responsive years before most clients expected it.
+                </li>
+                <li className="li">
+                  Managed the entire project and coordinated with their server team.
+                </li>
+              </ul>
+            </div>
           </div>
         </BlockReveal>
 
-        {/* What It Was */}
-        <BlockReveal panel title="What It Was">
-          <p>
-            Skeletor began as a SCSS and JavaScript design system that replaced a
-            bloated Bootstrap fork inside the Full Sail Online learning platform
-            (LMS). Over a decade it became the shared foundation powering
-            multiple properties:
-          </p>
-          <ul className="ul">
-            <li className="li">fullsail.edu</li>
-            <li className="li">Full Sail Armada</li>
-            <li className="li">Full Sail Labs</li>
-            <li className="li">Full Sail Online (LMS)</li>
-            <li className="li">Hall of Fame</li>
-            <li className="li">Monarch Initiative</li>
+        {/* Tools Used */}
+        <BlockReveal panel title="Tools Used">
+          <ul className="ul ul--grid">
+            <li className="li">Drupal 6-10</li>
+            <li className="li">Views, Webform, and Permissions modules</li>
+            <li className="li">Semantic HTML + SCSS</li>
+            <li className="li">Responsive design and media queries</li>
+            <li className="li">Server coordination and deployment planning</li>
+            <li className="li">Photoshop &amp; Illustrator</li>
           </ul>
-        </BlockReveal>
-
-        {/* BEM Methodology */}
-        <BlockReveal panel title="BEM Methodology">
-          <p>
-            Every selector follows strict <strong>Block-Element-Modifier</strong> pattern.
-            I avoid element selectors and global resets. Edge case tweaks live in
-            component-specific _overrides.scss files, so overrides stay local and never
-            leak across pages.
-          </p>
         </BlockReveal>
 
         {/* See It Live */}
@@ -90,12 +116,12 @@ const Skeletor = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Visit AndreyevEngineering.com
+            Visit andreyevengineering.com
           </a>
         </BlockReveal>
       </section>
 
-      {/* Single Modal instance — opens when modalData is non-null */}
+      {/* Modal for image view */}
       {modalData && (
         <Modal
           src={modalData.src}
@@ -108,4 +134,4 @@ const Skeletor = () => {
   );
 };
 
-export default Skeletor;
+export default AEI;

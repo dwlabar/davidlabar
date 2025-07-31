@@ -32,7 +32,7 @@ const About = () => {
             <p>Tools change, stacks shift. What matters is how it holds up. The naming, the structure, the logic behind the layout. Stuff most people never see but feel when it's wrong. I build it so it still makes sense years from now. Long after I'm gone.</p>
             {/* <p>From first sketch to final commit, I refine each idea until the interface feels right. I prototype clean, effective solutions that fit your stack.</p> */}
             <h3>Frontend</h3>
-            <ul className="ul">
+            <ul className="ul ul--grid">
               <li className="li">HTML / SCSS</li>
               <li className="li">GSAP / SVG</li>
               <li className="li">JavaScript (ES6+)</li>
@@ -40,7 +40,7 @@ const About = () => {
               <li className="li">Three.js (WebGL)</li>
             </ul>
             <h3>Backend &nbsp;/&nbsp; CMS</h3>
-            <ul className="ul">
+            <ul className="ul ul--grid">
               <li className="li">Drupal</li>
               <li className="li">Wordpress</li>
               <li className="li">Shopify</li>
@@ -48,7 +48,7 @@ const About = () => {
               <li className="li">Node.js</li>
             </ul>
             <h3>Design</h3>
-            <ul className="ul">
+            <ul className="ul ul--grid">
               <li className="li">Photoshop</li>
               <li className="li">GIMP</li>
               <li className="li">Illustrator</li>
@@ -56,7 +56,7 @@ const About = () => {
               <li className="li">Figma</li>
             </ul>
             <h3>Game &nbsp;/&nbsp; Interactive</h3>
-            <ul className="ul">
+            <ul className="ul ul--grid">
               <li className="li">Godot</li>
               <li className="li">Lua / Roblox</li>
               <li className="li">Phaser</li>
