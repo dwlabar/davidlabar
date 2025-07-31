@@ -13,8 +13,8 @@ const ProjectCard = ({ title, description, subline, path, logo, background, labe
   const [tiles, setTiles] = useState([]);
 
   const handleClick = (e) => {
-    e.preventDefault();
-    overlayNavigate(path);
+    e.preventDefault(); // prevent native navigation to avoid preloader
+    overlayNavigate(path); // use JS navigation
   };
 
   const createTiles = () => {
@@ -48,9 +48,8 @@ const ProjectCard = ({ title, description, subline, path, logo, background, labe
       duration: 0.8,
       ease: "power2.out",
       stagger: {
-        // each: 0.015,
         from: "end",
-        amount: .25
+        amount: 0.25
       }
     });
   };
@@ -81,10 +80,13 @@ const ProjectCard = ({ title, description, subline, path, logo, background, labe
     <a
       ref={cardRef}
       className="project-card"
-      style={{ backgroundImage: `url(${background})` }}
+      href={path}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onFocus={handleMouseEnter}
+      onBlur={handleMouseLeave}
+      style={{ backgroundImage: `url(${background})` }}
     >
       {/* Logo */}
       {logo && (
@@ -121,8 +123,6 @@ const ProjectCard = ({ title, description, subline, path, logo, background, labe
           {/* <div className="project-card__subline">{subline}</div> */}
         </div>
       </div>
-
-      
     </a>
   );
 };

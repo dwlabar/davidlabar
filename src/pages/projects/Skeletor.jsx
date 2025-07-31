@@ -16,6 +16,7 @@ import "../../styles/components/_image.scss";
 
 import skeletorWeAreDifferent from "../../assets/projects/skeletor/full-sail-we-are-different.jpg";
 import skeletorFabricator from "../../assets/projects/skeletor/full-sail-fabricator.jpg";
+import skeletorMobileMenu from "../../assets/projects/skeletor/full-sail-mobile-menu.jpg";
 
 // -----------------------------------------------------------------------------
 // Skeletor component
@@ -57,7 +58,7 @@ const Skeletor = () => {
         </BlockReveal>
 
         <BlockReveal>
-          <div className="aspect-16-9">
+          <button className="aspect-16-9">
             <img
               src={skeletorWeAreDifferent}
               alt="Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy."
@@ -70,7 +71,7 @@ const Skeletor = () => {
               }
               className="aspect-16-9__image"
             />
-          </div>
+          </button>
         </BlockReveal>
 
         {/* BEM Methodology */}
@@ -93,7 +94,7 @@ const Skeletor = () => {
         </BlockReveal>
 
         <BlockReveal>
-          <div className="aspect-16-9">
+          <button className="aspect-16-9">
             <img
               src={skeletorFabricator}
               alt="Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy."
@@ -106,7 +107,7 @@ const Skeletor = () => {
               }
               className="aspect-16-9__image"
             />
-          </div>
+          </button>
         </BlockReveal>
 
         {/* Universal Naming */}
@@ -128,14 +129,28 @@ const Skeletor = () => {
 
         {/* Semantic Navigation Without Duplication */}
         <BlockReveal panel title="Semantic Navigation Without Duplication">
-          <svg width="100%" height="150">
-            <rect width="100%" height="150" fill="#aaa" />
-          </svg>
           <p>
             A single semantic menu adapts to mobile layouts using pure CSS. It
             requires no duplicate markup, remains fully keyboard accessible, and
             delivers a smooth, snappy animation with no GPU hacks.
           </p>
+        </BlockReveal>
+
+        <BlockReveal>
+          <button className="aspect-16-9">
+            <img
+              src={skeletorMobileMenu}
+              alt="Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy."
+              onClick={() =>
+                setModalData({
+                  src: skeletorMobileMenu,
+                  alt:
+                    "Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy.",
+                })
+              }
+              className="aspect-16-9__image"
+            />
+          </button>
         </BlockReveal>
 
         {/* Tools Used */}

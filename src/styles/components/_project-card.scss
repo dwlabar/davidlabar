@@ -79,6 +79,12 @@
     }    
   }
 
+  &:focus-visible {
+    outline-style: outset;
+    outline-width: 2px;
+    outline-color: variables.$color-soundwave;
+  }
+
   @include mixins.breakpoint(md) {
     padding: functions.px2rem(60);
   }
