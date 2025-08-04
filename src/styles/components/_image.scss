@@ -31,14 +31,18 @@
   transition: border-color 2s variables.$global-easing,
               box-shadow 2s variables.$global-easing;
 
-  &:hover,
-  &:focus {
+  &:hover {
     border-color: variables.$color-ramjet;
     animation: noisy-glow 3s infinite ease-in-out;
     .aspect-16-9__image {
       // scale: 1.02;
       transform: translateY(-120px);
     }
+  }
+
+  &:focus {
+    border-color: variables.$color-ramjet;
+    animation: noisy-glow 3s infinite ease-in-out;
   }
 
   @include mixins.breakpoint(md) {
