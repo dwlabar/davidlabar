@@ -45,7 +45,7 @@
   justify-content: center;
   gap: functions.px2rem(30);
   padding: functions.px2rem(30);
-  min-height: functions.px2rem(300);
+  min-height: functions.px2rem(220);
   background-color: rgba(variables.$color-skywarp, 0.25);
   background-size: cover;
   border: solid 1px variables.$color-devastator;
@@ -85,7 +85,12 @@
     outline-color: variables.$color-soundwave;
   }
 
+  @include mixins.breakpoint(sm) {
+    min-height: functions.px2rem(260);
+  }
+
   @include mixins.breakpoint(md) {
+    min-height: functions.px2rem(300);
     padding: functions.px2rem(60);
   }
 }
@@ -95,12 +100,19 @@
 // -----------------------------------------------------------------------------
 
 .project-card__logo {
+  text-align: center;
   scale: 1;
   transition: scale 2s variables.$global-easing,
               filter 2s variables.$global-easing;
 
   img {
-    max-width: 100%;
+    max-width: 80%;
+  }
+
+  @include mixins.breakpoint(md) {
+    img {
+      max-width: 100%;
+    }
   }
 }
 
