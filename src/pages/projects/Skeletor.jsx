@@ -39,6 +39,25 @@ const Skeletor = () => {
           </p>
         </header>
 
+        <BlockReveal>
+          <button
+            className="aspect-16-9"
+            onClick={() =>
+              setModalData({
+                src: skeletorWeAreDifferent,
+                alt:
+                  "Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy.",
+              })
+            }
+          >
+            <img
+              src={skeletorWeAreDifferent}
+              alt="Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy."
+              className="aspect-16-9__image"
+            />
+          </button>
+        </BlockReveal>
+
         {/* What It Was */}
         <BlockReveal panel title="What It Was">
           <p>
@@ -57,25 +76,6 @@ const Skeletor = () => {
           </ul>
         </BlockReveal>
 
-        <BlockReveal>
-          <button 
-            className="aspect-16-9" 
-            onClick={() =>
-              setModalData({
-                src: skeletorWeAreDifferent,
-                alt:
-                  "Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy.",
-              })
-            }
-            >
-            <img
-              src={skeletorWeAreDifferent}
-              alt="Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy."
-              className="aspect-16-9__image"
-            />
-          </button>
-        </BlockReveal>
-
         {/* BEM Methodology */}
         <BlockReveal panel title="BEM Methodology">
           <p>
@@ -86,18 +86,9 @@ const Skeletor = () => {
           </p>
         </BlockReveal>
 
-        {/* Live Docs for Non Devs */}
-        <BlockReveal panel title="Live Docs for Non Devs">
-          <p>
-            Fabricator stayed current with every component. Each entry showed the
-            rendered view beside its markup. Producers pasted those snippets into
-            Craft and shipped full pages in hours instead of waiting in the dev queue.
-          </p>
-        </BlockReveal>
-
         <BlockReveal>
-          <button 
-            className="aspect-16-9" 
+          <button
+            className="aspect-16-9"
             onClick={() =>
               setModalData({
                 src: skeletorFabricator,
@@ -105,13 +96,22 @@ const Skeletor = () => {
                   "Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy.",
               })
             }
-            >
+          >
             <img
               src={skeletorFabricator}
               alt="Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy."
               className="aspect-16-9__image"
             />
           </button>
+        </BlockReveal>
+
+        {/* Live Docs for Non Devs */}
+        <BlockReveal panel title="Live Docs for Non Devs">
+          <p>
+            Fabricator stayed current with every component. Each entry showed the
+            rendered view beside its markup. Producers pasted those snippets into
+            Craft and shipped full pages in hours instead of waiting in the dev queue.
+          </p>
         </BlockReveal>
 
         {/* Universal Naming */}
@@ -131,18 +131,9 @@ const Skeletor = () => {
           </ul>
         </BlockReveal>
 
-        {/* Semantic Navigation Without Duplication */}
-        <BlockReveal panel title="Semantic Navigation Without Duplication">
-          <p>
-            A single semantic menu adapts to mobile layouts using pure CSS. It
-            requires no duplicate markup, remains fully keyboard accessible, and
-            delivers a smooth, snappy animation with no GPU hacks.
-          </p>
-        </BlockReveal>
-
         <BlockReveal>
-          <button 
-            className="aspect-16-9" 
+          <button
+            className="aspect-16-9"
             onClick={() =>
               setModalData({
                 src: skeletorMobileMenu,
@@ -150,13 +141,22 @@ const Skeletor = () => {
                   "Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy.",
               })
             }
-            >
+          >
             <img
               src={skeletorMobileMenu}
               alt="Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy."
               className="aspect-16-9__image"
             />
           </button>
+        </BlockReveal>
+
+        {/* Semantic Navigation Without Duplication */}
+        <BlockReveal panel title="Semantic Navigation Without Duplication">
+          <p>
+            A single semantic menu adapts to mobile layouts using pure CSS. It
+            requires no duplicate markup, remains fully keyboard accessible, and
+            delivers a smooth, snappy animation with no GPU hacks.
+          </p>
         </BlockReveal>
 
         {/* Tools Used */}
