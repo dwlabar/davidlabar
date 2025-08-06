@@ -7,6 +7,12 @@ import App from "./App";
 import Preloader from "./components/Preloader";
 import "./styles/app.scss";
 
+const redirectPath = localStorage.getItem("redirectPath");
+if (redirectPath) {
+  localStorage.removeItem("redirectPath");
+  window.history.replaceState(null, "", redirectPath);
+}
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <PageReadyProvider>
