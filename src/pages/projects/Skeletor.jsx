@@ -163,9 +163,9 @@ const Skeletor = () => {
         <BlockReveal panel title="Tools Used">
           <ul className="ul ul--grid">
             <li className="li">SCSS</li>
-            <li className="li">Node.js & npm</li>
             <li className="li">Vanilla JavaScript</li>
-            <li className="li">Craft CMS</li>
+            <li className="li">Node.js</li>
+            <li className="li">Craft CMS</li>            
             <li className="li">Gulp</li>
             <li className="li">Browsersync</li>
             <li className="li">Fabricator</li>

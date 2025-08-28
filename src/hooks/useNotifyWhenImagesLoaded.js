@@ -1,36 +1,58 @@
+// useNotifyWhenImagesLoaded.js
 import { useEffect } from "react";
 
+/**
+ * Hook to delay page-ready state until all visual images are loaded.
+ * - Waits for <img> tags in DOM
+ * - Scans for CSS background images
+ * - Preloads any found URLs
+ *
+ * @param {Function} callback - Function to call when all visual content is loaded
+ */
 const useNotifyWhenImagesLoaded = (callback) => {
   useEffect(() => {
-    const images = document.querySelectorAll("img");
-    let loadedCount = 0;
+    const root = document.body; // could be scoped further
+    const imgElements = Array.from(root.querySelectorAll("img"));
+    const allElements = Array.from(root.querySelectorAll("*"));
 
-    const checkAllLoaded = () => {
-      loadedCount++;
-      if (loadedCount === images.length) {
-        callback();
+    // --- Track all background-image URLs found in computed styles
+    const backgroundUrls = new Set();
+
+    allElements.forEach((el) => {
+      const style = getComputedStyle(el);
+      const bgImage = style.getPropertyValue("background-image");
+
+      // Look for `url("...")` or `url(...)`
+      const match = bgImage.match(/url\(["']?(.*?)["']?\)/);
+      if (match && match[1]) {
+        backgroundUrls.add(match[1]);
       }
-    };
+    });
 
-    if (images.length === 0) {
-      callback();
-    } else {
-      images.forEach((img) => {
-        if (img.complete) {
-          checkAllLoaded();
+    // --- Create promises for <img> tags
+    const imgPromises = imgElements.map((img) => {
+      return new Promise((resolve) => {
+        if (img.complete && img.naturalHeight !== 0) {
+          resolve(); // Already loaded
         } else {
-          img.addEventListener("load", checkAllLoaded);
-          img.addEventListener("error", checkAllLoaded);
+          img.onload = img.onerror = resolve; // Wait for load or fail
         }
       });
-    }
+    });
 
-    return () => {
-      images.forEach((img) => {
-        img.removeEventListener("load", checkAllLoaded);
-        img.removeEventListener("error", checkAllLoaded);
+    // --- Create promises for background-image URLs
+    const bgPromises = Array.from(backgroundUrls).map((url) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = img.onerror = resolve;
+        img.src = url;
       });
-    };
+    });
+
+    // --- Wait for all images to finish loading, then notify
+    Promise.all([...imgPromises, ...bgPromises]).then(() => {
+      callback();
+    });
   }, [callback]);
 };
 
