@@ -35,6 +35,7 @@
   position: absolute;
   inset: 0;
   background-color: rgba(variables.$color-skywarp, 0.80);
+  backdrop-filter: blur(2px);
 }
 
 // -----------------------------------------------------------------------------
