@@ -5,6 +5,7 @@ import Container from "../components/Container";
 import ThreeSceneManager from "../components/ThreeSceneManager";
 import ThreeSceneControls from "../components/ThreeSceneControls";
 import { ThreeSceneProvider } from "../context/ThreeSceneContext";
+import useOverlayNavigate from "../hooks/useOverlayNavigate";
 
 const Home = () => {
   const { notifyPageReady } = usePageReadyController();
@@ -17,6 +18,13 @@ const Home = () => {
     });
   });
 
+  const overlayNavigate = useOverlayNavigate();
+
+  const handleClick = (e, path) => {
+    e.preventDefault();
+    overlayNavigate(path);
+  };
+
   return (
     <ThreeSceneProvider presetName="default">
       <ThreeSceneControls
@@ -25,7 +33,13 @@ const Home = () => {
       />
       <Container>
         <header>
-          <h1>Crafting Web Solutions for over 20 years.</h1>
+          {/* <h1>Crafting Web Solutions for over 20 years.</h1> */}
+          {/* <h1>I'm <strong>David LaBar</strong> and I make web stuff.</h1> */}
+          {/* <h1><strong>David LaBar</strong></h1> */}
+          <h1>David LaBar</h1>
+          <p className="subheading">Front-End Developer &nbsp;/&nbsp; UI Engineer &nbsp;/&nbsp; Designer</p>
+          {/* <div className="divider"></div> */}
+          <a href="/projects" className="bfg-button bfg-button--center" onClick={(e) => handleClick(e, "/projects")}>View My Work</a>
         </header>
       </Container>
       <ThreeSceneManager />
