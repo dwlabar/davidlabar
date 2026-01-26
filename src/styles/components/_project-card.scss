@@ -27,8 +27,12 @@
     margin-bottom: functions.px2rem(60);
   }
 
-  @include mixins.breakpoint(xxl) {
+  @include mixins.breakpoint(lg) {
     grid-template-columns: 1fr 1fr;
+    
+  }
+
+  @include mixins.breakpoint(xl) {
     gap: 3em;
   }
 }
@@ -45,7 +49,8 @@
   justify-content: center;
   gap: functions.px2rem(30);
   padding: functions.px2rem(30);
-  min-height: functions.px2rem(220);
+  // min-height: functions.px2rem(220);
+  aspect-ratio: 16/9;
   background-color: rgba(variables.$color-skywarp, 0.25);
   background-size: cover;
   border: solid 1px variables.$color-devastator;
@@ -86,11 +91,11 @@
   }
 
   @include mixins.breakpoint(sm) {
-    min-height: functions.px2rem(260);
+    // min-height: functions.px2rem(260);
   }
 
   @include mixins.breakpoint(md) {
-    min-height: functions.px2rem(300);
+    // min-height: functions.px2rem(300);
     padding: functions.px2rem(60);
   }
 }
@@ -109,7 +114,7 @@
     max-width: 80%;
   }
 
-  @include mixins.breakpoint(md) {
+  @include mixins.breakpoint(xl) {
     img {
       max-width: 100%;
     }
