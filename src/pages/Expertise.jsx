@@ -51,7 +51,6 @@ const Services = () => {
 
           <Card>
             <div className="card__hero-image">
-              {/* <img src="../src/assets/icon-development_isolated_01.webp" /> */}
               <IconDev />
             </div>
             <div className="card__text">
