@@ -93,6 +93,17 @@ body {
   }
 }
 
+// CENTER BFG
+// -----------------------------------------------------------------------------
+
+.bfg-button--center {
+  margin: 0 auto;
+}
+
+.subheading + .bfg-button {
+  margin: 2em auto;
+}
+
 // -----------------------------------------------------------------------------
 // BUTTON GROUP
 // -----------------------------------------------------------------------------
@@ -139,4 +150,16 @@ body {
 
 .no-margin-top {
   margin-top: 0 !important;
+}
+
+// -----------------------------------------------------------------------------
+// DIVIDER
+// -----------------------------------------------------------------------------
+
+.divider {
+  width: 100%;
+  height: functions.px2rem(5);
+  margin: 2em auto;
+  background-color: variables.$color-trypticon;
+  border-top: solid 1px variables.$color-devastator;
 }
