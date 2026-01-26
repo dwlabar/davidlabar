@@ -15,8 +15,8 @@ const About = () => {
       <Container>
         <section>
           <header>
-            <h1>David LaBar</h1>
-            <p className="subheading">Front-End Developer / UI Engineer / Designer</p>
+            <h1>About Me</h1>
+            <p className="subheading">Crafting Web Solutions for over 20 years.</p>
           </header>
 
           <Panel>
