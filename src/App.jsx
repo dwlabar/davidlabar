@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import Services from "./pages/Services";
+import Expertise from "./pages/Expertise";
 import SVGExamples from "./pages/SVG-Examples";
 import PreloaderTest from "./pages/Preloader-Test";
 import Projects from "./pages/Projects";
@@ -26,10 +26,10 @@ import RouteTransitionListener from "./components/RouteTransitionListener";
 // Updated nav links
 const NavLinks = [
   { name: "Home", path: "/" },
-  { name: "Services", path: "/services" },
-  { name: "Projects", path: "/projects" },
+  { name: "My Work", path: "/projects" },
+  { name: "Expertise", path: "/expertise" },
   { name: "About", path: "/about" },
-  { name: "Contact", path: "/contact" }
+  { name: "Hire Me", path: "/contact" }
 ];
 
 const App = () => {
@@ -43,7 +43,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/services" element={<Services />} />
+          <Route path="/expertise" element={<Expertise />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/skeletor" element={<Skeletor />} />
           <Route path="/projects/AEI" element={<AEI />} />
