@@ -30,6 +30,8 @@
   height: functions.px2rem(variables.$nav-bar-height);
   background-color: variables.$color-megatron;
   border-bottom: solid 1px variables.$color-devastator;
+  // box-shadow: 0px 2px 30px rgba(variables.$color-skywarp, 0.5);
+  box-shadow: 0px 0px 20px rgba(variables.$color-skywarp, 0.5);
   z-index: map.get(variables.$z-index, "nav-bar");
 }
 
@@ -135,7 +137,8 @@
     }
     &:focus-visible {
       outline-style: outset;
-      outline-width: 2px;
+      outline-width: functions.px2rem(2);
+      outline-offset: functions.px2rem(6);
       outline-color: variables.$color-soundwave;
     }
   }
@@ -189,7 +192,8 @@
 
   &:focus-visible {
     outline-style: outset;
-    outline-width: 2px;
+    outline-width: functions.px2rem(2);
+    outline-offset: functions.px2rem(6);
     outline-color: variables.$color-soundwave;
   }
 
@@ -210,6 +214,7 @@
 
 .nav-bar__burger {
   margin-right: functions.px2rem(20);
+  padding: 0;
   cursor: pointer;
   background: none;
   border: none;
