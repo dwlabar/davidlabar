@@ -97,7 +97,7 @@ const ThreeSceneManager = () => {
     scene.add(backLight);
 
     // ======= PARTICLE SYSTEM =======
-    const trailCount = 10;
+    const trailCount = 20;
     const trails = [];
     const depth = gridSpanZ;
     const baseMargin = 1;
