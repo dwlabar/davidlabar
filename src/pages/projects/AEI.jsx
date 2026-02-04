@@ -1,9 +1,4 @@
-// Skeletor.jsx
-// -----------------------------------------------------------------------------
-// Project page for the Skeletor design system.
-// Sections follow the user's confirmed outline and copy has been rewritten to
-// match their voice. No em dash characters and no apostrophes are used.
-// Code lines are unwrapped where practical so editors can control wrapping.
+// AEI.jsx
 // -----------------------------------------------------------------------------
 
 import React, { useState } from "react";
@@ -39,7 +34,7 @@ const AEI = () => {
         {/* Hero Image */}
         <BlockReveal>
           <button
-            className="aspect-16-9"
+            className="image image--16-9"
             onClick={() =>
               setModalData({
                 src: AEIHome,
@@ -50,7 +45,6 @@ const AEI = () => {
             <img
               src={AEIHome}
               alt="Hero image from the AEI site showing wetlands and water features, styled with overlay and type treatments to maximize visual impact from limited source photography."
-              className="aspect-16-9__image"
             />
           </button>
         </BlockReveal>
