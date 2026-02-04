@@ -18,9 +18,8 @@
 // BASE
 // -----------------------------------------------------------------------------
 
-.aspect-16-9 {
+.image {
   width: 100%;
-  aspect-ratio: 16 / 9;
   overflow: hidden;
   margin-bottom: functions.px2rem(30);
   padding: 0;
@@ -31,30 +30,42 @@
   transition: border-color 2s variables.$global-easing,
               box-shadow 2s variables.$global-easing;
 
-  &:hover {
-    border-color: variables.$color-ramjet;
-    animation: noisy-glow 3s infinite ease-in-out;
-    .aspect-16-9__image {
-      // scale: 1.02;
-      transform: translateY(-120px);
-    }
-  }
-
-  &:focus {
-    border-color: variables.$color-ramjet;
-    animation: noisy-glow 3s infinite ease-in-out;
-  }
-
   @include mixins.breakpoint(md) {
     margin-bottom: functions.px2rem(60);
   }
 }
 
-.aspect-16-9__image {
+// -----------------------------------------------------------------------------
+// HOVER / FOCUS STATES
+// -----------------------------------------------------------------------------
+
+.image:hover,
+.image:focus {
+  border-color: variables.$color-ramjet;
+  animation: noisy-glow 2s infinite ease-in-out;
+}
+
+// 16:9 IMAGE
+// -----------------------------------------------------------------------------
+
+.image--16-9 {
+  aspect-ratio: 16 / 9;
+}
+
+// SQUARE IMAGE
+// -----------------------------------------------------------------------------
+
+.image--1-1 {
+  aspect-ratio: 1 / 1;
+}
+
+// -----------------------------------------------------------------------------
+// IMG
+// -----------------------------------------------------------------------------
+
+.image img {
   display: block;
   width: 100%;
-  transition: scale 2s variables.$global-easing,
-              transform 5s variables.$global-easing;
 }
 
 // -----------------------------------------------------------------------------
