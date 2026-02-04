@@ -49,8 +49,7 @@
   justify-content: center;
   gap: functions.px2rem(30);
   padding: functions.px2rem(30);
-  // min-height: functions.px2rem(220);
-  aspect-ratio: 16/9;
+  aspect-ratio: 1;
   background-color: rgba(variables.$color-skywarp, 0.25);
   background-size: cover;
   border: solid 1px variables.$color-devastator;
@@ -90,8 +89,8 @@
     outline-color: variables.$color-soundwave;
   }
 
-  @include mixins.breakpoint(sm) {
-    // min-height: functions.px2rem(260);
+  @include mixins.breakpoint(xs) {
+    aspect-ratio: 16/9;
   }
 
   @include mixins.breakpoint(md) {
