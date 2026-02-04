@@ -15,6 +15,8 @@ import PreloaderTest from "./pages/Preloader-Test";
 import Projects from "./pages/Projects";
 import Skeletor from "./pages/projects/Skeletor";
 import AEI from "./pages/projects/AEI";
+import BeannikRoasters from "./pages/projects/BeannikRoasters";
+import Dreame from "./pages/projects/Dreame";
 
 // Import components
 import DevPanel from "./components/DevPanel";
@@ -47,6 +49,8 @@ const App = () => {
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/skeletor" element={<Skeletor />} />
           <Route path="/projects/AEI" element={<AEI />} />
+          <Route path="/projects/BeannikRoasters" element={<BeannikRoasters />} />
+          <Route path="/projects/Dreame" element={<Dreame />} />
           <Route path="/SVG-Examples" element={<SVGExamples />} />
           <Route path="/Preloader-Test" element={<PreloaderTest />} />
         </Routes>
