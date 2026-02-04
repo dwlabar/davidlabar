@@ -55,7 +55,8 @@ const Projects = () => {
             path="/projects/Dreame"
             background={DreameBg}
             logo={DreameLogo}
-            label="DESIGN"
+            label="DESIGN" 
+            light
           />
         </div>
       </section>

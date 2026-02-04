@@ -8,7 +8,7 @@
 // IMPORTS
 // -----------------------------------------------------------------------------
 
-@use "sass:color";
+// @use "sass:color";
 @use "../tools/functions";
 @use "../tools/mixins";
 @use "../settings/variables";
@@ -99,6 +99,21 @@
   }
 }
 
+// LIGHT THEME
+// -----------------------------------------------------------------------------
+
+.project-card--light {
+
+  .project-card__bar {
+    background-color: rgba(variables.$color-skywarp, 0.3);
+  }
+
+  .project-card__title,
+  .project-card__label {
+    color: variables.$color-starscream;
+  }
+}
+
 // -----------------------------------------------------------------------------
 // LOGO
 // -----------------------------------------------------------------------------
@@ -138,6 +153,7 @@ $project-card-bar-margin: functions.px2rem(10);
   margin: $project-card-bar-margin;
   padding: $project-card-bar-margin;
   background-color: rgba(variables.$color-skywarp, 0.1);
+  border: solid 1px rgba(variables.$color-devastator, 0);
   transition: background-color variables.$global-timing variables.$global-easing,
               border-color variables.$global-timing variables.$global-easing,
               padding variables.$global-timing variables.$global-easing;

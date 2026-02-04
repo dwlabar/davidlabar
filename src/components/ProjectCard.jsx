@@ -6,7 +6,15 @@ import useOverlayNavigate from "../hooks/useOverlayNavigate";
 
 const TILE_SIZE = 100; // tile width/height in pixels
 
-const ProjectCard = ({ title, description, subline, path, logo, background, label }) => {
+const ProjectCard = ({
+  title,
+  description,
+  path,
+  logo,
+  background,
+  label,
+  light = false // controls bar contrast for light backgrounds
+}) => {
   const overlayNavigate = useOverlayNavigate();
   const cardRef = useRef(null);
   const gridRef = useRef(null);
@@ -109,7 +117,7 @@ const ProjectCard = ({ title, description, subline, path, logo, background, labe
   return (
     <a
       ref={cardRef}
-      className="project-card"
+      className={`project-card${light ? " project-card--light" : ""}`}
       href={path}
       onClick={handleClick}
       onMouseEnter={animateIn}
@@ -150,7 +158,6 @@ const ProjectCard = ({ title, description, subline, path, logo, background, labe
         </div>
         <div className="project-card__row">
           <div className="project-card__description">{description}</div>
-          {/* <div className="project-card__subline">{subline}</div> */}
         </div>
       </div>
     </a>
