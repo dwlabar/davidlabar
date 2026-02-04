@@ -9,6 +9,10 @@ import skeletorBg from "../assets/project-cards/bg_SKELETOR.webp";
 import skeletorLogo from "../assets/project-cards/logo_SKELETOR.webp";
 import AEIBg from "../assets/project-cards/bg_AEI.webp";
 import AEILogo from "../assets/project-cards/logo_AEI.webp";
+import BeannikRoastersBg from "../assets/project-cards/bg_BeanNikRoasters.webp";
+import BeannikRoastersLogo from "../assets/project-cards/logo_BeanNikRoasters.webp";
+import DreameBg from "../assets/project-cards/bg_Dreame.webp";
+import DreameLogo from "../assets/project-cards/logo_Dreame.webp";
 
 const Projects = () => {
   const { notifyPageReady } = usePageReadyController();
@@ -27,8 +31,6 @@ const Projects = () => {
         <div className="project-cards">
           <ProjectCard
             title="Design System &nbsp;/&nbsp; UI Toolkit"
-            description="Modular system used to power fullsail.edu and Full Sail Online."
-            subline="this is the subline"
             path="/projects/skeletor"
             background={skeletorBg}
             logo={skeletorLogo} 
@@ -36,12 +38,24 @@ const Projects = () => {
           />
           <ProjectCard
             title="Custom Drupal CMS"
-            description="Drupal CMS from scratch"
-            subline="this is the subline"
             path="/projects/AEI"
             background={AEIBg}
             logo={AEILogo} 
             label="DEV  &nbsp;/&nbsp;  DESIGN"
+          />
+          <ProjectCard
+            title="Brand &nbsp;/&nbsp; Web"
+            path="/projects/BeannikRoasters"
+            background={BeannikRoastersBg}
+            logo={BeannikRoastersLogo}
+            label="DEV  &nbsp;/&nbsp;  DESIGN"
+          />
+          <ProjectCard
+            title="Art Commissions"
+            path="/projects/Dreame"
+            background={DreameBg}
+            logo={DreameLogo}
+            label="DESIGN"
           />
         </div>
       </section>
