@@ -15,6 +15,7 @@
 // -----------------------------------------------------------------------------
 
 $layout-cell-gap: 2em;
+$layout-cell-gap-lg: 3em;
 
 // -----------------------------------------------------------------------------
 // ROW
@@ -27,9 +28,24 @@ $layout-cell-gap: 2em;
   justify-content: space-between;
   width: 100%;
   gap: $layout-cell-gap;
+
+  @include mixins.breakpoint(md) {
+      gap: $layout-cell-gap-lg;
+    }
   
   @include mixins.breakpoint(lg) {
     flex-flow: row wrap;
+  }
+}
+
+// ROW MARGIN
+// -----------------------------------------------------------------------------
+
+.layout-row--margin-bottom {
+  margin-bottom: 2em;
+
+  @include mixins.breakpoint(md) {
+    margin-bottom: 3em;
   }
 }
 
@@ -40,7 +56,7 @@ $layout-cell-gap: 2em;
 .layout-cell {
   width: 100%;
   min-width: 0;
-  flex: 0 1 auto;
+  flex: 1 1 auto;
   & :last-child {
     margin-bottom: 0;
   }
