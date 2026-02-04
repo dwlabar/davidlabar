@@ -41,7 +41,7 @@ const Skeletor = () => {
 
         <BlockReveal>
           <button
-            className="aspect-16-9"
+            className="image image--16-9"
             onClick={() =>
               setModalData({
                 src: skeletorWeAreDifferent,
@@ -53,7 +53,6 @@ const Skeletor = () => {
             <img
               src={skeletorWeAreDifferent}
               alt="Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy."
-              className="aspect-16-9__image"
             />
           </button>
         </BlockReveal>
@@ -88,7 +87,7 @@ const Skeletor = () => {
 
         <BlockReveal>
           <button
-            className="aspect-16-9"
+            className="image image--16-9"
             onClick={() =>
               setModalData({
                 src: skeletorFabricator,
@@ -100,7 +99,6 @@ const Skeletor = () => {
             <img
               src={skeletorFabricator}
               alt="Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy."
-              className="aspect-16-9__image"
             />
           </button>
         </BlockReveal>
@@ -133,7 +131,7 @@ const Skeletor = () => {
 
         <BlockReveal>
           <button
-            className="aspect-16-9"
+            className="image image--16-9"
             onClick={() =>
               setModalData({
                 src: skeletorMobileMenu,
@@ -145,7 +143,6 @@ const Skeletor = () => {
             <img
               src={skeletorMobileMenu}
               alt="Responsive full-width hero section from the Full Sail University site, built using the Skeletor design system. Features a layered 3D 'DREAM' sign with backlit panels and subtle depth, overlaid by a translucent gradient and white headline text. Navigation includes a flexible top bar with dropdown menus and global utility links, styled for clarity and hierarchy."
-              className="aspect-16-9__image"
             />
           </button>
         </BlockReveal>
