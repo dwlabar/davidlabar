@@ -28,7 +28,8 @@
   cursor: pointer;
   box-shadow: 0 0 0px 0px rgba(255, 255, 255, 0.8);
   transition: border-color 2s variables.$global-easing,
-              box-shadow 2s variables.$global-easing;
+              box-shadow 2s variables.$global-easing,
+              scale 0.5s variables.$global-easing;
 
   @include mixins.breakpoint(md) {
     margin-bottom: functions.px2rem(60);
@@ -43,6 +44,7 @@
 .image:focus {
   border-color: variables.$color-ramjet;
   animation: noisy-glow 2s infinite ease-in-out;
+  scale: 1.02;
 }
 
 // 16:9 IMAGE
