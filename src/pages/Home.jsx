@@ -27,10 +27,6 @@ const Home = () => {
 
   return (
     <ThreeSceneProvider presetName="default">
-      <ThreeSceneControls
-        showControls={showControls}
-        setShowControls={setShowControls}
-      />
       <Container>
         <header>
           {/* <h1>Crafting Web Solutions for over 20 years.</h1> */}
@@ -42,6 +38,10 @@ const Home = () => {
           <a href="/projects" className="bfg-button bfg-button--center" onClick={(e) => handleClick(e, "/projects")}>View My Work</a>
         </header>
       </Container>
+      <ThreeSceneControls
+        showControls={showControls}
+        setShowControls={setShowControls}
+      />
       <ThreeSceneManager />
     </ThreeSceneProvider>
   );
