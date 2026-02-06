@@ -22,7 +22,12 @@
   padding: functions.px2rem(30);
   border: solid 1px variables.$color-devastator;
   background-color: variables.$color-megatron;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+  background-image:
+    url('/src/assets/bg_noise.png'),
+    radial-gradient(80% 25% at top center,
+      rgba(variables.$color-devastator, 0.2) 0%,
+      rgba(variables.$color-devastator, 0) 70%);
+  box-shadow: 0 5px 10px rgba(variables.$color-skywarp, 0.4);
 
   @include mixins.breakpoint(md) {
     margin-bottom: functions.px2rem(60);
