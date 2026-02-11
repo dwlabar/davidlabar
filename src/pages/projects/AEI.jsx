@@ -26,9 +26,7 @@ const AEI = () => {
         {/* Page header */}
         <header>
           <h1>Andreyev Engineering</h1>
-          <p className="subheading">
-            A Drupal site built from scratch for a geotechnical engineering firm. Responsive, secure, and still going after more than a decade.
-          </p>
+          <p className="subheading">A Drupal site built from scratch for a geotechnical engineering firm. Responsive, secure, and maintained across major Drupal upgrades through Drupal 10.</p>
         </header>
 
         {/* Hero Image */}
@@ -49,13 +47,14 @@ const AEI = () => {
           </button>
         </BlockReveal>
 
-        {/* The Ask */}
-        <BlockReveal panel title="The Ask">
-          <p>
-            AEI handed me a printed brochure, a logo, and a handful of low-res photos.
-            They needed a professional web presence that clients could use to access
-            documents and stay informed about their projects.
-          </p>
+        {/* Starting Point */}
+        <BlockReveal panel title="Starting Point">
+          <p>AEI provided a logo, a printed brochure, and a small set of photography. The goal was a professional web presence that clearly explained services, supported contact requests, and allowed clients to access project documents through secure logins.</p>
+        </BlockReveal>
+
+        {/* Why It Worked Long Term */}
+        <BlockReveal panel title="Why It Worked Long Term">
+          <p>This project stayed healthy because the site was built as a system, not a one-time design. I kept structure and permissions predictable, avoided brittle one-off hacks, and leaned on Drupal patterns that could survive upgrades and handoffs.</p>
         </BlockReveal>
 
         {/* What I Did */}
@@ -63,28 +62,34 @@ const AEI = () => {
           <div className="layout-row layout-row--2">
             <div className="layout-cell">
               <ul className="ul">
-                <li className="li">
-                  Designed and built the entire site in Drupal 6 from scratch.
-                </li>
-                <li className="li">
-                  Set up secure client logins using Roles and Views to show uploads.
-                </li>
-                <li className="li">
-                  Configured spam-resistant contact forms using Webform and extras.
-                </li>
+                <li className="li">Designed and built the entire site in Drupal 6 from scratch.</li>
+                <li className="li">Set up secure client logins using Roles and Views to show uploads.</li>
+                <li className="li">Configured spam-resistant contact forms using Webform and extras.</li>
               </ul>
             </div>
             <div className="layout-cell">
               <ul className="ul">
-                <li className="li">
-                  Upgraded and maintained the site across versions - now on Drupal 10.
-                </li>
-                <li className="li">
-                  Made the site fully responsive years before most clients expected it.
-                </li>
-                <li className="li">
-                  Managed the entire project and coordinated with their server team.
-                </li>
+                <li className="li">Upgraded and maintained the site across versions and is now on Drupal 10.</li>
+                <li className="li">Made the site fully responsive years before most clients expected it.</li>
+                <li className="li">Managed the project and coordinated with their server team.</li>
+              </ul>
+            </div>
+          </div>
+        </BlockReveal>
+
+        {/* Approach */}
+        <BlockReveal panel title="Approach">
+          <div className="layout-row layout-row--2">
+            <div className="layout-cell">
+              <ul className="ul">
+                <li className="li">Built reusable page and content patterns so new pages stayed consistent.</li>
+                <li className="li">Kept permissions and access rules clear so client content stayed protected.</li>
+              </ul>
+            </div>
+            <div className="layout-cell">
+              <ul className="ul">
+                <li className="li">Focused on predictable structure so updates and upgrades stayed manageable.</li>
+                <li className="li">Made responsive behavior part of the system instead of per-page fixes.</li>
               </ul>
             </div>
           </div>
@@ -120,7 +125,6 @@ const AEI = () => {
         <Modal
           src={modalData.src}
           alt={modalData.alt}
-          caption={modalData.caption}
           onClose={() => setModalData(null)}
         />
       )}

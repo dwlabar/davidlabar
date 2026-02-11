@@ -29,9 +29,7 @@ const BeannikRoasters = () => {
         {/* Page header */}
         <header>
           <h1>BeanNik Roasters</h1>
-          <p className="subheading">
-            Description text goes here.
-          </p>
+          <p className="subheading">Ongoing design and web support for a family-run coffee business. Logo, packaging labels, and multiple web and commerce iterations over the years.</p>
         </header>
 
         {/* Screenshot Row */}
@@ -43,14 +41,11 @@ const BeannikRoasters = () => {
                 onClick={() =>
                   setModalData({
                     src: BeannikRoastersLabel,
-                    alt: "Hero image from the BeannikRoasters site showing wetlands and water features, styled with overlay and type treatments to maximize visual impact from limited source photography.",
+                    alt: "BeanNik Coffee Co. label design with the acorn logo, product details, and packaging layout.",
                   })
                 }
               >
-                <img
-                  src={BeannikRoastersLabel}
-                  alt="Hero image from the BeannikRoasters site showing wetlands and water features, styled with overlay and type treatments to maximize visual impact from limited source photography."
-                />
+                <img src={BeannikRoastersLabel} alt="BeanNik Coffee Co. label design with the acorn logo, product details, and packaging layout." />
               </button>
             </div>
             <div className="layout-cell">
@@ -59,14 +54,11 @@ const BeannikRoasters = () => {
                 onClick={() =>
                   setModalData({
                     src: BeannikRoastersSite02,
-                    alt: "Hero image from the BeannikRoasters site showing wetlands and water features, styled with overlay and type treatments to maximize visual impact from limited source photography.",
+                    alt: "BeanNik Roasters website screenshot featuring a dark coffee-themed hero section and product tiles.",
                   })
                 }
               >
-                <img
-                  src={BeannikRoastersSite02}
-                  alt="Hero image from the BeannikRoasters site showing wetlands and water features, styled with overlay and type treatments to maximize visual impact from limited source photography."
-                />
+                <img src={BeannikRoastersSite02} alt="BeanNik Roasters website screenshot featuring a dark coffee-themed hero section and product tiles." />
               </button>
             </div>
           </div>
@@ -81,14 +73,11 @@ const BeannikRoasters = () => {
                 onClick={() =>
                   setModalData({
                     src: BeannikRoastersSite,
-                    alt: "Hero image from the BeannikRoasters site showing wetlands and water features, styled with overlay and type treatments to maximize visual impact from limited source photography.",
+                    alt: "BeanNik Roasters website screenshot showing the coffee hero section and navigation.",
                   })
                 }
               >
-                <img
-                  src={BeannikRoastersSite}
-                  alt="Hero image from the BeannikRoasters site showing wetlands and water features, styled with overlay and type treatments to maximize visual impact from limited source photography."
-                />
+                <img src={BeannikRoastersSite} alt="BeanNik Roasters website screenshot showing the coffee hero section and navigation." />
               </button>
             </div>
             <div className="layout-cell">
@@ -97,26 +86,38 @@ const BeannikRoasters = () => {
                 onClick={() =>
                   setModalData({
                     src: BeannikRoastersLogo,
-                    alt: "Hero image from the BeannikRoasters site showing wetlands and water features, styled with overlay and type treatments to maximize visual impact from limited source photography.",
+                    alt: "BeanNik Roasters acorn logo on a simple brown background.",
                   })
                 }
               >
-                <img
-                  src={BeannikRoastersLogo}
-                  alt="Hero image from the BeannikRoasters site showing wetlands and water features, styled with overlay and type treatments to maximize visual impact from limited source photography."
-                />
+                <img src={BeannikRoastersLogo} alt="BeanNik Roasters acorn logo on a simple brown background." />
               </button>
             </div>
           </div>
         </BlockReveal>
 
-        {/* Decades of Maintenance */}
-        <BlockReveal panel title="Decades of Maintenance">
-          <p>
-            BeannikRoasters handed me a printed brochure, a logo, and a handful of low-res photos.
-            They needed a professional web presence that clients could use to access
-            documents and stay informed about their projects.
-          </p>
+        {/* What It Was */}
+        <BlockReveal panel title="What It Was">
+          <p>BeanNik is a small batch coffee business I have supported on and off since I graduated from Full Sail. I handled design and web needs as they came up over time rather than as one big project.</p>
+          <p>The web presence evolved in stages. We started with a simple site, then added PayPal ordering, and later moved to a Shopify store. The most lasting value ended up being the logo and label system, plus the crops and variations used for social.</p>
+        </BlockReveal>
+
+        {/* What I Focused On */}
+        <BlockReveal panel title="What I Focused On">
+          <div className="layout-row layout-row--2">
+            <div className="layout-cell">
+              <ul className="ul">
+                <li className="li">Make the logo and label system strong enough to carry the brand.</li>
+                <li className="li">Keep layouts simple so content and ordering stayed obvious.</li>
+              </ul>
+            </div>
+            <div className="layout-cell">
+              <ul className="ul">
+                <li className="li">Design for real printing and real constraints, not just mockups.</li>
+                <li className="li">Iterate without overbuilding since the business did not live inside a website.</li>
+              </ul>
+            </div>
+          </div>
         </BlockReveal>
 
         {/* What I Did */}
@@ -124,55 +125,38 @@ const BeannikRoasters = () => {
           <div className="layout-row layout-row--2">
             <div className="layout-cell">
               <ul className="ul">
-                <li className="li">
-                  Designed and built the entire site in Drupal 6 from scratch.
-                </li>
-                <li className="li">
-                  Set up secure client logins using Roles and Views to show uploads.
-                </li>
-                <li className="li">
-                  Configured spam-resistant contact forms using Webform and extras.
-                </li>
+                <li className="li">Designed and refined the BeanNik logo and supporting brand visuals.</li>
+                <li className="li">Designed product labels and packaging layouts for different roasts.</li>
+                <li className="li">Built multiple website iterations over the years as needs changed.</li>
               </ul>
             </div>
             <div className="layout-cell">
               <ul className="ul">
-                <li className="li">
-                  Upgraded and maintained the site across versions - now on Drupal 10.
-                </li>
-                <li className="li">
-                  Made the site fully responsive years before most clients expected it.
-                </li>
-                <li className="li">
-                  Managed the entire project and coordinated with their server team.
-                </li>
+                <li className="li">Helped set up simple ordering flows, including PayPal ordering and a later move to Shopify.</li>
+                <li className="li">Created promo and storefront graphics used across different platforms.</li>
+                <li className="li">Kept the work lightweight and maintainable since usage was inconsistent.</li>
               </ul>
             </div>
           </div>
         </BlockReveal>
 
+        {/* What This Shows About How I Work */}
+        <BlockReveal panel title="What This Shows About How I Work">
+          <p>This project highlights how I approach real constraints. I did not treat it like a portfolio piece. I treated it like support work that had to be useful for a small business that does not want to live inside tech.</p>
+          <p>I focused effort where it mattered most. The label and logo improvements shipped, got reused, and stayed consistent across platforms, even when the website changed.</p>
+        </BlockReveal>
+
         {/* Tools Used */}
         <BlockReveal panel title="Tools Used">
           <ul className="ul ul--grid">
-            <li className="li">Drupal 6-10</li>
-            <li className="li">Views, Webform, and Permissions modules</li>
+            <li className="li">Photoshop</li>
+            <li className="li">Illustrator</li>
+            <li className="li">Inkscape</li>
             <li className="li">Semantic HTML + SCSS</li>
-            <li className="li">Responsive design and media queries</li>
-            <li className="li">Server coordination and deployment planning</li>
-            <li className="li">Photoshop &amp; Illustrator</li>
+            <li className="li">Responsive layout</li>
+            <li className="li">PayPal</li>
+            <li className="li">Shopify</li>
           </ul>
-        </BlockReveal>
-
-        {/* See It Live */}
-        <BlockReveal panel title="See It Live">
-          <a
-            href="https://www.andreyevengineering.com"
-            className="bfg-button"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Visit andreyevengineering.com
-          </a>
         </BlockReveal>
       </section>
 
@@ -181,7 +165,6 @@ const BeannikRoasters = () => {
         <Modal
           src={modalData.src}
           alt={modalData.alt}
-          caption={modalData.caption}
           onClose={() => setModalData(null)}
         />
       )}
