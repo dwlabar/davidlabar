@@ -24,9 +24,12 @@
   background-color: variables.$color-megatron;
   background-image:
     url('/src/assets/bg_noise.png'),
-    radial-gradient(80% 25% at top center,
-      rgba(variables.$color-devastator, 0.2) 0%,
-      rgba(variables.$color-devastator, 0) 70%);
+    // radial-gradient(80% 25% at top center,
+    //   rgba(variables.$color-devastator, 0.2) 0%,
+    //   rgba(variables.$color-devastator, 0) 70%);
+    radial-gradient(210% 180px at top center,
+        rgba(variables.$color-devastator, 0.2) 0%,
+        rgba(variables.$color-devastator, 0) 70%);
   box-shadow: 0 5px 10px rgba(variables.$color-skywarp, 0.4);
 
   @include mixins.breakpoint(md) {
