@@ -30,11 +30,12 @@ $layout-cell-gap-lg: 3em;
   gap: $layout-cell-gap;
 
   @include mixins.breakpoint(md) {
-      gap: $layout-cell-gap-lg;
-    }
+    gap: $layout-cell-gap;
+  }
   
   @include mixins.breakpoint(lg) {
     flex-flow: row wrap;
+    gap: $layout-cell-gap-lg;
   }
 }
 
