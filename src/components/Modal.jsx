@@ -9,7 +9,7 @@ import React, { useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import "../styles/components/_modal.scss";
 
-const Modal = ({ src, alt = "", caption = "", onClose }) => {
+const Modal = ({ src, alt = "", onClose }) => {
   const modalRef = useRef(null);
   const triggerRef = useRef(document.activeElement); // Save focus on open
 
@@ -37,15 +37,14 @@ const Modal = ({ src, alt = "", caption = "", onClose }) => {
       <div className="modal__backdrop" onClick={onClose}></div>
       <div className="modal__content">
         <img src={src} alt={alt} />
-        {caption && <figcaption className="modal__caption">{caption}</figcaption>}
       </div>
       <button
-          className="modal__close"
-          onClick={onClose}
-          aria-label="Close"
-        >
-          &#x2715;
-        </button>
+        className="modal__close"
+        onClick={onClose}
+        aria-label="Close"
+      >
+        &#x2715;
+      </button>
     </div>,
     modalRoot
   );
