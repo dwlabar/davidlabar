@@ -13,6 +13,8 @@ import BeannikRoastersBg from "../assets/project-cards/bg_BeanNikRoasters.webp";
 import BeannikRoastersLogo from "../assets/project-cards/logo_BeanNikRoasters.webp";
 import DreameBg from "../assets/project-cards/bg_Dreame.webp";
 import DreameLogo from "../assets/project-cards/logo_Dreame.webp";
+import WestgateResortsBg from "../assets/project-cards/bg_WestgateResorts.webp";
+import WestgateResortsLogo from "../assets/project-cards/logo_WestgateResorts.webp";
 
 const Projects = () => {
   const { notifyPageReady } = usePageReadyController();
@@ -48,6 +50,13 @@ const Projects = () => {
             path="/projects/BeannikRoasters"
             background={BeannikRoastersBg}
             logo={BeannikRoastersLogo}
+            label="DEV  &nbsp;/&nbsp;  DESIGN"
+          />
+          <ProjectCard
+            title="Marketing Web &nbsp;/&nbsp; Email"
+            path="/projects/WestgateResorts"
+            background={WestgateResortsBg}
+            logo={WestgateResortsLogo}
             label="DEV  &nbsp;/&nbsp;  DESIGN"
           />
           <ProjectCard

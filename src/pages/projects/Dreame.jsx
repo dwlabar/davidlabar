@@ -142,11 +142,6 @@ const Dreame = () => {
           </div>
         </BlockReveal>
 
-        {/* Content Note */}
-        <BlockReveal panel title="Content Note">
-          <p>Some commissions for this platform included artistic nudity. I am only showing work here that is safe for a general portfolio site.</p>
-        </BlockReveal>
-
         {/* Tools Used */}
         <BlockReveal panel title="Tools Used">
           <ul className="ul ul--grid">

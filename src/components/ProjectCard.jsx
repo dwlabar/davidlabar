@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
 import useOverlayNavigate from "../hooks/useOverlayNavigate";
 
-const TILE_SIZE = 100; // tile width/height in pixels
+const TILE_SIZE = 50; // tile width/height in pixels
 
 const ProjectCard = ({
   title,
