@@ -69,8 +69,8 @@ const WestgateResorts = () => {
 
         {/* What It Was */}
         <BlockReveal panel title="What It Was">
-          <p>I worked for two departments at the same time at Westgate: Internet Marketing and Owner Referral. Most of my day-to-day work was tied to Internet Marketing, where I designed and built resort sites, vacation offer pages, landing pages, banners, and emails under very fast deadlines.</p>
-          <p>A lot of it was aggressive marketing work and high-volume production. Not the kind of work I would make today, but it shows how much design and front-end work I was doing early on.</p>
+          <p>I worked for two departments at Westgate: Internet Marketing and Owner Referral. Most of my day-to-day work was tied to Internet Marketing, where I designed and built resort sites, vacation offer pages, landing pages, banners, and emails under fast deadlines.</p>
+          <p>The visuals are older, but the work still shows the pace and range of production I was handling at the time.</p>
         </BlockReveal>
 
         <BlockReveal>
@@ -110,13 +110,13 @@ const WestgateResorts = () => {
             <div className="layout-cell">
               <ul className="ul">
                 <li className="li">Designed and coded vacation sites, resort sites, landing pages, and email campaigns.</li>
-                <li className="li">Worked with a copywriter and a ColdFusion developer. I handled the design, HTML, CSS, and JavaScript before handing work off when needed.</li>
-                <li className="li">Designed logos for many of the marketing sites and offers.</li>
+                <li className="li">Handled design, HTML, CSS, and JavaScript before handing work off when backend support was needed.</li>
+                <li className="li">Designed logos for many of the marketing sites and offer pages.</li>
               </ul>
             </div>
             <div className="layout-cell">
               <ul className="ul">
-                <li className="li">Built the HTML and CSS for a custom Owner Referral email system used by timeshare owners.</li>
+                <li className="li">Built the HTML and CSS for a custom Owner Referral email system.</li>
                 <li className="li">Created banners and landing pages for affiliate vendors and third parties.</li>
                 <li className="li">Supported early SEO and A/B testing work as the team shifted away from relying only on paid traffic.</li>
               </ul>
@@ -157,8 +157,7 @@ const WestgateResorts = () => {
 
         {/* Why I Am Showing It */}
         <BlockReveal panel title="Why I Am Showing It">
-          <p>I am not showing this work because it looks current. I am showing it because it reflects the amount of design and front-end production I was doing at the time. It also shows the kind of speed and variety the job demanded.</p>
-          <p>This was one of those roles where I had to figure things out fast, teach myself what I needed, and keep shipping.</p>
+          <p>This work shows the production side of my background: fast turns, lots of variation, and a mix of design and front-end implementation. It was one of the roles where I had to learn quickly, solve what was in front of me, and keep shipping.</p>
         </BlockReveal>
 
         <BlockReveal>

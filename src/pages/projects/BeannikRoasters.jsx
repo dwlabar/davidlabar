@@ -29,7 +29,7 @@ const BeannikRoasters = () => {
         {/* Page header */}
         <header>
           <h1>BeanNik Roasters</h1>
-          <p className="subheading">Ongoing design and web support for a family-run coffee business. Logo, packaging labels, and multiple web and commerce iterations over the years.</p>
+          <p className="subheading">Long-running design and web support for a small coffee business. Logo, labels, site updates, and simple commerce workflows.</p>
         </header>
 
         {/* Screenshot Row */}
@@ -98,26 +98,8 @@ const BeannikRoasters = () => {
 
         {/* What It Was */}
         <BlockReveal panel title="What It Was">
-          <p>BeanNik is a small batch coffee business I have supported on and off since I graduated from Full Sail. I handled design and web needs as they came up over time rather than as one big project.</p>
-          <p>The web presence evolved in stages. We started with a simple site, then added PayPal ordering, and later moved to a Shopify store. The most lasting value ended up being the logo and label system, plus the crops and variations used for social.</p>
-        </BlockReveal>
-
-        {/* What I Focused On */}
-        <BlockReveal panel title="What I Focused On">
-          <div className="layout-row layout-row--2">
-            <div className="layout-cell">
-              <ul className="ul">
-                <li className="li">Make the logo and label system strong enough to carry the brand.</li>
-                <li className="li">Keep layouts simple so content and ordering stayed obvious.</li>
-              </ul>
-            </div>
-            <div className="layout-cell">
-              <ul className="ul">
-                <li className="li">Design for real printing and real constraints, not just mockups.</li>
-                <li className="li">Iterate without overbuilding since the business did not live inside a website.</li>
-              </ul>
-            </div>
-          </div>
+          <p>BeanNik is a small batch coffee business I have supported on and off since I graduated from Full Sail. The work changed over time depending on what the business needed.</p>
+          <p>I handled the logo, product labels, website updates, ordering flows, and reusable graphics for social and storefront use. It was not one giant project. It was practical support over a long stretch of time.</p>
         </BlockReveal>
 
         {/* What I Did */}
@@ -126,24 +108,23 @@ const BeannikRoasters = () => {
             <div className="layout-cell">
               <ul className="ul">
                 <li className="li">Designed and refined the BeanNik logo and supporting brand visuals.</li>
-                <li className="li">Designed product labels and packaging layouts for different roasts.</li>
-                <li className="li">Built multiple website iterations over the years as needs changed.</li>
+                <li className="li">Created product label layouts for different roasts and packaging needs.</li>
+                <li className="li">Built and updated website iterations as the business changed.</li>
               </ul>
             </div>
             <div className="layout-cell">
               <ul className="ul">
-                <li className="li">Helped set up simple ordering flows, including PayPal ordering and a later move to Shopify.</li>
-                <li className="li">Created promo and storefront graphics used across different platforms.</li>
-                <li className="li">Kept the work lightweight and maintainable since usage was inconsistent.</li>
+                <li className="li">Set up simple ordering flows, including PayPal and a later Shopify store.</li>
+                <li className="li">Prepared graphics for social, storefront, and promotional use.</li>
+                <li className="li">Kept the work lightweight so it was useful without becoming overbuilt.</li>
               </ul>
             </div>
           </div>
         </BlockReveal>
 
-        {/* What This Shows About How I Work */}
-        <BlockReveal panel title="What This Shows About How I Work">
-          <p>This project highlights how I approach real constraints. I did not treat it like a portfolio piece. I treated it like support work that had to be useful for a small business that does not want to live inside tech.</p>
-          <p>I focused effort where it mattered most. The label and logo improvements shipped, got reused, and stayed consistent across platforms, even when the website changed.</p>
+        {/* How I Approached It */}
+        <BlockReveal panel title="How I Approached It">
+          <p>The goal was not to make the most complex website possible. The goal was to make the parts that mattered work well: the logo, the label system, the product presentation, and the basic path to ordering coffee.</p>
         </BlockReveal>
 
         {/* Tools Used */}

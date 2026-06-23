@@ -30,7 +30,7 @@ const Dreame = () => {
         {/* Page header */}
         <header>
           <h1>Dreame</h1>
-          <p className="subheading">Commissioned dream art created for the Dreame co-creation platform.</p>
+          <p className="subheading">Commissioned dream art based on written prompts and visual direction.</p>
         </header>
 
         {/* Hero Image */}
@@ -50,7 +50,7 @@ const Dreame = () => {
 
         {/* What It Was */}
         <BlockReveal panel title="What It Was">
-          <p>Dreame is a platform where people submit personal dreamlike prompts and artists interpret them into original artwork. The work is commissioned and created to match a written concept rather than a marketing brief.</p>
+          <p>Dreame was a co-creation platform where people submitted personal, dreamlike prompts and artists interpreted them into original artwork. The work was less about marketing polish and more about visual interpretation.</p>
         </BlockReveal>
 
         {/* What I Did */}
@@ -58,16 +58,16 @@ const Dreame = () => {
           <div className="layout-row layout-row--2">
             <div className="layout-cell">
               <ul className="ul">
-                <li className="li">Created multiple commissioned pieces based on written prompts and themes.</li>
-                <li className="li">Translated abstract ideas into clear visual composition with readable silhouettes.</li>
-                <li className="li">Delivered polished final art in the formats required by the platform.</li>
+                <li className="li">Created commissioned pieces from written prompts and themes.</li>
+                <li className="li">Turned abstract ideas into readable compositions.</li>
+                <li className="li">Used lighting, scale, and silhouette to make each piece read quickly.</li>
               </ul>
             </div>
             <div className="layout-cell">
               <ul className="ul">
-                <li className="li">Worked through revisions when needed to better match intent and tone.</li>
-                <li className="li">Maintained consistency across multiple commissions while varying style and mood.</li>
-                <li className="li">Balanced speed with quality since commissions were time-bound.</li>
+                <li className="li">Adjusted pieces when needed to better match the requested tone.</li>
+                <li className="li">Prepared final artwork for the platform requirements.</li>
+                <li className="li">Balanced surreal subject matter with clear visual structure.</li>
               </ul>
             </div>
           </div>
@@ -107,7 +107,7 @@ const Dreame = () => {
 
         {/* Process */}
         <BlockReveal panel title="Process">
-          <p>The prompts were usually personal and specific, so the challenge was clarity. I would decide on the core idea first, then build composition and lighting around it so the final image read quickly while still feeling surreal and dreamlike.</p>
+          <p>I usually started by finding the core image inside the prompt. From there I built the composition around one clear read, then used detail and atmosphere to make it feel more dreamlike.</p>
         </BlockReveal>
 
         {/* Image Row */}

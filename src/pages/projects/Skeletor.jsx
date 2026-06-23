@@ -1,9 +1,7 @@
 // Skeletor.jsx
 // -----------------------------------------------------------------------------
 // Project page for the Skeletor design system.
-// Sections follow the user's confirmed outline and copy has been rewritten to
-// match their voice. No em dash characters and no apostrophes are used.
-// Code lines are unwrapped where practical so editors can control wrapping.
+// Copy tightened for V4 while keeping the existing component structure intact.
 // -----------------------------------------------------------------------------
 
 import React, { useState } from "react";
@@ -34,7 +32,7 @@ const Skeletor = () => {
         {/* Page header */}
         <header>
           <h1>Skeletor</h1>
-          <p className="subheading">A modular front end system I built and maintained at Full Sail University from 2013 to 2023</p>
+          <p className="subheading">A modular front-end system I built and maintained at Full Sail University from 2013 to 2023.</p>
         </header>
 
         <BlockReveal>
@@ -51,24 +49,38 @@ const Skeletor = () => {
           </button>
         </BlockReveal>
 
-        {/* Quick positioning */}
-        <BlockReveal panel title="Why This Matters">
-          <p>Skeletor is not just a set of styles. It is a shared UI layer that reduced drift across teams, properties, and content workflows. The goal was simple. People needed to ship pages and features without constantly re-solving the UI layer or breaking the system over time.</p>
-          <p>The difference is not the framework. The difference is how it was structured, named, constrained, documented, and maintained so it stayed usable after years of redesigns and staff changes.</p>
-        </BlockReveal>
-
         {/* What It Was */}
         <BlockReveal panel title="What It Was">
-          <p>Skeletor began as a SCSS and JavaScript design system that replaced a bloated Bootstrap fork inside the Full Sail Online learning platform (LMS). Over a decade it became the shared foundation powering multiple properties and workflows:</p>
+          <p>Skeletor was the front-end system I built and maintained at Full Sail. It started in the Full Sail Online LMS as a cleaner replacement for a bloated Bootstrap fork, then later became the shared UI foundation for fullsail.edu and several related properties.</p>
+          <p>The work was mostly SCSS, JavaScript, reusable components, Craft CMS templates, documentation, and a lot of cleanup around consistency.</p>
           <ul className="ul ul--grid">
             <li className="li">fullsail.edu</li>
             <li className="li">Full Sail Armada</li>
             <li className="li">Full Sail Labs</li>
-            <li className="li">Full Sail Online (LMS)</li>
+            <li className="li">Full Sail Online LMS</li>
             <li className="li">Hall of Fame</li>
             <li className="li">Monarch Initiative</li>
           </ul>
-          <p>The hard part was not building components. The hard part was keeping one system stable across multiple codebases, multiple teams, and multiple publishing paths without it turning into a pile of exceptions.</p>
+        </BlockReveal>
+
+        {/* What I Was Solving */}
+        <BlockReveal panel title="What I Was Solving">
+          <div className="layout-row layout-row--2">
+            <div className="layout-cell">
+              <ul className="ul">
+                <li className="li">Multiple properties needed one shared UI language.</li>
+                <li className="li">Design changes needed to scale without breaking older pages.</li>
+                <li className="li">Developers needed reusable templates instead of one-off builds.</li>
+              </ul>
+            </div>
+            <div className="layout-cell">
+              <ul className="ul">
+                <li className="li">Producers needed safe building blocks inside Craft.</li>
+                <li className="li">Accessibility and responsive behavior needed to be built in.</li>
+                <li className="li">The system had to survive redesigns, staff changes, and daily content work.</li>
+              </ul>
+            </div>
+          </div>
         </BlockReveal>
 
         <BlockReveal>
@@ -77,60 +89,52 @@ const Skeletor = () => {
             onClick={() =>
               setModalData({
                 src: skeletorFooter,
-                alt: "Full Sail site hero built with Skeletor. Layered visual header, clear hierarchy, and a system-driven navigation layout.",
+                alt: "Full Sail footer layout built with Skeletor components and shared front-end patterns.",
               })
             }
           >
-            <img src={skeletorFooter} alt="Full Sail site hero built with Skeletor. Layered visual header, clear hierarchy, and a system-driven navigation layout." />
+            <img src={skeletorFooter} alt="Full Sail footer layout built with Skeletor components and shared front-end patterns." />
           </button>
         </BlockReveal>
 
-        {/* The Real Constraints */}
-        <BlockReveal panel title="The Real Constraints">
+        {/* What I Built */}
+        <BlockReveal panel title="What I Built">
           <div className="layout-row layout-row--2">
             <div className="layout-cell">
               <ul className="ul">
-                <li className="li">Multiple properties needed one shared UI language.</li>
-                <li className="li">Design changes had to scale without breaking older pages.</li>
-                <li className="li">Developers needed reusable templates, not one-off builds.</li>
+                <li className="li">Reusable SCSS components using strict BEM naming.</li>
+                <li className="li">Responsive layout patterns and shared breakpoints.</li>
+                <li className="li">Navigation, buttons, cards, forms, media blocks, and content modules.</li>
               </ul>
             </div>
             <div className="layout-cell">
               <ul className="ul">
-                <li className="li">Producers needed safe building blocks in Craft.</li>
-                <li className="li">Accessibility and responsiveness had to be default behavior.</li>
-                <li className="li">The system had to survive staff changes and redesign cycles.</li>
-              </ul>
-            </div>
-          </div>
-          <p>My focus was reducing risk. When a system is used by many people, small decisions determine whether it stays clean or becomes impossible to maintain.</p>
-        </BlockReveal>
-
-        {/* How I Operated */}
-        <BlockReveal panel title="How I Operated">
-          <p>My role was often the UI layer between backend work, design intent, and the reality of publishing systems. When those collided, I aimed for solutions that were consistent, teachable, and hard to misuse.</p>
-          <div className="layout-row layout-row--2">
-            <div className="layout-cell">
-              <ul className="ul">
-                <li className="li">Fix root causes in the system, not symptoms on a page.</li>
-                <li className="li">Constrain variation so the system stays coherent.</li>
-                <li className="li">Make the correct option the easiest option.</li>
-              </ul>
-            </div>
-            <div className="layout-cell">
-              <ul className="ul">
-                <li className="li">Keep naming and structure obvious for future maintainers.</li>
-                <li className="li">Treat accessibility as system behavior, not a checklist.</li>
-                <li className="li">Document components so non devs can ship safely.</li>
+                <li className="li">Craft CMS templates that producers could use safely.</li>
+                <li className="li">Fabricator documentation with rendered examples and markup.</li>
+                <li className="li">JavaScript behavior that stayed reusable and easy to maintain.</li>
               </ul>
             </div>
           </div>
         </BlockReveal>
 
-        {/* BEM Methodology */}
-        <BlockReveal panel title="BEM Methodology">
-          <p>Every selector follows strict <strong>Block-Element-Modifier</strong> pattern. I avoid element selectors and global resets. Edge case tweaks live in component-specific _overrides.scss files, so overrides stay local and never leak across pages.</p>
-          <p>This was not style preference. It was enforcement. When multiple teams touch the UI, selectors must be predictable or the system decays.</p>
+        {/* Technical Decisions */}
+        <BlockReveal panel title="Technical Decisions">
+          <div className="layout-row layout-row--2">
+            <div className="layout-cell">
+              <ul className="ul">
+                <li className="li">Kept selectors predictable with Block-Element-Modifier structure.</li>
+                <li className="li">Avoided global overrides that could leak across components.</li>
+                <li className="li">Kept edge cases close to the component that owned them.</li>
+              </ul>
+            </div>
+            <div className="layout-cell">
+              <ul className="ul">
+                <li className="li">Used shared naming across properties instead of site-specific prefixes.</li>
+                <li className="li">Made accessibility and responsive behavior part of the base component work.</li>
+                <li className="li">Fixed root issues in the system instead of patching single pages.</li>
+              </ul>
+            </div>
+          </div>
         </BlockReveal>
 
         <BlockReveal>
@@ -147,48 +151,10 @@ const Skeletor = () => {
           </button>
         </BlockReveal>
 
-        {/* Live Docs for Non Devs */}
-        <BlockReveal panel title="Live Docs for Non Devs">
-          <p>Fabricator stayed current with every component. Each entry showed the rendered view beside its markup. Producers pasted those snippets into Craft and shipped full pages in hours instead of waiting in the dev queue.</p>
-          <p>The point was enablement without chaos. Documentation reduced one-off requests and kept output aligned to system rules.</p>
-        </BlockReveal>
-
-        {/* Universal Naming */}
-        <BlockReveal panel title="Universal Naming">
-          <p>Component classes adopt a universal, descriptive naming convention across all Full Sail properties, eliminating the need for any site-specific prefixes.</p>
-          <p>Universal naming is about mental load. When people move between properties, the component language stays the same. That reduces drift and keeps changes predictable.</p>
-        </BlockReveal>
-
-        {/* Code Philosophy */}
-        <BlockReveal panel title="Code Philosophy">
-          <ul className="ul ul--grid">
-            <li className="li">No use of !important</li>
-            <li className="li">No global overrides that bleed across components</li>
-            <li className="li">Overrides live next to the component that owns the edge case</li>
-            <li className="li">Accessible states by default</li>
-            <li className="li">Responsive mixins and utilities for consistent breakpoints</li>
-            <li className="li">Components designed for reuse by developers and producers</li>
-          </ul>
-          <p>These rules exist to prevent a slow collapse into special cases. A UI system is only valuable if it stays maintainable after hundreds of changes.</p>
-        </BlockReveal>
-
-        {/* Decision Examples */}
-        <BlockReveal panel title="Decision Examples">
-          <p>These are the types of decisions I made repeatedly. Not flashy features. Small architectural choices that kept the UI layer stable for years.</p>
-          <div className="layout-row layout-row--2">
-            <div className="layout-cell">
-              <ul className="ul">
-                <li className="li">When a designer wanted twenty button variations, I pushed for a small set of modifiers that covered the intent without fragmenting the component.</li>
-                <li className="li">When a layout needed a one-off tweak, I contained it in the component override so it did not become a global rule.</li>
-              </ul>
-            </div>
-            <div className="layout-cell">
-              <ul className="ul">
-                <li className="li">When content teams needed speed, I invested in docs and markup patterns so they could ship safely without frontend.</li>
-                <li className="li">When a bug appeared, I fixed the root cause in the system so the fix applied everywhere instead of patching a page.</li>
-              </ul>
-            </div>
-          </div>
+        {/* Documentation and Publishing */}
+        <BlockReveal panel title="Documentation and Publishing">
+          <p>Fabricator stayed tied to the component work. Each entry showed a rendered example beside the markup, which made it easier for producers to build pages in Craft without waiting on a developer for every layout.</p>
+          <p>That mattered because the system was used by more than developers. The documentation gave people a safe path to build with the system instead of inventing new one-off patterns.</p>
         </BlockReveal>
 
         <BlockReveal>
@@ -205,10 +171,10 @@ const Skeletor = () => {
           </button>
         </BlockReveal>
 
-        {/* Semantic Navigation Without Duplication */}
-        <BlockReveal panel title="Semantic Navigation Without Duplication">
-          <p>A single semantic menu adapts to mobile layouts using pure CSS. It requires no duplicate markup, remains fully keyboard accessible, and delivers a smooth, snappy animation with no GPU hacks.</p>
-          <p>This is not about showing off. It is about reducing future bugs. When desktop and mobile use the same structure, behavior stays aligned and fixes apply once.</p>
+        {/* Navigation Example */}
+        <BlockReveal panel title="Navigation Example">
+          <p>One example was the main navigation. Desktop and mobile used the same semantic menu instead of duplicate markup. CSS handled the layout shift, and the keyboard behavior stayed intact.</p>
+          <p>That kind of decision is not flashy, but it reduces future bugs. If the structure only exists once, fixes only need to happen once.</p>
         </BlockReveal>
 
         {/* Tools Used */}
@@ -224,7 +190,6 @@ const Skeletor = () => {
             <li className="li">IcoMoon</li>
             <li className="li">SiteImprove</li>
           </ul>
-          <p>Tools changed over the years. The approach did not. Consistent naming, controlled variation, predictable overrides, and documentation that lets other people ship without breaking the system.</p>
         </BlockReveal>
 
         {/* Lasting Impact */}
@@ -235,7 +200,7 @@ const Skeletor = () => {
             <li className="li">Cut page build time from two days to a few hours</li>
             <li className="li">Enabled 20+ non-developers to build layouts</li>
           </ul>
-          <p>The impact is stability. When a system is built cleanly, teams move faster because they stop fighting the UI layer.</p>
+          <p>Skeletor was valuable because it made the front-end layer more predictable. Teams could move faster because they were not fighting the same UI problems over and over.</p>
         </BlockReveal>
 
         {/* See It Live */}
