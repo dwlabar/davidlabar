@@ -8,7 +8,7 @@ import ContactForm from '../components/FormContact';
 const Contact = () => {
   const { notifyPageReady } = usePageReadyController();
 
-  // Notify once all images on this page have finished loading
+  // This text/form route is ready after its destination layout commits.
   useNotifyWhenImagesLoaded(notifyPageReady);
 
   return (

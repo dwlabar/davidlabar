@@ -11,12 +11,8 @@ const Home = () => {
   const { notifyPageReady } = usePageReadyController();
   const [showControls, setShowControls] = useState(false);
 
-  // Wait for images to load, THEN wait a tick before notifyPageReady
-  useNotifyWhenImagesLoaded(() => {
-    requestAnimationFrame(() => {
-      notifyPageReady();
-    });
-  });
+  // The scene mounts synchronously; reveal after the destination layout commits.
+  useNotifyWhenImagesLoaded(notifyPageReady);
 
   const overlayNavigate = useOverlayNavigate();
 

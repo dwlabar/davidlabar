@@ -20,7 +20,10 @@ import BeannikRoastersSite02 from "../../assets/projects/BeanNikRoasters/beannik
 
 const BeannikRoasters = () => {
   const { notifyPageReady } = usePageReadyController();
-  useNotifyWhenImagesLoaded(notifyPageReady);
+  useNotifyWhenImagesLoaded(notifyPageReady, [
+    BeannikRoastersLabel,
+    BeannikRoastersSite02,
+  ]);
   const [modalData, setModalData] = useState(null);
 
   return (

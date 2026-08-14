@@ -19,8 +19,8 @@ import WestgateResortsLogo from "../assets/project-cards/logo_WestgateResorts.we
 const Projects = () => {
   const { notifyPageReady } = usePageReadyController();
   
-  // Notify once all images on this page have finished loading
-  useNotifyWhenImagesLoaded(notifyPageReady);
+  // Only the lead card is required for a clean destination reveal.
+  useNotifyWhenImagesLoaded(notifyPageReady, [skeletorBg, skeletorLogo]);
 
   return (
     <Container>

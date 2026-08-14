@@ -1,35 +1,34 @@
-// Tracks isLoading state across the app.
-// Waits for all assets to load (fonts, images, JS).
-// Includes a 10 - second fallback (to prevent getting stuck).
-// Ensures cleanup (removes event listener & clears timeout).
+// Tracks the initial route's loading state separately from the authored
+// preloader presentation. The destination route decides when its critical
+// content is ready; the Preloader owns the entrance/hold/exit timing.
 
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useCallback, useRef, useState } from "react";
 
 export const PreloaderContext = createContext();
 
 export const PreloaderProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isPreloaderVisible, setIsPreloaderVisible] = useState(true);
+  const hasCompletedInitialLoadRef = useRef(false);
 
-  useEffect(() => {
-    const handleLoad = () => {
-      setIsLoading(false); // Mark loading as complete
-    };
-
-    if (document.readyState === "complete") {
-      handleLoad();
-    } else {
-      window.addEventListener("load", handleLoad);
+  const completeInitialLoad = useCallback(() => {
+    if (hasCompletedInitialLoadRef.current) {
+      return false;
     }
 
-    return () => {
-      window.removeEventListener("load", handleLoad);
-    };
+    hasCompletedInitialLoadRef.current = true;
+    setIsLoading(false);
+    return true;
   }, []);
 
   return (
     <PreloaderContext.Provider
-      value={{ isLoading, setIsLoading, isPreloaderVisible, setIsPreloaderVisible }}
+      value={{
+        isLoading,
+        isPreloaderVisible,
+        setIsPreloaderVisible,
+        completeInitialLoad,
+      }}
     >
       {children}
     </PreloaderContext.Provider>

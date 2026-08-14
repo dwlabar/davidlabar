@@ -23,7 +23,7 @@ import skeletorFooter from "../../assets/projects/skeletor/full-sail-footer.jpg"
 
 const Skeletor = () => {
   const { notifyPageReady } = usePageReadyController();
-  useNotifyWhenImagesLoaded(notifyPageReady);
+  useNotifyWhenImagesLoaded(notifyPageReady, [skeletorWeAreDifferent]);
   const [modalData, setModalData] = useState(null);
 
   return (

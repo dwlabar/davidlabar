@@ -24,7 +24,10 @@ import westgateTravelEventGuide from "../../assets/projects/WestgateResorts/west
 
 const WestgateResorts = () => {
   const { notifyPageReady } = usePageReadyController();
-  useNotifyWhenImagesLoaded(notifyPageReady);
+  useNotifyWhenImagesLoaded(notifyPageReady, [
+    westgateCome2Orlando,
+    westgateSite,
+  ]);
   const [modalData, setModalData] = useState(null);
 
   return (

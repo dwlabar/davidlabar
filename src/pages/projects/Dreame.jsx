@@ -21,7 +21,7 @@ import Dreame05 from "../../assets/projects/Dreame/Dreame_Together.jpg";
 
 const Dreame = () => {
   const { notifyPageReady } = usePageReadyController();
-  useNotifyWhenImagesLoaded(notifyPageReady);
+  useNotifyWhenImagesLoaded(notifyPageReady, [Dreame01]);
   const [modalData, setModalData] = useState(null);
 
   return (

@@ -34,3 +34,9 @@
     pointer-events: auto;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay {
+    transition: none;
+  }
+}

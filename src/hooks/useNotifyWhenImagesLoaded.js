@@ -2,58 +2,48 @@
 import { useEffect } from "react";
 
 /**
- * Hook to delay page-ready state until all visual images are loaded.
- * - Waits for <img> tags in DOM
- * - Scans for CSS background images
- * - Preloads any found URLs
+ * Marks a route ready after its explicitly declared critical images load.
+ * Below-the-fold images are deliberately omitted so they can load normally.
  *
  * @param {Function} callback - Function to call when all visual content is loaded
+ * @param {string[]} criticalImageSources - Image URLs required for a clean reveal
  */
-const useNotifyWhenImagesLoaded = (callback) => {
+const useNotifyWhenImagesLoaded = (callback, criticalImageSources = []) => {
+  const sourceKey = JSON.stringify(criticalImageSources.filter(Boolean));
+
   useEffect(() => {
-    const root = document.body; // could be scoped further
-    const imgElements = Array.from(root.querySelectorAll("img"));
-    const allElements = Array.from(root.querySelectorAll("*"));
+    let cancelled = false;
+    let readyFrame = null;
+    const pendingImages = [];
+    const sources = [...new Set(JSON.parse(sourceKey))];
 
-    // --- Track all background-image URLs found in computed styles
-    const backgroundUrls = new Set();
-
-    allElements.forEach((el) => {
-      const style = getComputedStyle(el);
-      const bgImage = style.getPropertyValue("background-image");
-
-      // Look for `url("...")` or `url(...)`
-      const match = bgImage.match(/url\(["']?(.*?)["']?\)/);
-      if (match && match[1]) {
-        backgroundUrls.add(match[1]);
-      }
-    });
-
-    // --- Create promises for <img> tags
-    const imgPromises = imgElements.map((img) => {
-      return new Promise((resolve) => {
-        if (img.complete && img.naturalHeight !== 0) {
-          resolve(); // Already loaded
-        } else {
-          img.onload = img.onerror = resolve; // Wait for load or fail
-        }
-      });
-    });
-
-    // --- Create promises for background-image URLs
-    const bgPromises = Array.from(backgroundUrls).map((url) => {
+    const imagePromises = sources.map((source) => {
       return new Promise((resolve) => {
         const img = new Image();
         img.onload = img.onerror = resolve;
-        img.src = url;
+        img.src = source;
+        pendingImages.push(img);
       });
     });
 
-    // --- Wait for all images to finish loading, then notify
-    Promise.all([...imgPromises, ...bgPromises]).then(() => {
-      callback();
+    Promise.all(imagePromises).then(() => {
+      if (cancelled) return;
+
+      // Let the destination commit its final critical-image layout before reveal.
+      readyFrame = requestAnimationFrame(() => {
+        if (!cancelled) callback();
+      });
     });
-  }, [callback]);
+
+    return () => {
+      cancelled = true;
+      pendingImages.forEach((img) => {
+        img.onload = null;
+        img.onerror = null;
+      });
+      if (readyFrame !== null) cancelAnimationFrame(readyFrame);
+    };
+  }, [callback, sourceKey]);
 };
 
 export default useNotifyWhenImagesLoaded;

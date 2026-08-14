@@ -1,75 +1,127 @@
-import React, { useContext, useEffect, useState } from "react";
-import { PreloaderContext } from "../context/PreloaderContext";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { PreloaderContext } from "../context/PreloaderContext";
+
+const PRELOADER_ABSOLUTE_FALLBACK_MS = 10000;
 
 const Preloader = () => {
-  const { isLoading, setIsPreloaderVisible } = useContext(PreloaderContext);
-  const [animationDone, setAnimationDone] = useState(false);
+  const {
+    isLoading,
+    setIsPreloaderVisible,
+    completeInitialLoad,
+  } = useContext(PreloaderContext);
+  const [entranceComplete, setEntranceComplete] = useState(false);
+  const reducedMotionRef = useRef(false);
+  const readyRequestedRef = useRef(false);
+  const exitTimelineRef = useRef(null);
+  const exitStartedRef = useRef(false);
+  readyRequestedRef.current = !isLoading;
 
   useEffect(() => {
-    // Lock scroll while preloading
-    if (isLoading) {
-      document.body.style.overflow = "hidden";
-    }
+    const preloader = document.querySelector(".preloader");
+    const entranceSentinel = document.querySelector(
+      ".logo path#logo_bottomHighlight"
+    );
+    const reducedMotionQuery = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+    reducedMotionRef.current = reducedMotionQuery.matches;
 
-    if (!isLoading) {
-      const elements = document.querySelectorAll(
-        "#logo_bottomHighlight, #logo_core, #logo_highlight, #logo_border, #logo_border02"
+    let hasCompletedEntrance = false;
+    const completeEntrance = () => {
+      if (hasCompletedEntrance) return;
+      hasCompletedEntrance = true;
+      entranceSentinel?.removeEventListener(
+        "animationiteration",
+        handleCycleBoundary
       );
+      if (preloader) preloader.dataset.state = "hold";
+      setEntranceComplete(true);
+    };
 
-      let hasTriggered = false;
+    const handleCycleBoundary = () => {
+      if (readyRequestedRef.current) {
+        completeEntrance();
+      }
+    };
 
-      const fallbackTimeout = setTimeout(() => {
-        if (!hasTriggered) {
-          setAnimationDone(true);
-          hasTriggered = true;
-        }
-      }, 6000);
-
-      elements.forEach((el) => {
-        el.addEventListener(
-          "animationiteration",
-          () => {
-            if (!hasTriggered) {
-              setAnimationDone(true);
-              hasTriggered = true;
-              clearTimeout(fallbackTimeout);
-            }
-          },
-          { once: true }
-        );
-      });
+    if (reducedMotionQuery.matches || !preloader || !entranceSentinel) {
+      completeEntrance();
+    } else {
+      preloader.dataset.state = "entrance";
+      entranceSentinel.addEventListener(
+        "animationiteration",
+        handleCycleBoundary
+      );
     }
-  }, [isLoading]);
+
+    // A missed destination-ready signal must never leave scroll permanently locked.
+    const absoluteFallback = window.setTimeout(() => {
+      completeInitialLoad();
+      completeEntrance();
+    }, PRELOADER_ABSOLUTE_FALLBACK_MS);
+
+    return () => {
+      entranceSentinel?.removeEventListener(
+        "animationiteration",
+        handleCycleBoundary
+      );
+      window.clearTimeout(absoluteFallback);
+    };
+  }, [completeInitialLoad]);
 
   useEffect(() => {
-    if (animationDone) {
-      // Unlock scroll *before* fade-out to avoid layout shift
-      document.body.style.overflow = "auto";
+    if (isLoading || !entranceComplete || exitStartedRef.current) return;
 
-      const logo = document.querySelector(".logo");
-      const preloader = document.querySelector(".preloader");
+    exitStartedRef.current = true;
+    document.body.style.overflow = "auto";
 
-      if (logo && preloader) {
-        gsap.to(logo, {
-          opacity: 0,
-          duration: 0.5,
-          ease: "power2.out",
-          onComplete: () => {
-            gsap.to(preloader, {
-              opacity: 0,
-              duration: 0.8,
-              ease: "power2.out",
-              onComplete: () => {
-                preloader.style.display = "none";
-                setIsPreloaderVisible(false);
-              },
-            });
-          },
-        });
-      }
+    const logo = document.querySelector(".logo");
+    const preloader = document.querySelector(".preloader");
+
+    if (!logo || !preloader) {
+      setIsPreloaderVisible(false);
+      return;
     }
-  }, [animationDone, setIsPreloaderVisible]);
+
+    preloader.dataset.state = "exit";
+
+    if (reducedMotionRef.current) {
+      preloader.style.display = "none";
+      setIsPreloaderVisible(false);
+      return;
+    }
+
+    exitTimelineRef.current = gsap
+      .timeline({
+        onComplete: () => {
+          preloader.style.display = "none";
+          setIsPreloaderVisible(false);
+        },
+      })
+      .to(logo, {
+        opacity: 0,
+        duration: 0.35,
+        ease: "power2.out",
+      })
+      .to(preloader, {
+        opacity: 0,
+        duration: 0.5,
+        ease: "power2.out",
+      });
+
+    return () => {
+      exitTimelineRef.current?.kill();
+    };
+  }, [entranceComplete, isLoading, setIsPreloaderVisible]);
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   return null;
 };

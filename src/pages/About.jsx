@@ -7,7 +7,7 @@ import Panel from "../components/Panel";
 const About = () => {
   const { notifyPageReady } = usePageReadyController();
 
-  // Notify once all images on this page have finished loading
+  // This text-only route is ready after its destination layout commits.
   useNotifyWhenImagesLoaded(notifyPageReady);
   
   return (

@@ -58,31 +58,32 @@
     #logo_border,
     #logo_border02 {
       will-change: opacity;
+      opacity: 0;
     }
 
-    #logo_bottomHighlight {
-      opacity: 0;
-      animation: pulseFade 3.5s infinite ease-in-out 2.5s;
+    .preloader[data-state="entrance"] .logo path#logo_bottomHighlight {
+      animation: pulseFade 2.0s infinite ease-in-out 2.0s both;
     }
 
-    #logo_core {
-      opacity: 0;
-      animation: pulseFade 3.5s infinite ease-in-out 2s;
+    .preloader[data-state="entrance"] .logo path#logo_core {
+      animation: pulseFade 2.0s infinite ease-in-out 1.5s both;
     }
 
-    #logo_highlight {
-      opacity: 0;
-      animation: pulseFade 3.5s infinite ease-in-out 1.5s;
+    .preloader[data-state="entrance"] .logo path#logo_highlight {
+      animation: pulseFade 2.0s infinite ease-in-out 1.0s both;
     }
 
-    #logo_border {
-      opacity: 0;
-      animation: pulseFade 3.5s infinite ease-in-out 1s;
+    .preloader[data-state="entrance"] .logo path#logo_border {
+      animation: pulseFade 2.0s infinite ease-in-out 0.5s both;
     }
 
-    #logo_border02 {
-      opacity: 0;
-      animation: pulseFade 3.5s infinite ease-in-out;
+    .preloader[data-state="entrance"] .logo path#logo_border02 {
+      animation: pulseFade 2.0s infinite ease-in-out both;
+    }
+
+    .preloader[data-state="hold"] .logo path,
+    .preloader[data-state="exit"] .logo path {
+      opacity: 1;
     }
 
     @keyframes pulseFade {
@@ -98,11 +99,18 @@
         opacity: 0;
       }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .preloader .logo path {
+        animation: none !important;
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <div class="preloader">
+  <div class="preloader" data-state="entrance">
     <div class="logo">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" width="192" height="220" viewBox="0 0 50.8 58.208" preserveAspectRatio="xMinYMin meet">
         <defs>

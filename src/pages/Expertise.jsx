@@ -12,7 +12,7 @@ import IconCustom from "../components/IconCustom";
 const Services = () => {
   const { notifyPageReady } = usePageReadyController();
 
-  // Notify once all images on this page have finished loading
+  // Inline SVGs need no network gate; reveal after layout commits.
   useNotifyWhenImagesLoaded(notifyPageReady);
 
   const overlayNavigate = useOverlayNavigate();

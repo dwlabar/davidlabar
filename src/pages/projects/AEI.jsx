@@ -17,7 +17,7 @@ import AEIHome from "../../assets/projects/AEI/AEI-home.jpg";
 
 const AEI = () => {
   const { notifyPageReady } = usePageReadyController();
-  useNotifyWhenImagesLoaded(notifyPageReady);
+  useNotifyWhenImagesLoaded(notifyPageReady, [AEIHome]);
   const [modalData, setModalData] = useState(null);
 
   return (
