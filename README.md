@@ -4,6 +4,12 @@ DavidLaBar.com is David LaBar's custom portfolio and design-engineering showcase
 
 The application is intentionally more authored than a generic portfolio template: route reveals, motion, and the Three.js homepage are part of the experience. Navigation and project information remain the functional foundation beneath that presentation.
 
+## Project Version
+
+The current project version is **3.1.2**. The canonical version lives in `package.json`; `package-lock.json` mirrors it for the locked root package.
+
+When an authored source file is modified for a release, add or update a comment in its native comment syntax: `Last updated: <version>`. Change a file's value only when that file is actually modified for that release. If its previous release cannot be established confidently, leave it without a header until its next genuine release modification. Generated files, dependencies, build output, assets, JSON, and lock files do not receive these comments.
+
 ## Current Stack
 
 - React with React DOM

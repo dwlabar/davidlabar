@@ -1,9 +1,13 @@
 # Changelog
 
-Meaningful project milestones are recorded here from repository history. The project does not currently use a formal release-version scheme.
+Meaningful project milestones are recorded here from repository history.
 
 ## Unreleased
 
+## 3.1.2 — 2026-08-17
+
+- Established `package.json` as the canonical project version and synchronized the root package metadata in `package-lock.json`.
+- Established the per-file `Last updated` convention for authored source files. Add or change a file's value only when that file is genuinely modified for a release.
 - Established durable repository, architecture, experience, motion, changelog, and roadmap documentation.
 
 ## 2026-08-14 — Preloader and route-transition stabilization

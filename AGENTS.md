@@ -11,6 +11,7 @@ DavidLaBar.com is a React + Vite + SCSS portfolio. Follow these rules when worki
 - Treat accessibility, performance, responsive behavior, and visual quality as requirements.
 - Give every animation, timeline, render loop, listener, observer, timer, and transition callback an explicit owner and cleanup path.
 - Preserve compatibility and current behavior outside the requested scope.
+- Treat `package.json` as the canonical project version. Update an authored source file's `Last updated` comment only when that file is actually modified for the release; do not add these comments to generated files, dependencies, build output, assets, JSON, or lock files.
 - Run validation appropriate to the change, including relevant lint/build commands and `git diff --check`.
 - Report the existing lint baseline separately from any regressions introduced by the current work.
 - Leave changes uncommitted unless the user explicitly instructs otherwise.
