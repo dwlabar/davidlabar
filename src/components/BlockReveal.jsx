@@ -31,24 +31,24 @@ export default function BlockReveal({
   // on mount, hook up ScrollTrigger animation; clean up on unmount
   useLayoutEffect(() => {
     const el = ref.current
-    gsap.fromTo(
-      el,
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: el,
-          start: "top 90%",
-          toggleActions: "play none none none",
-        },
-      }
-    )
-    return () => {
-      ScrollTrigger.getAll().forEach((st) => st.kill())
-    }
+    const context = gsap.context(() => {
+      gsap.fromTo(
+        el,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          },
+        }
+      )
+    }, el)
+    return () => context.revert()
   }, [])
 
   // If panel styling is desired, wrap children in Panel

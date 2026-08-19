@@ -42,6 +42,11 @@ const BurgerIcon = ({ isOpen }) => {
     }, 0);
 
     tlRef.current = tl;
+
+    return () => {
+      tl.kill();
+      tlRef.current = null;
+    };
   }, []);
 
   useEffect(() => {

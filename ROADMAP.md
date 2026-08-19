@@ -2,9 +2,9 @@
 
 This roadmap orders the next broad areas of work. Each item is a direction to investigate and implement incrementally, not a promise that every idea is already designed or approved.
 
-## 1. GSAP and Three.js lifecycle cleanup
+## 1. GSAP and Three.js lifecycle cleanup — Complete
 
-Give component timelines, tweens, ScrollTriggers, render resources, listeners, observers, and timers narrowly scoped ownership and cleanup. Correct known lifecycle risks before considering architectural or rendering rewrites, and profile the Three.js scene before adopting techniques such as instancing.
+Completed on August 17, 2026. Component timelines, tweens, ScrollTriggers, render resources, listeners, observers, animation frames, and timers now have narrowly scoped ownership and cleanup. Three.js performance profiling and possible techniques such as instancing remain separate future work under item 9.
 
 ## 2. Accessibility and reduced-motion coverage
 

@@ -1,23 +1,23 @@
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 
+const CUBE_PATHS = {
+  top: {
+    base: "m 16.000007,6.55119 -8.1829196,4.72441 8.1829196,4.72441 8.18292,-4.72441 z",
+    compressed: "m 16.000007,12.55119 -8.18292,4.72441 8.18292,4.724406 8.18292,-4.724406 z",
+  },
+  left: {
+    base: "m 7.8170874,11.2756 v 9.44882 l 8.1829196,4.72441 v -9.44882 z",
+    compressed: "m 7.817087,17.2756 v 3.44882 l 8.18292,4.724406 v -3.44882 z",
+  },
+  right: {
+    base: "m 24.182927,11.2756 -8.18292,4.72441 v 9.44882 l 8.18292,-4.72441 z",
+    compressed: "m 24.182927,17.2756 -8.18292,4.724406 v 3.44882 l 8.18292,-4.724406 z",
+  },
+};
+
 const CubeIcon = ({ isActive }) => {
   const svgRef = useRef(null);
-
-  const paths = {
-    top: {
-      base: "m 16.000007,6.55119 -8.1829196,4.72441 8.1829196,4.72441 8.18292,-4.72441 z",
-      compressed: "m 16.000007,12.55119 -8.18292,4.72441 8.18292,4.724406 8.18292,-4.724406 z",
-    },
-    left: {
-      base: "m 7.8170874,11.2756 v 9.44882 l 8.1829196,4.72441 v -9.44882 z",
-      compressed: "m 7.817087,17.2756 v 3.44882 l 8.18292,4.724406 v -3.44882 z",
-    },
-    right: {
-      base: "m 24.182927,11.2756 -8.18292,4.72441 v 9.44882 l 8.18292,-4.72441 z",
-      compressed: "m 24.182927,17.2756 -8.18292,4.724406 v 3.44882 l 8.18292,-4.724406 z",
-    },
-  };
 
   useEffect(() => {
     const top = svgRef.current.querySelector("path[data-face='top']");
@@ -38,9 +38,13 @@ const CubeIcon = ({ isActive }) => {
     const left = svgRef.current.querySelector("path[data-face='left']");
     const right = svgRef.current.querySelector("path[data-face='right']");
 
-    gsap.to(top, { attr: { d: isActive ? paths.top.compressed : paths.top.base }, duration: 0.4, ease: "power2.inOut" });
-    gsap.to(left, { attr: { d: isActive ? paths.left.compressed : paths.left.base }, duration: 0.4, ease: "power2.inOut" });
-    gsap.to(right, { attr: { d: isActive ? paths.right.compressed : paths.right.base }, duration: 0.4, ease: "power2.inOut" });
+    const tweens = [
+      gsap.to(top, { attr: { d: isActive ? CUBE_PATHS.top.compressed : CUBE_PATHS.top.base }, duration: 0.4, ease: "power2.inOut" }),
+      gsap.to(left, { attr: { d: isActive ? CUBE_PATHS.left.compressed : CUBE_PATHS.left.base }, duration: 0.4, ease: "power2.inOut" }),
+      gsap.to(right, { attr: { d: isActive ? CUBE_PATHS.right.compressed : CUBE_PATHS.right.base }, duration: 0.4, ease: "power2.inOut" }),
+    ];
+
+    return () => tweens.forEach((tween) => tween.kill());
   }, [isActive]);
 
   return (
@@ -67,19 +71,19 @@ const CubeIcon = ({ isActive }) => {
         className="icon-cube__cube-top"
         data-face="top"
         fill="#4e4e4e"
-        d={paths.top.base}
+        d={CUBE_PATHS.top.base}
       />
       <path        
         className="icon-cube__cube-left"
         data-face="left"
         fill="#2d2d2d"
-        d={paths.left.base}
+        d={CUBE_PATHS.left.base}
       />
       <path        
         className="icon-cube__cube-right"
         data-face="right"
         fill="#1c1c1c"
-        d={paths.right.base}
+        d={CUBE_PATHS.right.base}
       />
       <path        
         className="icon-cube__border-inner-left"

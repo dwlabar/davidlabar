@@ -4,6 +4,9 @@ Meaningful project milestones are recorded here from repository history.
 
 ## Unreleased
 
+- Scoped GSAP timelines, tweens, and ScrollTriggers to their owning components, including the SVG example route and Strict Mode-safe preloader exit cleanup.
+- Removed accumulating scene-control input listeners and completed Three.js teardown for animation frames, resize work, canvas ownership, renderer caches/context, meshes, edge lines, geometries, and materials.
+
 ## 3.1.2 — 2026-08-17
 
 - Established `package.json` as the canonical project version and synchronized the root package metadata in `package-lock.json`.

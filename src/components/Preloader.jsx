@@ -92,10 +92,11 @@ const Preloader = () => {
       return;
     }
 
-    exitTimelineRef.current = gsap
+    const exitTimeline = gsap
       .timeline({
         onComplete: () => {
           preloader.style.display = "none";
+          exitTimelineRef.current = null;
           setIsPreloaderVisible(false);
         },
       })
@@ -109,9 +110,14 @@ const Preloader = () => {
         duration: 0.5,
         ease: "power2.out",
       });
+    exitTimelineRef.current = exitTimeline;
 
     return () => {
-      exitTimelineRef.current?.kill();
+      exitTimeline.kill();
+      if (exitTimelineRef.current === exitTimeline) {
+        exitTimelineRef.current = null;
+      }
+      exitStartedRef.current = false;
     };
   }, [entranceComplete, isLoading, setIsPreloaderVisible]);
 

@@ -1,22 +1,30 @@
 import { useThreeSceneContext } from '../context/ThreeSceneContext';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import CubeIcon from './CubeIcon';
 import '../styles/components/_three-scene.scss';
 
 const ThreeSceneControls = ({ showControls, setShowControls }) => {
   const { settings, updateSetting } = useThreeSceneContext();
+  const controlsRef = useRef(null);
 
   useEffect(() => {
-    const sliders = document.querySelectorAll('.slider-control input[type="range"]');
-    sliders.forEach((slider) => {
+    const sliders = controlsRef.current?.querySelectorAll('input[type="range"]') || [];
+    const listeners = Array.from(sliders, (slider) => {
       const updateFill = () => {
         const value = ((slider.value - slider.min) / (slider.max - slider.min)) * 100;
         slider.style.setProperty('--progress', `${value}%`);
       };
       slider.addEventListener('input', updateFill);
       updateFill();
+      return { slider, updateFill };
     });
-  }, [settings]);
+
+    return () => {
+      listeners.forEach(({ slider, updateFill }) => {
+        slider.removeEventListener('input', updateFill);
+      });
+    };
+  }, []);
 
   return (
     <>
@@ -31,7 +39,10 @@ const ThreeSceneControls = ({ showControls, setShowControls }) => {
       >
         <CubeIcon isActive={showControls} />
       </button>
-      <div className={`scene-controls ${showControls ? 'visible' : ''}`}>
+      <div
+        ref={controlsRef}
+        className={`scene-controls ${showControls ? 'visible' : ''}`}
+      >
         <div className="slider-group">
           <div className="slider-control">
             <label htmlFor="speed">Speed</label>

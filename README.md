@@ -73,6 +73,6 @@ Primary routes are `/`, `/projects`, `/expertise`, `/about`, and `/contact`, wit
 
 ## Current Status
 
-The site is an active portfolio application with a working responsive shell, project case studies, contact flow, modal imagery, authored route transitions, and an interactive Three.js homepage. The initial-preloader and route-readiness pipeline was stabilized on August 14, 2026. Lifecycle cleanup, accessibility coverage, lint-baseline cleanup, and presentation-system evolution remain active work rather than completed features.
+The site is an active portfolio application with a working responsive shell, project case studies, contact flow, modal imagery, authored route transitions, and an interactive Three.js homepage. The initial-preloader and route-readiness pipeline was stabilized on August 14, 2026, and the GSAP/Three.js lifecycle cleanup was completed on August 17, 2026. Accessibility coverage, lint-baseline cleanup, performance profiling, and presentation-system evolution remain active work rather than completed features.
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for implementation details, [docs/EXPERIENCE.md](docs/EXPERIENCE.md) for the creative direction, [docs/MOTION.md](docs/MOTION.md) for motion principles, and [ROADMAP.md](ROADMAP.md) for ordered future work.

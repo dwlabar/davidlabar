@@ -17,6 +17,12 @@ const NavBar = ({ links }) => {
 
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const createMenuTimeline = () => {
+    tl.current?.kill();
+    tl.current = gsap.timeline();
+    return tl.current;
+  };
+
   const handleNavClick = (e, path) => {
     e.preventDefault();
 
@@ -28,8 +34,7 @@ const NavBar = ({ links }) => {
     }
 
     if (menuOpen) {
-      tl.current = gsap.timeline();
-      tl.current
+      createMenuTimeline()
         .to(menuRef.current, {
           opacity: 0,
           scale: 0.90,
@@ -70,8 +75,7 @@ const NavBar = ({ links }) => {
 
     menuRef.current.classList.add("nav-bar__ul--mobile-on");
 
-    tl.current = gsap.timeline();
-    tl.current
+    createMenuTimeline()
       .fromTo(
         menuRef.current,
         { opacity: 0, y: 20 },
@@ -101,10 +105,7 @@ const NavBar = ({ links }) => {
     setMenuOpen(false);
     setNavOpen(false);
 
-    if (tl.current) tl.current.kill();
-
-    tl.current = gsap.timeline();
-    tl.current.to(menuRef.current, {
+    createMenuTimeline().to(menuRef.current, {
       opacity: 0,
       scale: 0.80,
       duration: 0.5,
@@ -130,6 +131,8 @@ const NavBar = ({ links }) => {
       if (window.matchMedia("(min-width: 768px)").matches) {
         setMenuOpen(false);
         setNavOpen(false);
+        tl.current?.kill();
+        tl.current = null;
         if (menuRef.current) {
           menuRef.current.classList.remove("nav-bar__ul--mobile-on");
           gsap.set(menuRef.current, { clearProps: "all" });
@@ -139,6 +142,13 @@ const NavBar = ({ links }) => {
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  }, [setNavOpen]);
+
+  useEffect(() => {
+    return () => {
+      tl.current?.kill();
+      tl.current = null;
+    };
   }, []);
 
   useEffect(() => {

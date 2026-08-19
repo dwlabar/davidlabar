@@ -56,11 +56,12 @@ const ThreeSceneManager = () => {
   useEffect(() => {
     const maxed =
       settings.cubeSizeX >= cellSize && settings.cubeSizeZ >= cellSize;
-    gsap.to(outlineToggleRef.current, {
+    const tween = gsap.to(outlineToggleRef.current, {
       value: maxed ? 1 : 0,
       duration: 0.6,
       ease: 'power2.out'
     });
+    return () => tween.kill();
   }, [settings.cubeSizeX, settings.cubeSizeZ]);
 
   // ======= MAIN THREE.JS SETUP =======
@@ -291,18 +292,22 @@ const ThreeSceneManager = () => {
       resizeObserver.disconnect();
       clearTimeout(resizeTimeout);
 
-      scene.traverse(object => {
-        if (!object.isMesh) return;
+      scene.traverse((object) => {
+        object.geometry?.dispose();
+        if (!object.material) return;
         const materials = Array.isArray(object.material)
           ? object.material
           : [object.material];
-        materials.forEach(mat => mat.dispose());
-        object.geometry.dispose();
+        materials.forEach((material) => material.dispose());
       });
 
+      cubesRef.current = [];
+      scene.clear();
+      renderer.renderLists.dispose();
       renderer.dispose();
-      if (renderer.domElement && mountRef.current) {
-        mountRef.current.removeChild(renderer.domElement);
+      renderer.forceContextLoss();
+      if (renderer.domElement.parentNode === mount) {
+        mount.removeChild(renderer.domElement);
       }
     };
   }, []);

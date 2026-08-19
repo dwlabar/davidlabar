@@ -51,7 +51,7 @@ GSAP is used throughout the current application rather than behind one controlle
 - `SVG-Examples` demonstrates several SVG animation techniques.
 - `ThreeSceneManager` interpolates speed, scale, and outline settings.
 
-Some components clean up their timelines or tweens locally. Lifecycle ownership is not yet consistent across the full system; the roadmap treats that as technical cleanup rather than evidence that GSAP itself should be removed.
+Each component cleans up only the GSAP work it owns. `BlockReveal` uses a component-scoped GSAP context so unmount reverts its tween and ScrollTrigger without killing unrelated triggers. Persistent and interaction-created timelines and tweens are retained by their owners and killed on replacement or unmount; this includes the direct SVG example route. The preloader exit also resets its ownership guard during effect cleanup so development Strict Mode replay cannot strand the exit.
 
 ### Three.js ownership and settings flow
 
@@ -59,7 +59,7 @@ The Three.js experience exists only on `Home`. `Home` creates `ThreeSceneProvide
 
 `ThreeSceneContext` merges the named preset from `ThreeScenePresets.js` with saved `threeSceneSettings`. Control changes update React state immediately and throttle persistence by 500 milliseconds. The controls expose speed and cube width, depth, and height.
 
-`ThreeSceneManager` owns scene, camera, renderer, resize observer, animation frame, lights, 20 trail meshes, and a 21-by-21 grid of cube meshes with edge overlays. Speed and scale changes are interpolated with GSAP refs so the scene does not rebuild for those controls. Unmount cleanup cancels the frame, disconnects resize handling, disposes mesh resources and the renderer, and removes the canvas. Resource and frame-loop cleanup still have known areas for focused review.
+`ThreeSceneManager` owns scene, camera, renderer, resize observer, resize timer, animation frame, lights, 20 trail meshes, and a 21-by-21 grid of cube meshes with edge overlays. Speed, scale, and outline changes are interpolated with owner-cleaned GSAP refs so the scene does not rebuild for those controls. Unmount cleanup cancels the frame and resize work, disposes mesh and line geometries/materials, clears scene and renderer caches, releases the WebGL context, and removes the exact canvas from the captured mount. `ThreeSceneControls` scopes its slider listeners to its own control root and removes them on cleanup.
 
 ### Pages, projects, and components
 

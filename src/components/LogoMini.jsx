@@ -23,6 +23,11 @@ const LogoMini = () => {
       opacity: 1,
       ease: "power2.out",
     });
+
+    return () => {
+      tl.current?.kill();
+      tl.current = null;
+    };
   }, []);
 
   const handleMouseEnter = () => tl.current.play();

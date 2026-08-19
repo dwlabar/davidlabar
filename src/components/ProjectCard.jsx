@@ -18,6 +18,7 @@ const ProjectCard = ({
   const overlayNavigate = useOverlayNavigate();
   const cardRef = useRef(null);
   const gridRef = useRef(null);
+  const tileTweenRef = useRef(null);
   const [tiles, setTiles] = useState([]);
   const lastInputWasKeyboard = useRef(false); // Track last input type
 
@@ -49,8 +50,8 @@ const ProjectCard = ({
   const animateIn = () => {
     const tileDivs = gridRef.current?.querySelectorAll(".project-card__tile");
     if (!tileDivs) return;
-    gsap.killTweensOf(tileDivs);
-    gsap.fromTo(
+    tileTweenRef.current?.kill();
+    tileTweenRef.current = gsap.fromTo(
       tileDivs,
       { opacity: 0, scale: 0.95 },
       {
@@ -70,8 +71,8 @@ const ProjectCard = ({
   const animateOut = () => {
     const tileDivs = gridRef.current?.querySelectorAll(".project-card__tile");
     if (!tileDivs) return;
-    gsap.killTweensOf(tileDivs);
-    gsap.to(tileDivs, {
+    tileTweenRef.current?.kill();
+    tileTweenRef.current = gsap.to(tileDivs, {
       opacity: 0,
       duration: 0.3,
       ease: "power1.inOut"
@@ -111,6 +112,13 @@ const ProjectCard = ({
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      tileTweenRef.current?.kill();
+      tileTweenRef.current = null;
     };
   }, []);
 

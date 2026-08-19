@@ -5,77 +5,88 @@ const SvgAnimationExamples = () => {
   // Fill Animation Example
   const fillRectRef = useRef(null);
   useEffect(() => {
-    gsap.to(fillRectRef.current, {
+    const tween = gsap.to(fillRectRef.current, {
       duration: 2,
       attr: { fill: '#FF0000' },
       repeat: -1,
       yoyo: true
     });
+    return () => tween.kill();
   }, []);
 
   // Stroke Animation Example
   const strokeCircleRef = useRef(null);
   useEffect(() => {
-    gsap.to(strokeCircleRef.current, {
+    const tween = gsap.to(strokeCircleRef.current, {
       duration: 2,
       attr: { stroke: '#00FF00', 'stroke-width': 10 },
       repeat: -1,
       yoyo: true
     });
+    return () => tween.kill();
   }, []);
 
   // Drawing Animation Example
   const drawingCircleRef = useRef(null);
   useEffect(() => {
     // For a circle with r=50, circumference ~314
-    gsap.to(drawingCircleRef.current, {
+    const tween = gsap.to(drawingCircleRef.current, {
       duration: 3,
       attr: { 'stroke-dashoffset': 0 },
       ease: 'power1.inOut'
     });
+    return () => tween.kill();
   }, []);
 
   // Gradient Stop Color Animation Example
   const gradientStop1Ref = useRef(null);
   const gradientStop2Ref = useRef(null);
   useEffect(() => {
-    gsap.to(gradientStop1Ref.current, {
+    const stop1Tween = gsap.to(gradientStop1Ref.current, {
       duration: 2,
       attr: { 'stop-color': '#FF0000' },
       repeat: -1,
       yoyo: true
     });
-    gsap.to(gradientStop2Ref.current, {
+    const stop2Tween = gsap.to(gradientStop2Ref.current, {
       duration: 2,
       attr: { 'stop-color': '#0000FF' },
       repeat: -1,
       yoyo: true
     });
+    return () => {
+      stop1Tween.kill();
+      stop2Tween.kill();
+    };
   }, []);
 
   // Gradient Stop Offset Animation Example
   const gradientStopOffset1Ref = useRef(null);
   const gradientStopOffset2Ref = useRef(null);
   useEffect(() => {
-    gsap.to(gradientStopOffset1Ref.current, {
+    const stop1Tween = gsap.to(gradientStopOffset1Ref.current, {
       duration: 2,
       attr: { offset: 0.5 },
       repeat: -1,
       yoyo: true
     });
-    gsap.to(gradientStopOffset2Ref.current, {
+    const stop2Tween = gsap.to(gradientStopOffset2Ref.current, {
       duration: 2,
       attr: { offset: 0.5 },
       repeat: -1,
       yoyo: true
     });
+    return () => {
+      stop1Tween.kill();
+      stop2Tween.kill();
+    };
   }, []);
 
   // Gradient Transform Animation Example (fixed)
   const gradientTransformRef = useRef(null);
   useEffect(() => {
     const obj = { rotation: 0 };
-    gsap.to(obj, {
+    const tween = gsap.to(obj, {
       rotation: 360,
       duration: 4,
       repeat: -1,
@@ -89,17 +100,19 @@ const SvgAnimationExamples = () => {
         }
       }
     });
+    return () => tween.kill();
   }, []);
 
   // CSS Variable Gradient Animation Example
   const svgVariableRef = useRef(null);
   useEffect(() => {
-    gsap.to(svgVariableRef.current, {
+    const tween = gsap.to(svgVariableRef.current, {
       duration: 2,
       css: { '--myStopColor': '#00FFFF' },
       repeat: -1,
       yoyo: true
     });
+    return () => tween.kill();
   }, []);
 
   // Synchronized Animations Example
@@ -121,6 +134,7 @@ const SvgAnimationExamples = () => {
         attr: { 'stroke-dashoffset': 0 },
         ease: 'power1.inOut'
       });
+    return () => tl.kill();
   }, []);
 
   return (
