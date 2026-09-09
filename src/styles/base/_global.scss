@@ -68,7 +68,7 @@ body {
   }
 
   &:focus-visible {
-    outline: solid 2px variables.$color-ramjet;
+    outline: solid 2px variables.$color-soundwave;
     outline-offset: functions.px2rem(2);
   }
 }
