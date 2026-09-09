@@ -3,6 +3,7 @@
 //  IMAGES
 //
 // =============================================================================
+// Last updated: 3.2.0
 
 // -----------------------------------------------------------------------------
 // IMPORTS
@@ -41,10 +42,15 @@
 // -----------------------------------------------------------------------------
 
 .image:hover,
-.image:focus {
+.image:focus-visible {
   border-color: variables.$color-ramjet;
   animation: noisy-glow 2s infinite ease-in-out;
   scale: 1.02;
+}
+
+.image:focus-visible {
+  outline: solid 2px variables.$color-soundwave;
+  outline-offset: functions.px2rem(4);
 }
 
 // 16:9 IMAGE
@@ -88,5 +94,18 @@
   100% {
     box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0);
     border-color: variables.$color-devastator;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image {
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .image:hover,
+  .image:focus-visible {
+    animation: none;
+    scale: 1;
+    box-shadow: 0 0 0 functions.px2rem(2) rgba(variables.$color-ramjet, 0.35);
   }
 }

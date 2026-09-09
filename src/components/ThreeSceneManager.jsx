@@ -1,13 +1,18 @@
+// Last updated: 3.2.0
+
 import { useRef, useEffect } from 'react';
 import * as THREE from 'three';
 import gsap from 'gsap';
 import { useThreeSceneContext } from '../context/ThreeSceneContext';
+import useReducedMotion from '../hooks/useReducedMotion';
 
 const ThreeSceneManager = () => {
   // ======= REFS AND CONTEXT =======
 
   const mountRef = useRef(null);
+  const renderSceneRef = useRef(null);
   const { settings } = useThreeSceneContext();
+  const prefersReducedMotion = useReducedMotion();
 
   const cellSize = 10; // Fixed size of each grid cell
 
@@ -32,16 +37,30 @@ const ThreeSceneManager = () => {
 
   // ======= EFFECT: SPEED UPDATE (with GSAP tween cleanup) =======
   useEffect(() => {
+    if (prefersReducedMotion) {
+      speedTarget.current.value = settings.speed;
+      renderSceneRef.current?.();
+      return;
+    }
+
     const tween = gsap.to(speedTarget.current, {
       value: settings.speed,
       duration: 0.6,
       ease: 'power2.out'
     });
     return () => tween.kill();
-  }, [settings.speed]);
+  }, [prefersReducedMotion, settings.speed]);
 
   // ======= EFFECT: CUBE SCALE UPDATE (with GSAP tween cleanup) =======
   useEffect(() => {
+    if (prefersReducedMotion) {
+      scaleTarget.current.x = settings.cubeSizeX;
+      scaleTarget.current.y = settings.cubeSizeY;
+      scaleTarget.current.z = settings.cubeSizeZ;
+      renderSceneRef.current?.();
+      return;
+    }
+
     const tween = gsap.to(scaleTarget.current, {
       x: settings.cubeSizeX,
       y: settings.cubeSizeY,
@@ -50,19 +69,26 @@ const ThreeSceneManager = () => {
       ease: 'power2.out'
     });
     return () => tween.kill();
-  }, [settings.cubeSizeX, settings.cubeSizeY, settings.cubeSizeZ]);
+  }, [prefersReducedMotion, settings.cubeSizeX, settings.cubeSizeY, settings.cubeSizeZ]);
 
   // ======= OUTLINE EFFECT: sliders max => fade outlines on/off ==========
   useEffect(() => {
     const maxed =
       settings.cubeSizeX >= cellSize && settings.cubeSizeZ >= cellSize;
+
+    if (prefersReducedMotion) {
+      outlineToggleRef.current.value = maxed ? 1 : 0;
+      renderSceneRef.current?.();
+      return;
+    }
+
     const tween = gsap.to(outlineToggleRef.current, {
       value: maxed ? 1 : 0,
       duration: 0.6,
       ease: 'power2.out'
     });
     return () => tween.kill();
-  }, [settings.cubeSizeX, settings.cubeSizeZ]);
+  }, [prefersReducedMotion, settings.cubeSizeX, settings.cubeSizeZ]);
 
   // ======= MAIN THREE.JS SETUP =======
   useEffect(() => {
@@ -193,6 +219,34 @@ const ThreeSceneManager = () => {
 
     const getResetZPosition = (currentZ) => currentZ - gridSpanZ;
 
+    const renderScene = () => {
+      speedRef.current = speedTarget.current.value;
+      cubeScaleRef.current.x = scaleTarget.current.x;
+      cubeScaleRef.current.y = scaleTarget.current.y;
+      cubeScaleRef.current.z = scaleTarget.current.z;
+
+      trails.forEach((trail) => {
+        if (prefersReducedMotion) trail.material.opacity = 0;
+      });
+
+      cubesRef.current.forEach((cube) => {
+        cube.scale.set(
+          cubeScaleRef.current.x,
+          cubeScaleRef.current.y,
+          cubeScaleRef.current.z
+        );
+        cube.material.opacity = calculateOpacity(cube.position);
+        cube.material.needsUpdate = true;
+        if (cube.userData.edge) {
+          cube.userData.edge.material.opacity =
+            cube.material.opacity * outlineToggleRef.current.value;
+        }
+      });
+
+      renderer.render(scene, camera);
+    };
+    renderSceneRef.current = renderScene;
+
     let animationId;
     const animate = () => {
       animationId = requestAnimationFrame(animate);
@@ -269,7 +323,12 @@ const ThreeSceneManager = () => {
 
       renderer.render(scene, camera);
     };
-    animate();
+
+    if (prefersReducedMotion) {
+      renderScene();
+    } else {
+      animate();
+    }
 
     // ======= HANDLE RESIZE =======
     let resizeTimeout;
@@ -279,6 +338,7 @@ const ThreeSceneManager = () => {
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
+      if (prefersReducedMotion) renderScene();
     };
     const resizeObserver = new ResizeObserver(() => {
       clearTimeout(resizeTimeout);
@@ -288,9 +348,10 @@ const ThreeSceneManager = () => {
 
     // ======= CLEANUP =======
     return () => {
-      cancelAnimationFrame(animationId);
+      if (animationId !== undefined) cancelAnimationFrame(animationId);
       resizeObserver.disconnect();
       clearTimeout(resizeTimeout);
+      if (renderSceneRef.current === renderScene) renderSceneRef.current = null;
 
       scene.traverse((object) => {
         object.geometry?.dispose();
@@ -310,9 +371,9 @@ const ThreeSceneManager = () => {
         mount.removeChild(renderer.domElement);
       }
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
-  return <div ref={mountRef} className="three-scene" />;
+  return <div ref={mountRef} className="three-scene" aria-hidden="true" />;
 };
 
 export default ThreeSceneManager;

@@ -1,3 +1,5 @@
+// Last updated: 3.2.0
+
 import { useThreeSceneContext } from '../context/ThreeSceneContext';
 import { useEffect, useRef } from 'react';
 import CubeIcon from './CubeIcon';
@@ -32,16 +34,21 @@ const ThreeSceneControls = ({ showControls, setShowControls }) => {
         type="button"
         className={`scene-controls-toggle${showControls ? ' active' : ''}`}
         onClick={() => {
-          console.log("toggling", !showControls);
           setShowControls(!showControls);
         }}
-        aria-label="Toggle Scene Controls"
+        aria-label={showControls ? "Hide scene controls" : "Show scene controls"}
+        aria-expanded={showControls}
+        aria-controls="scene-controls"
       >
         <CubeIcon isActive={showControls} />
       </button>
       <div
         ref={controlsRef}
+        id="scene-controls"
         className={`scene-controls ${showControls ? 'visible' : ''}`}
+        role="group"
+        aria-label="Scene settings"
+        hidden={!showControls}
       >
         <div className="slider-group">
           <div className="slider-control">

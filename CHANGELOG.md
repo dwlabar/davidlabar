@@ -4,8 +4,17 @@ Meaningful project milestones are recorded here from repository history.
 
 ## Unreleased
 
+## 3.2.0 — 2026-09-09
+
 - Scoped GSAP timelines, tweens, and ScrollTriggers to their owning components, including the SVG example route and Strict Mode-safe preloader exit cleanup.
 - Removed accumulating scene-control input listeners and completed Three.js teardown for animation frames, resize work, canvas ownership, renderer caches/context, meshes, edge lines, geometries, and materials.
+- Added a shared, live-updating reduced-motion preference hook and deliberate reduced-motion paths for navigation, icons, project cards, scroll reveals, preload/route transitions, SVG examples, CSS effects, and Three.js settings.
+- Preserved the Three.js homepage as a static, fully rendered scene for reduced-motion users while suppressing continuous grid and particle travel and applying user-controlled setting changes immediately.
+- Added a skip link, named primary navigation, current-page state, named disclosure controls, mobile-menu Escape handling, visible focus indicators, and higher-contrast inactive navigation and form-control boundaries.
+- Completed the project-image modal dialog pattern with dialog naming, background inertness, scroll locking, initial focus, Tab and Shift+Tab containment, Escape close, and focus return.
+- Exposed contact-form success as a status update and removed a development log from the scene-controls toggle.
+- Corrected reduced-motion runtime regressions caused by an empty ProjectCard tile collection reaching GSAP and LogoMini interaction handlers assuming the normal-motion timeline existed.
+- Completed manual runtime and visual acceptance for normal and reduced-motion navigation, keyboard and skip-link behavior, project cards, logo interactions, the homepage Three.js scene and controls, and project-image modal focus, close, backdrop, scroll-lock, and focus-return behavior.
 
 ## 3.1.2 — 2026-08-17
 

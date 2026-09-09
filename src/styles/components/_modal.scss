@@ -3,6 +3,7 @@
 //  MODAL
 //
 // =============================================================================
+// Last updated: 3.2.0
 
 // -----------------------------------------------------------------------------
 // IMPORTS
@@ -65,6 +66,8 @@
   position: absolute;
   top: functions.px2rem(8);
   right: functions.px2rem(8);
+  min-width: functions.px2rem(44);
+  min-height: functions.px2rem(44);
   padding: functions.px2rem(5) functions.px2rem(10);
   background: none;
   border: solid 1px variables.$color-devastator;
@@ -77,9 +80,14 @@
               border-color variables.$global-timing variables.$global-easing;
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     border-color: variables.$color-soundwave;
     color: variables.$color-soundwave;
+  }
+
+  &:focus-visible {
+    outline: solid 2px variables.$color-soundwave;
+    outline-offset: functions.px2rem(3);
   }
 }
 

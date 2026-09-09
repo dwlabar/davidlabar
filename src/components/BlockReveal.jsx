@@ -1,7 +1,10 @@
+// Last updated: 3.2.0
+
 import React, { useLayoutEffect, useRef } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import Panel from "./Panel"
+import useReducedMotion from "../hooks/useReducedMotion"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -27,10 +30,16 @@ export default function BlockReveal({
   ...props
 }) {
   const ref = useRef(null)
+  const prefersReducedMotion = useReducedMotion()
 
   // on mount, hook up ScrollTrigger animation; clean up on unmount
   useLayoutEffect(() => {
     const el = ref.current
+    if (prefersReducedMotion) {
+      gsap.set(el, { opacity: 1, y: 0 })
+      return () => gsap.set(el, { clearProps: "opacity,transform" })
+    }
+
     const context = gsap.context(() => {
       gsap.fromTo(
         el,
@@ -49,7 +58,7 @@ export default function BlockReveal({
       )
     }, el)
     return () => context.revert()
-  }, [])
+  }, [prefersReducedMotion])
 
   // If panel styling is desired, wrap children in Panel
   if (panel) {

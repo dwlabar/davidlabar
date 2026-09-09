@@ -1,5 +1,6 @@
 // -----------------------------------------------------------------------------
 // App.jsx (v0.0.1)
+// Last updated: 3.2.0
 // -----------------------------------------------------------------------------
 
 import React from "react";
@@ -38,10 +39,11 @@ const NavLinks = [
 const App = () => {
   return (
     <Router>
+      <a className="skip-link" href="#main-content">Skip to main content</a>
       <NavBar links={NavLinks} />
       <Overlay />
       <RouteTransitionListener />
-      <main>
+      <main id="main-content" tabIndex="-1">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

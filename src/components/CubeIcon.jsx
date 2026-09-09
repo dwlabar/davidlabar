@@ -1,5 +1,8 @@
+// Last updated: 3.2.0
+
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
+import useReducedMotion from "../hooks/useReducedMotion";
 
 const CUBE_PATHS = {
   top: {
@@ -18,6 +21,7 @@ const CUBE_PATHS = {
 
 const CubeIcon = ({ isActive }) => {
   const svgRef = useRef(null);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const top = svgRef.current.querySelector("path[data-face='top']");
@@ -25,27 +29,33 @@ const CubeIcon = ({ isActive }) => {
     const right = svgRef.current.querySelector("path[data-face='right']");
     const border = svgRef.current.querySelector("path.icon-cube__border");
 
+    if (prefersReducedMotion) {
+      gsap.set([top, left, right, border], { clearProps: "fill" });
+      return;
+    }
+
     const tl = gsap.timeline({ repeat: -1, yoyo: true });
     tl.to(top, { fill: "#8e8e8e", duration: 1.5, ease: "sine.inOut" }, 0);
     tl.to(left, { fill: "#6e6e6e", duration: 1.5, ease: "sine.inOut" }, 0.1);
     tl.to(right, { fill: "#4e4e4e", duration: 1.5, ease: "sine.inOut" }, 0.2);
     tl.to(border, { fill: "#5e5e5e", duration: 1.5, ease: "sine.inOut" }, 0.3);
     return () => tl.kill();
-  }, []);
+  }, [prefersReducedMotion]);
 
   useEffect(() => {
     const top = svgRef.current.querySelector("path[data-face='top']");
     const left = svgRef.current.querySelector("path[data-face='left']");
     const right = svgRef.current.querySelector("path[data-face='right']");
 
+    const duration = prefersReducedMotion ? 0 : 0.4;
     const tweens = [
-      gsap.to(top, { attr: { d: isActive ? CUBE_PATHS.top.compressed : CUBE_PATHS.top.base }, duration: 0.4, ease: "power2.inOut" }),
-      gsap.to(left, { attr: { d: isActive ? CUBE_PATHS.left.compressed : CUBE_PATHS.left.base }, duration: 0.4, ease: "power2.inOut" }),
-      gsap.to(right, { attr: { d: isActive ? CUBE_PATHS.right.compressed : CUBE_PATHS.right.base }, duration: 0.4, ease: "power2.inOut" }),
+      gsap.to(top, { attr: { d: isActive ? CUBE_PATHS.top.compressed : CUBE_PATHS.top.base }, duration, ease: "power2.inOut" }),
+      gsap.to(left, { attr: { d: isActive ? CUBE_PATHS.left.compressed : CUBE_PATHS.left.base }, duration, ease: "power2.inOut" }),
+      gsap.to(right, { attr: { d: isActive ? CUBE_PATHS.right.compressed : CUBE_PATHS.right.base }, duration, ease: "power2.inOut" }),
     ];
 
     return () => tweens.forEach((tween) => tween.kill());
-  }, [isActive]);
+  }, [isActive, prefersReducedMotion]);
 
   return (
     <svg
@@ -56,6 +66,7 @@ const CubeIcon = ({ isActive }) => {
       xmlns="http://www.w3.org/2000/svg"
       className="icon-cube"
       aria-hidden="true"
+      focusable="false"
     >
       <path        
         className="icon-cube__border"

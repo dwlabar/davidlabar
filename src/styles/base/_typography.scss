@@ -3,6 +3,7 @@
 //  TYPOGRAPHY
 //
 // =============================================================================
+// Last updated: 3.2.0
 
 // -----------------------------------------------------------------------------
 // IMPORTS
@@ -140,11 +141,11 @@ p {
     justify-content: flex-start;
     margin: 0;
     padding: 10px;
-    border: solid 1px rgba(variables.$color-starscream, 0.6);
+    border: solid 1px rgba(variables.$color-starscream, 0.8);
     font-size: functions.px2rem(12);
     letter-spacing: 0.125em;
     text-transform: uppercase;
-    color: rgba(variables.$color-starscream, 0.6);
+    color: variables.$color-starscream;
   }
 
   @include mixins.breakpoint(xs) {

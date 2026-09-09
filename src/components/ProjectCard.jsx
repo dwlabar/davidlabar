@@ -1,10 +1,18 @@
 // ProjectCard.jsx
+// Last updated: 3.2.0
 
 import React, { useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
 import useOverlayNavigate from "../hooks/useOverlayNavigate";
+import useReducedMotion from "../hooks/useReducedMotion";
 
 const TILE_SIZE = 50; // tile width/height in pixels
+
+const getTileTargets = (grid) => {
+  if (!grid) return null;
+  const tileDivs = grid.querySelectorAll(".project-card__tile");
+  return tileDivs.length > 0 ? tileDivs : null;
+};
 
 const ProjectCard = ({
   title,
@@ -16,6 +24,7 @@ const ProjectCard = ({
   light = false // controls bar contrast for light backgrounds
 }) => {
   const overlayNavigate = useOverlayNavigate();
+  const prefersReducedMotion = useReducedMotion();
   const cardRef = useRef(null);
   const gridRef = useRef(null);
   const tileTweenRef = useRef(null);
@@ -48,18 +57,19 @@ const ProjectCard = ({
 
   // Animate tiles in on hover/focus
   const animateIn = () => {
-    const tileDivs = gridRef.current?.querySelectorAll(".project-card__tile");
-    if (!tileDivs) return;
     tileTweenRef.current?.kill();
+    tileTweenRef.current = null;
+    const tileDivs = getTileTargets(gridRef.current);
+    if (!tileDivs) return;
     tileTweenRef.current = gsap.fromTo(
       tileDivs,
-      { opacity: 0, scale: 0.95 },
+      { opacity: 0, scale: prefersReducedMotion ? 1 : 0.95 },
       {
         opacity: 1,
         scale: 1,
-        duration: 0.8,
+        duration: prefersReducedMotion ? 0.15 : 0.8,
         ease: "power2.out",
-        stagger: {
+        stagger: prefersReducedMotion ? 0 : {
           from: "end",
           amount: 0.25
         }
@@ -69,12 +79,13 @@ const ProjectCard = ({
 
   // Animate tiles out on leave/blur
   const animateOut = () => {
-    const tileDivs = gridRef.current?.querySelectorAll(".project-card__tile");
-    if (!tileDivs) return;
     tileTweenRef.current?.kill();
+    tileTweenRef.current = null;
+    const tileDivs = getTileTargets(gridRef.current);
+    if (!tileDivs) return;
     tileTweenRef.current = gsap.to(tileDivs, {
       opacity: 0,
-      duration: 0.3,
+      duration: prefersReducedMotion ? 0.15 : 0.3,
       ease: "power1.inOut"
     });
   };
@@ -122,6 +133,16 @@ const ProjectCard = ({
     };
   }, []);
 
+  useEffect(() => {
+    if (!prefersReducedMotion) return;
+
+    tileTweenRef.current?.kill();
+    tileTweenRef.current = null;
+    const tileDivs = getTileTargets(gridRef.current);
+    if (!tileDivs) return;
+    gsap.set(tileDivs, { opacity: 0, scale: 1 });
+  }, [prefersReducedMotion]);
+
   return (
     <a
       ref={cardRef}
@@ -137,7 +158,7 @@ const ProjectCard = ({
       {/* Logo */}
       {logo && (
         <div className="project-card__logo">
-          <img src={logo} alt={`${title} logo`} />
+          <img src={logo} alt="" />
         </div>
       )}
 

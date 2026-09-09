@@ -37,6 +37,6 @@ These phases may overlap when that produces a better experience; they are not re
 
 Three.js is intended to grow from a homepage scene into a persistent virtual or environmental layer. Future navigation may change camera position, lighting, cube behavior, or scene state while retaining the same underlying world. The current implementation remains homepage-owned, so this direction must not be documented or coded as if persistence already exists.
 
-The experience should degrade gracefully for reduced motion, weaker hardware, or WebGL limitations without becoming visually careless. Alternate presentation can be quieter and less expensive while retaining hierarchy, intent, and feedback.
+The experience should degrade gracefully for reduced motion, weaker hardware, or WebGL limitations without becoming visually careless. The current reduced-motion mode preserves the homepage world as a deliberately composed static cube field, removes persistent particle and grid travel, settles content reveals directly, and retains short state feedback where it remains useful. This alternate presentation is quieter and less expensive while retaining hierarchy, intent, controls, and visual identity.
 
 Implementation boundaries are documented in [ARCHITECTURE.md](ARCHITECTURE.md), and motion-specific guidance lives in [MOTION.md](MOTION.md).

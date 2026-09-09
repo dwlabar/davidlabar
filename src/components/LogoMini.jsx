@@ -1,22 +1,36 @@
+// Last updated: 3.2.0
+
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
-import { useOverlay } from "../context/OverlayContext";
 import useOverlayNavigate from "../hooks/useOverlayNavigate";
+import useReducedMotion from "../hooks/useReducedMotion";
 import "../styles/components/_logomini.scss";
+
+const getHighlightTargets = (svg) => {
+  if (!svg) return [];
+  return [
+    svg.querySelector("path#logomini_core"),
+    svg.querySelector("path#logomini_bottomHighlight"),
+    svg.querySelector("path#logomini_highlight")
+  ].filter(Boolean);
+};
 
 const LogoMini = () => {
   const logoRef = useRef(null);
   const tl = useRef(null);
+  const prefersReducedMotion = useReducedMotion();
   const overlayNavigate = useOverlayNavigate();
-  const { setNavOpen } = useOverlay();
 
   useEffect(() => {
     const svg = logoRef.current;
-    const core = svg.querySelector("path#logomini_core");
-    const bottom = svg.querySelector("path#logomini_bottomHighlight");
-    const highlight = svg.querySelector("path#logomini_highlight");
-    const targets = [core, bottom, highlight];
+    const targets = getHighlightTargets(svg);
+    if (targets.length === 0) return;
+
     gsap.set(targets, { opacity: 0 });
+
+    if (prefersReducedMotion) {
+      return () => gsap.set(targets, { clearProps: "opacity" });
+    }
 
     tl.current = gsap.timeline({ paused: true }).to(targets, {
       duration: 0.6,
@@ -28,10 +42,29 @@ const LogoMini = () => {
       tl.current?.kill();
       tl.current = null;
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
-  const handleMouseEnter = () => tl.current.play();
-  const handleMouseLeave = () => tl.current.reverse();
+  const setReducedMotionHighlight = (opacity) => {
+    const targets = getHighlightTargets(logoRef.current);
+    if (targets.length === 0) return;
+    gsap.set(targets, { opacity });
+  };
+
+  const handleMouseEnter = () => {
+    if (prefersReducedMotion) {
+      setReducedMotionHighlight(1);
+      return;
+    }
+    tl.current?.play();
+  };
+
+  const handleMouseLeave = () => {
+    if (prefersReducedMotion) {
+      setReducedMotionHighlight(0);
+      return;
+    }
+    tl.current?.reverse();
+  };
 
   const handleClick = (e, path) => {
     e.preventDefault();
@@ -39,7 +72,16 @@ const LogoMini = () => {
   };
 
   return (
-    <button className="nav-bar__logo" onClick={(e) => handleClick(e, "/")}>
+    <a
+      className="nav-bar__logo"
+      href="/"
+      aria-label="DavidLaBar.com home"
+      onClick={(e) => handleClick(e, "/")}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onFocus={handleMouseEnter}
+      onBlur={handleMouseLeave}
+    >
       <svg
         ref={logoRef}
         className="logomini"
@@ -49,9 +91,8 @@ const LogoMini = () => {
         height="44"
         viewBox="0 0 9.525 11.642"
         preserveAspectRatio="xMinYMin meet"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        role="link"
+        aria-hidden="true"
+        focusable="false"
       >
         <defs>
           <linearGradient id="logomini_bottomHighlightGradient">
@@ -119,7 +160,7 @@ const LogoMini = () => {
         />
       </svg>
       <div className="nav-bar__logo-text">DAVIDLABAR.COM</div>
-    </button>
+    </a>
   );
 };
 

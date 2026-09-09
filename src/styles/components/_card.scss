@@ -3,6 +3,7 @@
 //  CARD
 //
 // =============================================================================
+// Last updated: 3.2.0
 
 // -----------------------------------------------------------------------------
 // IMPORTS
@@ -142,5 +143,16 @@
 
   @include mixins.breakpoint(lg) {
     grid-column: 1 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card--extra {
+    animation: none;
+    transition: none;
+
+    &:hover {
+      background-size: 100px 100px;
+    }
   }
 }

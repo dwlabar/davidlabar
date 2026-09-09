@@ -3,6 +3,7 @@
 //  PROJECT CARD
 //
 // =============================================================================
+// Last updated: 3.2.0
 
 // -----------------------------------------------------------------------------
 // IMPORTS
@@ -245,4 +246,22 @@ $project-card-bar-margin: functions.px2rem(10);
   opacity: 0;
   will-change: opacity;
   transition: opacity variables.$global-timing variables.$global-easing;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card:hover,
+  .project-card:focus-visible {
+    .project-card__logo {
+      scale: 1;
+      filter: none;
+    }
+  }
+
+  .project-card__logo,
+  .project-card__bar,
+  .project-card__title,
+  .project-card__label,
+  .project-card__description {
+    transition-duration: 0.15s;
+  }
 }

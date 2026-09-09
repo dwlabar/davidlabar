@@ -3,6 +3,7 @@
 //  NAV BAR
 //
 // =============================================================================
+// Last updated: 3.2.0
 
 // -----------------------------------------------------------------------------
 // IMPORTS
@@ -123,11 +124,11 @@
 
   a {
     display: block;
-    color: variables.$color-menasor;
+    color: variables.$color-starscream;
     text-decoration: none;
     border-bottom-color: transparent;
     transition: color variables.$global-timing variables.$global-easing, border-color variables.$global-timing variables.$global-easing;
-    border: solid 1px variables.$color-menasor;
+    border: solid 1px variables.$color-starscream;
     padding: functions.px2rem(10);
     outline: none;
 
@@ -189,6 +190,8 @@
   appearance: none;
   border: none;
   background: none;
+  cursor: pointer;
+  text-decoration: none;
 
   &:focus-visible {
     outline-style: outset;
@@ -213,6 +216,8 @@
 // -----------------------------------------------------------------------------
 
 .nav-bar__burger {
+  min-width: functions.px2rem(44);
+  min-height: functions.px2rem(44);
   margin-right: functions.px2rem(20);
   padding: 0;
   cursor: pointer;
@@ -232,6 +237,11 @@
     }
   }
 
+  &:focus-visible {
+    outline: solid functions.px2rem(2) variables.$color-soundwave;
+    outline-offset: functions.px2rem(6);
+  }
+
   @include mixins.breakpoint(md) {
     display: none;
   }
@@ -242,4 +252,10 @@
 
 .nav-bar__ul--mobile-on + .nav-bar__burger path {  
   fill: variables.$color-soundwave;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-bar__li.active a {
+    animation: none;
+  }
 }

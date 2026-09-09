@@ -1,17 +1,20 @@
+// Last updated: 3.2.0
+
 import React, { useContext, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { PreloaderContext } from "../context/PreloaderContext";
+import useReducedMotion from "../hooks/useReducedMotion";
 
 const PRELOADER_ABSOLUTE_FALLBACK_MS = 10000;
 
 const Preloader = () => {
+  const prefersReducedMotion = useReducedMotion();
   const {
     isLoading,
     setIsPreloaderVisible,
     completeInitialLoad,
   } = useContext(PreloaderContext);
   const [entranceComplete, setEntranceComplete] = useState(false);
-  const reducedMotionRef = useRef(false);
   const readyRequestedRef = useRef(false);
   const exitTimelineRef = useRef(null);
   const exitStartedRef = useRef(false);
@@ -22,11 +25,6 @@ const Preloader = () => {
     const entranceSentinel = document.querySelector(
       ".logo path#logo_bottomHighlight"
     );
-    const reducedMotionQuery = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    );
-    reducedMotionRef.current = reducedMotionQuery.matches;
-
     let hasCompletedEntrance = false;
     const completeEntrance = () => {
       if (hasCompletedEntrance) return;
@@ -45,7 +43,7 @@ const Preloader = () => {
       }
     };
 
-    if (reducedMotionQuery.matches || !preloader || !entranceSentinel) {
+    if (prefersReducedMotion || !preloader || !entranceSentinel) {
       completeEntrance();
     } else {
       preloader.dataset.state = "entrance";
@@ -68,7 +66,7 @@ const Preloader = () => {
       );
       window.clearTimeout(absoluteFallback);
     };
-  }, [completeInitialLoad]);
+  }, [completeInitialLoad, prefersReducedMotion]);
 
   useEffect(() => {
     if (isLoading || !entranceComplete || exitStartedRef.current) return;
@@ -86,7 +84,7 @@ const Preloader = () => {
 
     preloader.dataset.state = "exit";
 
-    if (reducedMotionRef.current) {
+    if (prefersReducedMotion) {
       preloader.style.display = "none";
       setIsPreloaderVisible(false);
       return;
@@ -119,7 +117,7 @@ const Preloader = () => {
       }
       exitStartedRef.current = false;
     };
-  }, [entranceComplete, isLoading, setIsPreloaderVisible]);
+  }, [entranceComplete, isLoading, prefersReducedMotion, setIsPreloaderVisible]);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";

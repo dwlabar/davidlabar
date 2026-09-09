@@ -20,9 +20,9 @@ The providers sit outside the router component rendered by `App`, while route-aw
 
 ### Routing and application shell
 
-`App.jsx` owns the `BrowserRouter`, shared navigation, transition overlay, route-transition listener, main route outlet, and footer. Its primary routes are home, projects, expertise, about, and contact. Project case studies are separate routes under `/projects`; SVG and preloader example routes are also registered directly.
+`App.jsx` owns the `BrowserRouter`, shared navigation, transition overlay, route-transition listener, main route outlet, and footer. A first-focus skip link targets the persistent `#main-content` region. Its primary routes are home, projects, expertise, about, and contact. Project case studies are separate routes under `/projects`; SVG and preloader example routes are also registered directly.
 
-Internal navigation normally uses either `NavBar` or `useOverlayNavigate`. Both ask `OverlayContext` to make the overlay opaque before scrolling to the top and calling React Router navigation. Selecting the current route closes any open mobile navigation without replaying the route transition.
+Internal navigation normally uses either `NavBar` or `useOverlayNavigate`. Both ask `OverlayContext` to make the overlay opaque before scrolling to the top and calling React Router navigation. The primary navigation exposes its name, current-page state, and mobile disclosure state. Escape closes the mobile menu and returns focus to its toggle. Selecting the current route closes any open mobile navigation without replaying the route transition.
 
 ### Readiness and presentation flow
 
@@ -39,6 +39,12 @@ Each routed page calls `useNotifyWhenImagesLoaded`. Pages without declared criti
 The inline preloader entrance continues to an authored cycle boundary once the initial route is ready. `Preloader.jsx` then uses a GSAP timeline to fade the logo and layer. Reduced-motion users skip the animated exit, and a ten-second absolute fallback prevents permanent scroll lock.
 
 The overlay uses the SCSS opacity transition as its visible boundary. It handles `transitionend`, already-settled opacity, reduced motion, background-tab failures, interrupted operations, and timeout cleanup before invoking the active navigation callback.
+
+### Reduced-motion preference
+
+`useReducedMotion` is the application-level preference boundary. It uses React's external-store subscription contract and shares one `MediaQueryList` change listener across all mounted consumers. The listener is attached when the first consumer subscribes, removed after the last unsubscribes, and updates consumers if the OS/browser preference changes while the application is open. The inline `index.html` boot presentation retains its independent CSS media query because it must operate before React starts.
+
+Consumers choose deliberate final states rather than globally disabling animation. Preloader and route-overlay transitions settle directly; navigation, icons, project cards, scroll reveals, and SVG examples remove large or repeating motion while preserving state feedback and visible content.
 
 ### GSAP ownership
 
@@ -59,7 +65,7 @@ The Three.js experience exists only on `Home`. `Home` creates `ThreeSceneProvide
 
 `ThreeSceneContext` merges the named preset from `ThreeScenePresets.js` with saved `threeSceneSettings`. Control changes update React state immediately and throttle persistence by 500 milliseconds. The controls expose speed and cube width, depth, and height.
 
-`ThreeSceneManager` owns scene, camera, renderer, resize observer, resize timer, animation frame, lights, 20 trail meshes, and a 21-by-21 grid of cube meshes with edge overlays. Speed, scale, and outline changes are interpolated with owner-cleaned GSAP refs so the scene does not rebuild for those controls. Unmount cleanup cancels the frame and resize work, disposes mesh and line geometries/materials, clears scene and renderer caches, releases the WebGL context, and removes the exact canvas from the captured mount. `ThreeSceneControls` scopes its slider listeners to its own control root and removes them on cleanup.
+`ThreeSceneManager` owns scene, camera, renderer, resize observer, resize timer, animation frame, lights, 20 trail meshes, and a 21-by-21 grid of cube meshes with edge overlays. Speed, scale, and outline changes are interpolated with owner-cleaned GSAP refs so the scene does not rebuild for those controls. Under reduced motion, the same scene resolves once as a static cube field, particle trails are hidden, no continuous animation frame is scheduled, resize still rerenders, and control changes apply immediately. A live preference change tears down and recreates only this component-owned scene in the appropriate mode. Unmount cleanup cancels any owned frame and resize work, disposes mesh and line geometries/materials, clears scene and renderer caches, releases the WebGL context, and removes the exact canvas from the captured mount. `ThreeSceneControls` scopes its slider listeners to its own control root and removes them on cleanup; its toggle exposes expanded state and the labeled native range controls remain keyboard-operable.
 
 ### Pages, projects, and components
 
@@ -67,7 +73,7 @@ The Three.js experience exists only on `Home`. `Home` creates `ThreeSceneProvide
 - `src/pages/projects/` contains the case-study pages. An additional `projects/Projects.jsx` file exists but is not registered by `App.jsx`; the routed hub is `src/pages/Projects.jsx`.
 - `Container`, `Panel`, `Card`, and `BlockReveal` provide shared composition patterns.
 - `ProjectCard` renders the project link, imagery, label, and GSAP tile interaction.
-- `Modal` portals project imagery into `#modal_root`, supports Escape, focuses its close button, and returns focus on unmount.
+- `Modal` portals project imagery into `#modal_root` as a named modal dialog. While mounted it makes the application root inert, locks background scrolling, traps Tab and Shift+Tab, supports Escape and pointer-backdrop close, focuses its named close control, and returns focus to the still-connected opener during cleanup.
 - `FormContact` integrates Formspree and locally persists draft fields.
 - `NavBar`, `Overlay`, and the overlay-navigation hook coordinate desktop and mobile navigation presentation.
 - The imported `DevPanel` is not rendered by the current application shell; its example routes remain directly available.

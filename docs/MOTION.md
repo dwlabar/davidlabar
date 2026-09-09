@@ -9,7 +9,8 @@ Motion on DavidLaBar.com should feel authored, coordinated, and part of one cohe
 - The navigation overlay uses a CSS opacity transition with explicit completion and timeout handling in `OverlayContext`.
 - GSAP timelines and tweens are currently distributed across navigation, SVG icons, project cards, block reveals, SVG examples, and Three.js settings.
 - CSS also owns global/component transitions and several repeating visual effects.
-- Reduced-motion handling currently covers the inline preloader and overlay transition, with a direct preloader exit. It is not yet a complete application-wide alternate mode.
+- A shared `useReducedMotion` hook owns one live media-query listener for React consumers while `index.html` retains its pre-React CSS query. Reduced-motion paths now settle the preloader, overlay, navigation, icons, project cards, block reveals, and SVG examples without large, sweeping, or repeating motion.
+- The reduced-motion Three.js mode keeps the authored cube field visible as a static scene, suppresses particle and grid travel, renders again on resize, and applies scene-control changes directly instead of interpolating them.
 
 Current animations should finish at intentional visual boundaries. Avoid arbitrary timeout cutoffs that can leave a partially transformed element visible. Fallbacks are still appropriate for preventing deadlocks, but their settled visual state must be deliberate.
 
@@ -33,6 +34,8 @@ The future motion system should establish reusable conventions for:
 - reduced-motion alternatives
 
 Pointer and keyboard interactions should receive equivalent intentional feedback, even when the exact visual response differs. Reduced motion should be designed as an alternate presentation mode rather than implemented as a late blanket removal of all feedback.
+
+The current alternate mode follows that boundary: it removes persistent and spatial motion at each owning component, keeps useful opacity/color/focus feedback, and explicitly resolves reveal content into its final visible state. It does not globally kill GSAP work or unrelated ScrollTriggers.
 
 Every timeline, tween, ScrollTrigger, CSS/JavaScript handoff, render loop, listener, timer, and callback needs explicit lifecycle ownership and cleanup. That discipline is required whether motion remains component-local or later becomes centrally coordinated.
 

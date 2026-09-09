@@ -6,9 +6,11 @@ This roadmap orders the next broad areas of work. Each item is a direction to in
 
 Completed on August 17, 2026. Component timelines, tweens, ScrollTriggers, render resources, listeners, observers, animation frames, and timers now have narrowly scoped ownership and cleanup. Three.js performance profiling and possible techniques such as instancing remain separate future work under item 9.
 
-## 2. Accessibility and reduced-motion coverage
+## 2. Accessibility and reduced-motion coverage — Complete
 
-Complete accessible names and navigation state, modal dialog/focus behavior, contrast review, keyboard parity, and semantic structure. Extend reduced motion from the current boot/overlay handling into an intentional alternate presentation mode across GSAP, CSS, and Three.js.
+Completed on September 9, 2026. The shared shell now provides a skip link, named navigation, current-page state, accessible disclosure controls, mobile-menu Escape handling, and design-aligned focus treatment. The image modal follows the modal dialog focus pattern and isolates background content. A shared preference hook extends reduced-motion handling across component-owned GSAP, CSS effects, scroll reveals, SVG examples, and a static-but-complete Three.js presentation.
+
+Manual runtime and visual acceptance passed for normal and reduced-motion navigation, keyboard operation, project-card and logo interactions, the homepage Three.js scene and controls, and project-image modal focus, close, scroll-lock, and focus-return behavior. Dedicated screen-reader testing and a formal WCAG 2.2 conformance assessment were not performed.
 
 ## 3. Lint baseline cleanup
 

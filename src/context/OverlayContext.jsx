@@ -1,3 +1,5 @@
+// Last updated: 3.2.0
+
 import React, {
   createContext,
   useCallback,
@@ -6,6 +8,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import useReducedMotion from "../hooks/useReducedMotion";
 
 const OVERLAY_TRANSITION_FALLBACK_MS = 650;
 const OVERLAY_HIDE_FALLBACK_MS = 550;
@@ -13,6 +16,7 @@ const OVERLAY_HIDE_FALLBACK_MS = 550;
 const OverlayContext = createContext();
 
 export const OverlayProvider = ({ children }) => {
+  const prefersReducedMotion = useReducedMotion();
   const [visible, setVisible] = useState(false);
   const [opacity, setOpacity] = useState(0);
   const [reason, setReason] = useState(null);
@@ -74,7 +78,7 @@ export const OverlayProvider = ({ children }) => {
           : targetOpacity;
 
         if (
-          window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+          prefersReducedMotion ||
           Math.abs(currentOpacity - targetOpacity) < 0.01
         ) {
           finishShow(operationId);
@@ -88,7 +92,7 @@ export const OverlayProvider = ({ children }) => {
         OVERLAY_TRANSITION_FALLBACK_MS
       );
     },
-    [clearShowCompletion, finishShow]
+    [clearShowCompletion, finishShow, prefersReducedMotion]
   );
 
   const hideOverlay = useCallback(() => {
@@ -109,7 +113,7 @@ export const OverlayProvider = ({ children }) => {
       hideFallbackRef.current = null;
     };
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (prefersReducedMotion) {
       finishHide();
       return;
     }
@@ -118,7 +122,7 @@ export const OverlayProvider = ({ children }) => {
       finishHide,
       OVERLAY_HIDE_FALLBACK_MS
     );
-  }, [clearShowCompletion]);
+  }, [clearShowCompletion, prefersReducedMotion]);
 
   // Complete only the currently active show operation's opacity transition.
   useEffect(() => {

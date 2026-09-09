@@ -3,6 +3,7 @@
 //  GLOBAL
 //
 // =============================================================================
+// Last updated: 3.2.0
 
 // -----------------------------------------------------------------------------
 // IMPORTS
@@ -44,6 +45,36 @@ body {
   background-color: variables.$color-megatron;
   font-family: variables.$font-family;
   color: variables.$color-starscream;
+}
+
+// -----------------------------------------------------------------------------
+// SKIP LINK
+// -----------------------------------------------------------------------------
+
+.skip-link {
+  position: fixed;
+  top: functions.px2rem(10);
+  left: functions.px2rem(20);
+  z-index: 201;
+  padding: functions.px2rem(10) functions.px2rem(16);
+  background-color: variables.$color-skywarp;
+  border: solid 2px variables.$color-soundwave;
+  color: variables.$color-ramjet;
+  text-decoration: none;
+  transform: translateY(-200%);
+
+  &:focus {
+    transform: translateY(0);
+  }
+
+  &:focus-visible {
+    outline: solid 2px variables.$color-ramjet;
+    outline-offset: functions.px2rem(2);
+  }
+}
+
+#main-content:focus {
+  outline: none;
 }
 
 // -----------------------------------------------------------------------------
@@ -97,6 +128,7 @@ body {
     outline-style: outset;
     outline-width: 2px;
     outline-color: variables.$color-soundwave;
+    outline-offset: functions.px2rem(3);
   }
   
 

@@ -3,6 +3,7 @@
 //  THREE SCENE
 //
 // =============================================================================
+// Last updated: 3.2.0
 
 // -----------------------------------------------------------------------------
 // IMPORTS
@@ -142,8 +143,11 @@
 .slider-control input[type="range"] {
   appearance: none;
   width: 100%;
-  height: functions.px2rem(2);
+  height: functions.px2rem(24);
   background: linear-gradient(to right, variables.$color-soundwave 0%, variables.$color-soundwave var(--progress), variables.$color-devastator var(--progress), variables.$color-starscream 100%);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% functions.px2rem(2);
   border-radius: functions.px2rem(2);
   outline: none;
   transition: background 0.2s ease;
@@ -159,8 +163,9 @@
 // -----------------------------------------------------------------------------
 
 .slider-control input[type="range"] {
-  &:focus {
-    outline: none; // prevent default glow
+  &:focus-visible {
+    outline: solid 2px variables.$color-soundwave;
+    outline-offset: functions.px2rem(6);
   }
 }
 
@@ -194,4 +199,20 @@
 .slider-control input[type="range"]:focus::-moz-range-thumb {
   transform: scale(1.2);
   box-shadow: 0 0 0 4px rgba(0, 170, 255, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon-cube__border,
+  .slider-control input[type="range"],
+  .slider-control input[type="range"]::-webkit-slider-thumb,
+  .slider-control input[type="range"]::-moz-range-thumb {
+    transition-duration: 0.01ms;
+  }
+
+  .slider-control input[type="range"]:hover::-webkit-slider-thumb,
+  .slider-control input[type="range"]:focus::-webkit-slider-thumb,
+  .slider-control input[type="range"]:hover::-moz-range-thumb,
+  .slider-control input[type="range"]:focus::-moz-range-thumb {
+    transform: none;
+  }
 }
