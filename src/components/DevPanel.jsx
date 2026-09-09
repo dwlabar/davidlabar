@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+// Last updated: 3.2.1
+
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/components/_dev-panel.scss";
 

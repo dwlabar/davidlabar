@@ -1,7 +1,9 @@
+// Last updated: 3.2.1
+
 // BeannikRoasters.jsx
 // -----------------------------------------------------------------------------
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { usePageReadyController } from "../../context/PageReadyContext";
 import useNotifyWhenImagesLoaded from "../../hooks/useNotifyWhenImagesLoaded";
 import Container from "../../components/Container";

@@ -1,5 +1,6 @@
+// Last updated: 3.2.1
+
 // DesignIcon.jsx
-import React from "react";
 
 const DesignIcon = ({ idPrefix = "icon-design" }) => (
   <svg

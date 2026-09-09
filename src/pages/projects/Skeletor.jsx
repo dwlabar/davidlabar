@@ -1,10 +1,12 @@
+// Last updated: 3.2.1
+
 // Skeletor.jsx
 // -----------------------------------------------------------------------------
 // Project page for the Skeletor design system.
 // Copy tightened for V4 while keeping the existing component structure intact.
 // -----------------------------------------------------------------------------
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { usePageReadyController } from "../../context/PageReadyContext";
 import useNotifyWhenImagesLoaded from "../../hooks/useNotifyWhenImagesLoaded";
 import Container from "../../components/Container";

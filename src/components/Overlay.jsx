@@ -1,4 +1,5 @@
-import React from "react";
+// Last updated: 3.2.1
+
 import { useOverlay } from "../context/OverlayContext";
 import "../styles/components/_overlay.scss";
 

@@ -1,6 +1,6 @@
-// Last updated: 3.2.0
+// Last updated: 3.2.1
 
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { PreloaderContext } from "../context/PreloaderContext";
 import useReducedMotion from "../hooks/useReducedMotion";

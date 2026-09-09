@@ -1,5 +1,6 @@
+// Last updated: 3.2.1
+
 // CustomIcon.jsx
-import React from "react";
 
 const CustomIcon = ({ idPrefix = "icon-custom" }) => (
   

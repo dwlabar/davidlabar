@@ -1,6 +1,6 @@
-// Last updated: 3.2.0
+// Last updated: 3.2.1
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
 import { useOverlay } from "../context/OverlayContext";

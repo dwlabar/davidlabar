@@ -1,6 +1,6 @@
-// Last updated: 3.2.0
+// Last updated: 3.2.1
 
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import useReducedMotion from '../hooks/useReducedMotion';
 

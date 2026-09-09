@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+// Last updated: 3.2.1
+
+import { useState } from "react";
 import { usePageReadyController } from "../context/PageReadyContext";
 import useNotifyWhenImagesLoaded from "../hooks/useNotifyWhenImagesLoaded";
 import Container from "../components/Container";

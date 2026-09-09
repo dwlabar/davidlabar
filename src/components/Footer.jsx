@@ -1,5 +1,5 @@
-import React from "react";
-import Container from "../components/Container";
+// Last updated: 3.2.1
+
 import "../styles/components/_footer.scss";
 
 const Footer = () => {

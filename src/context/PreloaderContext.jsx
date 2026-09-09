@@ -1,8 +1,10 @@
+// Last updated: 3.2.1
+
 // Tracks the initial route's loading state separately from the authored
 // preloader presentation. The destination route decides when its critical
 // content is ready; the Preloader owns the entrance/hold/exit timing.
 
-import React, { createContext, useCallback, useRef, useState } from "react";
+import { createContext, useCallback, useRef, useState } from "react";
 
 export const PreloaderContext = createContext();
 

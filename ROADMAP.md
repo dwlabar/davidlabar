@@ -2,6 +2,27 @@
 
 This roadmap orders the next broad areas of work. Each item is a direction to investigate and implement incrementally, not a promise that every idea is already designed or approved.
 
+## Near-term release plan
+
+### v3.2.1 — Mechanical lint cleanup
+
+The accepted low-risk cleanup reduced the lint baseline from 87 findings to 37. Focused manual acceptance passed for the tested pages, interactions, styling, text, project reveals, and console behavior; this was not exhaustive regression testing. Remaining lint-policy and lifecycle findings are intentionally deferred, so broad roadmap item #3 remains in progress.
+
+### v3.3.0 — Platform and dependency modernization — Planned next
+
+Audit and modernize the portfolio's core front-end platform and dependencies in controlled, reviewable passes before resolving the remaining lint-policy questions.
+
+Investigate and make appropriate upgrades to React / React DOM, Vite, `@vitejs/plugin-react`, React Router, GSAP, Three.js, Sass, ESLint and its React/hooks/refresh plugins, and other directly related build/runtime dependencies where the audit establishes a need.
+
+- Use current official migration and release documentation. Audit first; do not blindly update every package at once or select target versions before the dependency audit.
+- Preserve existing authored presentation and behavior, handle major-version migrations deliberately, and validate between meaningful upgrade groups.
+- Keep unrelated feature work separate from this milestone.
+- Re-run the lint baseline after modernization before deciding how to resolve the currently remaining 37 findings.
+- Reconsider the `react/prop-types` policy after React modernization rather than adding PropTypes merely to satisfy the current rule.
+- Preserve the Three.js lifecycle warning for architectural review rather than mechanically changing the effect's dependencies.
+
+This milestone is planned only; modernization has not started.
+
 ## 1. GSAP and Three.js lifecycle cleanup — Complete
 
 Completed on August 17, 2026. Component timelines, tweens, ScrollTriggers, render resources, listeners, observers, animation frames, and timers now have narrowly scoped ownership and cleanup. Three.js performance profiling and possible techniques such as instancing remain separate future work under item 9.
@@ -12,9 +33,11 @@ Completed on September 9, 2026. The shared shell now provides a skip link, named
 
 Manual runtime and visual acceptance passed for normal and reduced-motion navigation, keyboard operation, project-card and logo interactions, the homepage Three.js scene and controls, and project-image modal focus, close, scroll-lock, and focus-return behavior. Dedicated screen-reader testing and a formal WCAG 2.2 conformance assessment were not performed.
 
-## 3. Lint baseline cleanup
+## 3. Lint baseline cleanup — In Progress
 
 Reduce the existing ESLint findings in focused, behavior-preserving passes. Keep baseline cleanup separate from feature work so new regressions remain visible.
+
+The v3.2.1 low-risk/mechanical pass is complete with lint reduced from 87 findings to 37 and a passing production build. David confirmed focused manual acceptance for the homepage, navigation, footer, About/Contact/Expertise and contact-form text, project-page loading and scroll reveals, unchanged layout/spacing, and no new browser console errors. This was not exhaustive regression testing. The remaining 32 prop-validation errors require a project-policy decision; four Fast Refresh warnings and one Three.js hook dependency warning require separate reviews.
 
 ## 4. Presentation and motion architecture
 

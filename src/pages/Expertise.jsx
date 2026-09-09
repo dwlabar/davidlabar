@@ -1,4 +1,5 @@
-import React from "react";
+// Last updated: 3.2.1
+
 import { usePageReadyController } from "../context/PageReadyContext";
 import useNotifyWhenImagesLoaded from "../hooks/useNotifyWhenImagesLoaded";
 import useOverlayNavigate from "../hooks/useOverlayNavigate";
@@ -28,7 +29,7 @@ const Services = () => {
         <header>
           <h1>What I Build</h1>
           <p className="subheading">
-            I design and develop scalable systems, from single-page sites to enterprise frontends. Here's what I offer:
+            I design and develop scalable systems, from single-page sites to enterprise frontends. Here&#39;s what I offer:
           </p>
         </header>
 
@@ -89,8 +90,8 @@ const Services = () => {
         </div>
 
         <Panel>
-          <p>Have a project in mind? Let's make it happen.</p>
-          <a href="/contact" className="bfg-button" onClick={(e) => handleClick(e, "/contact")}>Let's Talk About It!</a>
+          <p>Have a project in mind? Let&#39;s make it happen.</p>
+          <a href="/contact" className="bfg-button" onClick={(e) => handleClick(e, "/contact")}>Let&#39;s Talk About It!</a>
         </Panel>
       </Container>
     </>

@@ -4,6 +4,15 @@ Meaningful project milestones are recorded here from repository history.
 
 ## Unreleased
 
+## 3.2.1 — 2026-09-09
+
+- Removed 34 unused default React bindings while retaining named React imports.
+- Removed unused DevPanel and Footer Container imports; DevPanel's styles are scoped to its unrendered component, and rendered Container consumers retain its stylesheet.
+- Escaped 13 JSX apostrophes without changing visible copy and added Panel's display name without altering ref forwarding or markup.
+- Reduced ESLint from 87 findings (82 errors, 5 warnings) to 37 (32 errors, 5 warnings), with no new findings. Production build passed.
+- Left prop-validation policy, Fast Refresh export warnings, and the Three.js effect dependency review for separate passes.
+- Recorded David's focused manual acceptance: homepage, navigation, footer, About/Contact/Expertise and contact-form text, project-page loading and scroll reveals, and layout/spacing behaved normally, with no new browser console errors. This was not exhaustive regression testing.
+
 ## 3.2.0 — 2026-09-09
 
 - Scoped GSAP timelines, tweens, and ScrollTriggers to their owning components, including the SVG example route and Strict Mode-safe preloader exit cleanup.

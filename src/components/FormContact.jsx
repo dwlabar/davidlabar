@@ -1,6 +1,6 @@
-// Last updated: 3.2.0
+// Last updated: 3.2.1
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, ValidationError } from '@formspree/react';
 import "../styles/components/_form.scss";
 
@@ -39,7 +39,7 @@ const ContactForm = () => {
   }, [state.succeeded]);
 
   if (state.succeeded) {
-    return <div className="thankyou" role="status">Thanks for reaching out! I'll get back to you soon.</div>;
+    return <div className="thankyou" role="status">Thanks for reaching out! I&#39;ll get back to you soon.</div>;
   }
 
   return (

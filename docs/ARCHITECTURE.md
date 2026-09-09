@@ -76,7 +76,7 @@ The Three.js experience exists only on `Home`. `Home` creates `ThreeSceneProvide
 - `Modal` portals project imagery into `#modal_root` as a named modal dialog. While mounted it makes the application root inert, locks background scrolling, traps Tab and Shift+Tab, supports Escape and pointer-backdrop close, focuses its named close control, and returns focus to the still-connected opener during cleanup.
 - `FormContact` integrates Formspree and locally persists draft fields.
 - `NavBar`, `Overlay`, and the overlay-navigation hook coordinate desktop and mobile navigation presentation.
-- The imported `DevPanel` is not rendered by the current application shell; its example routes remain directly available.
+- `DevPanel` is not rendered by the current application shell; its example routes remain directly available.
 
 ### SCSS organization
 

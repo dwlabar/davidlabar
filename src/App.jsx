@@ -1,9 +1,8 @@
 // -----------------------------------------------------------------------------
 // App.jsx (v0.0.1)
-// Last updated: 3.2.0
+// Last updated: 3.2.1
 // -----------------------------------------------------------------------------
 
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Import pages
@@ -21,7 +20,6 @@ import Dreame from "./pages/projects/Dreame";
 import WestgateResorts from "./pages/projects/WestgateResorts";
 
 // Import components
-import DevPanel from "./components/DevPanel";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Overlay from "./components/Overlay";

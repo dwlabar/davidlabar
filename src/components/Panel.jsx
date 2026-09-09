@@ -1,4 +1,6 @@
-import React, { forwardRef } from "react";
+// Last updated: 3.2.1
+
+import { forwardRef } from "react";
 import "../styles/components/_panel.scss";
 
 const Panel = forwardRef(({ children, ...props }, ref) => {
@@ -8,5 +10,7 @@ const Panel = forwardRef(({ children, ...props }, ref) => {
     </div>
   );
 });
+
+Panel.displayName = "Panel";
 
 export default Panel;

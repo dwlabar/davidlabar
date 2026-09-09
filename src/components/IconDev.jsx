@@ -1,5 +1,6 @@
+// Last updated: 3.2.1
+
 // DevIcon.jsx
-import React from "react";
 
 const DevIcon = ({ idPrefix = "icon-dev" }) => (
   <svg

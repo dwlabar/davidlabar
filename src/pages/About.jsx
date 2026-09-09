@@ -1,4 +1,5 @@
-import React from "react";
+// Last updated: 3.2.1
+
 import { usePageReadyController } from "../context/PageReadyContext";
 import useNotifyWhenImagesLoaded from "../hooks/useNotifyWhenImagesLoaded";
 import Container from "../components/Container";
@@ -21,15 +22,15 @@ const About = () => {
 
           <Panel>
             <p className="tagline">Designer &amp; developer focused on polish and performance</p>
-            <p>I'm David LaBar, a front-end specialist with 20 years of experience building everything from Shockwave casino games and CMS themes to React apps and design systems.</p>
+            <p>I&#39;m David LaBar, a front-end specialist with 20 years of experience building everything from Shockwave casino games and CMS themes to React apps and design systems.</p>
             <p>I started by coding my own designs and still chase that level of precision in everything I build.</p>
-            <p>At Full Sail University, I shaped the UI architecture for both their online learning platform and FullSail.edu, supporting thousands of students and faculty worldwide. I've also built design systems for marketing teams and shipped accessible sites for brands like Westgate Resorts and Purple Rock Scissors.</p>
-            <p>If you need someone who can design it, build it, and obsess over the last 1%, I'm already thinking about edge cases.</p>
+            <p>At Full Sail University, I shaped the UI architecture for both their online learning platform and FullSail.edu, supporting thousands of students and faculty worldwide. I&#39;ve also built design systems for marketing teams and shipped accessible sites for brands like Westgate Resorts and Purple Rock Scissors.</p>
+            <p>If you need someone who can design it, build it, and obsess over the last 1%, I&#39;m already thinking about edge cases.</p>
           </Panel>
 
           <Panel>
             <h2 className="tagline">Toolbox</h2>
-            <p>Tools change, stacks shift. What matters is how it holds up. The naming, the structure, the logic behind the layout. Stuff most people never see but feel when it's wrong. I build it so it still makes sense years from now. Long after I'm gone.</p>
+            <p>Tools change, stacks shift. What matters is how it holds up. The naming, the structure, the logic behind the layout. Stuff most people never see but feel when it&#39;s wrong. I build it so it still makes sense years from now. Long after I&#39;m gone.</p>
             {/* <p>From first sketch to final commit, I refine each idea until the interface feels right. I prototype clean, effective solutions that fit your stack.</p> */}
             <h3>Frontend</h3>
             <ul className="ul ul--grid">

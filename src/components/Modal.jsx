@@ -1,12 +1,12 @@
 // Modal.jsx
-// Last updated: 3.2.0
+// Last updated: 3.2.1
 // -----------------------------------------------------------------------------
 // A responsive modal component. Triggered externally.
 // No internal state, relies on parent render logic.
 // Includes modal semantics, focus trapping, ESC close, and focus return.
 // -----------------------------------------------------------------------------
 
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import "../styles/components/_modal.scss";
 

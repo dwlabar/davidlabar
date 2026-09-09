@@ -1,6 +1,6 @@
-// Last updated: 3.2.0
+// Last updated: 3.2.1
 
-import React, {
+import {
   createContext,
   useCallback,
   useContext,
