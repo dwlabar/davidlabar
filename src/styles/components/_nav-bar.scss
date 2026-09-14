@@ -3,7 +3,7 @@
 //  NAV BAR
 //
 // =============================================================================
-// Last updated: 3.2.0
+// Last updated: 3.2.2
 
 // -----------------------------------------------------------------------------
 // IMPORTS
@@ -124,11 +124,11 @@
 
   a {
     display: block;
-    color: variables.$color-starscream;
+    color: variables.$color-thundercracker;
     text-decoration: none;
     border-bottom-color: transparent;
     transition: color variables.$global-timing variables.$global-easing, border-color variables.$global-timing variables.$global-easing;
-    border: solid 1px variables.$color-starscream;
+    border: solid 1px variables.$color-thundercracker;
     padding: functions.px2rem(10);
     outline: none;
 

@@ -4,6 +4,15 @@ Meaningful project milestones are recorded here from repository history.
 
 ## Unreleased
 
+## 3.2.2 — 2026-09-14
+
+- Added `$color-shockwave` (`#606060`) and `$color-thundercracker` (`#808080`) to the shared palette without changing existing colors.
+- Softened normal inactive navigation text and mobile link borders with `$color-thundercracker`, retaining 4.62:1 text contrast against the `#151515` navigation background.
+- Softened normal contact input and textarea borders with `$color-shockwave`, retaining 3.34:1 contrast against their black interiors and at least 3.07:1 across the surrounding form's composited panel, gradient, and noise backgrounds. Existing focus styling is unchanged.
+- Restored Expertise/tag grid decorative border opacity to 0.6 while retaining opaque `$color-starscream` text. All other accessibility behavior and presentation remain unchanged.
+- ESLint remains at the existing 37 findings (32 errors, 5 warnings), with no new findings. Production build and `git diff --check` passed.
+- David approved the visual-refinement patch for commit and merge. Browser/runtime testing was not independently performed for this patch; v3.3.0 modernization remains planned and has not started.
+
 ## 3.2.1 — 2026-09-09
 
 - Removed 34 unused default React bindings while retaining named React imports.
