@@ -1,4 +1,4 @@
-// Last updated: 3.2.1
+// Last updated: 3.2.2
 
 import { usePageReadyController } from "../context/PageReadyContext";
 import useNotifyWhenImagesLoaded from "../hooks/useNotifyWhenImagesLoaded";
@@ -20,8 +20,19 @@ import WestgateResortsLogo from "../assets/project-cards/logo_WestgateResorts.we
 const Projects = () => {
   const { notifyPageReady } = usePageReadyController();
   
-  // Only the lead card is required for a clean destination reveal.
-  useNotifyWhenImagesLoaded(notifyPageReady, [skeletorBg, skeletorLogo]);
+  // All project-card backgrounds and logos are required for a clean destination reveal.
+  useNotifyWhenImagesLoaded(notifyPageReady, [
+    skeletorBg,
+    skeletorLogo,
+    AEIBg,
+    AEILogo,
+    BeannikRoastersBg,
+    BeannikRoastersLogo,
+    WestgateResortsBg,
+    WestgateResortsLogo,
+    DreameBg,
+    DreameLogo,
+  ]);
 
   return (
     <Container>
