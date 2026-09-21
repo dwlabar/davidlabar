@@ -4,6 +4,16 @@ Meaningful project milestones are recorded here from repository history.
 
 ## Unreleased
 
+## 3.3.0 — 2026-09-21
+
+- Completed T01–T11 platform modernization with Node 24.21.0/npm 11.19.0 and updated Sass 1.104.1, PostCSS 8.5.28, Autoprefixer 10.6.1, and browser data while preserving Browserslist policy.
+- Upgraded React/React DOM and their types to 19.3.0, React Router to 8.4.0, Vite to 8.3.0, and plugin-react to 6.1.1 through staged checkpoints. Migrated imports from react-router-dom to react-router while preserving Declarative routing and Vercel SPA behavior.
+- Preserved the prior production browser targets explicitly: chrome87, edge88, firefox78, and safari14. React Compiler was not enabled.
+- Upgraded GSAP to 3.15.0 and Three.js to 0.186.0 without scene or animation source migrations. David confirmed visual acceptance of the intermediate Three.js 0.184.0 checkpoint.
+- Updated ESLint/@eslint/js to 9.39.5, React lint plugin to 7.37.5, Hooks to 7.1.1, Refresh to 0.5.7, and globals to 17.12.0. Kept the previous Hooks rules/severities and Refresh allowConstantExport configuration; compiler rules and lint-policy changes remain out of scope.
+- Release verification found no invalid or missing required peers or unexpected version drift. Production build and diff checks passed before and after release metadata changes; lint retained 32 errors and 5 warnings. The existing bundle-size warning remains.
+- Marked v3.3.0 and T11 complete for implementation and automated verification. Final manual release review remains pending; changes are prepared for review, not published.
+
 ## 3.2.2 — 2026-09-14
 
 - Added `$color-shockwave` (`#606060`) and `$color-thundercracker` (`#808080`) to the shared palette without changing existing colors.

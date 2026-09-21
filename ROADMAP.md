@@ -8,25 +8,25 @@ This roadmap orders the next broad areas of work. Each item is a direction to in
 
 The accepted low-risk cleanup reduced the lint baseline from 87 findings to 37. Focused manual acceptance passed for the tested pages, interactions, styling, text, project reveals, and console behavior; this was not exhaustive regression testing. Remaining lint-policy and lifecycle findings are intentionally deferred, so broad roadmap item #3 remains in progress.
 
-### v3.3.0 — Platform and dependency modernization
+### v3.3.0 — Platform and dependency modernization — Complete
 
-Audit and modernize the portfolio's core front-end platform and dependencies in controlled, reviewable passes before resolving the remaining lint-policy questions.
+Completed the portfolio's core platform and dependency modernization in controlled checkpoints. T11 automated release verification and release metadata are complete; final manual release review remains pending. Remaining lint-policy questions are separate work.
 
 Internal work uses task IDs within this release:
 
 - **T01 — Runtime baseline — COMPLETE**
 - **T02 — CSS tooling + Browserslist maintenance — COMPLETE**
-- **T03 — Vite 7 checkpoint — NEXT**
-- T04 — React 19
-- T05 — Router 7 preparation
-- T06 — Router 8
-- T07 — Vite 8
-- T08 — GSAP
-- T09 — Three.js
-- T10 — Lint ecosystem
-- T11 — Release acceptance
+- **T03 — Vite 7 checkpoint — COMPLETE**
+- **T04 — React 19 — COMPLETE**
+- **T05 — Router 7 preparation — COMPLETE**
+- **T06 — Router 8 — COMPLETE**
+- **T07 — Vite 8 — COMPLETE**
+- **T08 — GSAP — COMPLETE**
+- **T09 — Three.js — COMPLETE**
+- **T10 — Lint ecosystem — COMPLETE**
+- **T11 — Release acceptance — COMPLETE**
 
-For each task:
+Checkpoint principles:
 
 - Use current official migration and release documentation. Audit first; do not blindly update every package at once or select target versions before the dependency audit.
 - Preserve existing authored presentation and behavior, handle major-version migrations deliberately, and validate between meaningful upgrade groups.
@@ -37,7 +37,11 @@ For each task:
 
 T01 (runtime baseline) was manually accepted by David on September 21, 2026. Node **24.21.0** and npm **11.19.0** were tested successfully with the existing v3.2.2 application and dependency stack. The production build passed, and lint retained the accepted baseline of 32 `react/prop-types` errors, one `react-hooks/exhaustive-deps` warning, and four `react-refresh/only-export-components` warnings (37 findings total).
 
-T02 (CSS tooling + Browserslist maintenance) was accepted by David. Sass, PostCSS, Autoprefixer, and browser data were updated while preserving the Browserslist policy. Clean installation and the production build passed; production output remained byte-for-byte identical, the outdated browser-data warning was resolved, and lint retained the accepted 37-finding baseline. No application source or styling changes were required. T03 (Vite 7 checkpoint) is next and has not started; the accepted application version remains 3.2.2 while the active release is v3.3.0.
+T02 (CSS tooling + Browserslist maintenance) was accepted by David. Sass, PostCSS, Autoprefixer, and browser data were updated while preserving the Browserslist policy. Clean installation and the production build passed; production output remained byte-for-byte identical, the outdated browser-data warning was resolved, and lint retained the accepted 37-finding baseline. No application source or styling changes were required.
+
+T03–T10 completed the staged upgrades to Vite **8.3.0**, plugin-react **6.1.1**, React/React DOM and their types **19.3.0**, React Router **8.4.0**, GSAP **3.15.0**, Three.js **0.186.0**, ESLint/@eslint/js **9.39.5**, React lint plugin **7.37.5**, Hooks **7.1.1**, Refresh **0.5.7**, and globals **17.12.0**. Router imports now use `react-router`; Declarative routing and the existing Vercel SPA rewrite remain. Explicit production targets (`chrome87`, `edge88`, `firefox78`, `safari14`) and Browserslist policy were preserved. The Hooks configuration retains only the previous rules and severities; compiler rules and lint-policy changes were not adopted. David confirmed manual visual acceptance of the Three.js 0.184.0 checkpoint before the final upgrade.
+
+T11 verified the dependency tree, production build, lint baseline, and whitespace checks before raising the canonical application version from **3.2.2** to **3.3.0**. No unexpected dependency drift or invalid/missing required peers was found. Build and diff checks passed again after metadata updates; lint remains 32 prop-validation errors, one Hooks dependency warning, and four Fast Refresh warnings. The existing bundle-size warning remains. No application behavior changed during release acceptance; final manual review is pending.
 
 ## 1. GSAP and Three.js lifecycle cleanup — Complete
 
