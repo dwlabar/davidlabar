@@ -8,11 +8,25 @@ This roadmap orders the next broad areas of work. Each item is a direction to in
 
 The accepted low-risk cleanup reduced the lint baseline from 87 findings to 37. Focused manual acceptance passed for the tested pages, interactions, styling, text, project reveals, and console behavior; this was not exhaustive regression testing. Remaining lint-policy and lifecycle findings are intentionally deferred, so broad roadmap item #3 remains in progress.
 
-### v3.3.0 — Platform and dependency modernization — Stage 1 accepted
+### v3.3.0 — Platform and dependency modernization
 
 Audit and modernize the portfolio's core front-end platform and dependencies in controlled, reviewable passes before resolving the remaining lint-policy questions.
 
-Investigate and make appropriate upgrades to React / React DOM, Vite, `@vitejs/plugin-react`, React Router, GSAP, Three.js, Sass, ESLint and its React/hooks/refresh plugins, and other directly related build/runtime dependencies where the audit establishes a need.
+Internal work uses task IDs within this release:
+
+- **T01 — Runtime baseline — COMPLETE**
+- **T02 — CSS tooling + Browserslist maintenance — NEXT**
+- T03 — Vite 7 checkpoint
+- T04 — React 19
+- T05 — Router 7 preparation
+- T06 — Router 8
+- T07 — Vite 8
+- T08 — GSAP
+- T09 — Three.js
+- T10 — Lint ecosystem
+- T11 — Release acceptance
+
+For each task:
 
 - Use current official migration and release documentation. Audit first; do not blindly update every package at once or select target versions before the dependency audit.
 - Preserve existing authored presentation and behavior, handle major-version migrations deliberately, and validate between meaningful upgrade groups.
@@ -21,9 +35,9 @@ Investigate and make appropriate upgrades to React / React DOM, Vite, `@vitejs/p
 - Reconsider the `react/prop-types` policy after React modernization rather than adding PropTypes merely to satisfy the current rule.
 - Preserve the Three.js lifecycle warning for architectural review rather than mechanically changing the effect's dependencies.
 
-Stage 1 (runtime baseline) was manually accepted by David on September 21, 2026. Node **24.21.0** and npm **11.19.0** were tested successfully with the existing v3.2.2 application and dependency stack. The production build passed, and lint retained the accepted baseline of 32 `react/prop-types` errors, one `react-hooks/exhaustive-deps` warning, and four `react-refresh/only-export-components` warnings (37 findings total).
+T01 (runtime baseline) was manually accepted by David on September 21, 2026. Node **24.21.0** and npm **11.19.0** were tested successfully with the existing v3.2.2 application and dependency stack. The production build passed, and lint retained the accepted baseline of 32 `react/prop-types` errors, one `react-hooks/exhaustive-deps` warning, and four `react-refresh/only-export-components` warnings (37 findings total).
 
-The existing Browserslist/caniuse-lite outdated-data warning remains a maintenance item for **Stage 2**, not Stage 1. Browser data and dependencies were not upgraded in Stage 1. Stage 2 has not started; the application version remains 3.2.2.
+The existing Browserslist/caniuse-lite outdated-data warning remains a maintenance item for **T02**, not T01. Browser data and dependencies were not upgraded in T01. T02 has not started; the accepted application version remains 3.2.2 while the active release is v3.3.0.
 
 ## 1. GSAP and Three.js lifecycle cleanup — Complete
 
