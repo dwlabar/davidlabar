@@ -3,7 +3,7 @@
 // complete the matching route and is invalidated when that navigation is replaced.
 
 import { createContext, useCallback, useContext, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
 // Create a context to share page readiness functions across the component tree
 const PageReadyContext = createContext();

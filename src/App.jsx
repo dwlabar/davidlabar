@@ -1,9 +1,9 @@
 // -----------------------------------------------------------------------------
 // App.jsx (v0.0.1)
-// Last updated: 3.2.1
+// Last updated: 3.2.2
 // -----------------------------------------------------------------------------
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router";
 
 // Import pages
 import Home from "./pages/Home";

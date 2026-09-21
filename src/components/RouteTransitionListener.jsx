@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { useOverlay } from "../context/OverlayContext";
 import { usePageReadyController } from "../context/PageReadyContext";
 import { PreloaderContext } from "../context/PreloaderContext";

@@ -1,7 +1,7 @@
-// Last updated: 3.2.1
+// Last updated: 3.2.2
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import "../styles/components/_dev-panel.scss";
 
 const DevPanel = () => {
