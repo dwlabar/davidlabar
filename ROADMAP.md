@@ -15,8 +15,8 @@ Audit and modernize the portfolio's core front-end platform and dependencies in 
 Internal work uses task IDs within this release:
 
 - **T01 — Runtime baseline — COMPLETE**
-- **T02 — CSS tooling + Browserslist maintenance — NEXT**
-- T03 — Vite 7 checkpoint
+- **T02 — CSS tooling + Browserslist maintenance — COMPLETE**
+- **T03 — Vite 7 checkpoint — NEXT**
 - T04 — React 19
 - T05 — Router 7 preparation
 - T06 — Router 8
@@ -37,7 +37,7 @@ For each task:
 
 T01 (runtime baseline) was manually accepted by David on September 21, 2026. Node **24.21.0** and npm **11.19.0** were tested successfully with the existing v3.2.2 application and dependency stack. The production build passed, and lint retained the accepted baseline of 32 `react/prop-types` errors, one `react-hooks/exhaustive-deps` warning, and four `react-refresh/only-export-components` warnings (37 findings total).
 
-The existing Browserslist/caniuse-lite outdated-data warning remains a maintenance item for **T02**, not T01. Browser data and dependencies were not upgraded in T01. T02 has not started; the accepted application version remains 3.2.2 while the active release is v3.3.0.
+T02 (CSS tooling + Browserslist maintenance) was accepted by David. Sass, PostCSS, Autoprefixer, and browser data were updated while preserving the Browserslist policy. Clean installation and the production build passed; production output remained byte-for-byte identical, the outdated browser-data warning was resolved, and lint retained the accepted 37-finding baseline. No application source or styling changes were required. T03 (Vite 7 checkpoint) is next and has not started; the accepted application version remains 3.2.2 while the active release is v3.3.0.
 
 ## 1. GSAP and Three.js lifecycle cleanup — Complete
 
