@@ -1,90 +1,133 @@
 # Roadmap
 
-This roadmap orders the next broad areas of work. Each item is a direction to investigate and implement incrementally, not a promise that every idea is already designed or approved.
+This file is the source of truth for what is active, what is next, and what is intentionally deferred. It should make the current project position clear without requiring the reader to reconstruct status from release history.
 
-## Near-term release plan
+## Current position
 
-### v3.2.1 — Mechanical lint cleanup
+- **Active release:** v3.3.0 — Platform and dependency modernization
+- **Current task:** T11 — Final manual release acceptance
+- **Next task:** Close v3.3.0 after manual acceptance. No additional modernization or lint-cleanup task is scheduled.
+- **After v3.3.0:** v3.4.0 — Job-search portfolio refinement, if approved before work begins.
+- **Not blocking release:** the accepted ESLint baseline, future Three.js concepts, presentation experiments, analytics, and performance work listed under Backlog.
 
-The accepted low-risk cleanup reduced the lint baseline from 87 findings to 37. Focused manual acceptance passed for the tested pages, interactions, styling, text, project reveals, and console behavior; this was not exhaustive regression testing. Remaining lint-policy and lifecycle findings are intentionally deferred, so broad roadmap item #3 remains in progress.
+## Planning rules
 
-### v3.3.0 — Platform and dependency modernization — Complete
+- Keep one active release and one clearly identified current task.
+- Define the release task list before implementation begins. Prefer a small number of outcome-based tasks rather than turning every dependency checkpoint into a separate roadmap task.
+- Do not add tasks to an active release without explicitly documenting the scope change first.
+- Do not reopen completed work without a new defect, regression, requirement, or evidence that the previous result is no longer valid.
+- Treat audits as decision inputs, not recurring work by default. Re-audit only when the underlying code, dependency, requirement, or evidence has materially changed.
+- Keep narrow maintenance tasks narrow. Do not repeat full dependency, package, or repository audits when the task only concerns a known file or issue.
+- Separate accepted technical debt from active work. An accepted warning or policy decision is not an "in progress" task.
 
-Completed the portfolio's core platform and dependency modernization in controlled checkpoints. T11 automated release verification and release metadata are complete; final manual release review remains pending. Remaining lint-policy questions are separate work.
+## v3.3.0 — Platform and dependency modernization
 
-Internal work uses task IDs within this release:
+### Goal
 
-- **T01 — Runtime baseline — COMPLETE**
-- **T02 — CSS tooling + Browserslist maintenance — COMPLETE**
-- **T03 — Vite 7 checkpoint — COMPLETE**
-- **T04 — React 19 — COMPLETE**
-- **T05 — Router 7 preparation — COMPLETE**
-- **T06 — Router 8 — COMPLETE**
-- **T07 — Vite 8 — COMPLETE**
-- **T08 — GSAP — COMPLETE**
-- **T09 — Three.js — COMPLETE**
-- **T10 — Lint ecosystem — COMPLETE**
-- **T11 — Release acceptance — COMPLETE**
+Modernize the supported runtime, build tooling, framework, animation/rendering libraries, and lint ecosystem without redesigning the portfolio or changing authored behavior.
 
-Checkpoint principles:
+### Status
 
-- Use current official migration and release documentation. Audit first; do not blindly update every package at once or select target versions before the dependency audit.
-- Preserve existing authored presentation and behavior, handle major-version migrations deliberately, and validate between meaningful upgrade groups.
-- Keep unrelated feature work separate from this milestone.
-- Re-run the lint baseline after modernization before deciding how to resolve the currently remaining 37 findings.
-- Reconsider the `react/prop-types` policy after React modernization rather than adding PropTypes merely to satisfy the current rule.
-- Preserve the Three.js lifecycle warning for architectural review rather than mechanically changing the effect's dependencies.
+Implementation and automated verification are complete. Final manual release acceptance is the only remaining release step.
 
-T01 (runtime baseline) was manually accepted by David on September 21, 2026. Node **24.21.0** and npm **11.19.0** were tested successfully with the existing v3.2.2 application and dependency stack. The production build passed, and lint retained the accepted baseline of 32 `react/prop-types` errors, one `react-hooks/exhaustive-deps` warning, and four `react-refresh/only-export-components` warnings (37 findings total).
+| Task | Scope | Status |
+| --- | --- | --- |
+| T01 | Runtime baseline | COMPLETE |
+| T02 | CSS tooling + Browserslist maintenance | COMPLETE |
+| T03 | Vite 7 checkpoint | COMPLETE |
+| T04 | React 19 | COMPLETE |
+| T05 | Router 7 preparation | COMPLETE |
+| T06 | Router 8 | COMPLETE |
+| T07 | Vite 8 | COMPLETE |
+| T08 | GSAP | COMPLETE |
+| T09 | Three.js | COMPLETE |
+| T10 | Lint ecosystem | COMPLETE |
+| **T11** | **Release acceptance** | **MANUAL REVIEW PENDING** |
 
-T02 (CSS tooling + Browserslist maintenance) was accepted by David. Sass, PostCSS, Autoprefixer, and browser data were updated while preserving the Browserslist policy. Clean installation and the production build passed; production output remained byte-for-byte identical, the outdated browser-data warning was resolved, and lint retained the accepted 37-finding baseline. No application source or styling changes were required.
+T11 automated verification is complete: dependency-tree validation, production build, lint baseline, metadata updates, and whitespace checks passed. The application version is **3.3.0**. The remaining step is a focused manual smoke test of the accepted application behavior; it is not another code audit or implementation pass.
 
-T03–T10 completed the staged upgrades to Vite **8.3.0**, plugin-react **6.1.1**, React/React DOM and their types **19.3.0**, React Router **8.4.0**, GSAP **3.15.0**, Three.js **0.186.0**, ESLint/@eslint/js **9.39.5**, React lint plugin **7.37.5**, Hooks **7.1.1**, Refresh **0.5.7**, and globals **17.12.0**. Router imports now use `react-router`; Declarative routing and the existing Vercel SPA rewrite remain. Explicit production targets (`chrome87`, `edge88`, `firefox78`, `safari14`) and Browserslist policy were preserved. The Hooks configuration retains only the previous rules and severities; compiler rules and lint-policy changes were not adopted. David confirmed manual visual acceptance of the Three.js 0.184.0 checkpoint before the final upgrade.
+### T11 manual acceptance scope
 
-T11 verified the dependency tree, production build, lint baseline, and whitespace checks before raising the canonical application version from **3.2.2** to **3.3.0**. No unexpected dependency drift or invalid/missing required peers was found. Build and diff checks passed again after metadata updates; lint remains 32 prop-validation errors, one Hooks dependency warning, and four Fast Refresh warnings. The existing bundle-size warning remains. No application behavior changed during release acceptance; final manual review is pending.
+Check only the primary user-facing paths affected by the modernized runtime and dependencies:
 
-## 1. GSAP and Three.js lifecycle cleanup — Complete
+- Home loads and the Three.js scene and controls behave normally.
+- Primary navigation and route transitions work.
+- Projects loads correctly, including its preloader/readiness behavior.
+- One project-detail route opens, reveals content, and opens/closes an image modal correctly.
+- Expertise, About, and Contact render and remain usable at desktop and mobile widths.
+- Reduced-motion behavior still settles into its intended presentation.
+- No new obvious browser-console runtime errors appear during the smoke test.
 
-Completed on August 17, 2026. Component timelines, tweens, ScrollTriggers, render resources, listeners, observers, animation frames, and timers now have narrowly scoped ownership and cleanup. Three.js performance profiling and possible techniques such as instancing remain separate future work under item 9.
+If those checks pass, close v3.3.0. Do not perform another dependency audit, lint cleanup, or architecture review as part of release acceptance unless the smoke test exposes a concrete regression.
 
-## 2. Accessibility and reduced-motion coverage — Complete
+## Completed foundation work
 
-Completed on September 9, 2026. The shared shell now provides a skip link, named navigation, current-page state, accessible disclosure controls, mobile-menu Escape handling, and design-aligned focus treatment. The image modal follows the modal dialog focus pattern and isolates background content. A shared preference hook extends reduced-motion handling across component-owned GSAP, CSS effects, scroll reveals, SVG examples, and a static-but-complete Three.js presentation.
+### v3.2.0 — Accessibility, reduced motion, and lifecycle cleanup — Complete
 
-Manual runtime and visual acceptance passed for normal and reduced-motion navigation, keyboard operation, project-card and logo interactions, the homepage Three.js scene and controls, and project-image modal focus, close, scroll-lock, and focus-return behavior. Dedicated screen-reader testing and a formal WCAG 2.2 conformance assessment were not performed.
+Completed the GSAP/Three.js lifecycle cleanup and application-wide accessibility/reduced-motion work. Component-owned animations and Three.js resources have explicit cleanup paths. Navigation, modal behavior, focus treatment, reduced-motion handling, project interactions, and the homepage scene received focused manual acceptance.
 
-## 3. Lint baseline cleanup — In Progress
+Dedicated screen-reader testing and a formal WCAG 2.2 conformance assessment were not performed and are not currently scheduled as release blockers.
 
-Reduce the existing ESLint findings in focused, behavior-preserving passes. Keep baseline cleanup separate from feature work so new regressions remain visible.
+### v3.2.1 — Mechanical lint cleanup — Complete for current scope
 
-The v3.2.1 low-risk/mechanical pass is complete with lint reduced from 87 findings to 37 and a passing production build. David confirmed focused manual acceptance for the homepage, navigation, footer, About/Contact/Expertise and contact-form text, project-page loading and scroll reveals, unchanged layout/spacing, and no new browser console errors. This was not exhaustive regression testing. The remaining 32 prop-validation errors require a project-policy decision; four Fast Refresh warnings and one Three.js hook dependency warning require separate reviews.
+Reduced ESLint from 87 findings to 37 through low-risk, behavior-preserving cleanup. Production build and focused manual acceptance passed.
 
-## 4. Presentation and motion architecture
+The remaining findings are **accepted technical debt**, not an active cleanup task:
 
-Define reusable timing, easing, stagger, entrance, interaction, and page-transition conventions. Explore an explicit presentation controller that coordinates the boot, interface, Three.js, and content phases without forcing every effect into one rigid timeline.
+- 32 `react/prop-types` errors remain pending a future project-policy decision. PropTypes will not be added merely to make the current counter reach zero.
+- Four `react-refresh/only-export-components` warnings remain pending a concrete module-organization need.
+- One Three.js `react-hooks/exhaustive-deps` warning remains intentionally preserved because changing the dependency list mechanically could alter scene lifecycle behavior.
 
-## 5. Element-level loading and readiness
+T10 of v3.3.0 modernized the lint ecosystem while deliberately preserving these existing rules, severities, and findings. Do not restart lint-baseline cleanup unless a future task explicitly changes the lint policy or a new regression appears.
 
-Extend the current boot and route readiness model only where a specific presentation needs it. Introduce section- or element-level states and deliberately designed placeholders without globally preloading the entire portfolio.
+### v3.2.2 — Accessibility visual refinement — Complete
 
-## 6. Case-study visuals and interactions
+Refined inactive navigation, form borders, and Expertise/tag-grid presentation without changing the accepted accessibility behavior.
 
-Improve project imagery, hierarchy, storytelling, modal behavior, and site-specific interactions while keeping case-study information obvious, responsive, and accessible.
+## Proposed next release
 
-## 7. Persistent Three.js page and world states
+### v3.4.0 — Job-search portfolio refinement — Proposed, not started
 
-Explore retaining one environmental layer across navigation. Routes could alter camera position, lighting, cube behavior, or scene state while sharing the same underlying world.
+This release should be approved and its scope frozen before implementation. Its purpose is job-facing portfolio improvement, not another technical modernization pass.
 
-## 8. Direct Three.js interaction
+Proposed maximum scope:
 
-Investigate purposeful pointer and keyboard interaction with the scene. Interaction should reinforce navigation or portfolio meaning rather than add an unrelated visual toy.
+- **T01 — Home and positioning:** tighten homepage messaging and surface selected project work more directly.
+- **T02 — Information architecture:** simplify overlapping Expertise/About/Contact content and navigation based on the previously identified portfolio-content issues.
+- **T03 — Final job-search presentation pass:** review the resulting primary pages and featured case studies for concise copy, responsive presentation, and obvious hiring/contact paths; fix only concrete issues found in that review.
 
-## 9. Performance profiling and justified optimization
+If approved, those three tasks are the release. New unrelated technical cleanup, dependency work, experimental Three.js features, or broad audits move to a later release rather than expanding v3.4.0.
 
-Measure startup, route presentation, rendering cost, asset loading, bundle composition, and weaker-device behavior. Optimize the proven bottlenecks and retain the authored experience where its cost is acceptable.
+## Backlog — not current work
 
-## 10. Analytics and real-user measurement
+The following are future directions. They are **not prerequisites for closing v3.3.0 or beginning job applications**.
 
-Add privacy-conscious usage and real-user performance measurement when goals and hosting constraints are defined. Use the evidence to evaluate navigation clarity, case-study engagement, load behavior, and rendering performance.
+### Presentation and motion architecture
+
+Define reusable timing, easing, stagger, entrance, interaction, and page-transition conventions only when a concrete presentation need justifies the work.
+
+### Element-level loading and readiness
+
+Extend the existing readiness system for specific authored moments where deferred assets create a real presentation problem. Do not globally preload the portfolio.
+
+### Case-study visuals and interactions
+
+Improve individual case studies when their content or presentation needs it rather than treating every project as one large redesign task.
+
+### Persistent Three.js page and world states
+
+Explore retaining one environmental layer across navigation, with routes altering camera, lighting, cube behavior, or scene state while sharing the same world.
+
+### Direct Three.js interaction
+
+Investigate purposeful pointer and keyboard interaction that supports the portfolio experience rather than adding an unrelated visual toy.
+
+### Performance profiling and justified optimization
+
+Profile startup, route presentation, rendering cost, assets, bundle composition, and weaker-device behavior when there is a concrete performance concern or before a performance-focused release.
+
+### Analytics and real-user measurement
+
+Add privacy-conscious usage and real-user performance measurement when goals and hosting constraints are defined.
 
 Related intent is documented in [docs/EXPERIENCE.md](docs/EXPERIENCE.md) and [docs/MOTION.md](docs/MOTION.md).

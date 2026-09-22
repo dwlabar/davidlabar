@@ -12,7 +12,7 @@ Meaningful project milestones are recorded here from repository history.
 - Upgraded GSAP to 3.15.0 and Three.js to 0.186.0 without scene or animation source migrations. David confirmed visual acceptance of the intermediate Three.js 0.184.0 checkpoint.
 - Updated ESLint/@eslint/js to 9.39.5, React lint plugin to 7.37.5, Hooks to 7.1.1, Refresh to 0.5.7, and globals to 17.12.0. Kept the previous Hooks rules/severities and Refresh allowConstantExport configuration; compiler rules and lint-policy changes remain out of scope.
 - Release verification found no invalid or missing required peers or unexpected version drift. Production build and diff checks passed before and after release metadata changes; lint retained 32 errors and 5 warnings. The existing bundle-size warning remains.
-- Marked v3.3.0 and T11 complete for implementation and automated verification. Final manual release review remains pending; changes are prepared for review, not published.
+- Completed v3.3.0 implementation and T11 automated verification. Final manual release acceptance remains pending; changes are prepared for review, not published.
 
 ## 3.2.2 — 2026-09-14
 

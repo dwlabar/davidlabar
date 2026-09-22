@@ -14,6 +14,9 @@ DavidLaBar.com is a React + Vite + SCSS portfolio. Follow these rules when worki
 - Treat `package.json` as the canonical project version. Update an authored source file's `Last updated` comment only when that file is actually modified for the release; do not add these comments to generated files, dependencies, build output, assets, JSON, or lock files.
 - Run validation appropriate to the change, including relevant lint/build commands and `git diff --check`.
 - Report the existing lint baseline separately from any regressions introduced by the current work.
+- Treat `ROADMAP.md` as the source of truth for the active release and current task. Do not silently expand a release beyond its documented task list.
+- Do not reopen completed audits, dependency work, or lint cleanup without a concrete new defect, regression, requirement, or material underlying change.
+- Keep narrow tasks narrow: inspect and validate the files and systems relevant to the requested change rather than repeating broad repository audits by default.
 - Leave changes uncommitted unless the user explicitly instructs otherwise.
 
 Architecture and experience decisions live in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [docs/EXPERIENCE.md](docs/EXPERIENCE.md), and [docs/MOTION.md](docs/MOTION.md).
