@@ -124,13 +124,18 @@ const ThreeSceneManager = () => {
     scene.add(backLight);
 
     // ======= PARTICLE SYSTEM =======
-    const trailCount = 20;
+    const trailCount = 40;
     const trails = [];
     const depth = gridSpanZ;
     const baseMargin = 1;
+    const trailResetZ = camera.position.z + 10;
+    const trailTravelDistance = trailResetZ + depth;
 
     for (let i = 0; i < trailCount; i++) {
       const geom = new THREE.PlaneGeometry(0.1, 1);
+      // Anchor the trail geometry at its leading edge so Y scaling stretches
+      // backward into the scene while the mesh continues moving toward camera.
+      geom.translate(0, -0.5, 0);
       const mat = new THREE.MeshBasicMaterial({
         color: 0x0286eb,
         transparent: true,
@@ -141,15 +146,22 @@ const ThreeSceneManager = () => {
       });
       const trail = new THREE.Mesh(geom, mat);
       trail.rotation.x = Math.PI / 2;
-      resetTrail(trail, true);
+      resetTrail(trail, i);
       scene.add(trail);
       trails.push(trail);
     }
 
-    function resetTrail(trail, init = false) {
+    function resetTrail(trail, initialIndex = null, overshoot = 0) {
       trail.position.x = (Math.random() - 0.5) * (gridSpanZ / 2);
       trail.position.y = cubeScaleRef.current.y + baseMargin + 5 + Math.random() * 30;
-      trail.position.z = init ? -Math.random() * depth : -depth;
+
+      if (initialIndex !== null) {
+        const spacing = trailTravelDistance / trailCount;
+        trail.position.z = -depth + initialIndex * spacing;
+        return;
+      }
+
+      trail.position.z = -depth + overshoot;
     }
 
     // ======= CUBE GRID GENERATION =======
@@ -269,8 +281,9 @@ const ThreeSceneManager = () => {
         const fade = calculateOpacity(trail.position);
         trail.material.opacity = fade * 0.8;
 
-        if (trail.position.z > camera.position.z + 10) {
-          resetTrail(trail);
+        if (trail.position.z > trailResetZ) {
+          const overshoot = trail.position.z - trailResetZ;
+          resetTrail(trail, null, overshoot);
         }
       });
 
