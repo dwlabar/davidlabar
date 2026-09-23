@@ -241,7 +241,7 @@ const ThreeSceneManager = () => {
         })
         .to(cube.material, {
           emissiveIntensity: 0,
-          duration: 1.1,
+          duration: 4.0,
           ease: 'power2.out'
         });
 
