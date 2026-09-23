@@ -124,7 +124,7 @@ const ThreeSceneManager = () => {
     scene.add(backLight);
 
     // ======= PARTICLE SYSTEM =======
-    const trailCount = 40;
+    const trailCount = 15;
     const trails = [];
     const depth = gridSpanZ;
     const baseMargin = 1;
@@ -179,7 +179,9 @@ const ThreeSceneManager = () => {
           transparent: true,
           opacity: 0,
           specular: 0xffffff,
-          shininess: 100
+          shininess: 100,
+          emissive: 0x0286eb,
+          emissiveIntensity: 0
         });
 
         const cube = new THREE.Mesh(geometry, material);
@@ -209,8 +211,8 @@ const ThreeSceneManager = () => {
         });
         const edgeLines = new THREE.LineSegments(
           new THREE.EdgesGeometry(geometry),
-          edgeMat 
-        );   
+          edgeMat
+        );
         edgeLines.scale.setScalar(1.01);   // moves lines 1 % off the faces
         edgeLines.renderOrder = 1;         // ensures they render after cubes
         edgeMat.depthWrite = false;        // avoids z-buffer updates                                                          // NEW
@@ -219,6 +221,67 @@ const ThreeSceneManager = () => {
       }
     }
     cubesRef.current = cubes;
+
+    // ======= CUBE POINTER INTERACTION =======
+    // Listen at the window level because the Three.js canvas sits behind the UI.
+    // Raycasting still uses the scene bounds, so normal page controls keep working.
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+    let lastHoveredCube = null;
+
+    const triggerCubeGlow = (cube) => {
+      cube.userData.glowTimeline?.kill();
+
+      const glowTimeline = gsap.timeline();
+      glowTimeline
+        .to(cube.material, {
+          emissiveIntensity: 2.5,
+          duration: 0.08,
+          ease: 'power2.out'
+        })
+        .to(cube.material, {
+          emissiveIntensity: 0,
+          duration: 1.1,
+          ease: 'power2.out'
+        });
+
+      cube.userData.glowTimeline = glowTimeline;
+    };
+
+    const handlePointerMove = (event) => {
+      if (prefersReducedMotion || event.pointerType === 'touch') return;
+
+      const bounds = mount.getBoundingClientRect();
+      const isInsideScene =
+        event.clientX >= bounds.left &&
+        event.clientX <= bounds.right &&
+        event.clientY >= bounds.top &&
+        event.clientY <= bounds.bottom;
+
+      if (!isInsideScene) {
+        lastHoveredCube = null;
+        return;
+      }
+
+      pointer.x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
+      pointer.y = -((event.clientY - bounds.top) / bounds.height) * 2 + 1;
+
+      scene.updateMatrixWorld(true);
+      raycaster.setFromCamera(pointer, camera);
+
+      const intersections = raycaster.intersectObjects(cubesRef.current, false);
+      const hoveredCube = intersections[0]?.object || null;
+
+      if (hoveredCube && hoveredCube !== lastHoveredCube) {
+        triggerCubeGlow(hoveredCube);
+      }
+
+      lastHoveredCube = hoveredCube;
+    };
+
+    if (!prefersReducedMotion) {
+      window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    }
 
     // ======= ANIMATION LOOP =======
     const calculateOpacity = (objPos) => {
@@ -307,11 +370,14 @@ const ThreeSceneManager = () => {
           cube.userData.edge.material.opacity =
             cube.material.opacity * outlineToggleRef.current.value;
         }
-        
+
 
         if (cube.position.z > startZ) {
           cube.material.opacity = 0;
+          cube.material.emissiveIntensity = 0;
           cube.material.needsUpdate = true;
+          cube.userData.glowTimeline?.kill();
+          cube.userData.glowTimeline = null;
 
           if (cube.userData.edge) {
             cube.userData.edge.material.opacity = 0;
@@ -362,6 +428,8 @@ const ThreeSceneManager = () => {
     // ======= CLEANUP =======
     return () => {
       if (animationId !== undefined) cancelAnimationFrame(animationId);
+      window.removeEventListener('pointermove', handlePointerMove);
+      cubesRef.current.forEach((cube) => cube.userData.glowTimeline?.kill());
       resizeObserver.disconnect();
       clearTimeout(resizeTimeout);
       if (renderSceneRef.current === renderScene) renderSceneRef.current = null;
