@@ -9,6 +9,7 @@ import { OverlayProvider } from "./context/OverlayContext";
 import { PageReadyProvider } from "./context/PageReadyContext";
 import App from "./App";
 import Preloader from "./components/Preloader";
+import { initializeAnalytics } from "./analytics";
 import "./styles/app.scss";
 
 const redirectPath = localStorage.getItem("redirectPath");
@@ -16,6 +17,8 @@ if (redirectPath) {
   localStorage.removeItem("redirectPath");
   window.history.replaceState(null, "", redirectPath);
 }
+
+initializeAnalytics();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

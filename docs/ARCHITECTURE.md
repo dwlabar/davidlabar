@@ -24,6 +24,24 @@ The providers sit outside the router component rendered by `App`, while route-aw
 
 Internal navigation normally uses either `NavBar` or `useOverlayNavigate`. Both ask `OverlayContext` to make the overlay opaque before scrolling to the top and calling React Router navigation. The primary navigation exposes its name, current-page state, and mobile disclosure state. Escape closes the mobile menu and returns focus to its toggle. Selecting the current route closes any open mobile navigation without replaying the route transition.
 
+### Analytics setup and ownership
+
+`src/analytics.js` owns the native Google tag and three focused event helpers. `main.jsx` initializes it once before mounting React; the asynchronous tag lives for the document lifetime. Development and builds without `VITE_GA_MEASUREMENT_ID` do nothing. Google signals and advertising personalization are disabled in the tag configuration.
+
+Set `VITE_GA_MEASUREMENT_ID` in the production build environment, then rebuild/deploy. For local production-preview verification, use an ignored `.env.local` file; never commit it or a real measurement ID. There is no environment example file to maintain. Vite embeds this public identifier at build time; `npm run dev` does not collect analytics even when it is set.
+
+In GA4 Admin → Data streams → the web stream → Enhanced measurement, enable **Page views → Show advanced settings → Page changes based on browser history events**. The normal tag configuration sends the initial page view, and Enhanced Measurement owns subsequent history views; do not add manual route `page_view` events or a second tag installation. Keep automatic outbound-click and file-download measurement; disable Form interactions to avoid submission-attempt noise alongside the confirmed-success event. Leave unused Site search and Video engagement measurement off.
+
+| Event | Trigger | App-supplied parameters |
+| --- | --- | --- |
+| `select_content` | Project-card activation by pointer or keyboard | `content_type: project`, `content_id`: authored project route |
+| `generate_lead` | Formspree confirms contact submission success, once per successful form instance | None |
+| `scene_controls_open` | The cube toggle opens the scene controls | None |
+
+No form values, names, emails, messages, pointer hits, or hover events are sent by these helpers. Standard job-application links can use `utm_source`, `utm_medium`, and `utm_campaign`, for example `https://davidlabar.com/?utm_source=company&utm_medium=application&utm_campaign=frontend_2026`. Use non-personal campaign labels. Analytics leaves URLs intact and relies on GA4 attribution without custom campaign parsing.
+
+Use Tag Assistant with a configured production build and GA4 DebugView for live verification: confirm one initial page view, one per route change/back/forward navigation, the three interactions, and no success event for a failed contact submission. Confirm campaign attribution with a UTM landing URL. Live collection requires access to the configured property and is separate from local build and event-queue checks. See Google's [SPA guidance](https://developers.google.com/analytics/devguides/collection/ga4/single-page-applications) and [recommended event reference](https://developers.google.com/analytics/devguides/collection/ga4/reference/events).
+
 ### Readiness and presentation flow
 
 Three systems cooperate without sharing one global animation timeline:

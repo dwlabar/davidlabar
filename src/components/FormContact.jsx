@@ -1,11 +1,13 @@
-// Last updated: 3.2.1
+// Last updated: 3.3.0
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm, ValidationError } from '@formspree/react';
+import { trackContactSuccess } from '../analytics';
 import "../styles/components/_form.scss";
 
 const ContactForm = () => {
   const [state, handleSubmit] = useForm("xpwdqwan");
+  const successTracked = useRef(false);
 
   // State to track email and message field values
   const [email, setEmail] = useState('');
@@ -31,6 +33,10 @@ const ContactForm = () => {
   // Clear saved data on success
   useEffect(() => {
     if (state.succeeded) {
+      if (!successTracked.current) {
+        successTracked.current = true;
+        trackContactSuccess();
+      }
       localStorage.removeItem('contact_email');
       localStorage.removeItem('contact_message');
       setEmail('');

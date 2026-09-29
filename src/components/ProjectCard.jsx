@@ -1,10 +1,11 @@
 // ProjectCard.jsx
-// Last updated: 3.2.1
+// Last updated: 3.3.0
 
 import { useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
 import useOverlayNavigate from "../hooks/useOverlayNavigate";
 import useReducedMotion from "../hooks/useReducedMotion";
+import { trackProjectSelection } from "../analytics";
 
 const TILE_SIZE = 50; // tile width/height in pixels
 
@@ -33,6 +34,7 @@ const ProjectCard = ({
 
   const handleClick = (e) => {
     e.preventDefault(); // prevent native navigation to avoid preloader
+    trackProjectSelection(path);
     overlayNavigate(path); // use JS navigation
   };
 

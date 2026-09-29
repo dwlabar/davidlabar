@@ -4,9 +4,9 @@ This file is the source of truth for what is active, what is next, and what is i
 
 ## Current position
 
-- **Active next release:** v3.4.0 — Interactive Scene Polish — planned, not started.
-- **Current / next task:** T01 — Analytics. Implementation has not begun.
-- **Application version:** 3.3.0. No v3.4.0 feature has shipped; this plan does not change version metadata.
+- **Active next release:** v3.4.0 — Interactive Scene Polish — in progress.
+- **Current / next task:** T01 — Analytics is COMPLETE; T02 — Three.js entrance is NEXT, not started.
+- **Application version:** 3.3.0. v3.4.0 has not been released; internal tasks do not change version metadata.
 - **Previous release:** v3.3.0 automated verification is complete; its recorded final manual acceptance remains pending. No additional modernization or lint-cleanup task is scheduled.
 - **Outside v3.4.0:** the accepted ESLint baseline and broader work under Backlog, including route-specific/persistent Three.js world states.
 
@@ -24,14 +24,14 @@ This file is the source of truth for what is active, what is next, and what is i
 
 ### Goal and status
 
-Make the homepage cube scene a more intentional, responsive part of the portfolio through focused measurement, authored entrances, direct interaction, and understandable controls. This is the planned next release; all tasks are not started and proceed in the order below. Exact procedural visuals remain prototyping decisions.
+Make the homepage cube scene a more intentional, responsive part of the portfolio through focused measurement, authored entrances, direct interaction, and understandable controls. T01 is complete; remaining tasks are not started and proceed in the order below. Exact procedural visuals remain prototyping decisions.
 
 ### Sequential tasks
 
-- **T01 — Analytics**
-  - Add GA4 measurement appropriate for the React SPA, including route/page views and important portfolio interactions.
-  - Keep measurement intentionally limited, useful, and privacy-conscious.
-- **T02 — Three.js entrance**
+- **T01 — Analytics — COMPLETE**
+  - Added optional native GA4 with automatic initial/history page views and focused project-selection, confirmed contact-success, and scene-controls-open events. Measurement stays limited and excludes form contents; development and missing-ID builds do not collect.
+  - Production build, unchanged accepted lint baseline, local disabled-analytics smoke test, event checks, and whitespace validation passed. GA4 stream setup and live DebugView verification remain deployment steps; see [analytics setup](docs/ARCHITECTURE.md#analytics-setup-and-ownership).
+- **T02 — Three.js entrance — NEXT**
   - Add authored cube-scene choreography after the initial preloader/overlay releases, revealing the structure of the cube field rather than simply fading in the canvas.
   - Preserve an intentional reduced-motion presentation.
 - **T03 — Procedural cube interaction**

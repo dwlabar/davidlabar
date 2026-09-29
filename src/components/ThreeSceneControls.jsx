@@ -1,8 +1,9 @@
-// Last updated: 3.2.0
+// Last updated: 3.3.0
 
 import { useThreeSceneContext } from '../context/ThreeSceneContext';
 import { useEffect, useRef } from 'react';
 import CubeIcon from './CubeIcon';
+import { trackSceneControlsOpen } from '../analytics';
 import '../styles/components/_three-scene.scss';
 
 const ThreeSceneControls = ({ showControls, setShowControls }) => {
@@ -34,6 +35,7 @@ const ThreeSceneControls = ({ showControls, setShowControls }) => {
         type="button"
         className={`scene-controls-toggle${showControls ? ' active' : ''}`}
         onClick={() => {
+          if (!showControls) trackSceneControlsOpen();
           setShowControls(!showControls);
         }}
         aria-label={showControls ? "Hide scene controls" : "Show scene controls"}
