@@ -5,6 +5,7 @@ DavidLaBar.com should feel like an authored application or digital space, not a 
 ## Core Principles
 
 - Presentation is functional evidence of the work, not decoration applied after the fact.
+- The Three.js scene should function as an interactive part of the portfolio, beyond an animated backdrop. Direct manipulation may be playful and visually satisfying, but must remain understandable and must not interfere with navigation, portfolio content, accessibility, or core tasks.
 - The site may wait for assets required for a specific authored moment instead of revealing visually incomplete content.
 - Loading determines when presentation **may** advance. The presentation system determines when it **visually** advances.
 - Animations should reach intentional visual boundaries. They should not visibly pause, skip, cut off, or strand the interface in an awkward intermediate state.

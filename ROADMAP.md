@@ -4,11 +4,11 @@ This file is the source of truth for what is active, what is next, and what is i
 
 ## Current position
 
-- **Active release:** v3.3.0 — Platform and dependency modernization
-- **Current task:** T11 — Final manual release acceptance
-- **Next task:** Close v3.3.0 after manual acceptance. No additional modernization or lint-cleanup task is scheduled.
-- **After v3.3.0:** v3.4.0 — Job-search portfolio refinement, if approved before work begins.
-- **Not blocking release:** the accepted ESLint baseline, future Three.js concepts, presentation experiments, analytics, and performance work listed under Backlog.
+- **Active next release:** v3.4.0 — Interactive Scene Polish — planned, not started.
+- **Current / next task:** T01 — Analytics. Implementation has not begun.
+- **Application version:** 3.3.0. No v3.4.0 feature has shipped; this plan does not change version metadata.
+- **Previous release:** v3.3.0 automated verification is complete; its recorded final manual acceptance remains pending. No additional modernization or lint-cleanup task is scheduled.
+- **Outside v3.4.0:** the accepted ESLint baseline and broader work under Backlog, including route-specific/persistent Three.js world states.
 
 ## Planning rules
 
@@ -19,6 +19,41 @@ This file is the source of truth for what is active, what is next, and what is i
 - Treat audits as decision inputs, not recurring work by default. Re-audit only when the underlying code, dependency, requirement, or evidence has materially changed.
 - Keep narrow maintenance tasks narrow. Do not repeat full dependency, package, or repository audits when the task only concerns a known file or issue.
 - Separate accepted technical debt from active work. An accepted warning or policy decision is not an "in progress" task.
+
+## v3.4.0 — Interactive Scene Polish
+
+### Goal and status
+
+Make the homepage cube scene a more intentional, responsive part of the portfolio through focused measurement, authored entrances, direct interaction, and understandable controls. This is the planned next release; all tasks are not started and proceed in the order below. Exact procedural visuals remain prototyping decisions.
+
+### Sequential tasks
+
+- **T01 — Analytics**
+  - Add GA4 measurement appropriate for the React SPA, including route/page views and important portfolio interactions.
+  - Keep measurement intentionally limited, useful, and privacy-conscious.
+- **T02 — Three.js entrance**
+  - Add authored cube-scene choreography after the initial preloader/overlay releases, revealing the structure of the cube field rather than simply fading in the canvas.
+  - Preserve an intentional reduced-motion presentation.
+- **T03 — Procedural cube interaction**
+  - Refine or replace the current pointer interaction so it feels smooth, satisfying, and visually distinct without becoming a large blue blob.
+  - Investigate GPU-driven procedural effects on existing cube surfaces rather than decorative geometry or animated image/video textures. Use the pointer hit location as the primary origin for a localized surface disturbance that expands outward and settles.
+  - Prototype the visual treatment: ripples, apertures, scanning, digital/dissolve patterns, or related effects are possibilities, not a final shader specification.
+  - Preserve individual cube readability and evaluate performance before extending effects to many neighboring cubes.
+- **T04 — Scene-control presentation**
+  - Improve the existing cube-control UI while retaining its activation cube. Animate panel open/close and control entrance/exit so controls do not simply appear.
+  - Improve hierarchy and interaction feedback while preserving accessibility and reduced-motion behavior.
+- **T05 — Scene modes / Randomize**
+  - Audit dormant scene settings/presets before creating new systems; expose only effects and settings that are visually worthwhile.
+  - Add constrained Randomize and a clear way to restore the default state. Keep the interface playful and understandable rather than presenting a developer/debug panel.
+- **T06 — Drive camera**
+  - Prototype a Wipeout-style responsive camera mode using damped position, yaw/roll, height/pitch, and possibly subtle FOV response to simulate steering and road movement.
+  - Do not bend or restructure the endless cube grid to create steering. Preserve existing cube travel/wrapping so old reset-boundary problems are not reintroduced.
+  - Keep DRIVE optional unless testing shows it belongs in the default presentation.
+- **T07 — Performance and release acceptance**
+  - Profile the completed scene interactions and rendering; check desktop, mobile, weaker-device, and reduced-motion behavior.
+  - Run the production build, accepted lint baseline checks, whitespace checks, and focused manual visual/interaction acceptance.
+
+Route-specific and persistent Three.js world states remain deferred. Broader backlog items do not expand this release without an explicit scope change.
 
 ## v3.3.0 — Platform and dependency modernization
 
@@ -84,23 +119,17 @@ T10 of v3.3.0 modernized the lint ecosystem while deliberately preserving these 
 
 Refined inactive navigation, form borders, and Expertise/tag-grid presentation without changing the accepted accessibility behavior.
 
-## Proposed next release
-
-### v3.4.0 — Job-search portfolio refinement — Proposed, not started
-
-This release should be approved and its scope frozen before implementation. Its purpose is job-facing portfolio improvement, not another technical modernization pass.
-
-Proposed maximum scope:
-
-- **T01 — Home and positioning:** tighten homepage messaging and surface selected project work more directly.
-- **T02 — Information architecture:** simplify overlapping Expertise/About/Contact content and navigation based on the previously identified portfolio-content issues.
-- **T03 — Final job-search presentation pass:** review the resulting primary pages and featured case studies for concise copy, responsive presentation, and obvious hiring/contact paths; fix only concrete issues found in that review.
-
-If approved, those three tasks are the release. New unrelated technical cleanup, dependency work, experimental Three.js features, or broad audits move to a later release rather than expanding v3.4.0.
-
 ## Backlog — not current work
 
-The following are future directions. They are **not prerequisites for closing v3.3.0 or beginning job applications**.
+The following are deferred future directions, outside v3.4.0. They are **not prerequisites for closing v3.3.0 or beginning job applications**.
+
+### Job-search portfolio refinement
+
+Retain these proposed improvements for a separately scoped future release:
+
+- **Home and positioning:** tighten homepage messaging and surface selected project work more directly.
+- **Information architecture:** simplify overlapping Expertise/About/Contact content and navigation based on the previously identified portfolio-content issues.
+- **Final job-search presentation pass:** review the primary pages and featured case studies for concise copy, responsive presentation, and obvious hiring/contact paths; fix only concrete issues found in that review.
 
 ### Presentation and motion architecture
 
@@ -120,7 +149,7 @@ Explore retaining one environmental layer across navigation, with routes alterin
 
 ### Direct Three.js interaction
 
-Investigate purposeful pointer and keyboard interaction that supports the portfolio experience rather than adding an unrelated visual toy.
+The focused cube-scene work is now scoped in v3.4.0. Further pointer and keyboard interaction should support concrete portfolio needs before becoming another task.
 
 ### Performance profiling and justified optimization
 
@@ -128,6 +157,6 @@ Profile startup, route presentation, rendering cost, assets, bundle composition,
 
 ### Analytics and real-user measurement
 
-Add privacy-conscious usage and real-user performance measurement when goals and hosting constraints are defined.
+Limited usage analytics is scoped in v3.4.0 T01. Broader real-user performance measurement remains deferred until goals and hosting constraints are defined.
 
 Related intent is documented in [docs/EXPERIENCE.md](docs/EXPERIENCE.md) and [docs/MOTION.md](docs/MOTION.md).

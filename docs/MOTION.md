@@ -16,6 +16,8 @@ Current animations should finish at intentional visual boundaries. Avoid arbitra
 
 ## Future Direction
 
+Direct Three.js manipulation may use localized procedural surface responses driven by interaction position; the exact visual treatment remains a prototyping decision. Broader scene responses may use damped camera motion. Both should settle naturally and provide satisfying feedback rather than abrupt state changes, with intentional reduced-motion alternatives.
+
 Complex choreography should move toward explicit GSAP timelines or presentation controllers rather than being inferred from several independent CSS animations. A future boot approach may be:
 
 1. Render immediate inline HTML, SVG, and CSS for first paint.
