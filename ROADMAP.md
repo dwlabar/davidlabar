@@ -128,6 +128,7 @@ The following are deferred future directions, outside v3.4.0. They are **not pre
 Retain these proposed improvements for a separately scoped future release:
 
 - **Home and positioning:** tighten homepage messaging and surface selected project work more directly.
+- **Branding and document titles:** remove "David LaBar Studios" in favor of David LaBar + current role positioning, and add route-specific document titles for clearer analytics, SEO, browser tabs, and accessibility.
 - **Information architecture:** simplify overlapping Expertise/About/Contact content and navigation based on the previously identified portfolio-content issues.
 - **Final job-search presentation pass:** review the primary pages and featured case studies for concise copy, responsive presentation, and obvious hiring/contact paths; fix only concrete issues found in that review.
 
