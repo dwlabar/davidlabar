@@ -12,12 +12,12 @@ const IMPACT_RIPPLE = {
   originX: 0,
   originZ: -20,
   // Gravity-equivalent fall; velocity / spring frequency sets penetration strength.
-  dropHeight: 6,
-  dropDuration: 0.5,
+  dropHeight: 10,
+  dropDuration: 0.58,
   dropFadeDuration: 0.15,
-  reboundFrequency: 10, // Gives about 1.5 world units of penetration at this drop velocity.
-  reboundDamping: 3.2,
-  reboundDuration: 1.4,
+  reboundFrequency: 5.0, // Gives about 1.5 world units of penetration at this drop velocity.
+  reboundDamping: 2.0,
+  reboundDuration: 1.8,
   // Cell-relative amplitude stays independent of the user's cube-height setting.
   waveSpeed: 80,
   waveAmplitudeCells: 0.7,
