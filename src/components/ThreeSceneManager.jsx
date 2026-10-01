@@ -14,6 +14,7 @@ const IMPACT_RIPPLE = {
   // Gravity-equivalent fall; velocity / spring frequency sets penetration strength.
   dropHeight: 6,
   dropDuration: 0.5,
+  dropFadeDuration: 0.15,
   reboundFrequency: 10, // Gives about 1.5 world units of penetration at this drop velocity.
   reboundDamping: 3.2,
   reboundDuration: 1.4,
@@ -210,7 +211,9 @@ const ThreeSceneManager = () => {
     const entranceState = {
       elapsed: 0,
       startedAt: 0,
-      settleAt: 0
+      settleAt: 0,
+      flightDistance: 0,
+      flightTravel: 0
     };
     let entranceStarted = !shouldAnimateEntrance;
     let entranceComplete = !shouldAnimateEntrance;
@@ -278,18 +281,34 @@ const ThreeSceneManager = () => {
     // ======= AUTHORED CUBE-SCENE ENTRANCE =======
     // Pick one existing cube in the camera's central foreground, where the
     // normal distance fade still leaves the impact clearly visible.
-    const findImpactCube = () => cubes.reduce((nearest, cube) => {
+    const projectedLandingZ = (cube, travel) => startZ - THREE.MathUtils.euclideanModulo(
+      startZ - cube.position.z - travel,
+      gridSpanZ
+    );
+    const findImpactCube = (travel = 0) => cubes.reduce((nearest, cube) => {
       const distance = Math.hypot(
         cube.position.x - IMPACT_RIPPLE.originX,
-        cube.position.z - IMPACT_RIPPLE.originZ
+        projectedLandingZ(cube, travel) - IMPACT_RIPPLE.originZ
       );
       const nearestDistance = Math.hypot(
         nearest.position.x - IMPACT_RIPPLE.originX,
-        nearest.position.z - IMPACT_RIPPLE.originZ
+        projectedLandingZ(nearest, travel) - IMPACT_RIPPLE.originZ
       );
       return distance < nearestDistance ? cube : nearest;
     }, cubes[0]);
     let impactCube = findImpactCube();
+    let airborneCube = null;
+    let previousFrameTime = performance.now();
+    let frameSeconds = 1 / 60;
+    const removeAirborneCube = () => {
+      if (!airborneCube) return;
+      scene.remove(airborneCube);
+      airborneCube.material.dispose();
+      airborneCube.children.forEach((edge) => edge.material.dispose());
+      // Geometry is borrowed from the real grid cube and remains grid-owned.
+      airborneCube = null;
+      impactCube.visible = true;
+    };
     const wavelength = cellSize * IMPACT_RIPPLE.waveWavelengthCells;
     const waveLength = wavelength * IMPACT_RIPPLE.waveCycles;
     const waveDuration = waveLength / IMPACT_RIPPLE.waveSpeed;
@@ -308,7 +327,7 @@ const ThreeSceneManager = () => {
     const getEntranceReveal = (cube) => {
       if (!shouldAnimateEntrance || entranceComplete) return 1;
       if (!entranceStarted) return 0;
-      if (cube === impactCube) return 1;
+      if (cube === impactCube) return airborneCube ? 0 : 1;
 
       // Visibility follows the same wave arrival as displacement, then remains 1.
       return THREE.MathUtils.smoothstep(
@@ -360,12 +379,20 @@ const ThreeSceneManager = () => {
     };
 
     const applyCubeEntranceTransform = (cube) => {
-      cube.position.y = cube.userData.baseY + getEntranceOffset(cube);
+      // The target keeps traveling at its normal resting Y while its airborne
+      // representation owns the fall. Only one of them is ever visible.
+      cube.position.y = cube.userData.baseY +
+        (cube === impactCube && airborneCube ? 0 : getEntranceOffset(cube));
       cube.scale.set(
         cubeScaleRef.current.x,
         cubeScaleRef.current.y,
         cubeScaleRef.current.z
       );
+      // Unrevealed/fading cells must not fully occlude the impact or its outline.
+      cube.material.depthWrite = getEntranceReveal(cube) === 1;
+      // During the reveal, sort each outline with its cube so nearer fading
+      // faces blend over it instead of cutting it out of a final outline pass.
+      cube.userData.edge.renderOrder = entranceComplete ? 1 : 0;
     };
 
     const startSceneEntrance = () => {
@@ -373,8 +400,28 @@ const ThreeSceneManager = () => {
 
       entranceStarted = true;
       entranceState.startedAt = performance.now();
-      // Travel already ran behind the preloader: choose the focal cube now.
-      impactCube = findImpactCube();
+      // Predict the cell arriving near the focal point in one fall duration,
+      // using the existing per-frame speed and cadence measured behind the preloader.
+      entranceState.flightDistance = speedTarget.current.value * IMPACT_RIPPLE.dropDuration / frameSeconds;
+      impactCube = findImpactCube(entranceState.flightDistance);
+      airborneCube = new THREE.Mesh(impactCube.geometry, impactCube.material.clone());
+      airborneCube.position.set(
+        impactCube.position.x,
+        impactCube.userData.baseY + IMPACT_RIPPLE.dropHeight,
+        projectedLandingZ(impactCube, entranceState.flightDistance)
+      );
+      airborneCube.scale.copy(impactCube.scale);
+      airborneCube.material.opacity = 0;
+      airborneCube.material.depthWrite = true;
+      const gridEdge = impactCube.userData.edge;
+      const airborneEdge = new THREE.LineSegments(gridEdge.geometry, gridEdge.material.clone());
+      airborneEdge.scale.copy(gridEdge.scale);
+      airborneEdge.renderOrder = gridEdge.renderOrder;
+      airborneEdge.material.opacity = 0;
+      airborneCube.add(airborneEdge);
+      scene.add(airborneCube);
+      // Suppress the hidden target's depth writes as well as its color.
+      impactCube.visible = false;
 
       // Capture surface-local distances once, independent of subsequent travel.
       // Z repeats over the production grid span: the shortest periodic delta
@@ -514,12 +561,35 @@ const ThreeSceneManager = () => {
     const animate = () => {
       animationId = requestAnimationFrame(animate);
 
+      const frameTime = performance.now();
+      const frameDelta = (frameTime - previousFrameTime) / 1000;
+      if (frameDelta > 0 && frameDelta < 0.1) {
+        frameSeconds += (frameDelta - frameSeconds) * 0.2;
+      }
+      previousFrameTime = frameTime;
+      speedRef.current = speedTarget.current.value;
+
       if (entranceStarted && !entranceComplete) {
-        entranceState.elapsed = (performance.now() - entranceState.startedAt) / 1000;
+        if (airborneCube) {
+          // Synchronize the fall with actual grid travel, not a guessed frame count.
+          // This also handles cadence/speed changes without moving the landing point.
+          entranceState.flightTravel += speedRef.current;
+          entranceState.elapsed = IMPACT_RIPPLE.dropDuration *
+            Math.min(entranceState.flightTravel / entranceState.flightDistance, 1);
+          if (entranceState.flightTravel >= entranceState.flightDistance) {
+            // The cell crosses the anchor within this frame. Any remaining Z
+            // travel belongs to normal post-impact motion, never a position correction.
+            const afterImpact = frameDelta *
+              (entranceState.flightTravel - entranceState.flightDistance) / speedRef.current;
+            entranceState.startedAt = frameTime - (IMPACT_RIPPLE.dropDuration + afterImpact) * 1000;
+            removeAirborneCube();
+          }
+        }
+        if (!airborneCube) {
+          entranceState.elapsed = (frameTime - entranceState.startedAt) / 1000;
+        }
         entranceComplete = entranceState.elapsed >= entranceState.settleAt;
       }
-
-      speedRef.current = speedTarget.current.value;
 
       cubeScaleRef.current.x = scaleTarget.current.x;
       cubeScaleRef.current.y = scaleTarget.current.y;
@@ -594,6 +664,19 @@ const ThreeSceneManager = () => {
         }
       });
 
+      if (airborneCube) {
+        airborneCube.position.y = impactCube.userData.baseY + getEntranceOffset(impactCube);
+        airborneCube.scale.copy(impactCube.scale);
+        airborneCube.material.opacity = calculateOpacity(airborneCube.position) *
+          THREE.MathUtils.smoothstep(
+            (frameTime - entranceState.startedAt) / 1000,
+            0,
+            IMPACT_RIPPLE.dropFadeDuration
+          );
+        airborneCube.children[0].material.opacity =
+          airborneCube.material.opacity * outlineToggleRef.current.value;
+      }
+
       renderer.render(scene, camera);
     };
 
@@ -623,6 +706,7 @@ const ThreeSceneManager = () => {
     return () => {
       if (animationId !== undefined) cancelAnimationFrame(animationId);
       window.removeEventListener('pointermove', handlePointerMove);
+      removeAirborneCube();
       cubesRef.current.forEach((cube) => cube.userData.glowTimeline?.kill());
       resizeObserver.disconnect();
       clearTimeout(resizeTimeout);
