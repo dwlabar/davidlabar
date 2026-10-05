@@ -1,11 +1,11 @@
 // Lift is in production world units; radius and propagation distance use cells.
 export const CUBE_LIFT_DEFAULTS = Object.freeze({
   maxLift: 14.2,
-  effectRadius: 3.35,
-  falloffStrength: 0.42,
-  riseDuration: 0.62,
-  sequenceDuration: 4.8,
-  propagationDelay: 0.075,
+  effectRadius: 2,
+  falloffStrength: 1,
+  riseDuration: 0.89,
+  sequenceDuration: 2.5,
+  propagationDelay: 0.04,
   accentStrength: 0.27
 });
 

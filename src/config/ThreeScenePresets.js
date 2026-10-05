@@ -13,9 +13,9 @@ export const SCENE_PRESETS = {
     // Settings - Grid
     gridSize: 20,               // number of cells across (X and Z)
     cellSize: 10,               // fixed grid cell size (used in layout, not animated)
-    cubeSizeX: 2,               // initial cube width
-    cubeSizeY: 0.5,             // initial cube height
-    cubeSizeZ: 2,               // initial cube depth
+    cubeSizeX: 10,              // initial cube width
+    cubeSizeY: 7.5,             // initial cube height
+    cubeSizeZ: 10,              // initial cube depth
     cubeSizeMaxX: 10,           // max width = cellSize
     cubeSizeMaxY: 10,           // max height (UI control)
     cubeSizeMaxZ: 10,           // max depth = cellSize

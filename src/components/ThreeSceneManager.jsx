@@ -7,6 +7,7 @@ import { PreloaderContext } from '../context/PreloaderContext';
 import { useThreeSceneContext } from '../context/ThreeSceneContext';
 import useReducedMotion from '../hooks/useReducedMotion';
 import { createCubeLiftField } from './cubeLiftField';
+import { createCubePointerTarget } from './cubePointerTarget';
 
 // Entrance tuning: seconds, world units, and angular frequency (radians/second).
 const IMPACT_RIPPLE = {
@@ -470,6 +471,7 @@ const ThreeSceneManager = () => {
     // Listen at the window level because the Three.js canvas sits behind the UI.
     // Raycasting still uses the scene bounds, so normal page controls keep working.
     const raycaster = new THREE.Raycaster();
+    const findExpandedPointerTarget = prefersReducedMotion ? null : createCubePointerTarget();
     const pointer = new THREE.Vector2();
     const pointerClient = new THREE.Vector2(-1, -1);
     const intersections = [];
@@ -522,7 +524,7 @@ const ThreeSceneManager = () => {
       intersections.length = 0;
       raycaster.intersectObjects(cubesRef.current, false, intersections);
       const hit = intersections.find((intersection) => intersection.object.material.opacity > 0.05);
-      const enteredCube = hit?.object || null;
+      const enteredCube = hit?.object || findExpandedPointerTarget(raycaster, cubesRef.current);
       if (enteredCube && enteredCube !== hoveredCube) {
         liftField.enter(enteredCube, frameTime / 1000, interactionSettingsRef.current);
       }

@@ -5,7 +5,7 @@ This file is the source of truth for what is active, what is next, and what is i
 ## Current position
 
 - **Active next release:** v3.4.0 — Interactive Scene Polish — in progress.
-- **Current / next task:** T01 — Analytics and T02 — Three.js entrance are COMPLETE. T03 — Procedural cube interaction is implemented, pending manual visual review; T04 — Scene-control presentation is NEXT, not started.
+- **Current / next task:** T01 — Analytics, T02 — Three.js entrance, and T03 — Procedural cube interaction are COMPLETE. T04 — Scene-control presentation is NEXT, not started.
 - **Application version:** 3.3.0. v3.4.0 has not been released; internal tasks do not change version metadata.
 - **Previous release:** v3.3.0 automated verification is complete; its recorded final manual acceptance remains pending. No additional modernization or lint-cleanup task is scheduled.
 - **Outside v3.4.0:** the accepted ESLint baseline and broader work under Backlog, including route-specific/persistent Three.js world states.
@@ -24,7 +24,7 @@ This file is the source of truth for what is active, what is next, and what is i
 
 ### Goal and status
 
-Make the homepage cube scene a more intentional, responsive part of the portfolio through focused measurement, authored entrances, direct interaction, and understandable controls. T01 and T02 are complete. T03 implements a slow local liquid-lift field and awaits manual visual acceptance before being marked COMPLETE. T04 is next, not started; later tasks remain unstarted and proceed in the order below.
+Make the homepage cube scene a more intentional, responsive part of the portfolio through focused measurement, authored entrances, direct interaction, and understandable controls. T01, T02, and T03 are complete. David accepted the procedural cube interaction, tuning controls, stronger defaults, and enlarged pointer footprint. T04 is next, not started; later tasks remain unstarted and proceed in the order below.
 
 ### Sequential tasks
 
@@ -34,13 +34,14 @@ Make the homepage cube scene a more intentional, responsive part of the portfoli
 - **T02 — Three.js entrance — COMPLETE**
   - Accepted authored impact/drop entrance after the preloader handoff: a central cube drops into the field with overshoot/rebound, followed by an outward ripple/reveal.
   - Normal cube travel continues throughout the sequence; reduced motion retains an intentional static presentation.
-- **T03 — Procedural cube interaction — MANUAL REVIEW PENDING**
-  - Replaced the short shader-ring experiment with a slow local liquid-lift field on the existing individual Phong cubes. Entering a cube starts one independent source; nearby cells respond after distance-based delays with Gaussian falloff, a quick rise, and a long smooth settle.
+- **T03 — Procedural cube interaction — COMPLETE**
+  - Uses a local liquid-lift field on the existing individual Phong cubes. Entering a cube starts one independent source; nearby cells respond after distance-based delays with Gaussian falloff, an eased rise, and a smooth settle.
   - Overlapping sources reinforce through smooth saturation; an active source cannot restart itself and a stationary pointer cannot emit repeatedly. Lift composes with base/entrance height, and normalized response drives the existing blue emissive highlight. Recycling clears transient source/neighbor state.
+  - Fresh scene defaults are Width 10, Depth 10, Height 7.5, and Speed 0.2; saved public settings continue to win. Pointer acquisition preserves direct mesh hits first, then selects one nearest cube using a 1.5× X/Z hit footprint on a miss, without changing rendered geometry or effect radius.
   - Interaction remains gated by entrance completion, scene bounds, UI exclusion, and non-touch input. Reduced motion omits the field; scene teardown releases its state.
-  - Public Speed/Width/Depth/Height controls and persistence remain unchanged. A development-only disclosure adds seven live, non-persisted interaction sliders and Reset Values without rebuilding the scene.
-  - Integrated lift behavior and final tuning remain pending David's manual visual review; automated validation does not establish visual acceptance.
-  - Mark COMPLETE only after focused validation and David's visual acceptance of continuous motion, cube readability, and settling.
+  - Public Speed/Width/Depth/Height controls and persistence remain unchanged. A development/opt-in Preview button disclosure adds seven live, non-persisted interaction sliders and Reset Values without rebuilding the scene; the inner section enters as one unit with reduced-motion support inside the shared control shell, with a bottom-centered +/− toggle. Normal production hides the tuning UI.
+  - Authored defaults (also restored by Reset Values): lift 14.2, radius 2, falloff 1, rise 0.89 seconds, duration 2.5 seconds, propagation delay 0.04 seconds per cell, blue highlight 0.27.
+  - David accepted the final T03 implementation. Production build and whitespace validation passed; lint remains at the accepted 32 errors and 5 warnings.
 - **T04 — Scene-control presentation — NEXT (not started)**
   - Improve the existing cube-control UI while retaining its activation cube. Animate panel open/close and control entrance/exit so controls do not simply appear.
   - Improve hierarchy and interaction feedback while preserving accessibility and reduced-motion behavior.
