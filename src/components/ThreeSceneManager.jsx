@@ -6,6 +6,7 @@ import gsap from 'gsap';
 import { PreloaderContext } from '../context/PreloaderContext';
 import { useThreeSceneContext } from '../context/ThreeSceneContext';
 import useReducedMotion from '../hooks/useReducedMotion';
+import { createCubeLiftField } from './cubeLiftField';
 
 // Entrance tuning: seconds, world units, and angular frequency (radians/second).
 const IMPACT_RIPPLE = {
@@ -46,7 +47,8 @@ const ThreeSceneManager = () => {
   const sceneEntranceRef = useRef(null);
   const { isPreloaderVisible } = useContext(PreloaderContext);
   const preloaderVisibleRef = useRef(isPreloaderVisible);
-  const { settings } = useThreeSceneContext();
+  const { settings, interactionSettings } = useThreeSceneContext();
+  const interactionSettingsRef = useRef(interactionSettings);
   const prefersReducedMotion = useReducedMotion();
 
   const cellSize = 10; // Fixed size of each grid cell
@@ -73,6 +75,10 @@ const ThreeSceneManager = () => {
   useEffect(() => {
     preloaderVisibleRef.current = isPreloaderVisible;
   }, [isPreloaderVisible]);
+
+  useEffect(() => {
+    interactionSettingsRef.current = interactionSettings;
+  }, [interactionSettings]);
 
   // ======= EFFECT: SPEED UPDATE (with GSAP tween cleanup) =======
   useEffect(() => {
@@ -277,6 +283,8 @@ const ThreeSceneManager = () => {
       }
     }
     cubesRef.current = cubes;
+    // Reduced motion owns no interaction field. Materials retain their Phong shader.
+    const liftField = prefersReducedMotion ? null : createCubeLiftField(cubes, cellSize);
 
     // ======= AUTHORED CUBE-SCENE ENTRANCE =======
     // Pick one existing cube in the camera's central foreground, where the
@@ -382,7 +390,8 @@ const ThreeSceneManager = () => {
       // The target keeps traveling at its normal resting Y while its airborne
       // representation owns the fall. Only one of them is ever visible.
       cube.position.y = cube.userData.baseY +
-        (cube === impactCube && airborneCube ? 0 : getEntranceOffset(cube));
+        (cube === impactCube && airborneCube ? 0 : getEntranceOffset(cube)) +
+        (cube.userData.interactionLift || 0);
       cube.scale.set(
         cubeScaleRef.current.x,
         cubeScaleRef.current.y,
@@ -462,64 +471,69 @@ const ThreeSceneManager = () => {
     // Raycasting still uses the scene bounds, so normal page controls keep working.
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
-    let lastHoveredCube = null;
-
-    const triggerCubeGlow = (cube) => {
-      cube.userData.glowTimeline?.kill();
-
-      const glowTimeline = gsap.timeline();
-      glowTimeline
-        .to(cube.material, {
-          emissiveIntensity: 2.5,
-          duration: 0.08,
-          ease: 'power2.out'
-        })
-        .to(cube.material, {
-          emissiveIntensity: 0,
-          duration: 4.0,
-          ease: 'power2.out'
-        });
-
-      cube.userData.glowTimeline = glowTimeline;
+    const pointerClient = new THREE.Vector2(-1, -1);
+    const intersections = [];
+    let pointerPending = false;
+    let hoveredCube = null;
+    const clearPendingPointer = () => {
+      pointerPending = false;
+      hoveredCube = null;
+      pointerClient.set(-1, -1);
     };
 
     const handlePointerMove = (event) => {
-      if (
-        prefersReducedMotion ||
-        !entranceComplete ||
-        event.pointerType === 'touch'
-      ) return;
-
-      const bounds = mount.getBoundingClientRect();
-      const isInsideScene =
-        event.clientX >= bounds.left &&
-        event.clientX <= bounds.right &&
-        event.clientY >= bounds.top &&
-        event.clientY <= bounds.bottom;
-
-      if (!isInsideScene) {
-        lastHoveredCube = null;
+      if (prefersReducedMotion || !entranceComplete) return;
+      if (event.pointerType === 'touch' || event.target.closest?.(
+        'a, button, input, select, textarea, summary, [role="button"], .scene-controls, nav, [role="dialog"]'
+      )) {
+        clearPendingPointer();
         return;
       }
 
-      pointer.x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
-      pointer.y = -((event.clientY - bounds.top) / bounds.height) * 2 + 1;
+      if (event.clientX === pointerClient.x && event.clientY === pointerClient.y) return;
+      pointerClient.set(event.clientX, event.clientY);
+      pointerPending = true;
+    };
+
+    const updatePointerInteraction = (frameTime) => {
+      if (!pointerPending || !entranceComplete) return;
+      // Coalesce pointer movement into one raycast per frame. A stopped pointer
+      // never emits, even as the grid travels beneath it.
+      pointerPending = false;
+      const bounds = mount.getBoundingClientRect();
+      const isInsideScene =
+        bounds.width > 0 && bounds.height > 0 &&
+        pointerClient.x >= bounds.left &&
+        pointerClient.x <= bounds.right &&
+        pointerClient.y >= bounds.top &&
+        pointerClient.y <= bounds.bottom;
+
+      if (!isInsideScene) {
+        hoveredCube = null;
+        return;
+      }
+
+      pointer.x = ((pointerClient.x - bounds.left) / bounds.width) * 2 - 1;
+      pointer.y = -((pointerClient.y - bounds.top) / bounds.height) * 2 + 1;
 
       scene.updateMatrixWorld(true);
       raycaster.setFromCamera(pointer, camera);
 
-      const intersections = raycaster.intersectObjects(cubesRef.current, false);
-      const hoveredCube = intersections[0]?.object || null;
-
-      if (hoveredCube && hoveredCube !== lastHoveredCube) {
-        triggerCubeGlow(hoveredCube);
+      intersections.length = 0;
+      raycaster.intersectObjects(cubesRef.current, false, intersections);
+      const hit = intersections.find((intersection) => intersection.object.material.opacity > 0.05);
+      const enteredCube = hit?.object || null;
+      if (enteredCube && enteredCube !== hoveredCube) {
+        liftField.enter(enteredCube, frameTime / 1000, interactionSettingsRef.current);
       }
-
-      lastHoveredCube = hoveredCube;
+      hoveredCube = enteredCube;
+      intersections.length = 0;
     };
 
     if (!prefersReducedMotion) {
       window.addEventListener('pointermove', handlePointerMove, { passive: true });
+      window.addEventListener('blur', clearPendingPointer);
+      document.documentElement.addEventListener('pointerleave', clearPendingPointer);
     }
 
     // ======= ANIMATION LOOP =======
@@ -622,29 +636,11 @@ const ThreeSceneManager = () => {
             Math.sin(cube.userData.phase + waveTimeRef.current);
         }
 
-        applyCubeEntranceTransform(cube);
-
-        if (cube.material.transparent) {
-          const opacity = calculateOpacity(cube.position) * getEntranceReveal(cube);
-          if (cube.material.opacity !== opacity) {
-            cube.material.opacity = opacity;
-            cube.material.needsUpdate = true;
-          }
-        }
-
-        // ======= OUTLINE: keep opacity in sync ========================
-        if (cube.userData.edge) {
-          cube.userData.edge.material.opacity =
-            cube.material.opacity * outlineToggleRef.current.value;
-        }
-
-
         if (cube.position.z > startZ) {
           cube.material.opacity = 0;
-          cube.material.emissiveIntensity = 0;
           cube.material.needsUpdate = true;
-          cube.userData.glowTimeline?.kill();
-          cube.userData.glowTimeline = null;
+          liftField?.forget(cube);
+          if (hoveredCube === cube) hoveredCube = null;
 
           if (cube.userData.edge) {
             cube.userData.edge.material.opacity = 0;
@@ -664,6 +660,25 @@ const ThreeSceneManager = () => {
         }
       });
 
+      liftField?.update(frameTime / 1000, interactionSettingsRef.current);
+      cubesRef.current.forEach((cube) => {
+        applyCubeEntranceTransform(cube);
+
+        if (cube.material.transparent) {
+          const opacity = calculateOpacity(cube.position) * getEntranceReveal(cube);
+          if (cube.material.opacity !== opacity) {
+            cube.material.opacity = opacity;
+            cube.material.needsUpdate = true;
+          }
+        }
+
+        // ======= OUTLINE: keep opacity in sync ========================
+        if (cube.userData.edge) {
+          cube.userData.edge.material.opacity =
+            cube.material.opacity * outlineToggleRef.current.value;
+        }
+      });
+
       if (airborneCube) {
         airborneCube.position.y = impactCube.userData.baseY + getEntranceOffset(impactCube);
         airborneCube.scale.copy(impactCube.scale);
@@ -677,6 +692,7 @@ const ThreeSceneManager = () => {
           airborneCube.material.opacity * outlineToggleRef.current.value;
       }
 
+      updatePointerInteraction(frameTime);
       renderer.render(scene, camera);
     };
 
@@ -706,8 +722,11 @@ const ThreeSceneManager = () => {
     return () => {
       if (animationId !== undefined) cancelAnimationFrame(animationId);
       window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('blur', clearPendingPointer);
+      document.documentElement.removeEventListener('pointerleave', clearPendingPointer);
+      clearPendingPointer();
       removeAirborneCube();
-      cubesRef.current.forEach((cube) => cube.userData.glowTimeline?.kill());
+      liftField?.dispose();
       resizeObserver.disconnect();
       clearTimeout(resizeTimeout);
       if (renderSceneRef.current === renderScene) renderSceneRef.current = null;

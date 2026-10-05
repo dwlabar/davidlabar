@@ -11,12 +11,13 @@ Motion on DavidLaBar.com should feel authored, coordinated, and part of one cohe
 - CSS also owns global/component transitions and several repeating visual effects.
 - A shared `useReducedMotion` hook owns one live media-query listener for React consumers while `index.html` retains its pre-React CSS query. Reduced-motion paths now settle the preloader, overlay, navigation, icons, project cards, block reveals, and SVG examples without large, sweeping, or repeating motion.
 - The reduced-motion Three.js mode keeps the authored cube field visible as a static scene, suppresses particle and grid travel, renders again on resize, and applies scene-control changes directly instead of interpolating them.
+- After the authored cube entrance completes, entering a cube launches a slow local liquid-lift field. Independent sources use Gaussian falloff in grid-cell distance and delayed neighbor propagation, with a quick ease-out rise and a long smootherstep settle. Overlapping contributions reinforce through `1 - exp(-responseSum)` saturation; an active source never restarts itself, and a stationary pointer does not emit. Lift adds to the existing base/entrance displacement and the same normalized response drives the existing blue emissive intensity. Both return exactly to rest. The scene owns pointer listeners and field state; recycling clears source and recipient state, and teardown releases the field. Page UI and touch input are excluded. Reduced motion omits the interaction entirely.
 
 Current animations should finish at intentional visual boundaries. Avoid arbitrary timeout cutoffs that can leave a partially transformed element visible. Fallbacks are still appropriate for preventing deadlocks, but their settled visual state must be deliberate.
 
 ## Future Direction
 
-Direct Three.js manipulation may use localized procedural surface responses driven by interaction position; the exact visual treatment remains a prototyping decision. Broader scene responses may use damped camera motion. Both should settle naturally and provide satisfying feedback rather than abrupt state changes, with intentional reduced-motion alternatives.
+Broader scene responses may use damped camera motion. Like the implemented local surface interaction, they should settle naturally and provide satisfying feedback rather than abrupt state changes, with intentional reduced-motion alternatives.
 
 Complex choreography should move toward explicit GSAP timelines or presentation controllers rather than being inferred from several independent CSS animations. A future boot approach may be:
 

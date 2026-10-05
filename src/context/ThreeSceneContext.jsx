@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { SCENE_PRESETS } from '../config/ThreeScenePresets';
+import { CUBE_LIFT_DEFAULTS } from '../components/cubeLiftField';
 
 const LOCAL_STORAGE_KEY = 'threeSceneSettings';
 
@@ -20,6 +21,21 @@ export const ThreeSceneProvider = ({ children, presetName = 'default' }) => {
   };
 
   const [settings, setSettings] = useState(getInitialSettings);
+  // Transient interaction tuning never enters the persisted public settings.
+  const [interactionSettings, setInteractionSettings] = useState(CUBE_LIFT_DEFAULTS);
+  const updateInteractionSetting = (key, value) => {
+    setInteractionSettings((previous) => {
+      const next = { ...previous, [key]: value };
+      // Keep a finite settling phase when either duration is tuned live.
+      if (key === 'riseDuration') {
+        next.sequenceDuration = Math.max(next.sequenceDuration, value + 0.4);
+      } else if (key === 'sequenceDuration') {
+        next.riseDuration = Math.min(next.riseDuration, value - 0.4);
+      }
+      return next;
+    });
+  };
+  const resetInteractionSettings = () => setInteractionSettings(CUBE_LIFT_DEFAULTS);
 
   const updateSetting = (key, value) => {
     setSettings((prev) => {
@@ -43,7 +59,9 @@ export const ThreeSceneProvider = ({ children, presetName = 'default' }) => {
   }, []);
 
   return (
-    <ThreeSceneContext.Provider value={{ settings, updateSetting }}>
+    <ThreeSceneContext.Provider value={{
+      settings, updateSetting, interactionSettings, updateInteractionSetting, resetInteractionSettings
+    }}>
       {children}
     </ThreeSceneContext.Provider>
   );

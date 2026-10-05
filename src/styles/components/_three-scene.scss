@@ -3,7 +3,7 @@
 //  THREE SCENE
 //
 // =============================================================================
-// Last updated: 3.2.0
+// Last updated: 3.4.0
 
 // -----------------------------------------------------------------------------
 // IMPORTS
@@ -85,6 +85,46 @@
 
   &.visible {
     display: block;
+  }
+}
+
+.interaction-tuning {
+  max-width: 48rem;
+  margin: 0.5rem auto 0;
+  color: variables.$color-ramjet;
+  font-size: 0.75rem;
+
+  summary {
+    width: fit-content;
+    margin: 0 auto;
+    padding: 0.5rem;
+    background: rgba(variables.$color-skywarp, 0.9);
+    cursor: pointer;
+  }
+
+  .slider-group {
+    max-height: 35vh;
+    overflow-y: auto;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  output {
+    font-variant-numeric: tabular-nums;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    border: 1px solid variables.$color-devastator;
+    background: variables.$color-skywarp;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  summary:focus-visible,
+  button:focus-visible {
+    outline: 2px solid variables.$color-soundwave;
+    outline-offset: 2px;
   }
 }
 
