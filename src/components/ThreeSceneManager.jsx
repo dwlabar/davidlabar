@@ -33,7 +33,10 @@ const IMPACT_RIPPLE = {
   centerRadiusCells: 2,
   centerDepressionCells: 0.16,
   // Finite smooth tails guarantee exact rest rather than an exponential remnant.
-  settleFadeDuration: 0.25
+  settleFadeDuration: 0.25,
+  // Choreography shares the entrance clock; ripple shape/timing stays unchanged.
+  particleDelayAfterImpact: 0.15,
+  interactionRippleProgress: 0.65
 };
 // Derived spring strength preserves the fall's crossing velocity when tuning.
 // Damping reduces the actual penetration below this undamped amplitude.
@@ -224,6 +227,11 @@ const ThreeSceneManager = () => {
     };
     let entranceStarted = !shouldAnimateEntrance;
     let entranceComplete = !shouldAnimateEntrance;
+    const isInteractionReady = () => !prefersReducedMotion && (
+      entranceComplete || (entranceStarted && entranceState.elapsed >=
+        IMPACT_RIPPLE.dropDuration +
+        (entranceState.settleAt - IMPACT_RIPPLE.dropDuration) * IMPACT_RIPPLE.interactionRippleProgress)
+    );
 
     // ======= CUBE GRID GENERATION =======
     const fadeStart = settings.fadeStart || 60;
@@ -455,7 +463,7 @@ const ThreeSceneManager = () => {
       });
 
       // Include even invisible edge cubes. Completion only releases temporary
-      // entrance state/interaction suppression; travel and wrapping never wait.
+      // entrance state; interaction overlaps settling, and travel/wrapping never wait.
       entranceState.settleAt = IMPACT_RIPPLE.dropDuration + Math.max(
         IMPACT_RIPPLE.reboundDuration,
         maxDistance / IMPACT_RIPPLE.waveSpeed + Math.max(
@@ -484,7 +492,7 @@ const ThreeSceneManager = () => {
     };
 
     const handlePointerMove = (event) => {
-      if (prefersReducedMotion || !entranceComplete) return;
+      if (!isInteractionReady()) return;
       if (event.pointerType === 'touch' || event.target.closest?.(
         'a, button, input, select, textarea, summary, [role="button"], .scene-controls, nav, [role="dialog"]'
       )) {
@@ -498,7 +506,7 @@ const ThreeSceneManager = () => {
     };
 
     const updatePointerInteraction = (frameTime) => {
-      if (!pointerPending || !entranceComplete) return;
+      if (!pointerPending || !isInteractionReady()) return;
       // Coalesce pointer movement into one raycast per frame. A stopped pointer
       // never emits, even as the grid travels beneath it.
       pointerPending = false;
@@ -522,9 +530,13 @@ const ThreeSceneManager = () => {
       raycaster.setFromCamera(pointer, camera);
 
       intersections.length = 0;
-      raycaster.intersectObjects(cubesRef.current, false, intersections);
+      // Both direct hits and the padded fallback exclude still-revealing cells.
+      const pointerCubes = entranceComplete ? cubesRef.current : cubesRef.current.filter(
+        (cube) => cube.visible && getEntranceReveal(cube) === 1
+      );
+      raycaster.intersectObjects(pointerCubes, false, intersections);
       const hit = intersections.find((intersection) => intersection.object.material.opacity > 0.05);
-      const enteredCube = hit?.object || findExpandedPointerTarget(raycaster, cubesRef.current);
+      const enteredCube = hit?.object || findExpandedPointerTarget(raycaster, pointerCubes);
       if (enteredCube && enteredCube !== hoveredCube) {
         liftField.enter(enteredCube, frameTime / 1000, interactionSettingsRef.current);
       }
@@ -616,6 +628,12 @@ const ThreeSceneManager = () => {
       }
 
       trails.forEach(trail => {
+        // Release the existing particle loop shortly after the shared impact.
+        if (!entranceComplete && (!entranceStarted || entranceState.elapsed <
+          IMPACT_RIPPLE.dropDuration + IMPACT_RIPPLE.particleDelayAfterImpact)) {
+          trail.material.opacity = 0;
+          return;
+        }
         const speed = baseParticleSpeed * (speedRef.current / defaultSpeed);
         trail.position.z += speed;
         trail.scale.y = 0.1 + speed * 5;
@@ -664,6 +682,13 @@ const ThreeSceneManager = () => {
 
       liftField?.update(frameTime / 1000, interactionSettingsRef.current);
       cubesRef.current.forEach((cube) => {
+        if (!entranceComplete) {
+          // Neighbor propagation can reach unrevealed cells. The existing smooth
+          // reveal blends both outputs from zero without changing the lift field.
+          const reveal = getEntranceReveal(cube);
+          cube.userData.interactionLift *= reveal;
+          cube.material.emissiveIntensity *= reveal;
+        }
         applyCubeEntranceTransform(cube);
 
         if (cube.material.transparent) {

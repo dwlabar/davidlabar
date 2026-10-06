@@ -5,7 +5,7 @@ This file is the source of truth for what is active, what is next, and what is i
 ## Current position
 
 - **Active next release:** v3.4.0 — Interactive Scene Polish — in progress.
-- **Current / next task:** T01 — Analytics, T02 — Three.js entrance, and T03 — Procedural cube interaction are COMPLETE. T04 — Scene-control presentation is NEXT, not started.
+- **Current / next task:** T01 — Analytics, T02 — Three.js entrance, T03 — Procedural cube interaction, and T04 — Intro choreography timing polish are COMPLETE. T05 — Scene-control presentation is NEXT, not started.
 - **Application version:** 3.3.0. v3.4.0 has not been released; internal tasks do not change version metadata.
 - **Previous release:** v3.3.0 automated verification is complete; its recorded final manual acceptance remains pending. No additional modernization or lint-cleanup task is scheduled.
 - **Outside v3.4.0:** the accepted ESLint baseline and broader work under Backlog, including route-specific/persistent Three.js world states.
@@ -24,7 +24,9 @@ This file is the source of truth for what is active, what is next, and what is i
 
 ### Goal and status
 
-Make the homepage cube scene a more intentional, responsive part of the portfolio through focused measurement, authored entrances, direct interaction, and understandable controls. T01, T02, and T03 are complete. David accepted the procedural cube interaction, tuning controls, stronger defaults, and enlarged pointer footprint. T04 is next, not started; later tasks remain unstarted and proceed in the order below.
+Make the homepage cube scene a more intentional, responsive part of the portfolio through focused measurement, authored entrances, direct interaction, and understandable controls. T01, T02, T03, and T04 are complete. David accepted the procedural cube interaction, tuning controls, stronger defaults, enlarged pointer footprint, and revised intro choreography. T05 is next, not started; later tasks remain unstarted and proceed in the order below.
+
+Scope update (2026-10-06): David requested intro choreography timing polish as T04. The previously planned T04–T07 tasks move to T05–T08 with their scope preserved.
 
 ### Sequential tasks
 
@@ -38,21 +40,27 @@ Make the homepage cube scene a more intentional, responsive part of the portfoli
   - Uses a local liquid-lift field on the existing individual Phong cubes. Entering a cube starts one independent source; nearby cells respond after distance-based delays with Gaussian falloff, an eased rise, and a smooth settle.
   - Overlapping sources reinforce through smooth saturation; an active source cannot restart itself and a stationary pointer cannot emit repeatedly. Lift composes with base/entrance height, and normalized response drives the existing blue emissive highlight. Recycling clears transient source/neighbor state.
   - Fresh scene defaults are Width 10, Depth 10, Height 7.5, and Speed 0.2; saved public settings continue to win. Pointer acquisition preserves direct mesh hits first, then selects one nearest cube using a 1.5× X/Z hit footprint on a miss, without changing rendered geometry or effect radius.
-  - Interaction remains gated by entrance completion, scene bounds, UI exclusion, and non-touch input. Reduced motion omits the field; scene teardown releases its state.
+  - Interaction retains scene bounds, UI exclusion, and non-touch input. T04 advances the entrance gate into the settling ripple with reveal-aware targeting and response. Reduced motion omits the field; scene teardown releases its state.
   - Public Speed/Width/Depth/Height controls and persistence remain unchanged. A development/opt-in Preview button disclosure adds seven live, non-persisted interaction sliders and Reset Values without rebuilding the scene; the inner section enters as one unit with reduced-motion support inside the shared control shell, with a bottom-centered +/− toggle. Normal production hides the tuning UI.
   - Authored defaults (also restored by Reset Values): lift 14.2, radius 2, falloff 1, rise 0.89 seconds, duration 2.5 seconds, propagation delay 0.04 seconds per cell, blue highlight 0.27.
   - David accepted the final T03 implementation. Production build and whitespace validation passed; lint remains at the accepted 32 errors and 5 warnings.
-- **T04 — Scene-control presentation — NEXT (not started)**
+- **T04 — Intro choreography timing polish — COMPLETE**
+  - Preserve the approved fall, impact rebound, radial ripple/reveal, continuous grid travel, and T03 interaction settings; adjust their timing relationship using the existing entrance clock.
+  - Hold plane particles hidden and stationary until 0.15 seconds after impact, then retain their existing movement, appearance, and reset behavior.
+  - Enable pointer interaction at 65% of the post-impact ripple/recovery duration. Only fully revealed cubes can receive pointer entry; propagated lift and highlight blend with each recipient's existing reveal so hidden cubes remain still and settling intro offsets compose additively with lift.
+  - Returning Home retains immediate established-scene behavior; reduced motion retains the static field with no particles or interaction.
+  - Production build and whitespace validation passed; lint remains at the accepted 32 errors and 5 warnings. A focused scene-loop harness verified timing gates, unchanged entrance transforms against T03, real pointer raycasts during settling, reveal masking, additive lift, control targets, reduced motion, return-to-Home behavior, and cleanup. Local browser rendering and the width control passed a smoke check with no captured warnings/errors. David passed manual visual acceptance on 2026-10-06: the revised timing feels significantly better, with no visible snapping or transform conflicts, smooth high-speed pointer movement during settling, particles beginning during reveal, and interaction available during ripple recovery. Hidden cubes remain non-interactive and reduced-motion behavior remains correct. Final scope review confirms only the intended T04 choreography and documentation changes; T05 has not begun.
+- **T05 — Scene-control presentation — NEXT (not started)**
   - Improve the existing cube-control UI while retaining its activation cube. Animate panel open/close and control entrance/exit so controls do not simply appear.
   - Improve hierarchy and interaction feedback while preserving accessibility and reduced-motion behavior.
-- **T05 — Scene modes / Randomize**
+- **T06 — Scene modes / Randomize**
   - Audit dormant scene settings/presets before creating new systems; expose only effects and settings that are visually worthwhile.
   - Add constrained Randomize and a clear way to restore the default state. Keep the interface playful and understandable rather than presenting a developer/debug panel.
-- **T06 — Drive camera**
+- **T07 — Drive camera**
   - Prototype a Wipeout-style responsive camera mode using damped position, yaw/roll, height/pitch, and possibly subtle FOV response to simulate steering and road movement.
   - Do not bend or restructure the endless cube grid to create steering. Preserve existing cube travel/wrapping so old reset-boundary problems are not reintroduced.
   - Keep DRIVE optional unless testing shows it belongs in the default presentation.
-- **T07 — Performance and release acceptance**
+- **T08 — Performance and release acceptance**
   - Profile the completed scene interactions and rendering; check desktop, mobile, weaker-device, and reduced-motion behavior.
   - Run the production build, accepted lint baseline checks, whitespace checks, and focused manual visual/interaction acceptance.
 
