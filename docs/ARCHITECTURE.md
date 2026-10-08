@@ -24,6 +24,8 @@ The providers sit outside the router component rendered by `App`, while route-aw
 
 Internal navigation normally uses either `NavBar` or `useOverlayNavigate`. Both ask `OverlayContext` to make the overlay opaque before scrolling to the top and calling React Router navigation. The primary navigation exposes its name, current-page state, and mobile disclosure state. Escape closes the mobile menu and returns focus to its toggle. Selecting the current route closes any open mobile navigation without replaying the route transition.
 
+`DocumentTitle` is the single route-aware document-title owner inside the router. It maps main and example routes centrally, derives case-study names from `src/config/projects.js`, and falls back to David LaBar for unknown paths. It updates on direct loads and client navigation, including back/forward; it does not send analytics events. The same small project data module supplies existing card assets and ordering to Projects. Projects retains its complete card-image readiness gate.
+
 ### Analytics setup and ownership
 
 `src/analytics.js` owns the native Google tag and three focused event helpers. `main.jsx` initializes it once before mounting React; the asynchronous tag lives for the document lifetime. Development and builds without `VITE_GA_MEASUREMENT_ID` do nothing. Google signals and advertising personalization are disabled in the tag configuration.

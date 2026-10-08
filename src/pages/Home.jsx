@@ -1,4 +1,4 @@
-// Last updated: 3.2.1
+// Last updated: 3.4.0
 
 import { useState } from "react";
 import { usePageReadyController } from "../context/PageReadyContext";

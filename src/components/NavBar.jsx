@@ -1,4 +1,4 @@
-// Last updated: 3.2.2
+// Last updated: 3.4.0
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Link, useNavigate, useLocation } from "react-router";
@@ -238,11 +238,21 @@ const NavBar = ({ links }) => {
           >
             <Link
               to={path}
+              className={path === "/contact" ? "nav-bar__contact" : undefined}
+              aria-label={path === "/contact" ? "Contact" : undefined}
               onClick={(e) => handleNavClick(e, path)}
               aria-current={(location.pathname === path ||
                 location.pathname.startsWith(path + "/")) ? "page" : undefined}
             >
-              {name}
+              {path === "/contact" ? (
+                <>
+                  <svg className="nav-bar__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false">
+                    <rect x="3" y="5" width="18" height="14" rx="1" />
+                    <path d="m3 6 9 7 9-7" />
+                  </svg>
+                  <span className="nav-bar__contact-text">{name}</span>
+                </>
+              ) : name}
             </Link>
           </li>
         ))}

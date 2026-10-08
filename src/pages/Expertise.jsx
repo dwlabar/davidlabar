@@ -1,4 +1,4 @@
-// Last updated: 3.2.1
+// Last updated: 3.4.0
 
 import { usePageReadyController } from "../context/PageReadyContext";
 import useNotifyWhenImagesLoaded from "../hooks/useNotifyWhenImagesLoaded";
@@ -10,7 +10,7 @@ import IconDesign from "../components/IconDesign";
 import IconDev from "../components/IconDev";
 import IconCustom from "../components/IconCustom";
 
-const Services = () => {
+const Expertise = () => {
   const { notifyPageReady } = usePageReadyController();
 
   // Inline SVGs need no network gate; reveal after layout commits.
@@ -27,9 +27,9 @@ const Services = () => {
     <>
       <Container>
         <header>
-          <h1>What I Build</h1>
+          <h1>Expertise</h1>
           <p className="subheading">
-            I design and develop scalable systems, from single-page sites to enterprise frontends. Here&#39;s what I offer:
+            I design and develop scalable systems, from single-page sites to enterprise frontends.
           </p>
         </header>
 
@@ -98,4 +98,4 @@ const Services = () => {
   );
 };
 
-export default Services;
+export default Expertise;

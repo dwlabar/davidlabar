@@ -1,4 +1,4 @@
-// Last updated: 3.2.1
+// Last updated: 3.4.0
 
 import { usePageReadyController } from "../context/PageReadyContext";
 import useNotifyWhenImagesLoaded from "../hooks/useNotifyWhenImagesLoaded";
@@ -16,8 +16,8 @@ const Contact = () => {
     <>
       <Container>
         <header>
-          <h1>Hire Me</h1>
-          <p className="subheading">Tell Me About Your Project</p>
+          <h1>Contact</h1>
+          <p className="subheading">Available for full-time front-end/UI roles and select freelance projects.</p>
         </header>
         <Panel>
           <div className="layout-row layout-row--2">

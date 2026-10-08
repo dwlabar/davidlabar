@@ -3,7 +3,7 @@
 //  NAV BAR
 //
 // =============================================================================
-// Last updated: 3.2.2
+// Last updated: 3.4.0
 
 // -----------------------------------------------------------------------------
 // IMPORTS
@@ -257,5 +257,29 @@
 @media (prefers-reduced-motion: reduce) {
   .nav-bar__li.active a {
     animation: none;
+  }
+}
+
+.nav-bar__li a.nav-bar__contact {
+  display: flex;
+  align-items: center;
+  gap: functions.px2rem(10);
+  min-height: functions.px2rem(44);
+
+  @include mixins.breakpoint(md) {
+    min-width: functions.px2rem(44);
+    justify-content: center;
+  }
+}
+
+.nav-bar__contact-icon {
+  width: functions.px2rem(24);
+  height: functions.px2rem(24);
+  flex-shrink: 0;
+}
+
+.nav-bar__contact-text {
+  @include mixins.breakpoint(md) {
+    display: none;
   }
 }

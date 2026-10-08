@@ -1,9 +1,9 @@
-// Last updated: 3.2.1
+// Last updated: 3.4.0
 
 import { usePageReadyController } from "../context/PageReadyContext";
 import useNotifyWhenImagesLoaded from "../hooks/useNotifyWhenImagesLoaded";
 import Container from "../components/Container";
-import Panel from "../components/Panel";
+import BlockReveal from "../components/BlockReveal";
 
 const About = () => {
   const { notifyPageReady } = usePageReadyController();
@@ -17,20 +17,20 @@ const About = () => {
         <section>
           <header>
             <h1>About Me</h1>
-            <p className="subheading">Crafting Web Solutions for over 20 years.</p>
+            <p className="subheading">Front-End Developer / UI Engineer / Designer</p>
           </header>
 
-          <Panel>
-            <p className="tagline">Designer &amp; developer focused on polish and performance</p>
-            <p>I&#39;m David LaBar, a front-end specialist with 20 years of experience building everything from Shockwave casino games and CMS themes to React apps and design systems.</p>
-            <p>I started by coding my own designs and still chase that level of precision in everything I build.</p>
-            <p>At Full Sail University, I shaped the UI architecture for both their online learning platform and FullSail.edu, supporting thousands of students and faculty worldwide. I&#39;ve also built design systems for marketing teams and shipped accessible sites for brands like Westgate Resorts and Purple Rock Scissors.</p>
-            <p>If you need someone who can design it, build it, and obsess over the last 1%, I&#39;m already thinking about edge cases.</p>
-          </Panel>
+          <BlockReveal panel>
+            <p className="tagline">From interface design to working UI</p>
+            <p>My background spans visual design and front-end development. I build application UI, reusable systems, and CMS-driven sites with attention to responsive behavior and accessibility.</p>
+            <p>I started by coding my own designs. I still enjoy the work most when I can connect design decisions with how an interface actually behaves.</p>
+            <p>At Full Sail University, my work included Full Sail Online and internal application UI, followed by fullsail.edu and Craft CMS marketing properties. That work brought together shared components, front-end patterns, and content-team workflows.</p>
+            <p>My current work includes React UI, Figma, GSAP, SVG, and Three.js, with a focus on browser-based interfaces and interactive tools.</p>
+          </BlockReveal>
 
-          <Panel>
+          <BlockReveal panel>
             <h2 className="tagline">Toolbox</h2>
-            <p>Tools change, stacks shift. What matters is how it holds up. The naming, the structure, the logic behind the layout. Stuff most people never see but feel when it&#39;s wrong. I build it so it still makes sense years from now. Long after I&#39;m gone.</p>
+            <p>I use these tools to connect design and implementation, with reusable components, clear styling, and interfaces that are straightforward to maintain.</p>
             {/* <p>From first sketch to final commit, I refine each idea until the interface feels right. I prototype clean, effective solutions that fit your stack.</p> */}
             <h3>Frontend</h3>
             <ul className="ul ul--grid">
@@ -40,37 +40,30 @@ const About = () => {
               <li className="li">React (JSX)</li>
               <li className="li">Three.js (WebGL)</li>
             </ul>
-            <h3>Backend &nbsp;/&nbsp; CMS</h3>
+            <h3>CMS &nbsp;/&nbsp; Front-End Integration</h3>
             <ul className="ul ul--grid">
               <li className="li">Drupal</li>
-              <li className="li">Wordpress</li>
+              <li className="li">WordPress</li>
               <li className="li">Shopify</li>
-              <li className="li">Craft</li>
-              <li className="li">Node.js</li>
+              <li className="li">Craft CMS</li>
             </ul>
             <h3>Design</h3>
             <ul className="ul ul--grid">
+              <li className="li">Figma</li>
               <li className="li">Photoshop</li>
               <li className="li">GIMP</li>
               <li className="li">Illustrator</li>
               <li className="li">Inkscape</li>
-              <li className="li">Figma</li>
             </ul>
-            <h3>Game &nbsp;/&nbsp; Interactive</h3>
-            <ul className="ul ul--grid">
-              <li className="li">Godot</li>
-              <li className="li">Lua / Roblox</li>
-              <li className="li">Phaser</li>
-            </ul>
-          </Panel>
+          </BlockReveal>
 
-          <Panel>
+          <BlockReveal panel>
             <p>See more details of my experience.</p>
             <div className="btn-group">
               <a href="/downloads/David-LaBar_Resume-2025.pdf" className="bfg-button" target="_blank" rel="noopener noreferrer">View Resume</a>
               <a href="https://www.linkedin.com/in/davidlabar/" className="bfg-button" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a>
             </div>
-          </Panel>
+          </BlockReveal>
         </section>
       </Container>
     </>

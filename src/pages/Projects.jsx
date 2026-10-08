@@ -1,4 +1,4 @@
-// Last updated: 3.2.2
+// Last updated: 3.4.0
 
 import { usePageReadyController } from "../context/PageReadyContext";
 import useNotifyWhenImagesLoaded from "../hooks/useNotifyWhenImagesLoaded";
@@ -6,33 +6,12 @@ import Container from "../components/Container";
 import ProjectCard from "../components/ProjectCard";
 import "../styles/components/_project-card.scss";
 
-import skeletorBg from "../assets/project-cards/bg_SKELETOR.webp";
-import skeletorLogo from "../assets/project-cards/logo_SKELETOR.webp";
-import AEIBg from "../assets/project-cards/bg_AEI.webp";
-import AEILogo from "../assets/project-cards/logo_AEI.webp";
-import BeannikRoastersBg from "../assets/project-cards/bg_BeanNikRoasters.webp";
-import BeannikRoastersLogo from "../assets/project-cards/logo_BeanNikRoasters.webp";
-import DreameBg from "../assets/project-cards/bg_Dreame.webp";
-import DreameLogo from "../assets/project-cards/logo_Dreame.webp";
-import WestgateResortsBg from "../assets/project-cards/bg_WestgateResorts.webp";
-import WestgateResortsLogo from "../assets/project-cards/logo_WestgateResorts.webp";
-
+import { projects, projectCardImages } from "../config/projects";
 const Projects = () => {
   const { notifyPageReady } = usePageReadyController();
   
   // All project-card backgrounds and logos are required for a clean destination reveal.
-  useNotifyWhenImagesLoaded(notifyPageReady, [
-    skeletorBg,
-    skeletorLogo,
-    AEIBg,
-    AEILogo,
-    BeannikRoastersBg,
-    BeannikRoastersLogo,
-    WestgateResortsBg,
-    WestgateResortsLogo,
-    DreameBg,
-    DreameLogo,
-  ]);
+  useNotifyWhenImagesLoaded(notifyPageReady, projectCardImages);
 
   return (
     <Container>
@@ -43,42 +22,7 @@ const Projects = () => {
         </header>
 
         <div className="project-cards">
-          <ProjectCard
-            title="Design System &nbsp;/&nbsp; UI Toolkit"
-            path="/projects/skeletor"
-            background={skeletorBg}
-            logo={skeletorLogo} 
-            label="DEV"
-          />
-          <ProjectCard
-            title="Custom Drupal CMS"
-            path="/projects/AEI"
-            background={AEIBg}
-            logo={AEILogo} 
-            label="DEV  &nbsp;/&nbsp;  DESIGN"
-          />
-          <ProjectCard
-            title="Brand &nbsp;/&nbsp; Web"
-            path="/projects/BeannikRoasters"
-            background={BeannikRoastersBg}
-            logo={BeannikRoastersLogo}
-            label="DEV  &nbsp;/&nbsp;  DESIGN"
-          />
-          <ProjectCard
-            title="Marketing Web &nbsp;/&nbsp; Email"
-            path="/projects/WestgateResorts"
-            background={WestgateResortsBg}
-            logo={WestgateResortsLogo}
-            label="DEV  &nbsp;/&nbsp;  DESIGN"
-          />
-          <ProjectCard
-            title="Art Commissions"
-            path="/projects/Dreame"
-            background={DreameBg}
-            logo={DreameLogo}
-            label="DESIGN" 
-            light
-          />
+          {projects.map(project => <ProjectCard key={project.path} {...project} />)}
         </div>
       </section>
     </Container>

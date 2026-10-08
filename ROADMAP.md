@@ -5,7 +5,7 @@ This file is the source of truth for what is active, what is next, and what is i
 ## Current position
 
 - **Active next release:** v3.4.0 — Interactive Scene Polish — in progress.
-- **Current / next task:** T01 — Analytics, T02 — Three.js entrance, T03 — Procedural cube interaction, and T04 — Intro choreography timing polish are COMPLETE. T05 — Scene-control presentation is NEXT, not started.
+- **Current / next task:** T01 — Analytics, T02 — Three.js entrance, T03 — Procedural cube interaction, and T04 — Intro choreography timing polish are COMPLETE. T05 — Application-ready portfolio content pass is UNDER REVIEW. T06 — Scene-control presentation is NEXT, not started.
 - **Application version:** 3.3.0. v3.4.0 has not been released; internal tasks do not change version metadata.
 - **Previous release:** v3.3.0 automated verification is complete; its recorded final manual acceptance remains pending. No additional modernization or lint-cleanup task is scheduled.
 - **Outside v3.4.0:** the accepted ESLint baseline and broader work under Backlog, including route-specific/persistent Three.js world states.
@@ -24,9 +24,11 @@ This file is the source of truth for what is active, what is next, and what is i
 
 ### Goal and status
 
-Make the homepage cube scene a more intentional, responsive part of the portfolio through focused measurement, authored entrances, direct interaction, and understandable controls. T01, T02, T03, and T04 are complete. David accepted the procedural cube interaction, tuning controls, stronger defaults, enlarged pointer footprint, and revised intro choreography. T05 is next, not started; later tasks remain unstarted and proceed in the order below.
+Make the homepage cube scene a more intentional, responsive part of the portfolio through focused measurement, authored entrances, direct interaction, and understandable controls. T01, T02, T03, and T04 are complete. David accepted the procedural cube interaction, tuning controls, stronger defaults, enlarged pointer footprint, and revised intro choreography. T05 is the application-ready portfolio content pass and is under review; later scene tasks remain unstarted and proceed in the order below.
 
 Scope update (2026-10-06): David requested intro choreography timing polish as T04. The previously planned T04–T07 tasks move to T05–T08 with their scope preserved.
+
+Scope update (2026-10-07): David requested an application-ready portfolio content pass as T05 to support the job search while preserving the existing visual identity and scene behavior. The previously planned T05–T08 tasks move to T06–T09 with their scope preserved. Application version remains 3.3.0; v3.4.0 is unreleased.
 
 ### Sequential tasks
 
@@ -50,17 +52,25 @@ Scope update (2026-10-06): David requested intro choreography timing polish as T
   - Enable pointer interaction at 65% of the post-impact ripple/recovery duration. Only fully revealed cubes can receive pointer entry; propagated lift and highlight blend with each recipient's existing reveal so hidden cubes remain still and settling intro offsets compose additively with lift.
   - Returning Home retains immediate established-scene behavior; reduced motion retains the static field with no particles or interaction.
   - Production build and whitespace validation passed; lint remains at the accepted 32 errors and 5 warnings. A focused scene-loop harness verified timing gates, unchanged entrance transforms against T03, real pointer raycasts during settling, reveal masking, additive lift, control targets, reduced motion, return-to-Home behavior, and cleanup. Local browser rendering and the width control passed a smoke check with no captured warnings/errors. David passed manual visual acceptance on 2026-10-06: the revised timing feels significantly better, with no visible snapping or transform conflicts, smooth high-speed pointer movement during settling, particles beginning during reveal, and interaction available during ripple recovery. Hidden cubes remain non-interactive and reduced-motion behavior remains correct. Final scope review confirms only the intended T04 choreography and documentation changes; T05 has not begun.
-- **T05 — Scene-control presentation — NEXT (not started)**
+- **T05 — Application-ready portfolio content pass — UNDER REVIEW**
+  - Retain centralized route-aware document titles, the David LaBar fallback title, an accessible Contact navigation icon with mobile text, and shared project data for Projects and DocumentTitle. Projects retains all five cards, ordering, assets, and image readiness.
+  - Visual-review scope correction (2026-10-07): restore Home's hero-only structure and all Expertise user-facing copy from pre-T05 commit 57038f9. Remove Selected Work, its Home-only wrappers/styles, and unused featured-project metadata. Restore Contact's original two body paragraphs while keeping the Contact heading and approved availability subheading.
+  - Preserve About's current T05 copy, Toolbox, and BlockReveal/Panel implementation unchanged in this correction. Its broader personal-content direction remains deferred below.
+  - Scene manager, controls/tuning, choreography, form, analytics, and readiness owners remain unchanged. No new dependencies, version changes, GSAP Animation Editor project, or shifted scene-task implementation.
+  - Production build passes with the existing large-chunk advisory. Lint remains at the accepted 32 errors / 5 warnings; whitespace validation passes.
+  - Focused local Edge/Playwright checks passed for restored Home structure and viewport/footer spacing, scene-control toggle and keyboard width adjustment, View My Work overlay navigation, all five ordered Projects cards and loaded imagery, restored Expertise copy/icons, exact Contact copy/form presence, route titles, and desktop/mobile Contact navigation. Desktop/mobile screenshots were visually inspected; no runtime errors were captured. Source comparison confirms the requested 57038f9 restorations, and About remains unchanged during this correction.
+  - David's final visual/interaction acceptance remains pending. No live form submission, GA4 DebugView verification, or deployed-device acceptance was performed. Changes remain unstaged/uncommitted; T06 has not started.
+- **T06 — Scene-control presentation — NEXT (not started)**
   - Improve the existing cube-control UI while retaining its activation cube. Animate panel open/close and control entrance/exit so controls do not simply appear.
   - Improve hierarchy and interaction feedback while preserving accessibility and reduced-motion behavior.
-- **T06 — Scene modes / Randomize**
+- **T07 — Scene modes / Randomize**
   - Audit dormant scene settings/presets before creating new systems; expose only effects and settings that are visually worthwhile.
   - Add constrained Randomize and a clear way to restore the default state. Keep the interface playful and understandable rather than presenting a developer/debug panel.
-- **T07 — Drive camera**
+- **T08 — Drive camera**
   - Prototype a Wipeout-style responsive camera mode using damped position, yaw/roll, height/pitch, and possibly subtle FOV response to simulate steering and road movement.
   - Do not bend or restructure the endless cube grid to create steering. Preserve existing cube travel/wrapping so old reset-boundary problems are not reintroduced.
   - Keep DRIVE optional unless testing shows it belongs in the default presentation.
-- **T08 — Performance and release acceptance**
+- **T09 — Performance and release acceptance**
   - Profile the completed scene interactions and rendering; check desktop, mobile, weaker-device, and reduced-motion behavior.
   - Run the production build, accepted lint baseline checks, whitespace checks, and focused manual visual/interaction acceptance.
 
@@ -136,11 +146,11 @@ The following are deferred future directions, outside v3.4.0. They are **not pre
 
 ### Job-search portfolio refinement
 
-Retain these proposed improvements for a separately scoped future release:
+The retained title, navigation, Contact heading/subheading, and About changes are scoped in v3.4.0 T05 above. Expertise, About, and Contact remain separate pages. The following portfolio-content directions remain deferred, outside active v3.4.0 tasks:
 
-- **Home and positioning:** tighten homepage messaging and surface selected project work more directly.
-- **Branding and document titles:** remove "David LaBar Studios" in favor of David LaBar + current role positioning, and add route-specific document titles for clearer analytics, SEO, browser tabs, and accessibility.
-- **Information architecture:** simplify overlapping Expertise/About/Contact content and navigation based on the previously identified portfolio-content issues.
+- **GSAP Animation Editor case study:** remains the next major portfolio-content addition.
+- **Home featured projects:** reconsider presentation after the GSAP Animation Editor case study exists; do not simply duplicate the Projects card grid.
+- **About:** reconsider as a more personal page that adds something beyond the resume, LinkedIn, Expertise, and project case studies.
 - **Final job-search presentation pass:** review the primary pages and featured case studies for concise copy, responsive presentation, and obvious hiring/contact paths; fix only concrete issues found in that review.
 
 ### Presentation and motion architecture

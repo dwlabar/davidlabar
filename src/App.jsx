@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // App.jsx (v0.0.1)
-// Last updated: 3.2.2
+// Last updated: 3.4.0
 // -----------------------------------------------------------------------------
 
 import { BrowserRouter as Router, Routes, Route } from "react-router";
@@ -20,6 +20,7 @@ import Dreame from "./pages/projects/Dreame";
 import WestgateResorts from "./pages/projects/WestgateResorts";
 
 // Import components
+import DocumentTitle from "./components/DocumentTitle";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Overlay from "./components/Overlay";
@@ -31,12 +32,13 @@ const NavLinks = [
   { name: "My Work", path: "/projects" },
   { name: "Expertise", path: "/expertise" },
   { name: "About", path: "/about" },
-  { name: "Hire Me", path: "/contact" }
+  { name: "Contact", path: "/contact" }
 ];
 
 const App = () => {
   return (
     <Router>
+      <DocumentTitle />
       <a className="skip-link" href="#main-content">Skip to main content</a>
       <NavBar links={NavLinks} />
       <Overlay />
