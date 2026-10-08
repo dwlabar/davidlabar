@@ -1,6 +1,7 @@
 // Last updated: 3.4.0
 
 import { useState } from 'react';
+import EffectsTuningControls from './EffectsTuningControls';
 import { useThreeSceneContext } from '../context/ThreeSceneContext';
 
 const INTERACTION_CONTROLS = [
@@ -23,35 +24,39 @@ const InteractionTuningControls = () => {
         id="interaction-tuning-panel"
         className="interaction-tuning__panel"
         role="group"
-        aria-label="Interaction tuning"
+        aria-label="Scene tuning"
         hidden={!isOpen}
       >
         {isOpen && (
-          <div className="interaction-tuning__controls">
-            {INTERACTION_CONTROLS.map(({ key, label, min, max, step }) => (
-              <div className="slider-control" key={key}>
-                <label htmlFor={`interaction-${key}`}>{label}</label>
-                <output htmlFor={`interaction-${key}`}>{interactionSettings[key]}</output>
-                <input
-                  type="range"
-                  id={`interaction-${key}`}
-                  min={min}
-                  max={max}
-                  step={step}
-                  value={interactionSettings[key]}
-                  style={{ '--progress': `${(interactionSettings[key] - min) / (max - min) * 100}%` }}
-                  onChange={(event) => updateInteractionSetting(key, Number(event.target.value))}
-                />
-              </div>
-            ))}
-            <button type="button" onClick={resetInteractionSettings}>Reset Values</button>
-          </div>
+          <>
+            <h3 className="interaction-tuning__heading">Interaction</h3>
+            <div className="interaction-tuning__controls" role="group" aria-label="Interaction tuning">
+              {INTERACTION_CONTROLS.map(({ key, label, min, max, step }) => (
+                <div className="slider-control" key={key}>
+                  <label htmlFor={`interaction-${key}`}>{label}</label>
+                  <output htmlFor={`interaction-${key}`}>{interactionSettings[key]}</output>
+                  <input
+                    type="range"
+                    id={`interaction-${key}`}
+                    min={min}
+                    max={max}
+                    step={step}
+                    value={interactionSettings[key]}
+                    style={{ '--progress': `${(interactionSettings[key] - min) / (max - min) * 100}%` }}
+                    onChange={(event) => updateInteractionSetting(key, Number(event.target.value))}
+                  />
+                </div>
+              ))}
+              <button type="button" onClick={resetInteractionSettings}>Reset Values</button>
+            </div>
+            <EffectsTuningControls />
+          </>
         )}
       </div>
       <button
         type="button"
         className="interaction-tuning__toggle"
-        aria-label={isOpen ? 'Hide interaction tuning' : 'Show interaction tuning'}
+        aria-label={isOpen ? 'Hide scene tuning' : 'Show scene tuning'}
         aria-expanded={isOpen}
         aria-controls="interaction-tuning-panel"
         onClick={() => setIsOpen((open) => !open)}

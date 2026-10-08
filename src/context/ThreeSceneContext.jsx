@@ -1,6 +1,9 @@
+// Last updated: 3.4.0
+
 import { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { SCENE_PRESETS } from '../config/ThreeScenePresets';
 import { CUBE_LIFT_DEFAULTS } from '../components/cubeLiftField';
+import { BLOOM_DEFAULTS } from '../config/bloomSettings';
 
 const LOCAL_STORAGE_KEY = 'threeSceneSettings';
 
@@ -37,6 +40,12 @@ export const ThreeSceneProvider = ({ children, presetName = 'default' }) => {
   };
   const resetInteractionSettings = () => setInteractionSettings(CUBE_LIFT_DEFAULTS);
 
+  const [bloomSettings, setBloomSettings] = useState(BLOOM_DEFAULTS);
+  const updateBloomSetting = (key, value) => {
+    setBloomSettings((previous) => ({ ...previous, [key]: value }));
+  };
+  const resetBloomSettings = () => setBloomSettings(BLOOM_DEFAULTS);
+
   const updateSetting = (key, value) => {
     setSettings((prev) => {
       const updated = { ...prev, [key]: value };
@@ -60,7 +69,8 @@ export const ThreeSceneProvider = ({ children, presetName = 'default' }) => {
 
   return (
     <ThreeSceneContext.Provider value={{
-      settings, updateSetting, interactionSettings, updateInteractionSetting, resetInteractionSettings
+      settings, updateSetting, interactionSettings, updateInteractionSetting, resetInteractionSettings,
+      bloomSettings, updateBloomSetting, resetBloomSettings
     }}>
       {children}
     </ThreeSceneContext.Provider>

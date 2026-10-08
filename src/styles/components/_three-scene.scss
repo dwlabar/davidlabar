@@ -120,6 +120,16 @@
     animation: interaction-tuning-enter 0.2s variables.$global-easing;
   }
 
+  &__heading {
+    padding: 0;
+    border: 0;
+    color: inherit;
+    margin: 0 0 1rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
   &__controls {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -152,6 +162,30 @@
   button:focus-visible {
     outline: 2px solid variables.$color-soundwave;
     outline-offset: 2px;
+  }
+}
+
+.effects-tuning {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid variables.$color-devastator;
+
+  &__enabled {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+
+    input {
+      accent-color: variables.$color-soundwave;
+    }
+
+    input:focus-visible {
+      outline: 2px solid variables.$color-soundwave;
+      outline-offset: 2px;
+    }
   }
 }
 

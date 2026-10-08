@@ -8,6 +8,7 @@ import { useThreeSceneContext } from '../context/ThreeSceneContext';
 import useReducedMotion from '../hooks/useReducedMotion';
 import { createCubeLiftField } from './cubeLiftField';
 import { createCubePointerTarget } from './cubePointerTarget';
+import { createSceneBloom } from './createSceneBloom';
 
 // Entrance tuning: seconds, world units, and angular frequency (radians/second).
 const IMPACT_RIPPLE = {
@@ -51,8 +52,9 @@ const ThreeSceneManager = () => {
   const sceneEntranceRef = useRef(null);
   const { isPreloaderVisible } = useContext(PreloaderContext);
   const preloaderVisibleRef = useRef(isPreloaderVisible);
-  const { settings, interactionSettings } = useThreeSceneContext();
+  const { settings, interactionSettings, bloomSettings } = useThreeSceneContext();
   const interactionSettingsRef = useRef(interactionSettings);
+  const bloomSettingsRef = useRef(bloomSettings);
   const prefersReducedMotion = useReducedMotion();
 
   const cellSize = 10; // Fixed size of each grid cell
@@ -83,6 +85,11 @@ const ThreeSceneManager = () => {
   useEffect(() => {
     interactionSettingsRef.current = interactionSettings;
   }, [interactionSettings]);
+
+  useEffect(() => {
+    bloomSettingsRef.current = bloomSettings;
+    if (prefersReducedMotion) renderSceneRef.current?.();
+  }, [bloomSettings, prefersReducedMotion]);
 
   // ======= EFFECT: SPEED UPDATE (with GSAP tween cleanup) =======
   useEffect(() => {
@@ -161,6 +168,7 @@ const ThreeSceneManager = () => {
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(newWidth, newHeight, false);
     renderer.setClearColor(0x151515);
+    const sceneBloom = createSceneBloom(renderer, scene, camera);
     mount.appendChild(renderer.domElement);
 
     // ======= LIGHTING =======
@@ -581,7 +589,7 @@ const ThreeSceneManager = () => {
         }
       });
 
-      renderer.render(scene, camera);
+      sceneBloom.render(bloomSettingsRef.current);
     };
     renderSceneRef.current = renderScene;
 
@@ -720,7 +728,7 @@ const ThreeSceneManager = () => {
       }
 
       updatePointerInteraction(frameTime);
-      renderer.render(scene, camera);
+      sceneBloom.render(bloomSettingsRef.current);
     };
 
     if (prefersReducedMotion) {
@@ -735,6 +743,7 @@ const ThreeSceneManager = () => {
       const width = mount.clientWidth;
       const height = mount.clientHeight;
       renderer.setSize(width, height, false);
+      sceneBloom.resize(width, height);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       if (prefersReducedMotion) renderScene();
@@ -772,6 +781,7 @@ const ThreeSceneManager = () => {
 
       cubesRef.current = [];
       scene.clear();
+      sceneBloom.dispose();
       renderer.renderLists.dispose();
       renderer.dispose();
       renderer.forceContextLoss();

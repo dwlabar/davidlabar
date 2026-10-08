@@ -91,11 +91,32 @@ Fresh public defaults in `SCENE_PRESETS.default` are Width 10, Depth 10, Height 
 
 Pointer acquisition keeps the nearest visible-geometry raycast hit first. On a miss, `cubePointerTarget.js` tests the same ray against a 1.5× X/Z unit-box footprint transformed by each cube's current world matrix; height stays unchanged. It selects one nearest eligible cube, with stable grid order breaking exact ties. This scene-owned scratch math creates no proxy meshes or GPU resources and follows live scale, lift, and recycling. The existing pointer/entrance/reduced-motion gates still apply. The 1.5× multiplier is the accepted T03 setting.
 
-### Interaction tuning in Preview
+### Scene tuning in Preview
 
-`InteractionTuningControls` renders inside the public cube-control panel only when `import.meta.env.DEV || import.meta.env.VITE_INTERACTION_TUNING === '1'`. Local Vite development enables it automatically. In the Vercel project's environment-variable settings, add `VITE_INTERACTION_TUNING` with value `1`, select **Preview only**, then redeploy the Preview so Vite embeds the flag. Leave it unset for Production. This is a public client-side feature flag, not a secret; no deployment infrastructure is required.
+`InteractionTuningControls` owns the shared disclosure for the Interaction and Effects sections, with `EffectsTuningControls` rendering the bloom controls. It renders inside the public cube-control panel only when `import.meta.env.DEV || import.meta.env.VITE_INTERACTION_TUNING === '1'`. Local Vite development enables it automatically. In the Vercel project's environment-variable settings, add `VITE_INTERACTION_TUNING` with value `1`, select **Preview only**, then redeploy the Preview so Vite embeds the flag. Leave it unset for Production. This is a public client-side feature flag, not a secret; no deployment infrastructure is required.
 
-The compact +/− tuning button is anchored to the bottom center of the shared control shell. It exposes its expanded state and controls a labeled inner section below a divider; the section has no independent background or outer border. The shell grows upward and its contents scroll on constrained viewports. Closing the public controls unmounts the tuning disclosure; values remain transient in the Home provider until Reset Values or route teardown. Reset restores the authored defaults from `CUBE_LIFT_DEFAULTS`; the accepted values are recorded under T03 in [ROADMAP.md](../ROADMAP.md). The existing development slider ranges and steps are retained.
+The compact +/− tuning button is anchored to the bottom center of the shared control shell. It exposes its expanded state and controls a labeled inner section below a divider; the section has no independent background or outer border. The shell grows upward and its contents scroll on constrained viewports. Closing the public controls unmounts the tuning disclosure; values remain transient in the Home provider until Reset Values or route teardown. Reset restores the authored defaults from `CUBE_LIFT_DEFAULTS`; the accepted values are recorded under T03 in [ROADMAP.md](../ROADMAP.md). The existing interaction slider ranges and steps are retained. Effects uses its own labeled section and Reset Values button in the same scrolling shell; no second control framework or panel is introduced.
+
+### Bloom rendering and transient effects settings
+
+`src/config/bloomSettings.js` owns authored bloom defaults and slider metadata. `ThreeSceneContext` owns independent transient `bloomSettings`; these values never enter presets or `threeSceneSettings`. The manager reads a live ref, so adjustments do not reconstruct scene objects or passes. Closing controls retains values until the Home provider unmounts; route return/reload restores authored defaults. The existing `VITE_INTERACTION_TUNING=1` Preview-only flag exposes both tuning sections; ordinary production omits both sections while rendering default bloom.
+
+| Control | Default | Range | Step |
+| --- | --- | --- | --- |
+| Bloom Enabled | On | On/off | — |
+| Strength | 0.08 | 0–1 | 0.01 |
+| Radius | 0.40 | 0–1 | 0.01 |
+| Threshold | 0.15 | 0.02–1 | 0.01 |
+
+`createSceneBloom.js` owns one `EffectComposer` with `RenderPass → UnrealBloomPass → OutputPass`, using the installed Three.js 0.186.0 addons. The existing animation loop invokes it after opacity, entrance, interaction, and wrap updates. It renders the actual faded Phong faces and outlines once, with no material swaps, extra lighting, or hidden-geometry bloom scene. Disabled bloom and strength zero use the original direct renderer path. No bloom parameter has its own animation or frame loop; reduced-motion changes redraw the static scene on demand.
+
+The renderer's antialias option, pixel ratio, clear color, exposure, and normal output configuration are retained. The composer inherits renderer DPR (currently 1) and resizes with the existing observer. Its existing two half-float targets use up to four supported MSAA samples because canvas antialiasing does not cover offscreen targets; UnrealBloomPass retains its standard downsampled mip chain. No additional selective-bloom target is allocated. Slider updates reuse resources, and disabling bloom bypasses GPU passes while retaining resources for immediate re-enabling.
+
+During bloom only, unit-exposure linear tone mapping avoids a cinematic color curve and OutputPass applies final sRGB conversion. A temporary solid scene background uses the authored clear color in the active linear render-target space; this avoids the gray-background defect caused by clearing the target with the prior screen-space clear value. Both renderer tone mapping and scene background are restored in a finally block. Offscreen linear compositing can subtly affect partially transparent pixels; material opacity and recycling calculations remain unchanged. David accepted Phase 1 bloom and his adjusted source defaults on 2026-10-08.
+
+The scene owner disposes RenderPass, UnrealBloomPass, OutputPass, and the composer before renderer teardown. The installed r186 UnrealBloomPass disposal omits `materialHighPassFilter`, so this owner explicitly disposes that material too. Browser instrumentation verified disposal of all 24 tracked post-processing targets/materials through Strict Mode, preference changes, and navigation.
+
+API decisions were checked against the installed addon source and the official [EffectComposer documentation](https://threejs.org/docs/pages/EffectComposer.html), [UnrealBloomPass documentation](https://threejs.org/docs/pages/UnrealBloomPass.html), and [OutputPass documentation](https://threejs.org/docs/pages/OutputPass.html).
 
 ### Pages, projects, and components
 
