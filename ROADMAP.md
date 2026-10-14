@@ -5,7 +5,7 @@ This file is the source of truth for what is active, what is next, and what is i
 ## Current position
 
 - **Active next release:** v3.4.0 — Interactive Scene Polish — in progress.
-- **Current / next task:** T01 — Analytics, T02 — Three.js entrance, T03 — Procedural cube interaction, and T04 — Intro choreography timing polish are COMPLETE. T05 — Application-ready portfolio content pass is UNDER REVIEW. T10 — Scene Bloom and Atmosphere: Phase 1 Bloom is ACCEPTED; Phase 2 CSS Horizon Glow is authorized, not yet implemented. T06 — Scene-control presentation remains the next planned scene task, not started.
+- **Current / next task:** T01 — Analytics, T02 — Three.js entrance, T03 — Procedural cube interaction, and T04 — Intro choreography timing polish are COMPLETE. T05 — Application-ready portfolio content pass is UNDER REVIEW. T10 — Scene Bloom and Atmosphere is COMPLETE for the accepted bloom implementation; the CSS Horizon Glow experiment was abandoned due to its visual conflict with cube fading. T06 — Scene-control presentation remains the next planned scene task, not started.
 - **Application version:** 3.3.0. v3.4.0 has not been released; internal tasks do not change version metadata.
 - **Previous release:** v3.3.0 automated verification is complete; its recorded final manual acceptance remains pending. No additional modernization or lint-cleanup task is scheduled.
 - **Outside v3.4.0:** the accepted ESLint baseline and broader work under Backlog, including route-specific/persistent Three.js world states.
@@ -24,7 +24,7 @@ This file is the source of truth for what is active, what is next, and what is i
 
 ### Goal and status
 
-Make the homepage cube scene a more intentional, responsive part of the portfolio through focused measurement, authored entrances, direct interaction, and understandable controls. T01, T02, T03, and T04 are complete. David accepted the procedural cube interaction, tuning controls, stronger defaults, enlarged pointer footprint, and revised intro choreography. T05 is the application-ready portfolio content pass and is under review. T10 Phase 1 is accepted; Phase 2 CSS Horizon Glow is separately authorized and not yet implemented; T06–T09 retain their reserved scope and remain unstarted.
+Make the homepage cube scene a more intentional, responsive part of the portfolio through focused measurement, authored entrances, direct interaction, and understandable controls. T01, T02, T03, and T04 are complete. David accepted the procedural cube interaction, tuning controls, stronger defaults, enlarged pointer footprint, and revised intro choreography. T05 is the application-ready portfolio content pass and is under review. T10 is complete for the accepted and committed bloom implementation; the CSS Horizon Glow experiment was abandoned due to its visual conflict with cube fading; T06–T09 retain their reserved scope and remain unstarted.
 
 Scope update (2026-10-06): David requested intro choreography timing polish as T04. The previously planned T04–T07 tasks move to T05–T08 with their scope preserved.
 
@@ -76,7 +76,8 @@ Scope update (2026-10-07): David authorized T10 — Scene Bloom and Atmosphere, 
   - Profile the completed scene interactions and rendering; check desktop, mobile, weaker-device, and reduced-motion behavior.
   - Run the production build, accepted lint baseline checks, whitespace checks, and focused manual visual/interaction acceptance.
 
-- **T10 — Scene Bloom and Atmosphere — IN PROGRESS (Phase 1 accepted; Phase 2 authorized, not yet implemented)**
+- **T10 — Scene Bloom and Atmosphere — COMPLETE (accepted bloom implementation)**
+  - **Phase 1 — Bloom — ACCEPTED AND COMMITTED (`2e5518e`, 2026-10-08, `feat: add configurable scene bloom`).** The user's adjusted source defaults and approved implementation were preserved exactly; a clean working tree was verified before Phase 2.
   - Bloom only, using installed Three.js r186 addons: one EffectComposer with RenderPass → UnrealBloomPass → OutputPass, owned by the existing Home scene lifecycle. Disabled bloom or zero strength bypasses all post-processing passes. Sliders update the existing pass without rebuilding the scene.
   - Preserve camera, lights, geometry, Phong/outline materials, fading, wrap/reposition logic, intro timing, pointer interaction, trails, and persisted public settings. Bloom receives the already-faded scene; no selective material replacement or second scene render. No new particles, horizon gleams, shafts, DOM glow, or Phase 2 work.
   - Separate transient Effects section inside the existing shared +/− tuning disclosure, using the existing development/opt-in Preview gate. Bloom Enabled defaults on; Strength 0.08 (0–1), Radius 0.40 (0–1), Threshold 0.15 (0.02–1); all sliders step by 0.01. Effects Reset Values restores all four defaults independently of interaction/public settings. Production renders authored bloom while hiding unfinished tuning controls.
@@ -84,7 +85,8 @@ Scope update (2026-10-07): David authorized T10 — Scene Bloom and Atmosphere, 
   - Local Edge/Playwright checks cover keyboard sliders/toggle/reset, independent interaction/public controls and persistence, mobile scrolling and resize, reduced-motion static rendering/live updates, intro drop/reveal, pointer lift, ordinary/max-speed recycling, navigation/remount, and all 24 tracked post-processing target/material disposals. A zero-opacity pixel check found no visible geometry or bloom, and bloom on/off retained the exact #151515 background. Observed wrapped-cube opacity stayed below 0.0004, with synchronized face/outline opacity.
   - Desktop/mobile screenshots were inspected; automated checks are not David's visual acceptance. Production and opt-in builds pass with the existing large-chunk advisory; ESLint retains the accepted 32 errors / 5 warnings. Production browser checks confirm four public sliders with tuning hidden, while opt-in Preview exposes all 14 sliders and the Effects toggle/reset. No browser errors were captured; whitespace validation passes.
   - Local synchronous 1440×900 render sampling was approximately 2.0–2.1 ms direct / 2.2–2.6 ms bloom; this is not low-end/mobile-device profiling. David accepted Phase 1 on 2026-10-08, including his adjusted source defaults. Lower-end GPU profiling remains deferred. If weaker hardware needs a reduction, first lower the bounded offscreen MSAA sample count; do not introduce a quality-management system in Phase 1.
-  - Phase 1 is accepted for the authorized `feat: add configurable scene bloom` checkpoint, preserving the implementation and adjusted source defaults. Phase 2 CSS Horizon Glow is authorized but not yet implemented. No merge, push, tag, or version change. Application version remains 3.3.0; v3.4.0 is unreleased.
+  - **Phase 2 — CSS Horizon Glow — ABANDONED (2026-10-14).** David rejected the experiment due to its visual conflict with cube fading. Removed the CSS layer, transient horizon settings, tuning controls, styles, and architecture documentation without a replacement effect. The accepted bloom implementation and defaults, cube fading, grid dimensions, entrance animation, interaction, and public controls remain unchanged.
+  - Application version remains 3.3.0; v3.4.0 is unreleased. Horizon removal remains unstaged/uncommitted for review.
 
 Route-specific and persistent Three.js world states remain deferred. Broader backlog items do not expand this release without an explicit scope change.
 
