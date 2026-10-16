@@ -7,8 +7,9 @@ import { PreloaderContext } from '../context/PreloaderContext';
 import { useThreeSceneContext } from '../context/ThreeSceneContext';
 import useReducedMotion from '../hooks/useReducedMotion';
 import { createCubeLiftField } from './cubeLiftField';
-import { createCubePointerTarget } from './cubePointerTarget';
+import { createCubePointerTarget, findCubePointerTarget } from './cubePointerTarget';
 import { createSceneBloom } from './createSceneBloom';
+import { BASE_DEPTH_ROWS, CAMERA_DEFAULTS, MAX_DEPTH_ROWS, SCENE_TUNING_ENABLED } from '../config/sceneTuningSettings';
 
 // Entrance tuning: seconds, world units, and angular frequency (radians/second).
 const IMPACT_RIPPLE = {
@@ -50,11 +51,13 @@ const ThreeSceneManager = () => {
   const mountRef = useRef(null);
   const renderSceneRef = useRef(null);
   const sceneEntranceRef = useRef(null);
+  const applySceneTuningRef = useRef(null);
   const { isPreloaderVisible } = useContext(PreloaderContext);
   const preloaderVisibleRef = useRef(isPreloaderVisible);
-  const { settings, interactionSettings, bloomSettings } = useThreeSceneContext();
+  const { settings, interactionSettings, bloomSettings, sceneTuning } = useThreeSceneContext();
   const interactionSettingsRef = useRef(interactionSettings);
   const bloomSettingsRef = useRef(bloomSettings);
+  const sceneTuningRef = useRef(sceneTuning);
   const prefersReducedMotion = useReducedMotion();
 
   const cellSize = 10; // Fixed size of each grid cell
@@ -90,6 +93,11 @@ const ThreeSceneManager = () => {
     bloomSettingsRef.current = bloomSettings;
     if (prefersReducedMotion) renderSceneRef.current?.();
   }, [bloomSettings, prefersReducedMotion]);
+
+  useEffect(() => {
+    sceneTuningRef.current = sceneTuning;
+    applySceneTuningRef.current?.();
+  }, [sceneTuning]);
 
   // ======= EFFECT: SPEED UPDATE (with GSAP tween cleanup) =======
   useEffect(() => {
@@ -155,15 +163,22 @@ const ThreeSceneManager = () => {
     const newHeight = mount.clientHeight;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, newWidth / newHeight, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(sceneTuningRef.current.fov, newWidth / newHeight, 0.1, 1000);
 
     const stepX = cellSize;
     const stepZ = cellSize;
-    const gridSpanZ = (settings.gridSize + 1) * stepZ;
+    let gridSpanZ = (settings.gridSize + 1) * stepZ;
     const startZ = gridSpanZ / 2;
 
-    camera.position.set(0, 40, 40);
-    camera.lookAt(0, 0, -((settings.gridSize / 2 - 1) * stepZ));
+    const applyCameraTuning = () => {
+      const tuning = sceneTuningRef.current;
+      camera.position.set(tuning.cameraX, tuning.cameraY, tuning.cameraZ);
+      camera.lookAt(tuning.targetX, tuning.targetY, tuning.targetZ);
+      camera.fov = tuning.fov;
+      camera.updateProjectionMatrix();
+      camera.updateMatrixWorld();
+    };
+    applyCameraTuning();
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(newWidth, newHeight, false);
@@ -185,7 +200,7 @@ const ThreeSceneManager = () => {
     const trails = [];
     const depth = gridSpanZ;
     const baseMargin = 1;
-    const trailResetZ = camera.position.z + 10;
+    const trailResetZ = CAMERA_DEFAULTS.cameraZ + 10; // Particle travel stays independent of tuning.
     const trailTravelDistance = trailResetZ + depth;
 
     for (let i = 0; i < trailCount; i++) {
@@ -209,7 +224,7 @@ const ThreeSceneManager = () => {
     }
 
     function resetTrail(trail, initialIndex = null, overshoot = 0) {
-      trail.position.x = (Math.random() - 0.5) * (gridSpanZ / 2);
+      trail.position.x = (Math.random() - 0.5) * (depth / 2);
       trail.position.y = cubeScaleRef.current.y + baseMargin + 5 + Math.random() * 30;
 
       if (initialIndex !== null) {
@@ -242,66 +257,85 @@ const ThreeSceneManager = () => {
     );
 
     // ======= CUBE GRID GENERATION =======
-    const fadeStart = settings.fadeStart || 60;
-    const fadeEnd = settings.fadeEnd || 10;
-    const fadeCurve = settings.fadeCurve || 2;
-
     const gridSize = settings.gridSize;
     const cubes = [];
+    const createCube = (x, z) => {
+      const geometry = new THREE.BoxGeometry(1, 1, 1);
+      const material = new THREE.MeshPhongMaterial({
+        color: 0x373737,
+        transparent: true,
+        opacity: 0,
+        specular: 0xffffff,
+        shininess: 100,
+        emissive: 0x0286eb,
+        emissiveIntensity: 0
+      });
+
+      const cube = new THREE.Mesh(geometry, material);
+      cube.scale.set(settings.cubeSizeX, settings.cubeSizeY, settings.cubeSizeZ);
+
+      const posX = x * stepX;
+      const posZ = z * stepZ;
+      let posY = 0;
+
+      if (settings.waveEffectEnabled) {
+        posY = settings.waveAmplitude * Math.sin(posX * settings.waveFrequency + posZ * settings.waveFrequency);
+      } else if (settings.randomYEffectEnabled) {
+        const range = settings.randomYRange || 10;
+        posY = (Math.random() - 0.5) * range;
+      }
+
+      cube.position.set(posX, posY, posZ);
+      cube.userData.phase = posX * settings.waveFrequency + posZ * settings.waveFrequency;
+      cube.userData.baseY = posY;
+
+      scene.add(cube);
+
+      // ======= OUTLINE: add per-cube line overlay ====================
+      const edgeMat = new THREE.LineBasicMaterial({
+        color: 0x006dc1,
+        transparent: true,
+        opacity: 0
+      });
+      const edgeLines = new THREE.LineSegments(
+        new THREE.EdgesGeometry(geometry),
+        edgeMat
+      );
+      edgeLines.scale.setScalar(1.01);   // moves lines 1 % off the faces
+      edgeLines.renderOrder = 1;         // ensures they render after cubes
+      edgeMat.depthWrite = false;        // avoids z-buffer updates                                                          // NEW
+      cube.add(edgeLines);
+      cube.userData.edge = edgeLines;
+      return cube;
+    };
     for (let x = -Math.floor(gridSize / 2); x <= Math.floor(gridSize / 2); x++) {
       for (let z = -Math.floor(gridSize / 2); z <= Math.floor(gridSize / 2); z++) {
-        const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const material = new THREE.MeshPhongMaterial({
-          color: 0x373737,
-          transparent: true,
-          opacity: 0,
-          specular: 0xffffff,
-          shininess: 100,
-          emissive: 0x0286eb,
-          emissiveIntensity: 0
-        });
-
-        const cube = new THREE.Mesh(geometry, material);
-        cube.scale.set(settings.cubeSizeX, settings.cubeSizeY, settings.cubeSizeZ);
-
-        const posX = x * stepX;
-        const posZ = z * stepZ;
-        let posY = 0;
-
-        if (settings.waveEffectEnabled) {
-          posY = settings.waveAmplitude * Math.sin(posX * settings.waveFrequency + posZ * settings.waveFrequency);
-        } else if (settings.randomYEffectEnabled) {
-          const range = settings.randomYRange || 10;
-          posY = (Math.random() - 0.5) * range;
-        }
-
-        cube.position.set(posX, posY, posZ);
-        cube.userData.phase = posX * settings.waveFrequency + posZ * settings.waveFrequency;
-        cube.userData.baseY = posY;
-
-        scene.add(cube);
-        cubes.push(cube);
-
-        // ======= OUTLINE: add per-cube line overlay ====================
-        const edgeMat = new THREE.LineBasicMaterial({
-          color: 0x006dc1,
-          transparent: true,
-          opacity: 0
-        });
-        const edgeLines = new THREE.LineSegments(
-          new THREE.EdgesGeometry(geometry),
-          edgeMat
-        );
-        edgeLines.scale.setScalar(1.01);   // moves lines 1 % off the faces
-        edgeLines.renderOrder = 1;         // ensures they render after cubes
-        edgeMat.depthWrite = false;        // avoids z-buffer updates                                                          // NEW
-        cube.add(edgeLines);
-        cube.userData.edge = edgeLines;
+        cubes.push(createCube(x, z));
       }
     }
+    const activeRows = [];
+    for (let z = Math.floor(gridSize / 2); z >= -Math.floor(gridSize / 2); z--) {
+      activeRows.push(cubes.filter((cube) => cube.position.z === z * stepZ));
+    }
+    const spareRows = [];
+    // Reserve only in development/opt-in Preview. Slider changes reuse these
+    // meshes; inactive rows neither render, raycast, nor receive lift sources.
+    if (SCENE_TUNING_ENABLED) {
+      for (let row = BASE_DEPTH_ROWS; row < MAX_DEPTH_ROWS; row++) {
+        const extraRow = [];
+        for (let x = -Math.floor(gridSize / 2); x <= Math.floor(gridSize / 2); x++) {
+          const cube = createCube(x, Math.floor(gridSize / 2) - row);
+          cube.visible = false;
+          cube.userData.gridActive = false;
+          extraRow.push(cube);
+        }
+        spareRows.push(extraRow);
+      }
+    }
+    const pooledCubes = [...cubes, ...spareRows.flat()];
     cubesRef.current = cubes;
     // Reduced motion owns no interaction field. Materials retain their Phong shader.
-    const liftField = prefersReducedMotion ? null : createCubeLiftField(cubes, cellSize);
+    const liftField = prefersReducedMotion ? null : createCubeLiftField(pooledCubes, cellSize);
 
     // ======= AUTHORED CUBE-SCENE ENTRANCE =======
     // Pick one existing cube in the camera's central foreground, where the
@@ -543,8 +577,9 @@ const ThreeSceneManager = () => {
         (cube) => cube.visible && getEntranceReveal(cube) === 1
       );
       raycaster.intersectObjects(pointerCubes, false, intersections);
-      const hit = intersections.find((intersection) => intersection.object.material.opacity > 0.05);
-      const enteredCube = hit?.object || findExpandedPointerTarget(raycaster, pointerCubes);
+      const enteredCube = findCubePointerTarget(
+        raycaster, pointerCubes, intersections, findExpandedPointerTarget
+      );
       if (enteredCube && enteredCube !== hoveredCube) {
         liftField.enter(enteredCube, frameTime / 1000, interactionSettingsRef.current);
       }
@@ -560,6 +595,7 @@ const ThreeSceneManager = () => {
 
     // ======= ANIMATION LOOP =======
     const calculateOpacity = (objPos) => {
+      const { fadeStart, fadeEnd, fadeCurve } = sceneTuningRef.current;
       const distance = camera.position.distanceTo(objPos);
       if (distance > fadeStart) return 0;
       if (distance < fadeEnd) return 1;
@@ -569,7 +605,46 @@ const ThreeSceneManager = () => {
 
     const getResetZPosition = (currentZ) => currentZ - gridSpanZ;
 
+    const updateGridDepth = () => {
+      const desiredRows = SCENE_TUNING_ENABLED ? sceneTuningRef.current.depthRows : BASE_DEPTH_ROWS;
+      if (desiredRows === activeRows.length || !entranceComplete) return;
+
+      // Keep front rows and their travel phase intact. Only the far rear changes.
+      activeRows.sort((a, b) => b[0].position.z - a[0].position.z);
+      while (activeRows.length > desiredRows) {
+        const row = activeRows.pop();
+        row.forEach((cube) => {
+          liftField?.forget(cube);
+          cube.userData.gridActive = false;
+          cube.visible = false;
+        });
+        spareRows.push(row);
+      }
+      while (activeRows.length < desiredRows) {
+        const row = spareRows.pop();
+        const z = activeRows[activeRows.length - 1][0].position.z - stepZ;
+        row.forEach((cube) => {
+          liftField?.forget(cube);
+          cube.position.z = z;
+          cube.userData.phase = cube.position.x * settings.waveFrequency + z * settings.waveFrequency;
+          if (settings.waveEffectEnabled) {
+            cube.userData.baseY = settings.waveAmplitude * Math.sin(cube.userData.phase + waveTimeRef.current);
+          } else if (settings.randomYEffectEnabled) {
+            cube.userData.baseY = (Math.random() - 0.5) * (settings.randomYRange || 10);
+          }
+          cube.userData.gridActive = true;
+          cube.visible = true;
+        });
+        activeRows.push(row);
+      }
+      gridSpanZ = desiredRows * stepZ;
+      cubes.length = 0;
+      cubes.push(...pooledCubes.filter((cube) => cube.userData.gridActive !== false));
+      clearPendingPointer();
+    };
+
     const renderScene = () => {
+      updateGridDepth();
       speedRef.current = speedTarget.current.value;
       cubeScaleRef.current.x = scaleTarget.current.x;
       cubeScaleRef.current.y = scaleTarget.current.y;
@@ -592,6 +667,12 @@ const ThreeSceneManager = () => {
       sceneBloom.render(bloomSettingsRef.current);
     };
     renderSceneRef.current = renderScene;
+    const applySceneTuning = () => {
+      applyCameraTuning();
+      updateGridDepth();
+      if (prefersReducedMotion) renderScene();
+    };
+    applySceneTuningRef.current = applySceneTuning;
 
     let animationId;
     const animate = () => {
@@ -627,6 +708,7 @@ const ThreeSceneManager = () => {
         entranceComplete = entranceState.elapsed >= entranceState.settleAt;
       }
 
+      updateGridDepth();
       cubeScaleRef.current.x = scaleTarget.current.x;
       cubeScaleRef.current.y = scaleTarget.current.y;
       cubeScaleRef.current.z = scaleTarget.current.z;
@@ -766,6 +848,7 @@ const ThreeSceneManager = () => {
       resizeObserver.disconnect();
       clearTimeout(resizeTimeout);
       if (renderSceneRef.current === renderScene) renderSceneRef.current = null;
+      if (applySceneTuningRef.current === applySceneTuning) applySceneTuningRef.current = null;
       if (sceneEntranceRef.current === startSceneEntrance) {
         sceneEntranceRef.current = null;
       }

@@ -3,6 +3,20 @@ import { Box3, Matrix4, Ray, Vector3 } from 'three';
 // Experimental X/Z footprint only; the rendered unit-box geometry stays intact.
 export const CUBE_POINTER_FOOTPRINT_MULTIPLIER = 1.5;
 
+const isEligible = (cube, minimumOpacity) => cube.visible && cube.material.opacity > minimumOpacity;
+
+// Keep the established direct/expanded priority for clearly visible cubes.
+// Faint visible targets are fallback only, so they cannot steal clearer hits.
+export function findCubePointerTarget(raycaster, cubes, intersections, findExpandedTarget) {
+  for (const minimumOpacity of [0.05, 0]) {
+    const hit = intersections.find(({ object }) => isEligible(object, minimumOpacity));
+    if (hit) return hit.object;
+    const expanded = findExpandedTarget(raycaster, cubes, minimumOpacity);
+    if (expanded) return expanded;
+  }
+  return null;
+}
+
 export function createCubePointerTarget() {
   const halfFootprint = CUBE_POINTER_FOOTPRINT_MULTIPLIER / 2;
   const bounds = new Box3(
@@ -14,12 +28,12 @@ export function createCubePointerTarget() {
   const hitPoint = new Vector3();
 
   // Scene-owned scratch math only: no meshes, listeners, or GPU resources.
-  // Use only after a visible-geometry miss so padding cannot steal a direct hit.
-  return (raycaster, cubes) => {
+  // Use after a geometry miss within the same visibility tier.
+  return (raycaster, cubes, minimumOpacity = 0) => {
     let nearestCube = null;
     let nearestDistance = Infinity;
     for (const cube of cubes) {
-      if (cube.material.opacity <= 0.05) continue;
+      if (!isEligible(cube, minimumOpacity)) continue;
       inverseMatrix.copy(cube.matrixWorld).invert();
       localRay.copy(raycaster.ray).applyMatrix4(inverseMatrix);
       if (!localRay.intersectBox(bounds, hitPoint)) continue;

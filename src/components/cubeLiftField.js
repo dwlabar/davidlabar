@@ -31,6 +31,7 @@ export function createCubeLiftField(cubes, cellSize) {
     const neighbors = [];
     for (let index = 0; index < cubes.length; index++) {
       const cube = cubes[index];
+      if (cube.userData.gridActive === false) continue;
       const distance = Math.hypot(
         cube.position.x - origin.position.x,
         cube.position.z - origin.position.z

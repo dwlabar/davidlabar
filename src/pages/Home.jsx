@@ -24,7 +24,7 @@ const Home = () => {
   };
 
   return (
-    <ThreeSceneProvider presetName="default">
+    <ThreeSceneProvider>
       <Container>
         <header>
           {/* <h1>Crafting Web Solutions for over 20 years.</h1> */}
