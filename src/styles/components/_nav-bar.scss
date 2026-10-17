@@ -264,10 +264,10 @@
   display: flex;
   align-items: center;
   gap: functions.px2rem(10);
-  min-height: functions.px2rem(44);
+  // min-height: functions.px2rem(44);
 
   @include mixins.breakpoint(md) {
-    min-width: functions.px2rem(44);
+    // min-width: functions.px2rem(44);
     justify-content: center;
   }
 }

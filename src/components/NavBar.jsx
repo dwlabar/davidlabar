@@ -6,6 +6,7 @@ import { gsap } from "gsap";
 import { useOverlay } from "../context/OverlayContext";
 import LogoMini from "./LogoMini";
 import BurgerIcon from "./BurgerIcon";
+import ContactIcon from "./ContactIcon";
 import useReducedMotion from "../hooks/useReducedMotion";
 import "../styles/components/_nav-bar.scss";
 
@@ -246,10 +247,7 @@ const NavBar = ({ links }) => {
             >
               {path === "/contact" ? (
                 <>
-                  <svg className="nav-bar__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false">
-                    <rect x="3" y="5" width="18" height="14" rx="1" />
-                    <path d="m3 6 9 7 9-7" />
-                  </svg>
+                  <ContactIcon />
                   <span className="nav-bar__contact-text">{name}</span>
                 </>
               ) : name}

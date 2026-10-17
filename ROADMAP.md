@@ -5,7 +5,7 @@ This file is the source of truth for what is active, what is next, and what is i
 ## Current position
 
 - **Active next release:** v3.4.0 — Interactive Scene Polish — in progress.
-- **Current / next task:** T12 — Cube Hover Shader Effects is COMPLETE (manual visual acceptance: October 17, 2026). T01–T05, T10's accepted bloom implementation, and T11 are COMPLETE. T06 — Scene-control presentation is NEXT (not started).
+- **Current / next task:** T13 — Contact Navigation Icon is COMPLETE (manual visual acceptance: October 17, 2026). T12 — Cube Hover Shader Effects is COMPLETE (manual visual acceptance: October 17, 2026). T01–T05, T10's accepted bloom implementation, and T11 are COMPLETE. T06 — Scene-control presentation is NEXT (not started).
 - **Application version:** 3.3.0. v3.4.0 has not been released; internal tasks do not change version metadata.
 - **Previous release:** v3.3.0 automated verification is complete; its recorded final manual acceptance remains pending. No additional modernization or lint-cleanup task is scheduled.
 - **Outside v3.4.0:** the accepted ESLint baseline and broader work under Backlog, including route-specific/persistent Three.js world states.
@@ -39,6 +39,11 @@ T11 follow-up (2026-10-16): David rejected the rear/side linear-gradient fade ex
 T11 dev-tuning follow-up (2026-10-16): David authorized transient Camera, original camera-distance Fade, and modest Grid Depth Test controls plus a scoped faint-back-row hover adjustment. The restored 180/100/8 fade, camera, lighting, bloom, entrance, particles, and 529-cube load/reset baseline remain unchanged. Depth testing stays experimental and dev-only; T11 is COMPLETE and v3.4.0 remains unreleased.
 
 ### Sequential tasks
+
+Scope update (2026-10-17): David authorized T13 — Contact Navigation Icon ahead of T06, without starting the reserved scene tasks.
+
+- **T13 — Contact Navigation Icon — COMPLETE**
+  - Replaced the inline Contact navigation SVG with reusable `ContactIcon` using the approved 22:15 artwork and `currentColor`. Preserved existing navigation, accessibility attributes, and mobile-menu behavior. David approved the icon and his SCSS adjustment commenting out the Contact link's minimum height and desktop minimum width on October 17, 2026. Application version remains 3.3.0; v3.4.0 is unreleased. T06 remains the next planned scene task.
 
 Scope update (2026-10-17): David authorized T12 — Cube Hover Shader Effects ahead of T06, without renumbering or starting the reserved tasks. Port only the approved `17-cube-hover-shader-lab-fixed.zip` surface effects and independent timing into the existing Phong cubes. Preserve the existing scene, liquid lift, bloom, pointer targeting, public settings, and reduced-motion policy. Application version remains 3.3.0; v3.4.0 is unreleased.
 
