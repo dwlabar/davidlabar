@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import EffectsTuningControls from './EffectsTuningControls';
+import HoverEffectsTuningControls from './HoverEffectsTuningControls';
 import { useThreeSceneContext } from '../context/ThreeSceneContext';
 
 const INTERACTION_CONTROLS = [
@@ -50,6 +51,7 @@ const InteractionTuningControls = () => {
               <button type="button" onClick={resetInteractionSettings}>Reset Values</button>
             </div>
             <EffectsTuningControls />
+            <HoverEffectsTuningControls />
           </>
         )}
       </div>

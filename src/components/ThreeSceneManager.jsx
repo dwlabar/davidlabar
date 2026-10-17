@@ -7,6 +7,7 @@ import { PreloaderContext } from '../context/PreloaderContext';
 import { useThreeSceneContext } from '../context/ThreeSceneContext';
 import useReducedMotion from '../hooks/useReducedMotion';
 import { createCubeLiftField } from './cubeLiftField';
+import { createCubeHoverEffects } from './cubeHoverEffects';
 import { createCubePointerTarget, findCubePointerTarget } from './cubePointerTarget';
 import { createSceneBloom } from './createSceneBloom';
 import { BASE_DEPTH_ROWS, CAMERA_DEFAULTS, MAX_DEPTH_ROWS, SCENE_TUNING_ENABLED } from '../config/sceneTuningSettings';
@@ -54,8 +55,9 @@ const ThreeSceneManager = () => {
   const applySceneTuningRef = useRef(null);
   const { isPreloaderVisible } = useContext(PreloaderContext);
   const preloaderVisibleRef = useRef(isPreloaderVisible);
-  const { settings, interactionSettings, bloomSettings, sceneTuning } = useThreeSceneContext();
+  const { settings, interactionSettings, bloomSettings, sceneTuning, hoverSettings } = useThreeSceneContext();
   const interactionSettingsRef = useRef(interactionSettings);
+  const hoverSettingsRef = useRef(hoverSettings);
   const bloomSettingsRef = useRef(bloomSettings);
   const sceneTuningRef = useRef(sceneTuning);
   const prefersReducedMotion = useReducedMotion();
@@ -88,6 +90,10 @@ const ThreeSceneManager = () => {
   useEffect(() => {
     interactionSettingsRef.current = interactionSettings;
   }, [interactionSettings]);
+
+  useEffect(() => {
+    hoverSettingsRef.current = hoverSettings;
+  }, [hoverSettings]);
 
   useEffect(() => {
     bloomSettingsRef.current = bloomSettings;
@@ -336,6 +342,7 @@ const ThreeSceneManager = () => {
     cubesRef.current = cubes;
     // Reduced motion owns no interaction field. Materials retain their Phong shader.
     const liftField = prefersReducedMotion ? null : createCubeLiftField(pooledCubes, cellSize);
+    const hoverEffects = prefersReducedMotion ? null : createCubeHoverEffects(pooledCubes);
 
     // ======= AUTHORED CUBE-SCENE ENTRANCE =======
     // Pick one existing cube in the camera's central foreground, where the
@@ -582,6 +589,7 @@ const ThreeSceneManager = () => {
       );
       if (enteredCube && enteredCube !== hoveredCube) {
         liftField.enter(enteredCube, frameTime / 1000, interactionSettingsRef.current);
+        hoverEffects.enter(enteredCube, frameTime / 1000);
       }
       hoveredCube = enteredCube;
       intersections.length = 0;
@@ -615,6 +623,7 @@ const ThreeSceneManager = () => {
         const row = activeRows.pop();
         row.forEach((cube) => {
           liftField?.forget(cube);
+          hoverEffects?.forget(cube);
           cube.userData.gridActive = false;
           cube.visible = false;
         });
@@ -625,6 +634,7 @@ const ThreeSceneManager = () => {
         const z = activeRows[activeRows.length - 1][0].position.z - stepZ;
         row.forEach((cube) => {
           liftField?.forget(cube);
+          hoverEffects?.forget(cube);
           cube.position.z = z;
           cube.userData.phase = cube.position.x * settings.waveFrequency + z * settings.waveFrequency;
           if (settings.waveEffectEnabled) {
@@ -750,6 +760,7 @@ const ThreeSceneManager = () => {
           cube.material.opacity = 0;
           cube.material.needsUpdate = true;
           liftField?.forget(cube);
+          hoverEffects?.forget(cube);
           if (hoveredCube === cube) hoveredCube = null;
 
           if (cube.userData.edge) {
@@ -809,6 +820,7 @@ const ThreeSceneManager = () => {
           airborneCube.material.opacity * outlineToggleRef.current.value;
       }
 
+      hoverEffects.update(frameTime / 1000, hoverSettingsRef.current);
       updatePointerInteraction(frameTime);
       sceneBloom.render(bloomSettingsRef.current);
     };
@@ -845,6 +857,7 @@ const ThreeSceneManager = () => {
       clearPendingPointer();
       removeAirborneCube();
       liftField?.dispose();
+      hoverEffects?.dispose();
       resizeObserver.disconnect();
       clearTimeout(resizeTimeout);
       if (renderSceneRef.current === renderScene) renderSceneRef.current = null;

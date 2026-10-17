@@ -4,6 +4,7 @@ import { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { SCENE_DEFAULTS } from '../config/ThreeSceneDefaults';
 import { CUBE_LIFT_DEFAULTS } from '../components/cubeLiftField';
 import { BLOOM_DEFAULTS } from '../config/bloomSettings';
+import { HOVER_EFFECT_DEFAULTS } from '../config/hoverEffectSettings';
 import { BASE_DEPTH_ROWS, CAMERA_DEFAULTS, FADE_DEFAULTS, SCENE_TUNING_DEFAULTS } from '../config/sceneTuningSettings';
 
 const LOCAL_STORAGE_KEY = 'threeSceneSettings';
@@ -61,6 +62,12 @@ export const ThreeSceneProvider = ({ children }) => {
   };
   const resetBloomSettings = () => setBloomSettings(BLOOM_DEFAULTS);
 
+  const [hoverSettings, setHoverSettings] = useState(HOVER_EFFECT_DEFAULTS);
+  const updateHoverSetting = (key, value) => {
+    setHoverSettings((previous) => ({ ...previous, [key]: value }));
+  };
+  const resetHoverSettings = () => setHoverSettings(HOVER_EFFECT_DEFAULTS);
+
   const [sceneTuning, setSceneTuning] = useState(SCENE_TUNING_DEFAULTS);
   const updateSceneTuning = (key, value) => {
     setSceneTuning((previous) => {
@@ -101,6 +108,7 @@ export const ThreeSceneProvider = ({ children }) => {
     <ThreeSceneContext.Provider value={{
       settings, updateSetting, interactionSettings, updateInteractionSetting, resetInteractionSettings,
       bloomSettings, updateBloomSetting, resetBloomSettings,
+      hoverSettings, updateHoverSetting, resetHoverSettings,
       sceneTuning, updateSceneTuning, resetCameraTuning, resetFadeTuning, resetDepthTuning, resetAllSceneTuning
     }}>
       {children}

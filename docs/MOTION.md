@@ -18,6 +18,8 @@ The development/Preview scene tuning section (Interaction and Effects) inside th
 
 Bloom uses the existing scene render loop after face/outline fading; its parameters do not animate independently. Under reduced motion it renders the static scene once and redraws only for settings/resize changes. Bloom adds no choreography, trails, DOM glow, or interaction motion.
 
+T12 hover surface light uses that same loop and cube-entry gate, independently of the liquid-lift field. Each entered cube owns its own pulse start; sweeping across other cubes leaves earlier pulses running, and active re-entry cannot restart them. The top flash uses the prototype's smooth attack/decay, the top perimeter has its own delay and fade, and optional corner streaks travel downward with separate delay/travel/fade timing. Balanced defaults enable flash/perimeter and disable corners. Light adds to the existing Phong emissive output and fades exactly to zero; existing material opacity also fades these highlights before bloom. These effects do not propagate to neighbors. Recycling/depth deactivation clears their state. Reduced motion omits hover shader hooks and animation entirely, retaining the static scene without another loop. Hover tuning is transient within the existing development/Preview disclosure; no T06 presentation work is included.
+
 Current animations should finish at intentional visual boundaries. Avoid arbitrary timeout cutoffs that can leave a partially transformed element visible. Fallbacks are still appropriate for preventing deadlocks, but their settled visual state must be deliberate.
 
 ## Future Direction
