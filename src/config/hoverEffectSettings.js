@@ -1,8 +1,8 @@
 // Balanced surface-effect defaults from 17-cube-hover-shader-lab-fixed.
 // Timing is in seconds; widths are in unit BoxGeometry local coordinates.
 export const HOVER_EFFECT_DEFAULTS = Object.freeze({
-  top: true, topIntensity: 1.55, topAttack: 0.12, topDecay: 0.85,
-  edge: true, edgeIntensity: 1.8, edgeDelay: 0.13, edgeDecay: 0.72, edgeWidth: 0.052,
+  top: true, topIntensity: 1.55, topAttack: 0.6, topDecay: 1.5,
+  edge: true, edgeIntensity: 1.8, edgeDelay: 0.13, edgeDecay: 2.0, edgeWidth: 0.052,
   corner: false, cornerIntensity: 1.4, cornerDelay: 0.25,
   cornerTravel: 0.56, cornerFade: 0.40, cornerWidth: 0.065
 });
