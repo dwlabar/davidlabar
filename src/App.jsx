@@ -29,7 +29,7 @@ import RouteTransitionListener from "./components/RouteTransitionListener";
 // Updated nav links
 const NavLinks = [
   { name: "Home", path: "/" },
-  { name: "My Work", path: "/projects" },
+  { name: "Projects", path: "/projects" },
   { name: "Expertise", path: "/expertise" },
   { name: "About", path: "/about" },
   { name: "Contact", path: "/contact" }

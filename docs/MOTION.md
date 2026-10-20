@@ -22,6 +22,12 @@ T12 hover surface light uses that same loop and cube-entry gate, independently o
 
 Current animations should finish at intentional visual boundaries. Avoid arbitrary timeout cutoffs that can leave a partially transformed element visible. Fallbacks are still appropriate for preventing deadlocks, but their settled visual state must be deliberate.
 
+T14 coordinates the Home header and cube drop through a Home-owned GSAP sequence whose origin is the preloader release. Start times are independent; the existing scene clock still owns the actual impact, ripple, particles, and interaction gate. Approved defaults start the cube at 0s, heading at 0.7s, subheading at 0.8s, and View My Work at 1.8s. The heading reveals through an 80px feathered mask while fading from transparent, descending from -10px, and scaling from 110% to 100%; reveal and zoom both last 0.65s with `sine.inOut`. The mask container stays fixed while its inner text transforms. Subheading and button fade and rise from +10px over 0.55s with `power2.out`, with no scale change in the approved defaults.
+
+Header Intro tuning, available only in development or opt-in Preview, independently adjusts each element's start, scale, and vertical offset, plus cube start, shared zoom duration, heading reveal duration, mask softness, opacity blend, and easing. Zero offset and 100% scale omit those transforms; zero softness uses a sharp clip mask. Settings persist separately under `devHeaderIntroSettings`. Replay Header and Scrub affect the header; Replay Full Intro resets the existing scene and coordinated sequence without invoking the preloader. Reset Values restores authored defaults, and Copy Settings exports JavaScript properties in configuration order. Controls scroll within a 40vh panel with a separate wrapping action row.
+
+Home prepares the initial hidden state before paint. Returning Home and reduced motion display content immediately; live reduced-motion changes settle the header. Home reverts its GSAP context on completion/unmount, clears temporary masks and transforms, and kills its sequence on cleanup; the scene unregisters its callbacks on teardown. Button hover/focus and navigation remain intact. David approved T14's final visual review on October 20, 2026.
+
 ## Future Direction
 
 Broader scene responses may use damped camera motion. Like the implemented local surface interaction, they should settle naturally and provide satisfying feedback rather than abrupt state changes, with intentional reduced-motion alternatives.

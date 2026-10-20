@@ -18,7 +18,7 @@ const Projects = () => {
       <section>
         <header>
           <h1>Projects</h1>
-          <p className="subheading">Selected builds and systems</p>
+          <p className="subheading">Selected Design &amp; Development Work</p>
         </header>
 
         <div className="project-cards">

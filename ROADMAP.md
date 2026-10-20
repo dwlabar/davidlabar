@@ -5,7 +5,7 @@ This file is the source of truth for what is active, what is next, and what is i
 ## Current position
 
 - **Active next release:** v3.4.0 — Interactive Scene Polish — in progress.
-- **Current / next task:** T13 — Contact Navigation Icon is COMPLETE (manual visual acceptance: October 17, 2026). T12 — Cube Hover Shader Effects is COMPLETE (manual visual acceptance: October 17, 2026). T01–T05, T10's accepted bloom implementation, and T11 are COMPLETE. T06 — Scene-control presentation is NEXT (not started).
+- **Current / next task:** T14 — Home Header Intro Animation is COMPLETE (manual visual acceptance: October 20, 2026). T13 — Contact Navigation Icon is COMPLETE (manual visual acceptance: October 17, 2026). T12 — Cube Hover Shader Effects is COMPLETE (manual visual acceptance: October 17, 2026). T01–T05, T10's accepted bloom implementation, and T11 are COMPLETE. T06 — Scene-control presentation is NEXT (not started).
 - **Application version:** 3.3.0. v3.4.0 has not been released; internal tasks do not change version metadata.
 - **Previous release:** v3.3.0 automated verification is complete; its recorded final manual acceptance remains pending. No additional modernization or lint-cleanup task is scheduled.
 - **Outside v3.4.0:** the accepted ESLint baseline and broader work under Backlog, including route-specific/persistent Three.js world states.
@@ -39,6 +39,15 @@ T11 follow-up (2026-10-16): David rejected the rear/side linear-gradient fade ex
 T11 dev-tuning follow-up (2026-10-16): David authorized transient Camera, original camera-distance Fade, and modest Grid Depth Test controls plus a scoped faint-back-row hover adjustment. The restored 180/100/8 fade, camera, lighting, bloom, entrance, particles, and 529-cube load/reset baseline remain unchanged. Depth testing stays experimental and dev-only; T11 is COMPLETE and v3.4.0 remains unreleased.
 
 ### Sequential tasks
+
+Scope update (2026-10-19): David authorized T14 — Home Header Intro Animation ahead of T06, without starting or renumbering the reserved T06–T09 tasks. Application version remains 3.3.0; v3.4.0 is unreleased.
+
+- **T14 — Home Header Intro Animation — COMPLETE**
+  - David approved the finalized header choreography and developer controls on October 20, 2026. Home owns a coordinated GSAP sequence starting after preloader release, with independent heading, cube-drop, subheading, and button start times. Cube physics, actual-impact ripple, particle timing, and interaction gates remain intact.
+  - Approved defaults: cube start 0s; heading start 0.7s, 80px feathered mask, 0.65s reveal and zoom with `sine.inOut`, scale 110% to 100%, vertical offset -10px to 0, and full opacity blend. Subheading starts at 0.8s and View My Work at 1.8s; both fade and rise from +10px over 0.55s with `power2.out`, at 100% scale.
+  - Developer/opt-in Preview controls include independent starts, scales and vertical offsets, shared zoom duration, reveal duration, softness, opacity and easing. Header replay, scrub, full scene replay without the preloader, reset, and paste-ready Copy Settings use separate development localStorage. The panel scrolls within 40vh with a full-width wrapping action row.
+  - Returning Home and reduced motion show content immediately. Home owns timeline cleanup and restores temporary styles; the scene owns its start/reset callbacks. Approved content copy, navigation, responsive behavior, and application version 3.3.0 are preserved; v3.4.0 remains unreleased.
+  - Validation: production build passes with the existing large-chunk advisory; changed-file lint has no new diagnostics, and whitespace checks pass. Prior isolated browser checks covered independent movement/zoom, replay, scrub, persistence, copy/reset, reduced motion, navigation, and desktop/mobile panel bounds. Manual visual review is complete. T06–T09 retain their existing scope and status.
 
 Scope update (2026-10-17): David authorized T13 — Contact Navigation Icon ahead of T06, without starting the reserved scene tasks.
 

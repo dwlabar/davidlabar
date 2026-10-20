@@ -1,0 +1,38 @@
+// Last updated: 3.4.0
+
+@use "../settings/variables";
+
+// The h1 remains the fixed mask; optional text rise moves only its inner span.
+.home-header h1 > span {
+  display: block;
+}
+
+.header-intro-tuning {
+  &__actions {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  &__note {
+    margin: 0 0 1rem;
+    font-size: inherit;
+    line-height: 1.5;
+  }
+
+  select {
+    width: 100%;
+    min-width: 0;
+    padding: 0.4rem;
+    border: 1px solid variables.$color-devastator;
+    background: variables.$color-skywarp;
+    color: inherit;
+    font: inherit;
+
+    &:focus-visible {
+      outline: 2px solid variables.$color-soundwave;
+      outline-offset: 2px;
+    }
+  }
+}

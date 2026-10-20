@@ -17,30 +17,28 @@ const About = () => {
         <section>
           <header>
             <h1>About Me</h1>
-            <p className="subheading">Front-End Developer / UI Engineer / Designer</p>
+            <p className="subheading">Designing and Building for Over 20 Years</p>
           </header>
 
           <BlockReveal panel>
-            <p className="tagline">From interface design to working UI</p>
-            <p>My background spans visual design and front-end development. I build application UI, reusable systems, and CMS-driven sites with attention to responsive behavior and accessibility.</p>
-            <p>I started by coding my own designs. I still enjoy the work most when I can connect design decisions with how an interface actually behaves.</p>
-            <p>At Full Sail University, my work included Full Sail Online and internal application UI, followed by fullsail.edu and Craft CMS marketing properties. That work brought together shared components, front-end patterns, and content-team workflows.</p>
-            <p>My current work includes React UI, Figma, GSAP, SVG, and Three.js, with a focus on browser-based interfaces and interactive tools.</p>
+            <p className="tagline">From design to code</p>
+            <p>I started out as a web designer, but I didn&apos;t want to stop at the mockup. I wanted to build what I designed. That eventually turned into a career working on both sides of the process.</p>
+            <p>I spent about 10 years at Full Sail University, working on everything from Full Sail Online and internal applications to fullsail.edu and Craft CMS sites. A lot of that work involved building reusable components, keeping interfaces consistent, and making things easier for both users and content teams.</p>
+            <p>These days I&apos;m exploring React, GSAP, SVG, and Three.js, and getting back to the kind of experimenting that got me interested in web design in the first place. I still enjoy the little details, whether it&apos;s getting a layout just right, making an interaction feel natural, or figuring out a better way to build something.</p>
           </BlockReveal>
 
           <BlockReveal panel>
             <h2 className="tagline">Toolbox</h2>
             <p>I use these tools to connect design and implementation, with reusable components, clear styling, and interfaces that are straightforward to maintain.</p>
-            {/* <p>From first sketch to final commit, I refine each idea until the interface feels right. I prototype clean, effective solutions that fit your stack.</p> */}
             <h3>Frontend</h3>
             <ul className="ul ul--grid">
               <li className="li">HTML / SCSS</li>
-              <li className="li">GSAP / SVG</li>
               <li className="li">JavaScript (ES6+)</li>
               <li className="li">React (JSX)</li>
+              <li className="li">GSAP / SVG</li>
               <li className="li">Three.js (WebGL)</li>
             </ul>
-            <h3>CMS &nbsp;/&nbsp; Front-End Integration</h3>
+            <h3>CMS</h3>
             <ul className="ul ul--grid">
               <li className="li">Drupal</li>
               <li className="li">WordPress</li>
@@ -51,8 +49,8 @@ const About = () => {
             <ul className="ul ul--grid">
               <li className="li">Figma</li>
               <li className="li">Photoshop</li>
-              <li className="li">GIMP</li>
               <li className="li">Illustrator</li>
+              <li className="li">GIMP</li>
               <li className="li">Inkscape</li>
             </ul>
           </BlockReveal>

@@ -4,6 +4,7 @@ import { useContext, useRef, useEffect } from 'react';
 import * as THREE from 'three';
 import gsap from 'gsap';
 import { PreloaderContext } from '../context/PreloaderContext';
+import HeaderIntroContext from '../context/HeaderIntroContext';
 import { useThreeSceneContext } from '../context/ThreeSceneContext';
 import useReducedMotion from '../hooks/useReducedMotion';
 import { createCubeLiftField } from './cubeLiftField';
@@ -51,9 +52,9 @@ const ThreeSceneManager = () => {
 
   const mountRef = useRef(null);
   const renderSceneRef = useRef(null);
-  const sceneEntranceRef = useRef(null);
   const applySceneTuningRef = useRef(null);
   const { isPreloaderVisible } = useContext(PreloaderContext);
+  const { sceneIntroRef } = useContext(HeaderIntroContext);
   const preloaderVisibleRef = useRef(isPreloaderVisible);
   const { settings, interactionSettings, bloomSettings, sceneTuning, hoverSettings } = useThreeSceneContext();
   const interactionSettingsRef = useRef(interactionSettings);
@@ -245,7 +246,7 @@ const ThreeSceneManager = () => {
     // ======= SCENE ENTRANCE STATE =======
     // Production grid travel continues independently of the entrance state.
     // The authored impact begins only after the preloader fully releases.
-    const shouldAnimateEntrance =
+    let shouldAnimateEntrance =
       !prefersReducedMotion && preloaderVisibleRef.current;
     const entranceState = {
       elapsed: 0,
@@ -522,8 +523,6 @@ const ThreeSceneManager = () => {
       );
     };
 
-    sceneEntranceRef.current = startSceneEntrance;
-
     // ======= CUBE POINTER INTERACTION =======
     // Listen at the window level because the Three.js canvas sits behind the UI.
     // Raycasting still uses the scene bounds, so normal page controls keep working.
@@ -683,6 +682,45 @@ const ThreeSceneManager = () => {
       if (prefersReducedMotion) renderScene();
     };
     applySceneTuningRef.current = applySceneTuning;
+
+    // Developer replay reuses this scene and its entrance clock, never the preloader.
+    const resetSceneEntrance = () => {
+      if (!SCENE_TUNING_ENABLED || prefersReducedMotion || preloaderVisibleRef.current) return false;
+      removeAirborneCube();
+      clearPendingPointer();
+      entranceComplete = true;
+      updateGridDepth();
+      waveTimeRef.current = 0;
+      pooledCubes.forEach((cube) => {
+        liftField?.forget(cube);
+        hoverEffects?.forget(cube);
+      });
+      activeRows.forEach((row, rowIndex) => row.forEach((cube) => {
+        cube.position.z = Math.floor(gridSize / 2) * stepZ - rowIndex * stepZ;
+        if (settings.waveEffectEnabled) {
+          cube.userData.baseY = settings.waveAmplitude * Math.sin(cube.userData.phase);
+        }
+        cube.position.y = cube.userData.baseY;
+        cube.material.opacity = 0;
+        cube.material.depthWrite = false;
+        cube.userData.edge.material.opacity = 0;
+        cube.userData.edge.renderOrder = 0;
+        cube.visible = true;
+      }));
+      trails.forEach((trail, index) => {
+        resetTrail(trail, index);
+        trail.material.opacity = 0;
+      });
+      Object.assign(entranceState, { elapsed: 0, startedAt: 0, settleAt: 0, flightDistance: 0, flightTravel: 0 });
+      shouldAnimateEntrance = true;
+      entranceStarted = false;
+      entranceComplete = false;
+      previousFrameTime = performance.now();
+      renderScene();
+      return true;
+    };
+    const sceneIntro = { start: startSceneEntrance, reset: resetSceneEntrance };
+    sceneIntroRef.current = sceneIntro;
 
     let animationId;
     const animate = () => {
@@ -850,6 +888,7 @@ const ThreeSceneManager = () => {
 
     // ======= CLEANUP =======
     return () => {
+      if (sceneIntroRef.current === sceneIntro) sceneIntroRef.current = null;
       if (animationId !== undefined) cancelAnimationFrame(animationId);
       window.removeEventListener('pointermove', handlePointerMove);
       window.removeEventListener('blur', clearPendingPointer);
@@ -862,9 +901,6 @@ const ThreeSceneManager = () => {
       clearTimeout(resizeTimeout);
       if (renderSceneRef.current === renderScene) renderSceneRef.current = null;
       if (applySceneTuningRef.current === applySceneTuning) applySceneTuningRef.current = null;
-      if (sceneEntranceRef.current === startSceneEntrance) {
-        sceneEntranceRef.current = null;
-      }
 
       scene.traverse((object) => {
         object.geometry?.dispose();
@@ -885,15 +921,7 @@ const ThreeSceneManager = () => {
         mount.removeChild(renderer.domElement);
       }
     };
-  }, [prefersReducedMotion]);
-
-  // The initial preloader is the handoff point for the authored scene entrance.
-  // Returning to Home later shows the already-established world immediately.
-  useEffect(() => {
-    if (!isPreloaderVisible) {
-      sceneEntranceRef.current?.();
-    }
-  }, [isPreloaderVisible]);
+  }, [prefersReducedMotion, sceneIntroRef]);
 
   return <div ref={mountRef} className="three-scene" aria-hidden="true" />;
 };

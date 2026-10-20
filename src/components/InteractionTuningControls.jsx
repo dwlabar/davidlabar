@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import EffectsTuningControls from './EffectsTuningControls';
 import HoverEffectsTuningControls from './HoverEffectsTuningControls';
+import HeaderIntroTuningControls from './HeaderIntroTuningControls';
 import { useThreeSceneContext } from '../context/ThreeSceneContext';
 
 const INTERACTION_CONTROLS = [
@@ -30,28 +31,32 @@ const InteractionTuningControls = () => {
       >
         {isOpen && (
           <>
-            <h3 className="interaction-tuning__heading">Interaction</h3>
-            <div className="interaction-tuning__controls" role="group" aria-label="Interaction tuning">
-              {INTERACTION_CONTROLS.map(({ key, label, min, max, step }) => (
-                <div className="slider-control" key={key}>
-                  <label htmlFor={`interaction-${key}`}>{label}</label>
-                  <output htmlFor={`interaction-${key}`}>{interactionSettings[key]}</output>
-                  <input
-                    type="range"
-                    id={`interaction-${key}`}
-                    min={min}
-                    max={max}
-                    step={step}
-                    value={interactionSettings[key]}
-                    style={{ '--progress': `${(interactionSettings[key] - min) / (max - min) * 100}%` }}
-                    onChange={(event) => updateInteractionSetting(key, Number(event.target.value))}
-                  />
-                </div>
-              ))}
-              <button type="button" onClick={resetInteractionSettings}>Reset Values</button>
+            <h3 className="interaction-tuning__heading interaction-tuning__title">Scene tuning</h3>
+            <div className="interaction-tuning__scroll">
+              <h3 className="interaction-tuning__heading">Interaction</h3>
+              <div className="interaction-tuning__controls" role="group" aria-label="Interaction tuning">
+                {INTERACTION_CONTROLS.map(({ key, label, min, max, step }) => (
+                  <div className="slider-control" key={key}>
+                    <label htmlFor={`interaction-${key}`}>{label}</label>
+                    <output htmlFor={`interaction-${key}`}>{interactionSettings[key]}</output>
+                    <input
+                      type="range"
+                      id={`interaction-${key}`}
+                      min={min}
+                      max={max}
+                      step={step}
+                      value={interactionSettings[key]}
+                      style={{ '--progress': `${(interactionSettings[key] - min) / (max - min) * 100}%` }}
+                      onChange={(event) => updateInteractionSetting(key, Number(event.target.value))}
+                    />
+                  </div>
+                ))}
+                <button type="button" onClick={resetInteractionSettings}>Reset Values</button>
+              </div>
+              <EffectsTuningControls />
+              <HoverEffectsTuningControls />
+              <HeaderIntroTuningControls />
             </div>
-            <EffectsTuningControls />
-            <HoverEffectsTuningControls />
           </>
         )}
       </div>
