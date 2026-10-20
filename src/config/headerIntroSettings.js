@@ -2,10 +2,10 @@
 
 export const HEADER_INTRO_STORAGE_KEY = 'devHeaderIntroSettings';
 export const HEADER_INTRO_DEFAULTS = Object.freeze({
-  headingStart: 0.7,
+  headingStart: 0.74,
   cubeDropStart: 0,
-  subheadingStart: 0.8,
-  buttonStart: 1.8,
+  subheadingStart: 0.84,
+  buttonStart: 0.94,
   revealDuration: 0.65,
   maskSoftness: 80,
   startingScale: 110,
