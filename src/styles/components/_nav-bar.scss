@@ -9,7 +9,7 @@
 // IMPORTS
 // -----------------------------------------------------------------------------
 
-// @use "sass:color";
+@use "sass:color";
 @use "sass:map";
 @use "../tools/functions";
 @use "../tools/mixins";
@@ -34,6 +34,53 @@
   // box-shadow: 0px 2px 30px rgba(variables.$color-skywarp, 0.5);
   box-shadow: 0px 0px 20px rgba(variables.$color-skywarp, 0.5);
   z-index: map.get(variables.$z-index, "nav-bar");
+
+  // Cover only the existing border; the gray base remains underneath.
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    height: 1px;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(
+      ellipse calc(clamp(140px, 22vw, 300px) * var(--nav-border-scale, 0.15)) 2px at var(--nav-border-x, 50%) 50%,
+      rgba(variables.$color-soundwave, 0.95) 0%,
+      rgba(variables.$color-soundwave, 0.8) 18%,
+      rgba(color.mix(variables.$color-soundwave, variables.$color-devastator, 55%), 0.75) 45%,
+      rgba(color.mix(variables.$color-soundwave, variables.$color-devastator, 20%), 0.45) 72%,
+      rgba(variables.$color-devastator, 0) 100%
+    );
+
+    @media (any-hover: hover) and (any-pointer: fine) and (prefers-reduced-motion: no-preference) {
+      opacity: calc(var(--nav-border-visible, 0) * (1 - var(--nav-border-gray, 0)));
+      // Linear blending also follows the frame-driven idle opacity without
+      // restarting an ease-in curve on every frame.
+      transition: opacity 0.3s linear;
+    }
+
+    @media (forced-colors: active) {
+      display: none;
+    }
+  }
+
+  &::before {
+    background: radial-gradient(
+      ellipse calc(clamp(140px, 22vw, 300px) * var(--nav-border-scale, 0.15)) 2px at var(--nav-border-x, 50%) 50%,
+      rgba(variables.$color-shockwave, 0.95) 0%,
+      rgba(variables.$color-shockwave, 0.8) 18%,
+      rgba(color.mix(variables.$color-shockwave, variables.$color-devastator, 55%), 0.75) 45%,
+      rgba(color.mix(variables.$color-shockwave, variables.$color-devastator, 20%), 0.45) 72%,
+      rgba(variables.$color-devastator, 0) 100%
+    );
+
+    @media (any-hover: hover) and (any-pointer: fine) and (prefers-reduced-motion: no-preference) {
+      opacity: calc(var(--nav-border-visible, 0) * var(--nav-border-gray, 0));
+    }
+  }
 }
 
 // -----------------------------------------------------------------------------

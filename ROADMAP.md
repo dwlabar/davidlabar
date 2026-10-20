@@ -5,7 +5,7 @@ This file is the source of truth for what is active, what is next, and what is i
 ## Current position
 
 - **Active next release:** v3.4.0 — Interactive Scene Polish — in progress.
-- **Current / next task:** T14 — Home Header Intro Animation is COMPLETE (manual visual acceptance: October 20, 2026). T13 — Contact Navigation Icon is COMPLETE (manual visual acceptance: October 17, 2026). T12 — Cube Hover Shader Effects is COMPLETE (manual visual acceptance: October 17, 2026). T01–T05, T10's accepted bloom implementation, and T11 are COMPLETE. T06 — Scene-control presentation is NEXT (not started).
+- **Current / next task:** T15 — Navbar Border Glow is COMPLETE (finalized at David's direction: October 20, 2026). T14 — Home Header Intro Animation is COMPLETE (manual visual acceptance: October 20, 2026). T13 — Contact Navigation Icon is COMPLETE (manual visual acceptance: October 17, 2026). T12 — Cube Hover Shader Effects is COMPLETE (manual visual acceptance: October 17, 2026). T01–T05, T10's accepted bloom implementation, and T11 are COMPLETE. T06 — Scene-control presentation is NEXT (not started).
 - **Application version:** 3.3.0. v3.4.0 has not been released; internal tasks do not change version metadata.
 - **Previous release:** v3.3.0 automated verification is complete; its recorded final manual acceptance remains pending. No additional modernization or lint-cleanup task is scheduled.
 - **Outside v3.4.0:** the accepted ESLint baseline and broader work under Backlog, including route-specific/persistent Three.js world states.
@@ -39,6 +39,14 @@ T11 follow-up (2026-10-16): David rejected the rear/side linear-gradient fade ex
 T11 dev-tuning follow-up (2026-10-16): David authorized transient Camera, original camera-distance Fade, and modest Grid Depth Test controls plus a scoped faint-back-row hover adjustment. The restored 180/100/8 fade, camera, lighting, bloom, entrance, particles, and 529-cube load/reset baseline remain unchanged. Depth testing stays experimental and dev-only; T11 is COMPLETE and v3.4.0 remains unreleased.
 
 ### Sequential tasks
+
+Scope update (2026-10-20): David authorized T15 — Navbar Border Glow ahead of T06, limited to the navbar component/styles and this record. Reserved T06–T09 tasks remain unstarted; application version remains 3.3.0.
+
+- **T15 — Navbar Border Glow — COMPLETE**
+  - Overlay the existing 1px gray border with a localized, multi-stop Soundwave blue radial gradient. Track mouse X with damped momentum; crossfade to a subtle Shockwave gray gradient inside the navbar and back to blue outside. After 1.5 seconds without movement, smoothly shrink and fade either gradient away; movement restores it from its current state. Preserve layout, navigation, mobile menus, and accessibility.
+  - No React updates per pointer movement. Navbar owns listener/frame/idle-timer cleanup; reduced motion, touch-only devices, and unavailable mouse position retain the gray border. Finalized COMPLETE at David's direction on October 20, 2026. T06 remains NEXT (not started); application version stays 3.3.0 and v3.4.0 remains unreleased.
+  - Follow-up validation: blue/gray crossfades, idle fade/shrink in both states, smooth resumption during a fade, preserved momentum, stopped idle frames, and timer/listener cleanup on reduced motion passed isolated desktop/mobile browser checks. Mobile navigation and Escape focus restoration still pass. Build, unchanged lint baseline, and whitespace checks pass.
+  - Validation: build and whitespace checks pass with the existing large-chunk advisory; ESLint retains 31 errors / 5 warnings, including the navbar's two existing prop-validation errors. Isolated Edge checks at 1440×900 and touch-only 390×844 passed pointer lag/settling, momentum through direction reversal, horizontal-only movement, hover fades, live reduced-motion cleanup, forced-colors fallback, navigation, mobile-menu closure, Escape focus restoration, and unchanged 80px navbar height. Home, desktop, and mobile screenshots were inspected; no JavaScript runtime errors were captured. The existing Google Fonts request was blocked by the browser environment, limiting font-accurate visual checks. Automated/emulated checks do not replace David's visual acceptance.
 
 Scope update (2026-10-19): David authorized T14 — Home Header Intro Animation ahead of T06, without starting or renumbering the reserved T06–T09 tasks. Application version remains 3.3.0; v3.4.0 is unreleased.
 

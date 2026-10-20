@@ -23,6 +23,138 @@ const NavBar = ({ links }) => {
 
   const [menuOpen, setMenuOpen] = useState(false);
 
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav || prefersReducedMotion) return;
+
+    const media = gsap.matchMedia();
+    media.add("(any-hover: hover) and (any-pointer: fine)", () => {
+      let frame = null;
+      let previousTime = null;
+      let targetX = null;
+      let currentX = 0;
+      let velocity = 0;
+      let idleTimer = null;
+      let activity = 0;
+      let targetActivity = 0;
+
+      const paintPosition = () => {
+        nav.style.setProperty("--nav-border-x", `${currentX}px`);
+      };
+
+      const animate = (time) => {
+        const delta = Math.min((time - previousTime) / 1000, 0.05);
+        previousTime = time;
+
+        // Exact critically damped spring step: retain velocity when the target
+        // changes, then settle without oscillation or a frame-rate-dependent lerp.
+        const frequency = 14;
+        const offset = currentX - targetX;
+        const impulse = velocity + frequency * offset;
+        const decay = Math.exp(-frequency * delta);
+        currentX = targetX + (offset + impulse * delta) * decay;
+        velocity = (velocity - frequency * impulse * delta) * decay;
+
+        const positionSettled = Math.abs(currentX - targetX) < 0.05 && Math.abs(velocity) < 0.5;
+        if (positionSettled) {
+          currentX = targetX;
+          velocity = 0;
+        }
+
+        // Share the on-demand loop with the idle envelope; reversing the fade
+        // starts from its current width/opacity without resetting mouse momentum.
+        activity += (targetActivity - activity) * (1 - Math.exp(-6 * delta));
+        const activitySettled = Math.abs(targetActivity - activity) < 0.001;
+        if (activitySettled) activity = targetActivity;
+        nav.style.setProperty("--nav-border-visible", activity);
+        nav.style.setProperty("--nav-border-scale", 0.15 + 0.85 * activity);
+        paintPosition();
+
+        if (positionSettled && activitySettled) {
+          frame = null;
+          return;
+        }
+        frame = window.requestAnimationFrame(animate);
+      };
+
+      const requestFrame = () => {
+        if (frame !== null) return;
+        previousTime = performance.now();
+        frame = window.requestAnimationFrame(animate);
+      };
+
+      const forgetPointer = () => {
+        window.clearTimeout(idleTimer);
+        idleTimer = null;
+        if (frame !== null) window.cancelAnimationFrame(frame);
+        frame = null;
+        previousTime = null;
+        targetX = null;
+        velocity = 0;
+        activity = 0;
+        targetActivity = 0;
+        nav.style.removeProperty("--nav-border-visible");
+      };
+
+      const trackPointer = (event) => {
+        if (event.pointerType !== "mouse") {
+          forgetPointer();
+          return;
+        }
+
+        const nextX = Math.max(0, Math.min(event.clientX, window.innerWidth));
+        if (targetX === null) {
+          // The first known position is placed while the glow is still hidden.
+          currentX = nextX;
+          paintPosition();
+        }
+        targetX = nextX;
+        const insideNav = event.type !== "pointerleave" && nav.contains(event.target);
+        nav.style.setProperty("--nav-border-gray", insideNav ? "1" : "0");
+
+        targetActivity = 1;
+        window.clearTimeout(idleTimer);
+        idleTimer = window.setTimeout(() => {
+          idleTimer = null;
+          targetActivity = 0;
+          requestFrame();
+        }, 1500);
+        requestFrame();
+      };
+
+      const leaveWindow = (event) => {
+        if (event.relatedTarget === null) forgetPointer();
+      };
+      const handleVisibility = () => {
+        if (document.hidden) forgetPointer();
+      };
+
+      window.addEventListener("pointermove", trackPointer, { passive: true });
+      window.addEventListener("pointerout", leaveWindow);
+      window.addEventListener("blur", forgetPointer);
+      window.addEventListener("resize", forgetPointer);
+      nav.addEventListener("pointerenter", trackPointer);
+      nav.addEventListener("pointerleave", trackPointer);
+      document.addEventListener("visibilitychange", handleVisibility);
+
+      return () => {
+        forgetPointer();
+        nav.style.removeProperty("--nav-border-x");
+        nav.style.removeProperty("--nav-border-scale");
+        nav.style.removeProperty("--nav-border-gray");
+        window.removeEventListener("pointermove", trackPointer);
+        window.removeEventListener("pointerout", leaveWindow);
+        window.removeEventListener("blur", forgetPointer);
+        window.removeEventListener("resize", forgetPointer);
+        nav.removeEventListener("pointerenter", trackPointer);
+        nav.removeEventListener("pointerleave", trackPointer);
+        document.removeEventListener("visibilitychange", handleVisibility);
+      };
+    });
+
+    return () => media.revert();
+  }, [prefersReducedMotion]);
+
   const createMenuTimeline = useCallback(() => {
     tl.current?.kill();
     tl.current = gsap.timeline();
