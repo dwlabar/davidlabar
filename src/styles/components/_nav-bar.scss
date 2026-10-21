@@ -70,10 +70,10 @@
   &::before {
     background: radial-gradient(
       ellipse calc(clamp(140px, 22vw, 300px) * var(--nav-border-scale, 0.15)) 2px at var(--nav-border-x, 50%) 50%,
-      rgba(variables.$color-shockwave, 0.95) 0%,
-      rgba(variables.$color-shockwave, 0.8) 18%,
-      rgba(color.mix(variables.$color-shockwave, variables.$color-devastator, 55%), 0.75) 45%,
-      rgba(color.mix(variables.$color-shockwave, variables.$color-devastator, 20%), 0.45) 72%,
+      rgba(color.scale(variables.$color-shockwave, $lightness: 25%), 1) 0%,
+      rgba(color.scale(variables.$color-shockwave, $lightness: 15%), 0.95) 18%,
+      rgba(color.mix(variables.$color-shockwave, variables.$color-devastator, 75%), 0.85) 45%,
+      rgba(color.mix(variables.$color-shockwave, variables.$color-devastator, 35%), 0.55) 72%,
       rgba(variables.$color-devastator, 0) 100%
     );
 

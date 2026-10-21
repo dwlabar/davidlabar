@@ -5,7 +5,7 @@ This file is the source of truth for what is active, what is next, and what is i
 ## Current position
 
 - **Active next release:** v3.4.0 — Interactive Scene Polish — in progress.
-- **Current / next task:** T15 — Navbar Border Glow is COMPLETE (finalized at David's direction: October 20, 2026). T14 — Home Header Intro Animation is COMPLETE (manual visual acceptance: October 20, 2026). T13 — Contact Navigation Icon is COMPLETE (manual visual acceptance: October 17, 2026). T12 — Cube Hover Shader Effects is COMPLETE (manual visual acceptance: October 17, 2026). T01–T05, T10's accepted bloom implementation, and T11 are COMPLETE. T06 — Scene-control presentation is NEXT (not started).
+- **Current / next task:** T16 — Navbar Border Lighting Refinement is COMPLETE (manual visual acceptance: October 21, 2026). T15 — Navbar Border Glow is COMPLETE (finalized at David's direction: October 20, 2026). T14 — Home Header Intro Animation is COMPLETE (manual visual acceptance: October 20, 2026). T13 — Contact Navigation Icon is COMPLETE (manual visual acceptance: October 17, 2026). T12 — Cube Hover Shader Effects is COMPLETE (manual visual acceptance: October 17, 2026). T01–T05, T10's accepted bloom implementation, and T11 are COMPLETE. T06 — Scene-control presentation is NEXT (not started).
 - **Application version:** 3.3.0. v3.4.0 has not been released; internal tasks do not change version metadata.
 - **Previous release:** v3.3.0 automated verification is complete; its recorded final manual acceptance remains pending. No additional modernization or lint-cleanup task is scheduled.
 - **Outside v3.4.0:** the accepted ESLint baseline and broader work under Backlog, including route-specific/persistent Three.js world states.
@@ -39,6 +39,13 @@ T11 follow-up (2026-10-16): David rejected the rear/side linear-gradient fade ex
 T11 dev-tuning follow-up (2026-10-16): David authorized transient Camera, original camera-distance Fade, and modest Grid Depth Test controls plus a scoped faint-back-row hover adjustment. The restored 180/100/8 fade, camera, lighting, bloom, entrance, particles, and 529-cube load/reset baseline remain unchanged. Depth testing stays experimental and dev-only; T11 is COMPLETE and v3.4.0 remains unreleased.
 
 ### Sequential tasks
+
+Scope update (2026-10-21): David authorized T16 — Navbar Border Lighting Refinement ahead of T06, limited to distance-based width, brighter Shockwave gray hover, and slightly slower spring following. No existing tasks are renumbered; T06 remains the next planned scene task.
+
+- **T16 — Navbar Border Lighting Refinement — COMPLETE**
+  - Compose a smooth vertical-distance falloff (full width near the navbar, approaching 30% farther below) with the existing idle shrink/fade; slightly reduce brightness with distance. Preserve horizontal tracking and lower the critically damped spring frequency from 14 to 12. Brighten the Shockwave-based hover gradient while retaining the blue/gray crossfade.
+  - Preserve the 1.5-second idle timeout, smooth reactivation, reduced-motion/touch fallbacks, cleanup, and no React pointer updates. T15 remains COMPLETE; T06 remains NEXT (not started). Application version stays 3.3.0; v3.4.0 remains unreleased.
+  - Validation: production build and whitespace checks pass; changed-file ESLint retains only the navbar's two existing prop-validation errors. Build retains the existing large-chunk advisory. Isolated Edge checks passed distance narrowing/brightness, horizontal trailing/settling, gray hover and blue return, idle shrink/fade and reactivation, live reduced-motion cleanup/restoration, and touch-only fallback. Desktop screenshots inspected; no JavaScript runtime errors captured. David approved visual review of width, brightness, and trailing feel on October 21, 2026.
 
 Scope update (2026-10-20): David authorized T15 — Navbar Border Glow ahead of T06, limited to the navbar component/styles and this record. Reserved T06–T09 tasks remain unstarted; application version remains 3.3.0.
 

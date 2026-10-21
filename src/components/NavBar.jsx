@@ -37,6 +37,8 @@ const NavBar = ({ links }) => {
       let idleTimer = null;
       let activity = 0;
       let targetActivity = 0;
+      let distanceScale = 1;
+      let targetDistanceScale = 1;
 
       const paintPosition = () => {
         nav.style.setProperty("--nav-border-x", `${currentX}px`);
@@ -48,7 +50,7 @@ const NavBar = ({ links }) => {
 
         // Exact critically damped spring step: retain velocity when the target
         // changes, then settle without oscillation or a frame-rate-dependent lerp.
-        const frequency = 14;
+        const frequency = 12;
         const offset = currentX - targetX;
         const impulse = velocity + frequency * offset;
         const decay = Math.exp(-frequency * delta);
@@ -66,11 +68,16 @@ const NavBar = ({ links }) => {
         activity += (targetActivity - activity) * (1 - Math.exp(-6 * delta));
         const activitySettled = Math.abs(targetActivity - activity) < 0.001;
         if (activitySettled) activity = targetActivity;
-        nav.style.setProperty("--nav-border-visible", activity);
-        nav.style.setProperty("--nav-border-scale", 0.15 + 0.85 * activity);
+        // Distance and idle envelopes compose independently in this same loop.
+        // Narrower reflected light also loses a little brightness.
+        distanceScale += (targetDistanceScale - distanceScale) * (1 - Math.exp(-8 * delta));
+        const distanceSettled = Math.abs(targetDistanceScale - distanceScale) < 0.001;
+        if (distanceSettled) distanceScale = targetDistanceScale;
+        nav.style.setProperty("--nav-border-visible", activity * (0.75 + 0.25 * distanceScale));
+        nav.style.setProperty("--nav-border-scale", (0.15 + 0.85 * activity) * distanceScale);
         paintPosition();
 
-        if (positionSettled && activitySettled) {
+        if (positionSettled && activitySettled && distanceSettled) {
           frame = null;
           return;
         }
@@ -93,6 +100,8 @@ const NavBar = ({ links }) => {
         velocity = 0;
         activity = 0;
         targetActivity = 0;
+        distanceScale = 1;
+        targetDistanceScale = 1;
         nav.style.removeProperty("--nav-border-visible");
       };
 
@@ -103,9 +112,14 @@ const NavBar = ({ links }) => {
         }
 
         const nextX = Math.max(0, Math.min(event.clientX, window.innerWidth));
+        const distanceBelowNav = Math.max(0, event.clientY - nav.getBoundingClientRect().bottom);
+        // A continuous falloff keeps the full width near the border and
+        // approaches 30% at a distance, without a visible cutoff.
+        targetDistanceScale = 0.3 + 0.7 * Math.exp(-((distanceBelowNav / 360) ** 2));
         if (targetX === null) {
           // The first known position is placed while the glow is still hidden.
           currentX = nextX;
+          distanceScale = targetDistanceScale;
           paintPosition();
         }
         targetX = nextX;
