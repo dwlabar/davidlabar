@@ -13,6 +13,7 @@ import Expertise from "./pages/Expertise";
 import SVGExamples from "./pages/SVG-Examples";
 import PreloaderTest from "./pages/Preloader-Test";
 import Projects from "./pages/Projects";
+import GSAPAnimationEditor from "./pages/projects/GSAPAnimationEditor";
 import Skeletor from "./pages/projects/Skeletor";
 import AEI from "./pages/projects/AEI";
 import BeannikRoasters from "./pages/projects/BeannikRoasters";
@@ -50,6 +51,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/expertise" element={<Expertise />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/gsap-animation-editor" element={<GSAPAnimationEditor />} />
           <Route path="/projects/skeletor" element={<Skeletor />} />
           <Route path="/projects/AEI" element={<AEI />} />
           <Route path="/projects/BeannikRoasters" element={<BeannikRoasters />} />

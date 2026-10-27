@@ -1,5 +1,7 @@
 // Last updated: 3.4.0
 
+import GSAPAnimationEditorBg from "../assets/project-cards/bg_GSAPanimationEditor.webp";
+import GSAPAnimationEditorLogo from "../assets/project-cards/logo_GSAPanimationEditor.webp";
 import skeletorBg from "../assets/project-cards/bg_SKELETOR.webp";
 import skeletorLogo from "../assets/project-cards/logo_SKELETOR.webp";
 import AEIBg from "../assets/project-cards/bg_AEI.webp";
@@ -13,6 +15,15 @@ import WestgateResortsLogo from "../assets/project-cards/logo_WestgateResorts.we
 
 // Shared card assets and case-study names; ordering matches the Projects page.
 export const projects = [
+  {
+    name: "GSAP Animation Editor",
+    title: "GSAP Animation Editor",
+    path: "/projects/gsap-animation-editor",
+    background: GSAPAnimationEditorBg,
+    logo: GSAPAnimationEditorLogo,
+    label: "DEV / DESIGN",
+    light: true,
+  },
   {
     name: "Skeletor",
     title: "Design System \u00a0/\u00a0 UI Toolkit",

@@ -5,7 +5,7 @@ This file is the source of truth for what is active, what is next, and what is i
 ## Current position
 
 - **Active next release:** v3.4.0 — Interactive Scene Polish — in progress.
-- **Current / next task:** T16 — Navbar Border Lighting Refinement is COMPLETE (manual visual acceptance: October 21, 2026). T15 — Navbar Border Glow is COMPLETE (finalized at David's direction: October 20, 2026). T14 — Home Header Intro Animation is COMPLETE (manual visual acceptance: October 20, 2026). T13 — Contact Navigation Icon is COMPLETE (manual visual acceptance: October 17, 2026). T12 — Cube Hover Shader Effects is COMPLETE (manual visual acceptance: October 17, 2026). T01–T05, T10's accepted bloom implementation, and T11 are COMPLETE. T06 — Scene-control presentation is NEXT (not started).
+- **Current / next task:** T17 — GSAP Animation Editor Project and T18 — Complete GSAP Animation Editor Project Page are COMPLETE (finalized at David's direction on October 27, 2026, including his two-column Features markup). T16 — Navbar Border Lighting Refinement is COMPLETE (manual visual acceptance: October 21, 2026). T15 — Navbar Border Glow is COMPLETE (finalized at David's direction: October 20, 2026). T14 — Home Header Intro Animation is COMPLETE (manual visual acceptance: October 20, 2026). T13 — Contact Navigation Icon is COMPLETE (manual visual acceptance: October 17, 2026). T12 — Cube Hover Shader Effects is COMPLETE (manual visual acceptance: October 17, 2026). T01–T05, T10's accepted bloom implementation, and T11 are COMPLETE. T06 — Scene-control presentation is NEXT (not started).
 - **Application version:** 3.3.0. v3.4.0 has not been released; internal tasks do not change version metadata.
 - **Previous release:** v3.3.0 automated verification is complete; its recorded final manual acceptance remains pending. No additional modernization or lint-cleanup task is scheduled.
 - **Outside v3.4.0:** the accepted ESLint baseline and broader work under Backlog, including route-specific/persistent Three.js world states.
@@ -39,6 +39,20 @@ T11 follow-up (2026-10-16): David rejected the rear/side linear-gradient fade ex
 T11 dev-tuning follow-up (2026-10-16): David authorized transient Camera, original camera-distance Fade, and modest Grid Depth Test controls plus a scoped faint-back-row hover adjustment. The restored 180/100/8 fade, camera, lighting, bloom, entrance, particles, and 529-cube load/reset baseline remain unchanged. Depth testing stays experimental and dev-only; T11 is COMPLETE and v3.4.0 remains unreleased.
 
 ### Sequential tasks
+
+Scope update (2026-10-27): David authorized T18 — Complete GSAP Animation Editor Project Page ahead of T06, continuing on `codex/3.4.0-t17-gsap-animation-editor-project` with the existing uncommitted T17 implementation. Add the two supplied images and a compact, confirmed Features section as a portfolio showcase. No tasks are renumbered; T06 remains the next scene task. Application version stays 3.3.0; v3.4.0 remains unreleased.
+
+- **T18 — Complete GSAP Animation Editor Project Page — COMPLETE**
+  - Added the original `GSAPSVGAnimationEditor-app.webp` and `GSAPSVGAnimationEditor-logo.webp` (both 1254 × 1254) in the existing two-column layout, stacked on mobile, with complete artwork and shared image-modal interaction. Reused BlockReveal, image styling, and critical-image route readiness; no shared styling or dependencies changed.
+  - Kept the heading, replaced the introductory copy with one short sentence, and added five features confirmed by the editor's current documentation: SVG import/element selection, keyframes, timing/values, preview, and saving/reopening projects. No case-study sections or demo link.
+  - Validation: production build passes with the existing large-chunk advisory; page ESLint and `git diff --check` pass. Existing broader lint debt was not rerun or changed. Production browser checks passed at 1440px, 390px, and 320px with loaded, proportionate images and no horizontal overflow. Both image modals open; keyboard activation, Tab focus containment, Escape, close-button dismissal, and focus return passed. Mobile modal sizing, direct reload, and Projects/card route transitions passed; no captured console errors or warnings. These checks do not replace David's visual acceptance.
+  - Finalized at David's direction on 2026-10-27 for local commit and merge into master, preserving his two-column Features markup. Build, changed-file ESLint, and whitespace checks were rerun after that edit; earlier browser evidence above predates it. No push, tag, or release; T06 remains next.
+
+Scope update (2026-10-26): David authorized T17 — GSAP Animation Editor Project ahead of T06: add the first Projects card using existing assets and a simple detail page at `/projects/gsap-animation-editor`. Reuse shared styling, navigation, and readiness; no demo link or placeholder screenshots. T06 remains the next scene task; application version stays 3.3.0.
+
+- **T17 — GSAP Animation Editor Project — COMPLETE**
+  - Implemented the supplied title, DEV / DESIGN label, and short copy using existing project-page conventions. The card uses the existing light-text option for contrast; shared card styling is unchanged. Finalized together with T18 at David's direction on 2026-10-27.
+  - Validation: production build passes with the existing large-chunk advisory; changed-file ESLint and whitespace checks pass with no diagnostics. The broader accepted lint baseline was not rerun. Production browser checks passed for loaded card assets/order, pointer and keyboard navigation, route titles/transitions, mobile return navigation, Back/Forward, direct reload, and desktop/mobile layouts (1440px and 390px, plus the detail page at 320px). No captured browser errors/warnings or horizontal overflow. These checks do not replace David's visual acceptance.
 
 Scope update (2026-10-21): David authorized T16 — Navbar Border Lighting Refinement ahead of T06, limited to distance-based width, brighter Shockwave gray hover, and slightly slower spring following. No existing tasks are renumbered; T06 remains the next planned scene task.
 
@@ -230,8 +244,8 @@ The following are deferred future directions, outside v3.4.0. They are **not pre
 
 The retained title, navigation, Contact heading/subheading, and About changes are scoped in v3.4.0 T05 above. Expertise, About, and Contact remain separate pages. The following portfolio-content directions remain deferred, outside active v3.4.0 tasks:
 
-- **GSAP Animation Editor case study:** remains the next major portfolio-content addition.
-- **Home featured projects:** reconsider presentation after the GSAP Animation Editor case study exists; do not simply duplicate the Projects card grid.
+- **GSAP Animation Editor showcase:** the concise project page is scoped in T17/T18 above; no expanded case study is scheduled.
+- **Home featured projects:** reconsider presentation after the GSAP Animation Editor showcase is accepted; do not simply duplicate the Projects card grid.
 - **About:** reconsider as a more personal page that adds something beyond the resume, LinkedIn, Expertise, and project case studies.
 - **Final job-search presentation pass:** review the primary pages and featured case studies for concise copy, responsive presentation, and obvious hiring/contact paths; fix only concrete issues found in that review.
 
