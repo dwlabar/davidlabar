@@ -39,6 +39,11 @@ const GSAPAnimationEditor = () => {
           <p className="subheading">A browser-based SVG animation editor built with React and GSAP.</p>
         </header>
 
+        <BlockReveal panel title="What It Is">
+          <p>I wanted a more visual way to animate SVG artwork, so I started building one. The editor lets me import my own SVGs, work with individual elements, and build animations on a timeline instead of writing everything by hand.</p>
+          <p>It's still a work in progress as I'm continuing to add features as I go.</p>
+        </BlockReveal>
+
         <BlockReveal>
           <div className="layout-row layout-row--2 layout-row--margin-bottom">
             {projectImages.map((image) => (
